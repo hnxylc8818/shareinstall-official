@@ -1,0 +1,133 @@
+/*
+  友情链接
+ */
+.friendshipLink {
+  height: 80px;
+  .friendshipLink-container {
+    display: inline-block;
+    line-height: 80px;
+    p {
+      display: inline-block;
+      float: left;
+      font-size: 12px;
+      color: #222;
+      a {
+        display: inline-block;
+        padding: 0 10px;
+        border-right: 1px solid #525252;
+        line-height: 12px;
+        font-size: 12px;
+        color: #222;
+        text-decoration: none;
+      }
+    }
+  ;
+  }
+}
+
+/*
+  公司地址
+ */
+.footer-address {
+  margin-top: 28px;
+  .top {
+    height: 184px;
+    .icon {
+      background: url("../../img/common/house.png");
+      width: 32px;
+      height: 32px;
+      display: inline-block;
+      float: left;
+    }
+    .icon1 {
+      background-position: 0 0;
+    }
+    .icon2 {
+      background-position: 0 -32px;
+    }
+    .icon3 {
+      background-position: 0 -64px;
+    }
+    .icon4 {
+      background-position: 0 -96px;
+    }
+    .top-left {
+      width: 32%;
+      float: left;
+      border-right: 1px solid #eee;
+      p {
+        height: 36px;
+        line-height: 36px;
+        span {
+          display: inline-block;
+          height: 36px;
+          line-height: 36px;
+          float: left;
+          margin-left: 1.6%;
+          font-size: 12px;
+          color: #222;
+        }
+      }
+    }
+    .top-center {
+      width: 32%;
+      float: left;
+      margin-left: 55px;
+      p {
+        height: 36px;
+        line-height: 36px;
+        span {
+          display: inline-block;
+          height: 36px;
+          line-height: 36px;
+          float: left;
+          margin-left: 1.6%;
+          font-size: 12px;
+          color: #222;
+          @media screen and (max-width: 1600px) {
+            margin-left: 1%;
+          }
+        }
+      }
+    }
+    .top-right {
+      width: 22.5%;
+      float: right;
+      height: 147px;
+      p {
+        float: left;
+        width: 48%;
+        img {
+          width: 100%;
+          height: auto;
+          float: left;
+          margin-bottom: 14px;
+        }
+        span {
+          display: block;
+          text-align: center;
+          color: #666;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+  .bottom {
+    height: auto;
+    margin-top: 30px;
+    border-top: 1px solid #eee;
+    margin-bottom: 65px;
+    p {
+      text-align: center;
+      font-size: 24px;
+      color: #999;
+      margin: 22px 0;
+    }
+    span {
+      display: block;
+      text-align: center;
+      font-size: 12px;
+      color: #999;
+    }
+  }
+}
