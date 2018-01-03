@@ -1,0 +1,190 @@
+/**
+banner
+ */
+.my-banner {
+  width: 100%;
+  .my-banner-top {
+    background: #fff;
+    height: 72px;
+    .banner-left {
+      width: 168px;
+      height: 50px;
+      margin: 15px 0 0 34px;
+      background: url("../../img/install/logo.png") no-repeat center;
+    }
+    .banner-right {
+      margin-top: 26px;
+      .banner-nav {
+        padding: 0;
+        li {
+          list-style: none;
+          a {
+            display: inline-block;
+            margin: 0 32px;
+            text-decoration: none;
+            color: #343434;
+            font-weight: 800;
+            font-size: 16px;
+          }
+          a:hover {
+            color: #00a4ff;
+          }
+        }
+        .active {
+          color: #00a4ff;
+          background: #fff;
+        }
+      }
+      .logo {
+        margin-top: -5px;
+        a {
+          display: inline-block;
+          padding: 7px 22px;
+          font-size: 16px;
+          border: 1px solid #acadae;
+          border-radius: 5px;
+          color: #999;
+          text-decoration: none;
+        }
+        a:hover {
+          background: #00a4ff;
+          border: 1px solid #00a4ff;
+          color: #fff;
+        }
+        .console {
+          margin-left: 10px;
+        }
+        .apply {
+          margin-left: 14px;
+          margin-right: 30px;
+        }
+      }
+    }
+  }
+  .my-banner-bottom {
+    width: 100%;
+    height: 160px;
+    background: url("../../img/download/banner.png") no-repeat center;
+    background-size: 100%;
+    h2 {
+      font-size: 36px;
+      color: #fff;
+      text-align: center;
+      line-height: 160px;
+      margin: 0;
+    }
+  }
+}
+
+/***
+更新日志
+ */
+.my-section {
+  width: 100%;
+  height: auto;
+  background: #ebebeb;
+  .section {
+    min-height: 1200px;
+    background: #fff;
+    position: relative;
+    padding: 0;
+    .left {
+      width: 200px;
+      height: auto;
+      div {
+        width: 196px;
+        height: 48px;
+        line-height: 48px;
+        font-size: 20px;
+        color: #333;
+        background: #f5f5f5;
+        cursor: pointer;
+        span {
+          display: inline-block;
+          width: 24px;
+          height: 24px;
+          float: left;
+          margin: 12px 10px 0 30px;
+        }
+      }
+      div:hover {
+        background: #0f9fef !important;
+        color: #fff !important;
+      }
+      .ios {
+        margin-top: 50px;
+        position: relative;
+        span {
+          background: url("../../img/download/ios.png") no-repeat;
+        }
+      }
+      .android {
+        margin-top: 20px;
+        span {
+          background: url("../../img/download/android.png") no-repeat;
+        }
+      }
+    }
+    .right {
+      margin: 56px 0 0 65px;
+      .top {
+        .title {
+          font-size: 24px;
+          color: #333;
+          font-weight: 800;
+        }
+        .edition {
+          display: inline-block;
+          margin-top: 20px;
+          font-size: 14px;
+          color: #555;
+          a {
+            display: inline-block;
+            font-size: 14px;
+            color: #0f9fef;
+            text-decoration: none;
+            margin-left: 30px;
+          }
+        }
+        .download {
+          margin-top: 20px;
+          a {
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            padding: 12px 42px;
+          }
+          .sdk {
+            color: #00a4ff;
+            border: 1px solid #00a4ff;
+            border-radius: 2px;
+          }
+          .demo {
+            color: #ffa300;
+            border: 1px solid #ffa300;
+            border-radius: 2px;
+            margin-left: 20px;
+          }
+        }
+      }
+      .bottom {
+        margin-top: 55px;
+        span {
+          font-size: 14px;
+          color: #888;
+          line-height: 26px;
+          margin-bottom: 34px;
+          display: block;
+        }
+      }
+    }
+    .active {
+      background: #0f9fef !important;
+      color: #fff !important;
+    }
+  }
+ .line{
+   width: 100%;
+   height: 10px;
+ }
+}
