@@ -1,0 +1,126 @@
+body, html {
+  height: 100%;
+  background: #f2f7fc;
+}
+
+/***
+nav
+ */
+.nav {
+  width: 100%;
+  height: 70px;
+  background: #1c2732;
+  .nav-left {
+    width: 168px;
+    height: 50px;
+    margin: 10px 0 0 34px;
+    background: url(../../img/index/mlogo.png) no-repeat center;
+  }
+}
+
+/**
+内容
+ */
+.my-section {
+  .section {
+    padding: 0;
+    .line {
+      height: 68px;
+      line-height: 68px;
+      font-size: 16px;
+      color: #49526c;
+    }
+    .list {
+      height: 534px;
+      background: #fff;
+      position: relative;
+      .tit {
+        height: 58px;
+        line-height: 58px;
+        padding-left: 35px;
+        border-bottom: 1px solid #e8e8e8;
+        font-size: 14px;
+        color: #49526c;
+      }
+      .icon {
+        padding-left: 35px;
+        height: 60px;
+        margin: 45px 0;
+        .title {
+          display: inline-block;
+          height: 60px;
+          line-height: 60px;
+          font-size: 14px;
+          color: #49526c;
+        }
+        .item {
+          .img {
+            margin-left: 50px;
+            margin-right: 10px;
+            img {
+              width: 60px;
+              height: 60px;
+            }
+          }
+          em {
+            font-style: normal;
+            display: inline-block;
+            margin-bottom: 15px;
+          }
+          input {
+
+          }
+        }
+      }
+      .name{
+        padding-left: 35px;
+        height: 60px;
+        .title {
+          display: inline-block;
+          height: 60px;
+          line-height: 60px;
+          font-size: 14px;
+          color: #49526c;
+        }
+        input{
+          width: 322px;
+          height: 36px;
+          border:1px solid #e8e8e8;
+          border-radius: 5px;
+          outline: none;
+          padding-left: 10px;
+          margin-top: 10px;
+          margin-left: 50px;
+        }
+      }
+      .button{
+        position: absolute;
+        left: 0;
+        bottom: 72px;
+        width: 100%;
+        height: 36px;
+        text-align: center;
+        button{
+          width: 130px;
+          height: 36px;
+          text-align: center;
+          line-height: 36px;
+          border: none;
+          border-radius: 5px;
+          font-size: 16px;
+        }
+        .preservation{
+          background: #00a4ff;
+          color: #fff;
+          margin-right: 15px;
+        }
+        .cancel{
+          border: 1px solid #a6b2ca;
+          color: #a6b2ca;
+          background: #fff;
+          margin-left: 15px;
+        }
+      }
+    }
+  }
+}

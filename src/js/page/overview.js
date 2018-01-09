@@ -14,6 +14,10 @@ var DfttModule = (function (dm) {
             _this.initEchartsInstall()
             _this.initEchartsRegister()
             _this.growthTrendStatistics()
+            _this.increaseStatistics()
+            _this.ipTrend()
+            _this.getSystemVersion()
+            _this.getModel()
         },
         /***
          * 初始化日历插件
@@ -204,6 +208,77 @@ var DfttModule = (function (dm) {
             // 使用刚指定的配置项和数据显示图表。
             myChart.setOption(option);
         },
+        /***
+         * 初始化中国地图
+         */
+        initEchartsMap: function (id, data) {
+            var myChart = echarts.init(document.getElementById(id));
+            var option = {
+                title: {
+                    x: 'center'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    show: true,
+                    formatter: "{b} : {c}",
+                    backgroundColor: "#000",
+                },
+                dataRange: {
+                    min: 0,
+                    max: 2500,
+                    x: 'left',
+                    y: 'bottom',
+                    text: ['高', '低'],           // 文本，默认为数值文本
+                    calculable: true
+                },
+
+                roamController: {
+                    show: true,
+                    x: 'right',
+                    mapTypeControl: {
+                        'china': true
+                    }
+                },
+                series: [
+                    {
+                        name: 'ip',
+                        type: 'map',
+                        mapType: 'china',
+                        roam: false,
+                        itemStyle: {
+                            normal: {
+                                label: {
+                                    show: false
+
+                                },
+                                textStyle: {
+                                    backgroundColor: "#000"
+                                }
+                            },
+                            emphasis: {
+                                areaStyle: {
+                                    color: '#000',
+                                    backgroundColor: 'blue',
+                                },
+                                label: {
+                                    show: true,
+                                    color: '#000',
+                                    textStyle: {
+                                        // fontWeight:'bold',
+                                    }
+                                }
+                            }
+                        },
+
+                        data: data
+                    },
+
+                ]
+            };
+
+
+            myChart.setOption(option);
+        },
         /**
          * 安装量统计饼图数据
          */
@@ -274,6 +349,7 @@ var DfttModule = (function (dm) {
                 _this.initEchartsInstall()
                 _this.initEchartsRegister()
                 _this.growthTrend()
+                _this.increaseTrend()
             } else {
                 var id = name.attr("id")
                 if (id == "total") {   // 总量统计
@@ -282,6 +358,9 @@ var DfttModule = (function (dm) {
                 } else if (id == "trend") {  //增长趋势
                     console.log('增长趋势')
                     _this.growthTrend()  //折线图
+                } else if (id == 'increase') {  //活跃趋势
+                    console.log('活跃趋势')
+                    _this.increaseTrend()  //折线图
                 }
             }
 
@@ -293,8 +372,245 @@ var DfttModule = (function (dm) {
             var _this = this
             var $name = $("#trend")
             _this.initTime($name)
-        }
+        },
+        /***
+         * 增长趋势
+         */
+        increaseStatistics: function () {
+            var _this = this
+            var $name = $("#increase")
+            _this.initTime($name)
+        },
+        /***
+         *  获取增长趋势数据
+         */
+        increaseTrend: function () {
+            var _this = this
+            var id = "J_increase"
+            var dataTypeX = ["2015-01-18", "2015-01-18", "2015-01-18", "2015-01-18", "2015-01-18", "2015-01-18", "2015-01-18", "2015-01-18", "2015-01-18", "2015-01-18"]
+            var install = [10, 120, 130, 140, 150, 160, 170, 180, 190, 200]
+            var register = [210, 220, 230, 240, 250, 260, 270, 280, 290, 3000]
+            var data = [
+                {value: 10, name: 'ios'},
+                {value: 5, name: 'Android'}
+            ]
+            _this.initEchartsCategory(id, dataTypeX, install, register)
+        },
+        /***
+         *  获取IP分布数据
+         */
+        ipTrend: function () {
+            var _this = this
+            var id = 'J_ipMap'
+            var data = [
+                {
+                    name: '北京',
+                    value: 2256
+                }, {
+                    name: '天津',
+                    value: 744
+                }, {
+                    name: '上海',
+                    value: 578
+                }, {
+                    name: '重庆',
+                    value: 806
+                }, {
+                    name: '河北',
+                    value: 432
+                }, {
+                    name: '河南',
+                    value: 590
+                }, {
+                    name: '云南',
+                    value: 132
+                }, {
+                    name: '辽宁',
+                    value: 487
+                }, {
+                    name: '黑龙江',
+                    value: 336
+                }, {
+                    name: '湖南',
+                    value: 295
+                }, {
+                    name: '安徽',
+                    value: 398
+                }, {
+                    name: '山东',
+                    value: 1055
+                }, {
+                    name: '新疆',
+                    value: 201
+                }, {
+                    name: '江苏',
+                    value: 795
+                }, {
+                    name: '浙江',
+                    value: 655
+                }, {
+                    name: '江西',
+                    value: 311
+                }, {
+                    name: '湖北',
+                    value: 993
+                }, {
+                    name: '广西',
+                    value: 261
+                }, {
+                    name: '甘肃',
+                    value: 349
+                }, {
+                    name: '山西',
+                    value: 273
+                }, {
+                    name: '内蒙古',
+                    value: 343
+                }, {
+                    name: '陕西',
+                    value: 319
+                }, {
+                    name: '吉林',
+                    value: 325
+                }, {
+                    name: '福建',
+                    value: 317
+                }, {
+                    name: '贵州',
+                    value: 275
+                }, {
+                    name: '广东',
+                    value: 1000
+                }, {
+                    name: '青海',
+                    value: 97
+                }, {
+                    name: '西藏',
+                    value: 18
+                }, {
+                    name: '四川',
+                    value: 601
+                }, {
+                    name: '宁夏',
+                    value: 126
+                }, {
+                    name: '海南',
+                    value: 186
+                }, {
+                    name: '台湾',
+                    value: 0
+                }, {
+                    name: '香港',
+                    value: 11
+                }, {
+                    name: '澳门',
+                    value: 0
+                }]
+            _this.initEchartsMap(id, data)
+            _this.ipTrendRendering(data)
+        },
+        /***
+         * 显示省份/城市信息信息
+         */
+        ipTrendRendering: function (data) {
+            var _this = this
+            console.log(data)
+            var html = ''
+            if (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var item = data[i]
+                    html += '<div>'
+                        + '<span>' + data[i].name + '</span>：'
+                        + '<span>' + data[i].value + '</span>'
+                        + '</div>'
+                }
+                $('.location_city').html(html)
+            }
+        },
+        /***
+         * 系统版本获取数据
+         */
+        getSystemVersion: function () {
+            var _this = this
+            var id = 'J_systemVersion'
+            var data = [
+                {value: 335, name: '5.5.5'},
+                {value: 310, name: '6.0.0'},
+                {value: 234, name: '7.0.1'},
+                {value: 135, name: '7.1.1'}
+            ]
+            _this.SystemVersionPie(id, data)
+        },
+        /***
+         * 品牌机型获取数据
+         */
+        getModel: function () {
+            var _this = this
+            var id = 'J_getModel'
+            var data = [
+                {value: 335, name: '5.5.5'},
+                {value: 310, name: '6.0.0'},
+                {value: 234, name: '7.0.1'},
+                {value: 135, name: '7.1.1'}
+            ]
+            _this.SystemVersionPie(id, data)
+        },
+        /***
+         * 系统版本/品牌机型饼图
+         */
+        SystemVersionPie: function (id, data) {
+            var myChart = echarts.init(document.getElementById(id));
+            var option = {
+                series: [
+                    {
+                        name:'访问来源',
+                        type:'pie',
+                        radius: ['40%', '80%'],
+                        color: ['#ff6484', '#00a3fe','#4cc0c0','#ffb957'],
+                        avoidLabelOverlap: false,
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '30',
+                                    fontWeight: 'bold'
+                                }
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        label: {
+                            normal: {
+                                show: true,
 
+                            },
+                            emphasis: {
+                                show: true,
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                label: {
+                                    show: true,
+                                    position: 'inner',
+                                    formatter: '{b}-{d}%'
+                                }
+                            }
+                        },
+                        data:data
+                    }
+                ]
+            };
+
+            myChart.setOption(option);
+        }
     };
     // 给模块单独定义一个命名空间
     dm[Index.name] = Index

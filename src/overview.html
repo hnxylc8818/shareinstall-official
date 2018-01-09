@@ -312,11 +312,10 @@
                     </ul>
                     <div class="div clear">
                         <div class="time">
-                            <div class="count_calendar_right date-container"
-                                 style="margin:0 0 0 20px;line-height:30px;height:32px;float:left"><span
-                                    class="glyphicon glyphicon-calendar fa fa-calendar"
-                                    style="padding-left:10px"></span>&nbsp;<span
-                                    class="date-value"></span><span class="caret" style="margin-right:10px"></span>
+                            <div class="count_calendar_right date-container" style="margin:0 0 0 20px;line-height:30px;height:32px;float:left">
+                                <span class="glyphicon glyphicon-calendar fa fa-calendar" style="padding-left:10px"></span>&nbsp;
+                                <span class="date-value" id="increase"></span>
+                                <span class="caret" style="margin-right:10px"></span>
                             </div>
                         </div>
                     </div>
@@ -327,7 +326,7 @@
                                                                                         data-name="type"
                                                                                         data-value="2">平均在线时长（秒）</a>
                 </div>
-                <div class="mainContent"></div>
+                <div class="mainContent" id="J_increase"></div>
             </div>
             <!--IP分布-->
             <div class="localtion" id="chart_location">
@@ -342,14 +341,14 @@
                     </div>
                 </div>
                 <div class="contentER">
-                    <div class="mainContent" style="float:left;width:800px;height:600px"></div>
+                    <div class="mainContent" style="float:left;width:800px;height:600px" id="J_ipMap"></div>
                     <div class="localtionList">
                         <div class="btnBox"><a class="active active" data-name="type" href="javascript:"
                                                data-value="0">省份</a><a href="javascript:" data-name="type"
                                                                        data-value="1">城市</a></div>
                         <div class="location_state clear"></div>
                         <div class="location_city clear"
-                             style="display:none;position:relative;width:504px;height:408px"></div>
+                             style="position:relative;width:504px;height:408px"></div>
                     </div>
                     <div style="clear:both"></div>
                 </div>
@@ -366,9 +365,8 @@
                             <!--<div class="overlay-btn" data-name="exclude" data-value="true">排除重复</div>-->
                         </div>
                     </div>
-                    <img src="/images/none.png" alt="没有数据"
-                         style="width:48px;height:68px;position:absolute;top:50%;left:50%;margin-left:-34px;margin-top:-34px">
-                    <div class="mainContent" style="height:400px"></div>
+
+                    <div class="mainContent" id='J_systemVersion' style="height:400px"></div>
                 </div>
                 <div class="brand" id="chart_brand" style="position:relative;margin-left:10px">
                     <div class="title clear"><p>品牌/机型</p>
@@ -380,15 +378,15 @@
                             <!--<div class="overlay-btn" data-name="exclude" data-value="true">排除重复</div>-->
                         </div>
                     </div>
-                    <img src="/images/none.png" alt="没有数据"
-                         style="width:48px;height:68px;position:absolute;top:50%;left:50%;margin-left:-34px;margin-top:-34px">
-                    <div class="mainContent" style="height:400px"></div>
+
+                    <div class="mainContent" id='J_getModel' style="height:400px"></div>
                 </div>
             </div>
             <script src="./js/page/moment.min.js"></script>
             <!--<link rel="stylesheet" href="./css/daterangepicker.css?v=70fedaf589">-->
             <script src="./js/page/daterangepicker.min.js"></script>
             <script src="./js/page/echarts.min.js"></script>
+            <script src="http://echarts.baidu.com/asset/map/js/china.js"></script>
             <script src="./js/page/overview.min.js"></script>
             <!--<script>-->
                 <!--var reloadChart = function () {-->
