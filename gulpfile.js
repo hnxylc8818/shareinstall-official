@@ -13,7 +13,7 @@ var gulp = require('gulp'),
 var srcStaticPath = 'src'
 var distStaticPath = 'dist'
 var browserSync = require('browser-sync')
-var baseJsArr = ['jquery.min.js', 'bootstrap.min.js', 'typed.min.js', 'swiper.min.js', 'swiper.animate.min.js', 'carousel.js', 'layer.js','moment.js']
+var baseJsArr = ['jquery.min.js', 'bootstrap.min.js', 'swiper.min.js', 'swiper.animate.min.js', 'carousel.js', 'layer.js','moment.js']
 var baseCssArr = ['bootstrap.min.scss', 'animate.scss', 'header.scss', 'footer.scss', 'common.scss', 'swiper.scss','layer.scss','daterangepicker.scss']
     // ,'daterangepicker.js','echarts.js'
 // 删除dist文件夹以及其内容
