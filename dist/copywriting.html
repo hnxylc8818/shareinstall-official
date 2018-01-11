@@ -1,15 +1,15 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="keywords" content=""><meta name="description" content=""><title>文档</title><link rel="stylesheet" href="./css/common/base.min.css"><link rel="stylesheet" href="./css/page/copywriting.min.css"><link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet"><script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script><script>hljs.initHighlightingOnLoad()</script></head><body><div class="my-banner"><div class="my-banner-top clearfix"><a href="./index.html"><div class="banner-left fl"></div></a><div class="banner-right fr"><ul class="banner-nav fl clearfix"><li><a href="./index.html">产品</a> <a href="./scene.html">场景</a> <a href="javascript:volid(0);" class="active">文档</a><a href="./about.html">关于我们</a></li></ul></div></div><div class="my-banner-bottom container"><span class="typed-element">集成文档</span><div class="copy"><div class="android active activeAn" data-index="android"><span class="icon"></span> <span class="txt">Android集成</span></div><div class="ios" data-index="ios"><span class="icon"></span> <span class="txt">ios集成</span></div><div class="web" data-index="web"><span class="icon"></span> <span class="txt">web集成</span></div></div></div></div><div class="app" id="J_app"><div class="my-android container my-app"><h1 style="margin-top:0">导入SDK</h1><h2>将aar文件拷贝到项目的libs文件夹下，并导入</h2><div><pre style="width:400px;height:140px">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="keywords" content=""><meta name="description" content=""><title>文档</title><link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="./css/common/base.min.css"><link rel="stylesheet" href="./css/page/copywriting.min.css"><link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet"><script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script><script>hljs.initHighlightingOnLoad()</script></head><body><div class="my-banner"><div class="my-banner-top clearfix"><a href="./index.html"><div class="banner-left fl"></div></a><div class="banner-right fr"><ul class="banner-nav fl clearfix"><li><a href="./index.html">产品</a> <a href="./scene.html">场景</a> <a href="javascript:volid(0);" class="active">文档</a><a href="./about.html">关于我们</a></li></ul></div></div><div class="my-banner-bottom container"><span class="typed-element">集成文档</span><div class="copy"><div class="android active activeAn" data-index="android"><span class="icon"></span> <span class="txt">Android集成</span></div><div class="ios" data-index="ios"><span class="icon"></span> <span class="txt">iOS集成</span></div><div class="web" data-index="web"><span class="icon"></span> <span class="txt">Web集成</span></div></div></div></div><div class="app" id="J_app"><div class="my-android container my-app"><h1 style="margin-top:0">导入SDK</h1><h2>将aar文件拷贝到项目的libs文件夹下，并导入。</h2><div><pre style="width:400px;height:140px">
 <code style="width:100%;height:80%" class="lang-javascript">
 dependencies {
     compile(name: 'ShareInstall_1.0.0', ext: 'aar')
 }
 </code>
-</pre><h1>基础配置</h1><h2>在AndroidMainfest.xml中添加权限声明</h2><pre style="width:600px;height:100px">
+</pre><h1>基础配置</h1><h2>在AndroidMainfest.xml中添加权限声明。</h2><pre style="width:600px;height:100px">
 <code style="width:100%;height:80%" class="lang-javascript">
 &lt;uses-permission android:name="android.permission.INTERNET" /&gt;
 &lt;uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /&gt;
 </code>
-</pre><h2>在自定义Application中调用SHShareInstallSDK.getInstance().init(context)方法完成SDK初始化</h2><pre style="width:900px;height:540px">
+</pre><h2>在自定义Application中调用SHShareInstallSDK.getInstance().init(context)方法完成SDK初始化。</h2><pre style="width:900px;height:540px">
 <code style="width:100%;height:96%" class="lang-javascript">
 public class MyApp extends Application {
 
@@ -38,7 +38,7 @@ public class MyApp extends Application {
     }
 }
 </code>
-</pre><h2>在AndroidMainfest.xml中的application标签中添加 android:name=".MyApplication"指定自定义的Application类，以便程序启动的时候初始化自<br>定义Application类，而不是系统默认的Application类</h2><pre style="width:400px;height:200px">
+</pre><h2>在AndroidMainfest.xml中的application标签中添加 android:name=".MyApplication"指定自定义的Application类，以便程序启动的时候初始化自<br>定义Application类，而不是系统默认的Application类。</h2><pre style="width:400px;height:200px">
 <code style="width:100%;height:91%" class="lang-javascript">
 &lt;application
         android:name=".MyApplication"
@@ -49,7 +49,7 @@ public class MyApp extends Application {
         android:theme="@style/AppTheme">
 &lt;/application&gt;
 </code>
-</pre><h1>一键跳转</h1><h2>在AndroidMainfest的唤醒页面activity标签中添加intent-filter（一般为MainActivity）, 配置scheme，用于浏览器中拉起</h2><pre style="width:600px;height:250px">
+</pre><h1>一键跳转</h1><h2>在AndroidMainfest的唤醒页面activity标签中添加intent-filter（一般为MainActivity）, 配置scheme，用于浏览器中拉起。</h2><pre style="width:600px;height:250px">
 <code style="width:100%;height:88%" class="lang-javascript">
 &lt;activity
         android:name=".MainActivity"
@@ -62,7 +62,7 @@ public class MyApp extends Application {
     &lt;/intent-filter&gt;
 &lt;/activity&gt;
 </code>
-</pre><h2>注：如果唤醒页面和启动页是同一Activity，则AndroidMaifest.xml的配置如下</h2><pre style="width:600px;height:330px">
+</pre><h2>注：如果唤醒页面和启动页是同一Activity，则AndroidMaifest.xml的配置如下。</h2><pre style="width:600px;height:330px">
 <code style="width:100%;height:94%" class="lang-javascript">
 &lt;activity
         android:name=".MainActivity"
@@ -79,7 +79,7 @@ public class MyApp extends Application {
     &lt;/intent-filter&gt;
 &lt;/activity&gt;
 </code>
-</pre><h2>个性化安装和一键唤醒都调用同一个方法SHShareInstallSDK.getInstance().getInfo()获取相关信息，第一个参数为Intent，第二个参数 为接入方应用的apptypeId(尽量传个独特唯一的值)，因为目前后台没有为接入方应用配置一个单独的appkey，所以apptypeId用来区分应用，等以后后台完善。</h2><h1>1、个性化安装</h1><h2>在APP需要个性化安装参数时（由web网页中传递过来的，如邀请码、游戏房间号等 自定义参数），调用以下方法，在回调中获取参数</h2><pre style="width:700px;height:170px">
+</pre><h2>个性化安装和一键唤醒都调用同一个方法SHShareInstallSDK.getInstance().getInfo()获取相关信息，第一个参数为Intent，第二个参数 为接入方应用的apptypeId(尽量传个独特唯一的值)，因为目前后台没有为接入方应用配置一个单独的appkey，所以apptypeId用来区分应用，等以后后台完善。</h2><h1>1、个性化安装</h1><h2>在APP需要个性化安装参数时（由web网页中传递过来的，如邀请码、游戏房间号等 自定义参数），调用以下方法，在回调中获取参数。</h2><pre style="width:700px;height:170px">
 <code style="width:100%;height:88%" class="lang-javascript">
 SHShareInstallSDK.getInstance().getInfo(getIntent(), "JSSTT", new AppGetInfoListener() {
     @Override
@@ -139,7 +139,7 @@ UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"直接点击App进来�
     [alert show];
 }
 </code>
-</pre><h2><span>4、一键跳转</span></h2><h2>ShareInstall通过标准的scheme,universal link等技术，在app安装的情况下，从各种浏览器（微信、QQ、新浪微博、钉钉等主流社交软件的内置浏览器）唤醒 app 并传递自定义参数，避免重复安装。</h2><h2><span>5、 universal link 配置</span></h2><h2>Universal link是iOS9的一个新特性，通过Universal link, App可以通过各种浏览器跳转到App（例如微信内可不通过safari,一键跳转到App），真正实现一键跳转到相应界面。<br>备注：iOS9以上推荐使用Universal link</h2><h2><span>5.1 配置developer.apple.com的相关信息</span></h2><h2>到苹果开发者中心，为当前的App ID开启Associated Domains服务：</h2><img src="./img/copywriting/iOS1.jpg" alt=""><h2><span>5.2 配置Xcode</span></h2><h2>在XCode中配置shareInstall为当前应用生成的关联域名：Associated Domains 开关打开，添加Domains。</h2><img src="./img/copywriting/ios2.jpg" alt=""><h2>在AppDelegate中的continueUserActivity方法中调用，用来处理Universal link</h2><pre style="width:800px;height:280px">
+</pre><h2><span>4、一键跳转</span></h2><h2>ShareInstall通过标准的scheme,universal link等技术，在app安装的情况下，从各种浏览器（微信、QQ、新浪微博、钉钉等主流社交软件的内置浏览器）唤醒 app 并传递自定义参数，避免重复安装。</h2><h2><span>5、 universal link 配置</span></h2><h2>Universal link是iOS9的一个新特性，通过Universal link, App可以通过各种浏览器跳转到App（例如微信内可不通过safari,一键跳转到App），真正实现一键跳转到相应界面。<br>备注：iOS9以上推荐使用Universal link。</h2><h2><span>5.1 配置developer.apple.com的相关信息</span></h2><h2>到苹果开发者中心，为当前的App ID开启Associated Domains服务：</h2><img src="./img/copywriting/iOS1.jpg" alt=""><h2><span>5.2 配置Xcode</span></h2><h2>在XCode中配置shareInstall为当前应用生成的关联域名：Associated Domains 开关打开，添加Domains。</h2><img src="./img/copywriting/ios2.jpg" alt=""><h2>在AppDelegate中的continueUserActivity方法中调用，用来处理Universal link。</h2><pre style="width:800px;height:280px">
 <code style="width:100%;height:90%" class="lang-javascript">
 //Universal Links 通用链接
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler
@@ -153,7 +153,7 @@ return YES ;
     }
 }
 </code>
-</pre><h2><span>5.3 配置App的URL Scheme</span></h2><h2>iOS系统中App之间是相互隔离的，通过URL Scheme, App之间可以相互调用，并且可以传递参数。<br>备注：iOS9以下通过Url Scheme实现拉起</h2><h2><span>5.4 在Xcode里选中Target—Info—URL Types, 配置shareInstall为当前应用生成的Url Scheme,如图所示：</span></h2><img src="./img/copywriting/ios3.jpg" alt=""><h2><span>5.5 URL Scheme相关代码配置</span></h2><h2>注意：当需要在shareInstall这个方法中处理第三方回调的时候（比如支付宝、微信回调等），请注意区分</h2><pre style="width:800px;height:650px">
+</pre><h2><span>5.3 配置App的URL Scheme</span></h2><h2>iOS系统中App之间是相互隔离的，通过URL Scheme, App之间可以相互调用，并且可以传递参数。<br>备注：iOS9以下通过Url Scheme实现拉起。</h2><h2><span>5.4 在Xcode里选中Target—Info—URL Types, 配置shareInstall为当前应用生成的Url Scheme,如图所示：</span></h2><img src="./img/copywriting/ios3.jpg" alt=""><h2><span>5.5 URL Scheme相关代码配置</span></h2><h2>注意：当需要在shareInstall这个方法中处理第三方回调的时候（比如支付宝、微信回调等），请注意区分。</h2><pre style="width:800px;height:650px">
 <code style="width:100%;height:90%" class="lang-javascript">
 //ios9以下 URI Scheme
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
@@ -184,7 +184,7 @@ return YES ;
     return YES;
 }
 </code>
-</pre><h2><span>5.6获取唤醒参数，直达具体页</span></h2><h2>通过在url中附带具体的参数，唤醒app并跳转到具体页</h2><pre style="width:800px;height:180px">
+</pre><h2><span>5.6获取唤醒参数，直达具体页</span></h2><h2>通过在url中附带具体的参数，唤醒app并跳转到具体页。</h2><pre style="width:800px;height:180px">
 <code style="width:100%;height:90%" class="lang-javascript">
 - (void)getWakeUpParamsFromSmartInstall: (id) params withError: (NSError *) error{
 NSLog(@"唤醒参数params=%@",params);
@@ -193,7 +193,7 @@ UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"URL shceme 进来的" 
 [alert show];
 }
 </code>
-</pre><h2><span>5.7 其他代码配置</span></h2><h2><span>如果做测试，获取参数，则必须在Appdelegate.h加上如下测试代码</span></h2><pre style="width:800px;height:420px">
+</pre><h2><span>5.7 其他代码配置</span></h2><h2><span>如果做测试，获取参数，则必须在Appdelegate.h加上如下测试代码。</span></h2><pre style="width:800px;height:420px">
 <code style="width:100%;height:90%" class="lang-javascript">
 #pragma mark 将oc数据类型转成NSString
 -(NSString *)DataTOjsonString:(id)object

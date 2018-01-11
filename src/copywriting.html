@@ -8,6 +8,7 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <title>文档</title>
+    <link rel="shortcut icon" href="/favicon.ico"/>
     <link rel="stylesheet" href="./css/common/base.min.css">
     <link rel="stylesheet" href="./css/page/copywriting.min.css">
     <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">
@@ -50,11 +51,11 @@
             </div>
             <div class="ios" data-index="ios">
                 <span class="icon"></span>
-                <span class="txt">ios集成</span>
+                <span class="txt">iOS集成</span>
             </div>
             <div class="web" data-index="web">
                 <span class="icon"></span>
-                <span class="txt">web集成</span>
+                <span class="txt">Web集成</span>
             </div>
         </div>
     </div>
@@ -72,7 +73,7 @@
         <!--</div>-->
         <!--</div>-->
         <h1 style="margin-top: 0;">导入SDK</h1>
-        <h2>将aar文件拷贝到项目的libs文件夹下，并导入</h2>
+        <h2>将aar文件拷贝到项目的libs文件夹下，并导入。</h2>
         <div>
 <pre style="width:400px;height:140px">
 <code style="width: 100%;height: 80%;" class="lang-javascript">
@@ -82,14 +83,14 @@ dependencies {
 </code>
 </pre>
             <h1>基础配置</h1>
-            <h2>在AndroidMainfest.xml中添加权限声明</h2>
+            <h2>在AndroidMainfest.xml中添加权限声明。</h2>
             <pre style="width:600px;height:100px">
 <code style="width: 100%;height: 80%;" class="lang-javascript">
 &lt;uses-permission android:name="android.permission.INTERNET" /&gt;
 &lt;uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /&gt;
 </code>
 </pre>
-            <h2>在自定义Application中调用SHShareInstallSDK.getInstance().init(context)方法完成SDK初始化</h2>
+            <h2>在自定义Application中调用SHShareInstallSDK.getInstance().init(context)方法完成SDK初始化。</h2>
             <pre style="width:900px;height:540px">
 <code style="width: 100%;height: 96%;" class="lang-javascript">
 public class MyApp extends Application {
@@ -122,7 +123,7 @@ public class MyApp extends Application {
 </pre>
             <h2>在AndroidMainfest.xml中的application标签中添加
                 android:name=".MyApplication"指定自定义的Application类，以便程序启动的时候初始化自<br/>
-                定义Application类，而不是系统默认的Application类
+                定义Application类，而不是系统默认的Application类。
             </h2>
             <pre style="width:400px;height:200px">
 <code style="width: 100%;height: 91%;" class="lang-javascript">
@@ -137,7 +138,7 @@ public class MyApp extends Application {
 </code>
 </pre>
             <h1>一键跳转</h1>
-            <h2>在AndroidMainfest的唤醒页面activity标签中添加intent-filter（一般为MainActivity）, 配置scheme，用于浏览器中拉起</h2>
+            <h2>在AndroidMainfest的唤醒页面activity标签中添加intent-filter（一般为MainActivity）, 配置scheme，用于浏览器中拉起。</h2>
             <pre style="width:600px;height:250px">
 <code style="width: 100%;height: 88%;" class="lang-javascript">
 &lt;activity
@@ -152,7 +153,7 @@ public class MyApp extends Application {
 &lt;/activity&gt;
 </code>
 </pre>
-            <h2>注：如果唤醒页面和启动页是同一Activity，则AndroidMaifest.xml的配置如下</h2>
+            <h2>注：如果唤醒页面和启动页是同一Activity，则AndroidMaifest.xml的配置如下。</h2>
             <pre style="width:600px;height:330px">
 <code style="width: 100%;height: 94%;" class="lang-javascript">
 &lt;activity
@@ -176,7 +177,7 @@ public class MyApp extends Application {
                 为接入方应用的apptypeId(尽量传个独特唯一的值)，因为目前后台没有为接入方应用配置一个单独的appkey，所以apptypeId用来区分应用，等以后后台完善。
             </h2>
             <h1>1、个性化安装</h1>
-            <h2>在APP需要个性化安装参数时（由web网页中传递过来的，如邀请码、游戏房间号等 自定义参数），调用以下方法，在回调中获取参数</h2>
+            <h2>在APP需要个性化安装参数时（由web网页中传递过来的，如邀请码、游戏房间号等 自定义参数），调用以下方法，在回调中获取参数。</h2>
             <pre style="width:700px;height:170px">
 <code style="width: 100%;height: 88%;" class="lang-javascript">
 SHShareInstallSDK.getInstance().getInfo(getIntent(), "JSSTT", new AppGetInfoListener() {
@@ -271,7 +272,7 @@ UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"直接点击App进来�
             并传递自定义参数，避免重复安装。</h2>
         <h2><span>5、 universal link 配置</span></h2>
         <h2>Universal link是iOS9的一个新特性，通过Universal link, App可以通过各种浏览器跳转到App（例如微信内可不通过safari,一键跳转到App），真正实现一键跳转到相应界面。
-            <br/>备注：iOS9以上推荐使用Universal link
+            <br/>备注：iOS9以上推荐使用Universal link。
         </h2>
 
         <h2><span>5.1 配置developer.apple.com的相关信息</span></h2>
@@ -280,7 +281,7 @@ UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"直接点击App进来�
         <h2><span>5.2 配置Xcode</span></h2>
         <h2>在XCode中配置shareInstall为当前应用生成的关联域名：Associated Domains 开关打开，添加Domains。</h2>
         <img src="./img/copywriting/ios2.jpg" alt="">
-        <h2>在AppDelegate中的continueUserActivity方法中调用，用来处理Universal link</h2>
+        <h2>在AppDelegate中的continueUserActivity方法中调用，用来处理Universal link。</h2>
         <pre style="width:800px;height:280px">
 <code style="width: 100%;height: 90%;" class="lang-javascript">
 //Universal Links 通用链接
@@ -298,12 +299,12 @@ return YES ;
 </pre>
         <h2><span>5.3 配置App的URL Scheme</span></h2>
         <h2>iOS系统中App之间是相互隔离的，通过URL Scheme, App之间可以相互调用，并且可以传递参数。
-            <br/>备注：iOS9以下通过Url Scheme实现拉起
+            <br/>备注：iOS9以下通过Url Scheme实现拉起。
         </h2>
         <h2><span>5.4 在Xcode里选中Target—Info—URL Types, 配置shareInstall为当前应用生成的Url Scheme,如图所示：</span></h2>
         <img src="./img/copywriting/ios3.jpg" alt="">
         <h2><span>5.5 URL Scheme相关代码配置</span></h2>
-        <h2>注意：当需要在shareInstall这个方法中处理第三方回调的时候（比如支付宝、微信回调等），请注意区分</h2>
+        <h2>注意：当需要在shareInstall这个方法中处理第三方回调的时候（比如支付宝、微信回调等），请注意区分。</h2>
         <pre style="width:800px;height:650px">
 <code style="width: 100%;height: 90%;" class="lang-javascript">
 //ios9以下 URI Scheme
@@ -337,7 +338,7 @@ return YES ;
 </code>
 </pre>
         <h2><span>5.6获取唤醒参数，直达具体页</span></h2>
-        <h2>通过在url中附带具体的参数，唤醒app并跳转到具体页</h2>
+        <h2>通过在url中附带具体的参数，唤醒app并跳转到具体页。</h2>
         <pre style="width:800px;height:180px">
 <code style="width: 100%;height: 90%;" class="lang-javascript">
 - (void)getWakeUpParamsFromSmartInstall: (id) params withError: (NSError *) error{
@@ -349,7 +350,7 @@ UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"URL shceme 进来的" 
 </code>
 </pre>
         <h2><span>5.7 其他代码配置</span></h2>
-        <h2><span>如果做测试，获取参数，则必须在Appdelegate.h加上如下测试代码</span></h2>
+        <h2><span>如果做测试，获取参数，则必须在Appdelegate.h加上如下测试代码。</span></h2>
         <pre style="width:800px;height:420px">
 <code style="width: 100%;height: 90%;" class="lang-javascript">
 #pragma mark 将oc数据类型转成NSString
