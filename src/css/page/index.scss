@@ -21,6 +21,7 @@
             color: #fff;
             font-weight: 800;
             font-size: 16px;
+            float: left;
           }
           a:hover {
             color: #00a4ff;
@@ -67,7 +68,7 @@
         font-size: 60px;
         color: #fff;
       }
-      .typed-cursor{
+      .typed-cursor {
         opacity: 1;
         color: #0d56c2;
         font-size: 60px;
@@ -76,20 +77,38 @@
         -moz-animation: blink 0.7s infinite;
         animation: blink 0.7s infinite;
       }
-      @keyframes blink{
-        0% { opacity:1; }
-        50% { opacity:0; }
-        100% { opacity:1; }
+      @keyframes blink {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
       }
-      @-webkit-keyframes blink{
-        0% { opacity:1; }
-        50% { opacity:0; }
-        100% { opacity:1; }
+      @-webkit-keyframes blink {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
       }
-      @-moz-keyframes blink{
-        0% { opacity:1; }
-        50% { opacity:0; }
-        100% { opacity:1; }
+      @-moz-keyframes blink {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
       }
     }
     p {
@@ -111,6 +130,9 @@
       text-decoration: none;
       padding-left: 33px;
       position: relative;
+    }
+    a:hover {
+      background: #00baff;
     }
     a:before {
       position: absolute;
@@ -280,12 +302,12 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, .1);
   }
 
   .core-cards a .card-icn {
     height: 60px;
-    width: 64px;
+    width: 60px;
     margin-bottom: 30px;
     background-image: url("../../img/index/sprite.png");
     background-repeat: no-repeat;
@@ -300,15 +322,15 @@
   }
 
   .core-cards a .card-icn--mobile-ui {
-    background-position: -128px -1140px;
+    background-position: -120px -1140px;
   }
 
   .core-cards a .card-icn--web-design {
-    background-position: -191px -1140px;
+    background-position: -180px -1140px;
   }
 
   .core-cards a .card-icn--ubiquitous-design {
-    background-position: -260px -1140px;
+    background-position: -240px -1140px;
   }
 
   .core-cards a .card-icn--social-design {
@@ -316,15 +338,14 @@
   }
 
   .core-cards a .card-icn--wearable-apps {
-    background-position: -329px -1140px;
+    background-position: -300px -1140px;
   }
   .core-cards a .card-icn--wearable-apps1 {
-    background-position: -402px -1140px;
+    background-position: -360px -1140px;
   }
   .core-cards a .card-icn--wearable-apps2 {
-    background-position: -467px -1140px;
+    background-position: -420px -1140px;
   }
-
 
   .core-cards a .border {
     position: absolute;
@@ -567,6 +588,7 @@
       .img1 {
         background: url("../../img/index/jingzhun.png") no-repeat center;
       }
+
       .img2 {
         background: url("../../img/index/linghuo.png") no-repeat center;
       }
@@ -576,6 +598,18 @@
       .img4 {
         background: url("../../img/index/simi.png") no-repeat center;
       }
+    }
+    .v1:hover .img1{
+      background: url("../../img/index/jingzhunhover.png") no-repeat center;
+    }
+    .v2:hover .img2{
+      background: url("../../img/index/linghuohover.png") no-repeat center;
+    }
+    .v3:hover .img3{
+      background: url("../../img/index/wendinghover.png") no-repeat center;
+    }
+    .v4:hover .img4{
+      background: url("../../img/index/simihover.png") no-repeat center;
     }
   }
 }
@@ -627,11 +661,11 @@
           background-size: 100%;
         }
         .img2 {
-          background-position: 0 -200px;
+          background-position: 0 -197px;
           background-size: 100%;
         }
         .img2:hover {
-          background-position: 0 -135px;
+          background-position: 0 -132px;
           background-size: 100%;
         }
         .img3 {
@@ -816,6 +850,9 @@
         text-decoration: none;
         padding-left: 33px;
         position: relative;
+      }
+      a:hover {
+        background: #00baff;
       }
       a:before {
         position: absolute;

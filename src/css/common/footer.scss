@@ -42,11 +42,13 @@
         margin-right: 130px;
       }
       .wendangzhongxin {
-        margin-right: 100px;
+        margin-right: 120px;
       }
       .lianxiwomen span {
         display: inline-block;
         margin-bottom: 15px;
+        color: #8c8f94;
+        font-size: 14px;
       }
       .qitalianxifangshi {
         .img {
@@ -58,7 +60,7 @@
         }
         .footer-a {
           display: inline-block;
-          width: 120px;
+          width: 100px;
         }
         .imgqq {
           background-position: 0 -28px;
@@ -116,12 +118,10 @@
   position: fixed;
   right: 0;
   bottom: 150px;
-  width: 60px;
-  height: 210px;
-  background: red;
+  width: 44px;
   div {
     width: 100%;
-    height: 70px;
+    height: 55px;
     font-size: 12px;
     color: #fff;
     text-align: center;
@@ -130,7 +130,7 @@
       background: url("../../img/index/bar.png") no-repeat;
     }
     .icon1 {
-      background-position: 12px 0;
+      background-position: 5px 0;
     }
     .icon2 {
       background-position: 12px -28px;
@@ -138,24 +138,30 @@
   }
   .bar-qq {
     background: rgba(61, 186, 255, 0.8);
-    padding-top: 15px;
+    padding-top: 3px;
     a {
       display: block;
-      width: 60px;
+      width: 44px;
       height: 30px;
     }
+  }
+  .bar-qq:hover {
+    background: rgba(97, 199, 255, 0.8);
   }
   .bar-code {
     background: rgba(0, 164, 255, 0.8);
-    padding-top: 15px;
+    padding-top: 14px;
     span {
       display: block;
       width: 60px;
-      height: 30px;
+      height: 26px;
     }
   }
   .bar-back {
-    padding-top: 20px;
-    background-color: rgb(56, 56, 56);
+    padding-top: 11px;
+    background-color: rgba(56, 56, 56, 0.8);
+  }
+  .bar-back:hover{
+    background: rgba(81, 81, 81, 0.8);
   }
 }
