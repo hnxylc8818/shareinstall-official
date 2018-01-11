@@ -17,6 +17,7 @@ banner
     }
     .banner-right {
       margin-top: 24px;
+      margin-right: 4px;
       .banner-nav {
         padding: 0;
         li {
@@ -101,7 +102,7 @@ banner
         }
 
       }
-      .ios{
+      .ios {
         border-left: none;
         border-right: none;
       }
@@ -139,18 +140,18 @@ banner
         color: #333;
         background: #fff;
       }
-      .activeAn{
-        .icon{
+      .activeAn {
+        .icon {
           background: url("../../img/copywriting/andraid.png") no-repeat center 5px
         }
       }
-      .activeIos{
-        .icon{
+      .activeIos {
+        .icon {
           background: url("../../img/copywriting/IOS@2x.png") no-repeat center 3px;
         }
       }
-      .activeWeb{
-        .icon{
+      .activeWeb {
+        .icon {
           background: url("../../img/copywriting/web@2x.png") no-repeat center 5px;
         }
       }

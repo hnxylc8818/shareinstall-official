@@ -6,11 +6,12 @@
     .banner-left {
       width: 168px;
       height: 50px;
-      margin: 24px 0 0 34px;
+      margin: 12px 0 0 34px;
       background: url("../../img/index/nlogo.png") no-repeat center;
     }
     .banner-right {
       margin-top: 24px;
+      margin-right:4px;
       .banner-nav {
         padding: 0;
         li {
@@ -644,12 +645,12 @@
       p {
         width: 95%;
         height: 95px;
-        background: #fafafa;
+        background: #fafcfd;
         .img {
           display: inline-block;
           width: 170px;
           height: 60px;
-          margin-top: 25px;
+          margin-top: 22px;
           margin-left: 30px;
           background: url("../../img/index/huoban.png") no-repeat center;
         }
@@ -831,7 +832,7 @@
   background-size: cover;
   .extension {
     .left {
-      margin-top: 80px;
+      margin-top: 50px;
       h2 {
         font-size: 30px;
         color: #fff;
@@ -896,7 +897,7 @@
       }
     }
     .right {
-      margin-top: 80px;
+      margin-top: 50px;
       width: 200px;
       height: 200px;
       background: url("../../img/index/jiantou.png") no-repeat center;
