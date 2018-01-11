@@ -1,3 +1,7 @@
+html, body {
+  -ms-overflow-style: scrollbar;
+}
+
 /***
 底部
  */
@@ -161,7 +165,7 @@
     padding-top: 11px;
     background-color: rgba(56, 56, 56, 0.8);
   }
-  .bar-back:hover{
+  .bar-back:hover {
     background: rgba(81, 81, 81, 0.8);
   }
 }
