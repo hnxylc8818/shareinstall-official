@@ -9,6 +9,7 @@ var DfttModule = (function (dm) {
         init: function () {
             var _this = this
             _this.tabIntroduce()
+            _this.backTop()
         },
         /***
          * 点击tab切换android,ios,web功能介绍
@@ -32,6 +33,14 @@ var DfttModule = (function (dm) {
                     }
                 }
             )
+        },
+        /***
+         * 返回顶部
+         */
+        backTop:function () {
+            $("#J_barBack").on('click',function(){
+                $('body,html').animate({scrollTop:0},500);
+            })
         }
     }
 // 给模块单独定义一个命名空间

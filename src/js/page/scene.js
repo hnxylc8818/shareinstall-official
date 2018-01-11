@@ -8,18 +8,7 @@ var DfttModule = (function (dm) {
         typed: null,
         init: function () {
             var _this = this
-            _this.typedElement()
             _this.backTop()
-        },
-        /***
-         * 首页打字效果
-         */
-        typedElement: function () {
-            $(".typed-element").typed({
-                strings: ["安卓iOS安装来源跟踪",],
-                typeSpeed: 200,
-                loop: false
-            })
         },
         /***
          * 返回顶部
