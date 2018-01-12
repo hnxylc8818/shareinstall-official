@@ -10,6 +10,29 @@ var DfttModule = (function (dm) {
             var _this = this
             _this.tabIntroduce()
             _this.backTop()
+            _this.urlTo()
+        },
+        /***
+         * 通过路径判断显示那个页面
+         */
+        urlTo: function () {
+            var _this = this;
+            var url = window.document.location.href;
+            var dataIndex = url.split("?")[1]
+            if (!dataIndex) {
+                dataIndex = 'android'
+            } else {
+                if (dataIndex == 'android') { //点击安卓
+                    $(".copy div").eq(0).addClass('active activeAn').siblings().removeClass('active activeIos activeWeb')
+                    $("#J_app .my-app").eq(0).show().siblings().hide()
+                } else if (dataIndex == 'ios') {
+                    $(".copy div").eq(1).addClass('active activeIos').siblings().removeClass('active activeAn activeWeb')
+                    $("#J_app .my-app").eq(1).show().siblings().hide()
+                } else if (dataIndex == 'web') {
+                    $(".copy div").eq(2).addClass('active activeWeb').siblings().removeClass('active activeAn activeIos')
+                    $("#J_app .my-app").eq(2).show().siblings().hide()
+                }
+            }
         },
         /***
          * 点击tab切换android,ios,web功能介绍
@@ -24,10 +47,10 @@ var DfttModule = (function (dm) {
                     if (dataIndex == 'android') { //点击安卓
                         $(this).addClass('active activeAn').siblings().removeClass('active activeIos activeWeb')
                         $("#J_app .my-app").eq($(this).index()).show().siblings().hide()
-                    }else if(dataIndex == 'ios'){
+                    } else if (dataIndex == 'ios') {
                         $(this).addClass('active activeIos').siblings().removeClass('active activeAn activeWeb')
                         $("#J_app .my-app").eq($(this).index()).show().siblings().hide()
-                    }else{
+                    } else {
                         $(this).addClass('active activeWeb').siblings().removeClass('active activeAn activeIos')
                         $("#J_app .my-app").eq($(this).index()).show().siblings().hide()
                     }
@@ -37,9 +60,9 @@ var DfttModule = (function (dm) {
         /***
          * 返回顶部
          */
-        backTop:function () {
-            $("#J_barBack").on('click',function(){
-                $('body,html').animate({scrollTop:0},500);
+        backTop: function () {
+            $("#J_barBack").on('click', function () {
+                $('body,html').animate({scrollTop: 0}, 500);
             })
         }
     }
