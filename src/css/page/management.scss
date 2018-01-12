@@ -1343,7 +1343,7 @@ span.chart-btn {
 /***
 左侧导航划过样式
  */
-.my-active a {
+.my-active .active {
   background: #1c2732;
   border-left: 2px solid #2893e3!important;
   color: #fff;
@@ -1353,10 +1353,10 @@ span.chart-btn {
   color: #fff;
 }
 
-//.menu-child div:hover {
-//  background: #1c2732;
-//  border-left: 2px solid #2893e3;
-//}
+.menu-child div:hover {
+  background: #1c2732;
+  border-left: 2px solid #2893e3;
+}
 
 .menu-child div:hover a p {
   color: #fff;
