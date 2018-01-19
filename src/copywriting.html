@@ -227,7 +227,7 @@ public class WakeUpActivity extends AppCompatActivity {
             待用户通过该h5页面安装app后首次打开时（如当前设备已安装该app，将直接拉起该app并传递参数），使用shareInstall Android/iOS
             sdk从shareInstall服务器再取回暂存的自定义参数。 </h2>
         <h2><span>一键拉起功能：</span>shareInstall通过标准的scheme,universal link
-            等技术，在app已安装的情况下，从各种浏览器（包括微信、QQ、新浪微博、钉钉等主流社交软件的内置浏览器）拉起app并传递自定义参数，避免重复安装,如没安装则调至appStore或应用宝下载app,下载完毕唤起app的相应页面。
+            等技术，在app已安装的情况下，从各种浏览器（包括微信、QQ、新浪微博、钉钉等主流社交软件的内置浏览器）拉起app并传递自定义参数，避免重复安装,如没安装则跳至appStore或应用宝下载app,下载完毕唤醒app的相应页面。
         </h2>
         <h1>二、iOS SDK集成</h1>
         <h2><span>1、导入SDK</span></h2>
@@ -279,7 +279,7 @@ UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"直接点击App进来�
         <h2>到苹果开发者中心，为当前的App ID开启Associated Domains服务：</h2>
         <img src="./img/copywriting/iOS1.jpg" alt="">
         <h2><span>5.2 配置Xcode</span></h2>
-        <h2>在XCode中配置shareInstall为当前应用生成的关联域名：Associated Domains 开关打开，添加Domains。</h2>
+        <h2>在Xcode中配置shareInstall为当前应用生成的关联域名：Associated Domains 开关打开，添加Domains。</h2>
         <img src="./img/copywriting/ios2.jpg" alt="">
         <h2>在AppDelegate中的continueUserActivity方法中调用，用来处理Universal link。</h2>
         <pre style="width:800px;height:280px">
@@ -494,7 +494,7 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
         </div>
         <div class="bottom">
             <div class="left " style="text-align: center">
-                上海嵩恒网络科技有限公司 版权所有&nbsp;&nbsp;&nbsp;&nbsp;沪ICP备17050836号
+                上海嵩恒网络科技股份有限公司 版权所有&nbsp;&nbsp;&nbsp;&nbsp;沪ICP备17050836号
             </div>
             <!--<div class="right fr">-->
             <!--<a href="">关于shareinstall</a>&nbsp;&nbsp;&nbsp;&nbsp;-->
