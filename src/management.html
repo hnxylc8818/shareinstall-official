@@ -90,7 +90,7 @@
                 <div class="menu-item-text"><span>应用统计</span></div>
                 <div class="menu-child">
                     <div class="subItem-1">
-                        <a href="" class="load-channel-a" id="my-overview">
+                        <a href="./overview.html" class="load-channel-a" id="my-overview">
                             <span class="icon my-overview fl"></span>
                             <p class="fl">数据概览</p>
                         </a>
@@ -101,19 +101,19 @@
                 <div class="menu-item-text"><span>应用集成</span></div>
                 <div class="menu-child">
                     <div class="subItem-1">
-                        <a href="" class="load-channel-a" id="my-android">
+                        <a href="./android.html" class="load-channel-a" id="my-android">
                             <span class="icon my-android fl"></span>
                             <p class="fl"> Android集成</p>
                         </a>
                     </div>
                     <div class="subItem-2">
-                        <a href="" class="load-channel-a" id="my-ios">
+                        <a href="./ios.html" class="load-channel-a" id="my-ios">
                             <span class="icon my-ios fl"></span>
                             <p class="fl"> iOS集成</p>
                         </a>
                     </div>
                     <div class="subItem-3">
-                        <a href="" class="load-channel-a" id="my-web">
+                        <a href="./web.html" class="load-channel-a" id="my-web">
                             <span class="icon my-web fl"></span>
                             <p class="fl">Web集成</p>
                         </a>
@@ -124,15 +124,15 @@
                 <div class="menu-item-text"><span>渠道统计</span></div>
                 <div class="menu-child my-active">
                     <div class="subItem-1 active">
-                        <a href="" class="load-channel-a" id="my-qudao1">
+                        <a href="javascript:;" class="load-channel-a" id="my-qudao1">
                             <span class="icon my-qudao1 fl"></span>
                             <p class="fl">渠道管理</p>
                         </a>
                     </div>
                     <div class="subItem-2">
-                        <a href="" class="load-channel-a" id="my-qudao2">
+                        <a href="./comparison.html" class="load-channel-a" id="my-qudao2">
                             <span class="icon my-qudao2 fl"></span>
-                            <p class="fl">渠道对比</p>
+                            <p class="fl" style="color: #5f6b7e">渠道对比</p>
                         </a>
                     </div>
                 </div>
@@ -145,8 +145,7 @@
             <div><h2 class="container-title">渠道管理</h2></div>
             <div id="channelList" style="overflow:hidden">
                 <div style="overflow:hidden">
-                    <a id="addLink" class="pull-left btn_a" href="">
-                        +新增渠道链接</a>
+                    <a id="addLink" class="pull-left btn_a" href="">+新增渠道链接</a>
                 </div>
                 <div class="add-trend" style="float:right;margin:24px 0 0" id="stats_bar">
                     <div class="title clear">
@@ -158,8 +157,10 @@
                         <div class="div clear" style="float:left;margin:-5px 0 0 50px">
                             <!--<div class="overlay-btn" data-name="exclude" data-value="true" style="float:left">排除重复</div>-->
                             <div class="time" style="float:left">
-                                <div class="count_calendar_right date-container" style="margin:0 0 0 20px;line-height:30px;height:32px;float:left">
-                                    <span class="glyphicon glyphicon-calendar fa fa-calendar" style="padding-left:10px"></span>&nbsp;
+                                <div class="count_calendar_right date-container"
+                                     style="margin:0 0 0 20px;line-height:30px;height:32px;float:left">
+                                    <span class="glyphicon glyphicon-calendar fa fa-calendar"
+                                          style="padding-left:10px"></span>&nbsp;
                                     <span class="date-value"></span>
                                     <span class="caret" style="margin-right:10px"></span></div>
                             </div>
@@ -167,11 +168,13 @@
                     </div>
                 </div>
                 <div style="margin-top:20px">
-                    <a id="stats_export" class="count_calendar btn_a" style="border:1px solid #00c864;border-radius:4px;color:#00c864;padding-left:40px">导出</a>
+                    <a id="stats_export" class="count_calendar btn_a"
+                       style="border:1px solid #00c864;border-radius:4px;color:#00c864;padding-left:40px">导出</a>
                     <div style="float:left" class="common-form">
                         <form id="search_form">
                             <input type="text" placeholder="输入关键字搜索" name="search" style="background:#f6f6f6">
-                            <span id="search_button" class="glyphicon glyphicon-search" style="left:-30px;cursor:pointer"></span>
+                            <span id="search_button" class="glyphicon glyphicon-search"
+                                  style="left:-30px;cursor:pointer"></span>
                         </form>
                     </div>
                 </div>
@@ -232,7 +235,8 @@
                                    style="vertical-align:top"
                                    onclick="showQRCode('{{linkUrl}}','渠道链接：<strong style=\'font-size:1.1em;color:green\'>{{channelName}}</strong>')"><span>查看</span>
                                 </a>
-                                <a style="color: #656565;width: 200px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;display: inline-block;" target="_blank" href="{{linkUrl}}">{{linkUrl}}</a>
+                                <a style="color: #656565;width: 200px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;display: inline-block;"
+                                   target="_blank" href="{{linkUrl}}">{{linkUrl}}</a>
                             </div>
                         </td>
                         <td><span class="times_bac"> {{stats.v}}</span></td>
@@ -293,6 +297,9 @@
                     <span style="color:#898989;float: left;margin: 27px 20px;">共有 {{total}} 条，每页显示 {{pageSize}} 条</span>
                     {{#list this}}{{/list}}
                 </div>
-                <script src="./js/page/management.min.js"></script>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
-</html >
+</html>

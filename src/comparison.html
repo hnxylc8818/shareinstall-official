@@ -1,0 +1,312 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta content="telephone=no" name="format-detection">
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="./css/common/base.min.css">
+    <link rel="stylesheet" href="./css/common/layer.min.css">
+    <script src="./js/common/base.min.js"></script>
+    <script src="./js/page/layer.min.js"></script>
+    <link rel="stylesheet" href="./css/page/comparison.min.css">
+    <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">
+    <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
+    <script src="./js/page/web.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script>
+        var params = "1731585436"
+    </script>
+    <title>渠道对比</title>
+
+</head>
+<body style="background:#fff">
+
+<div class="layout-container">
+    <div class="dashbord-loading" id="_loading_mask">
+        <img src="/images/loading.gif">
+    </div>
+    <div class="layout-header">
+        <div class="logo-bar" style="float:left">
+            <a style="display:inline-block;width:100%;height:100%" target="_blank" href="">
+                <img src="./img/overview/logo.png" alt="" style="margin-top:11px">
+            </a>
+        </div>
+        <div class="pull-right" style="margin:15px 20px 0 0">
+            <ul class="nav nav-pills">
+                <li>
+                    <a href="">
+                        <span>应用管理</span>
+                    </a>
+                </li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span
+                        id="username"></span><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="">账号信息</a></li>
+                        <li class="divider"></li>
+                        <li onclick="logout()"><a href="javascript:;">退出登录</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="layout-menu" id="_menu">
+        <div class="menu-app"><p><img id="app_icon" style="width:70px;height:70px"></p>
+            <p id="app_name" style="font-size:18px;padding:15px 0 0;margin:0;color:#fff"></p>
+            <p style="margin:5px 0 20px;color:#75777b">
+                <a href="javascript:;" class="common-tip">
+                    <span class="tip-content">appKey是openinstall平台为每个应用分配的唯一标识符，sdk(Android/iOS/javascript)中需指定这个appKey</span>
+                </a>
+                <span style="font-size:14px;font-weight:700;color:#c4c4c4">AppKey：</span>
+                <span id="app_key" style="color:#c4c4c4;font-size:16px"></span>
+            </p>
+            <p></p>
+        </div>
+        <div class="menu-items">
+            <div class="menu-item item-5">
+                <div class="menu-item-text"><span>应用统计</span></div>
+                <div class="menu-child">
+                    <div class="subItem-1">
+                        <a href="./overview.html" class="load-channel-a" id="my-overview">
+                            <span class="icon my-overview fl"></span>
+                            <p class="fl">数据概览</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item item-1">
+                <div class="menu-item-text"><span>应用集成</span></div>
+                <div class="menu-child ">
+                    <div class="subItem-1 ">
+                        <a href="./android.html" class="load-channel-a" id="my-android">
+                            <span class="icon my-android fl"></span>
+                            <p class="fl"> Android集成</p>
+                        </a>
+                    </div>
+                    <div class="subItem-2">
+                        <a href="./ios.html" class="load-channel-a" id="my-ios">
+                            <span class="icon my-ios fl"></span>
+                            <p class="fl" style="color:#5f6b7e"> iOS集成</p>
+                        </a>
+                    </div>
+                    <div class="subItem-3">
+                        <a href="./web.html" class="load-channel-a" id="my-web">
+                            <span class="icon my-web fl"></span>
+                            <p class="fl" style="color:#5f6b7e">Web集成</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item item-2">
+                <div class="menu-item-text"><span>渠道统计</span></div>
+                <div class="menu-child my-active">
+                    <div class="subItem-1 ">
+                        <a href="./management.html" class="load-channel-a" id="my-qudao1">
+                            <span class="icon my-qudao1 fl"></span>
+                            <p class="fl" style="color: #7a8086!important;">渠道管理</p>
+                        </a>
+                    </div>
+                    <div class="subItem-2 active">
+                        <a href="javascript:;" class="load-channel-a" id="my-qudao2">
+                            <span class="icon my-qudao2 fl"></span>
+                            <p class="fl">渠道对比</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layout-content">
+        <div style="margin-bottom:30px"><h2 class="container-title"
+                                            style="color:#282828;font-size:22px;float:left;margin:0">渠道对比</h2>
+            <div style="text-align:center">
+                <button id="select_btn"><img src="./img/console/select_qd.png" alt="" style="margin-right:5px">选择渠道</button>
+            </div>
+        </div>
+        <div class="depoly-said"><b>提示：</b>老用户请注意，完整的统计功能只在sdk&gt;=2.0.0下可用</div>
+        <div id="channel_win" style="width: 850px; display: none;" class="layui-layer-wrap">
+            <div style="width:400px;float:left;min-height:380px;margin:15px;border:1px solid #5d8aff"
+                 class="selectable">
+                <div style="text-align:center;line-height:40px;background-color:#5d8aff;color:#fff">待选渠道</div>
+                <table class="table-responsive table-compare">
+                    <thead>
+                    <tr class="channel-all">
+                        <th width="120px">渠道编号</th>
+                        <th width="200px">渠道名称</th>
+                        <th width="78px">添加</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!--&lt;!&ndash;  当数据不够一页时显示  &ndash;&gt;-->
+                    <!---->
+                    <!--<tr>-->
+                    <!--<td class="channel-table-bt" colspan="4" style="height: 40px;line-height: 40px;">暂无更多</td>-->
+                    <!--</tr>-->
+                    <!---->
+                    </tbody>
+                </table>
+            </div>
+            <div style="width:400px;float:right;min-height:380px;margin:15px 15px 15px 0;border:1px solid #0c6"
+                 class="selected">
+                <div style="text-align:center;line-height:40px;background-color:#00CC66;color:#fff">已选渠道</div>
+                <table class="table-responsive table-compare">
+                    <thead>
+                    <tr class="channel-select">
+                        <th width="120px">渠道编号</th>
+                        <th width="120px">渠道名称</th>
+                        <th width="60px">移除</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div style="clear:both"></div>
+            <div style="margin:0 auto;border-top:1px solid #ededed;text-align:right;padding:20px 15px 20px 0"><a
+                    href="javascript:;" class="btn_submit cancel-btn">取 消</a><a href="javascript:;"
+                                                                                class="btn_submit confirm-btn"
+                                                                                style="background:#00c864;color:#fff;margin-left:40px">确
+                定</a></div>
+        </div>
+        <script type="text/x-handlebars-template" id="tmpl_channel_selectable">
+            <div style="text-align:center;line-height:40px;background-color:#5d8aff;color:#fff">待选渠道</div>
+            <table class="table-responsive table-compare">
+                <thead>
+                <tr class="channel-all">
+                    <th width="120px">渠道编号</th>
+                    <th width="200px">渠道名称</th>
+                    <th width="78px">添加</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#with rows}}
+                {{#each this}}
+                <tr data-channelId="{{id}}">
+                    <td width="120px">{{channelCode}}</td>
+                    <td width="200px">{{channelName}}</td>
+                    <td><a href="javascript:;" class="img-jia channel-link-operate"
+                           style="height:18px;background-size: 18px 18px;"></a>
+                    </td>
+                </tr>
+                {{/each}}
+                {{/with}}
+                <!--&lt;!&ndash;  当数据不够一页时显示  &ndash;&gt;-->
+                <!--{{#unless hasNext}}-->
+                <!--<tr>-->
+                <!--<td class="channel-table-bt" colspan="4" style="height: 40px;line-height: 40px;">暂无更多</td>-->
+                <!--</tr>-->
+                <!--{{/unless}}-->
+                </tbody>
+            </table>
+            {{#if total}}
+            <div style="text-align:center;margin-left:30px;margin-top:15px;padding-bottom:10px" class="pagination">
+                {{#if hasPrev}}<a class="prev-page" style="cursor:pointer;color:#5D8AFF">上一页</a>{{/if}}
+                {{#eval}}pageNum+1{{/eval}}/{{pages}}
+                {{#if hasNext}}<a class="next-page" style="cursor:pointer;color:#5D8AFF">下一页</a>{{/if}}
+                <span class="release-container-sp">共{{total}}条</span>
+            </div>
+            {{/if}}
+        </script>
+        <script type="text/x-handlebars-template" id="tmpl_channel_selected">
+            <div style="text-align:center;line-height:40px;background-color:#00CC66;color:#fff">已选渠道</div>
+            <table class="table-responsive table-compare">
+                <thead>
+                <tr class="channel-select">
+                    <th width="120px">渠道编号</th>
+                    <th width="120px">渠道名称</th>
+                    <th width="60px">移除</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#with selected}}
+                {{#each this}}
+                <tr data-channelId="{{id}}">
+                    <td>{{channelCode}}</td>
+                    <td>{{channelName}}</td>
+                    <td><a href="javascript:;" class="img-jian channel-link-operate"
+                           style="height:18px;background-size: 18px 18px;"></a>
+                    </td>
+                </tr>
+                {{/each}}
+                {{/with}}
+                </tbody>
+            </table>
+        </script>
+        <div class="active-trend" id="chart_total" style="width:100%;position:relative">
+            <div class="title clear"><p>总量对比</p>
+                <ul class="data_profile">
+                    <li class="all active" data-name="platform" data-value="">all</li>
+                    <li class="android" data-name="platform" data-value="android">android</li>
+                    <li class="iOS" data-name="platform" data-value="ios">ios</li>
+                </ul>
+                <div class="div clear">
+                    <div class="overlay-btn" data-name="exclude" data-value="true">排除重复</div>
+                    <div class="time">
+                        <div class="count_calendar_right date-container"
+                             style="margin:0 0 0 20px;line-height:30px;height:32px;float:left"><span
+                                class="glyphicon glyphicon-calendar fa fa-calendar" style="padding-left:10px"></span>&nbsp;<span
+                                class="date-value">所有</span><span class="caret" style="margin-right:10px"></span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="mainContent"><img src="./img/console/none.png" alt="没有数据"
+                                          style="width:48px;height:68px;position:absolute;top:50%;left:50%;margin-left:-34px;margin-top:-34px">
+            </div>
+        </div>
+        <div class="clear" style="width:100%">
+            <div class="add-trend fl" id="chart_add_trend" style="position:relative">
+                <div class="title clear"><p>增长趋势对比</p>
+                    <ul class="data_profile">
+                        <li class="all active" data-name="platform" data-value="">all</li>
+                        <li class="android" data-name="platform" data-value="android">android</li>
+                        <li class="iOS" data-name="platform" data-value="ios">ios</li>
+                    </ul>
+                    <div class="div clear">
+                        <div class="overlay-btn" data-name="exclude" data-value="true">排除重复</div>
+                        <div class="time">
+                            <div class="count_calendar_right date-container"
+                                 style="margin:0 0 0 20px;line-height:30px;height:32px;float:left"><span
+                                    class="glyphicon glyphicon-calendar fa fa-calendar"
+                                    style="padding-left:10px"></span>&nbsp;<span class="date-value">所有</span><span
+                                    class="caret" style="margin-right:10px"></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btnBox"><a class="active" data-name="type" data-value="v" href="javascript:">访问量</a><a
+                        data-name="type" data-value="i" href="javascript:">安装量</a><a href="javascript:" data-name="type"
+                                                                                     data-value="r">注册量</a></div>
+                <div class="mainContent"><img src="./img/console/none.png" alt="没有数据"
+                                              style="width:48px;height:68px;position:absolute;top:50%;left:50%;margin-left:-34px;margin-top:-34px">
+                </div>
+            </div>
+        </div>
+        <div class="active-trend" id="chart_active_trend" style="width:100%;position:relative">
+            <div class="title clear"><p>活跃趋势对比</p>
+                <ul class="data_profile">
+                    <li class="all active" data-name="platform" data-value="">all</li>
+                    <li class="android" data-name="platform" data-value="android">android</li>
+                    <li class="iOS" data-name="platform" data-value="ios">ios</li>
+                </ul>
+                <div class="div clear">
+                    <div class="time">
+                        <div class="count_calendar_right date-container"
+                             style="margin:0 0 0 20px;line-height:30px;height:32px;float:left"><span
+                                class="glyphicon glyphicon-calendar fa fa-calendar" style="padding-left:10px"></span>&nbsp;<span
+                                class="date-value">所有</span><span class="caret" style="margin-right:10px"></span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="btnBox"><a class="active" data-name="type" data-value="ad" href="javascript:">活跃设备数</a><a
+                    data-name="type" data-value="au" href="javascript:">活跃用户备数</a><a href="javascript:" data-name="type"
+                                                                                     data-value="ot">平均打开次数</a><a
+                    href="javascript:" data-name="type" data-value="os">平均在线时长(秒)</a></div>
+            <div class="mainContent"><img src="./img/console/none.png" alt="没有数据"
+                                          style="width:48px;height:68px;position:absolute;top:50%;left:50%;margin-left:-34px;margin-top:-34px">
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

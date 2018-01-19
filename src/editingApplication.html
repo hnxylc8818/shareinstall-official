@@ -26,17 +26,25 @@
                 <span class="fl title">应用图标</span>
                 <div class="fl item">
                     <div class="fl img">
-                      <img src="//mini.eastday.com/toutiaoh5/img/logo_dftt.png" alt="">
+                        <img src="" alt="" id="xmTanImg">
                     </div>
-                    <span class="fl">
-                        <em>请上传你的应用图标（大小不超过1M）</em>
-                        <input type="file" value="选择图标">
+                    <span class="fl" style="width: 250px;">
+                            <em class="fl">请上传你的应用图标（大小不超过1M）</em>
+                            <a href="javascript:;" class="file fl">选择文件
+                                 <form id="form1" name="form1" method="post" enctype="multipart/form-data"
+                                       action="http://test-api.shareinstall.com/appliance/upload">
+                                    <input type="hidden" name="username" value="" id="username">
+                                     <input type="hidden" name="token" value="" id="token">
+                                     <input type="file" name="myFile" id="fileImg" accept="image/*">
+                                 </form>
+                            </a>
+                        <!--<iframe id="my-if" style="display: block"></iframe>-->
                     </span>
                 </div>
             </div>
             <div class="name">
-                <span class="fl title">应用图标</span>
-                <input type="text" placeholder="东方头条">
+                <span class="fl title">应用名称</span>
+                <input type="text" placeholder="" id="appName">
             </div>
             <div class="button">
                 <button class="preservation">保存</button>
@@ -48,6 +56,8 @@
 
 </div>
 <script src="./js/common/base.min.js"></script>
+<script src="./js/page/jquery.cookie.min.js"></script>
+<script src="./js/page/jquery-form.min.js"></script>
 <script src="./js/page/editingApplication.min.js"></script>
 </body>
 </html>

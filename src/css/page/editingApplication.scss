@@ -72,7 +72,7 @@ nav
           }
         }
       }
-      .name{
+      .name {
         padding-left: 35px;
         height: 60px;
         .title {
@@ -82,10 +82,10 @@ nav
           font-size: 14px;
           color: #49526c;
         }
-        input{
+        input {
           width: 322px;
           height: 36px;
-          border:1px solid #e8e8e8;
+          border: 1px solid #e8e8e8;
           border-radius: 5px;
           outline: none;
           padding-left: 10px;
@@ -93,28 +93,27 @@ nav
           margin-left: 50px;
         }
       }
-      .button{
+      .button {
         position: absolute;
         left: 0;
         bottom: 72px;
         width: 100%;
         height: 36px;
         text-align: center;
-        button{
+        button {
           width: 130px;
           height: 36px;
           text-align: center;
-          line-height: 36px;
           border: none;
           border-radius: 5px;
           font-size: 16px;
         }
-        .preservation{
+        .preservation {
           background: #00a4ff;
           color: #fff;
           margin-right: 15px;
         }
-        .cancel{
+        .cancel {
           border: 1px solid #a6b2ca;
           color: #a6b2ca;
           background: #fff;
@@ -123,4 +122,38 @@ nav
       }
     }
   }
+}
+
+/**
+上传按钮美化
+ */
+.file {
+  position: relative;
+  display: inline-block;
+  background: #fff;
+  border: 1px solid #999;
+  border-radius: 4px;
+  padding: 4px 12px;
+  overflow: hidden;
+  color: #999;
+  text-decoration: none;
+  text-indent: 0;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.file input {
+  position: absolute;
+  font-size: 100px;
+  right: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file:hover {
+  background: #AADFFD;
+  border-color: #78C3F3;
+  color: #004974;
+  text-decoration: none;
 }

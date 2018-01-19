@@ -1,0 +1,1167 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta content="telephone=no" name="format-detection">
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    <link rel="stylesheet" href="./css/common/base.min.css">
+    <link rel="stylesheet" href="./css/common/layer.min.css">
+    <script src="./js/common/base.min.js"></script>
+    <script src="./js/page/layer.min.js"></script>
+    <link rel="stylesheet" href="./css/page/android.min.css">
+    <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">
+    <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
+    <script src="./js/page/android.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script>
+        var params = "1731585436"
+    </script>
+    <title>android集成</title>
+    <style type="text/css">
+        .layout-content {
+            min-width: 1024px;
+            box-sizing: content-box;
+        }
+
+        .share_list {
+            background: url(images/share_img.png) no-repeat 100%;
+            background-size: cover;
+            height: 240px;
+            background-color: #fff;
+            float: left;
+            min-width: 32%
+        }
+
+        .share_list p:first-child {
+            font-size: 24px;
+            margin: 60px 0 26px 30px;
+            color: #282828
+        }
+
+        .share_list p:last-child {
+            font-size: 30px;
+            margin: 0 0 0 30px;
+            color: #282828
+        }
+    </style>
+</head>
+<body style="background:#fff">
+<div class="layout-container">
+    <div class="dashbord-loading" id="_loading_mask">
+        <img src="/images/loading.gif">
+    </div>
+    <div class="layout-header">
+        <div class="logo-bar" style="float:left">
+            <a style="display:inline-block;width:100%;height:100%" target="_blank" href="">
+                <img src="./img/overview/logo.png" alt="" style="margin-top:11px">
+            </a>
+        </div>
+        <div class="pull-right" style="margin:15px 20px 0 0">
+            <ul class="nav nav-pills">
+                <li>
+                    <a href="">
+                        <span>应用管理</span>
+                    </a>
+                </li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span
+                        id="username"></span><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="">账号信息</a></li>
+                        <li class="divider"></li>
+                        <li onclick="logout()"><a href="javascript:;">退出登录</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layout-menu" id="_menu">
+        <div class="menu-app"><p><img id="app_icon" style="width:70px;height:70px"></p>
+            <p id="app_name" style="font-size:18px;padding:15px 0 0;margin:0;color:#fff"></p>
+            <p style="margin:5px 0 20px;color:#75777b">
+                <a href="javascript:;" class="common-tip">
+                    <span class="tip-content">appKey是openinstall平台为每个应用分配的唯一标识符，sdk(Android/iOS/javascript)中需指定这个appKey</span>
+                </a>
+                <span style="font-size:14px;font-weight:700;color:#c4c4c4">AppKey：</span>
+                <span id="app_key" style="color:#c4c4c4;font-size:16px"></span>
+            </p>
+            <p></p>
+        </div>
+        <div class="menu-items">
+            <div class="menu-item item-5">
+                <div class="menu-item-text"><span>应用统计</span></div>
+                <div class="menu-child">
+                    <div class="subItem-1">
+                        <a href="./overview.html" class="load-channel-a" id="my-overview">
+                            <span class="icon my-overview fl"></span>
+                            <p class="fl">数据概览</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item item-1">
+                <div class="menu-item-text"><span>应用集成</span></div>
+                <div class="menu-child my-active">
+                    <div class="subItem-1 active">
+                        <a href="javascript:;" class="load-channel-a" id="my-android">
+                            <span class="icon my-android fl"></span>
+                            <p class="fl"> Android集成</p>
+                        </a>
+                    </div>
+                    <div class="subItem-2">
+                        <a href="./ios.html" class="load-channel-a" id="my-ios">
+                            <span class="icon my-ios fl"></span>
+                            <p class="fl" style="color:#5f6b7e"> iOS集成</p>
+                        </a>
+                    </div>
+                    <div class="subItem-3">
+                        <a href="./web.html" class="load-channel-a" id="my-web">
+                            <span class="icon my-web fl"></span>
+                            <p class="fl" style="color:#5f6b7e">Web集成</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item item-2">
+                <div class="menu-item-text"><span>渠道统计</span></div>
+                <div class="menu-child ">
+                    <div class="subItem-1 ">
+                        <a href="./management.html" class="load-channel-a" id="my-qudao1">
+                            <span class="icon my-qudao1 fl"></span>
+                            <p class="fl">渠道管理</p>
+                        </a>
+                    </div>
+                    <div class="subItem-2">
+                        <a href="./comparison.html" class="load-channel-a" id="my-qudao2">
+                            <span class="icon my-qudao2 fl"></span>
+                            <p class="fl">渠道对比</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="position:fixed;background:#fff;z-index:2;left:250px;top:70px;width:100%;padding:20px 300px 20px 50px;-webkit-box-shadow:#ccc 0 0 3px;-moz-box-shadow:#ccc 0 0 3px;box-shadow:#ccc 0 0 3px">
+        <div id="tabs" class="tabs">
+            <ul class="tab-form">
+                <li class="active fl"><a href="javascript:;">APK包托管</a></li>
+                <li class="fl"><a href="javascript:;">Android应用配置</a></li>
+                <li class="fl"><a href="javascript:;">Android下载设置</a></li>
+                <li class="fl"><a href="javascript:;">Android集成文档</a></li>
+            </ul>
+        </div>
+        <div id="integrate-tip" style="">
+            <div class="not-integrated" style="border:2px dashed red;margin-top:10px;padding:10px 5px">
+                <span class="depoly-tip" style="color:red;font-size:16px">提示：Android平台尚未集成，</span>
+                <a href="android_step.html" class="depoly-tip-bt" style="font-size:16px;color:#00a4ff">现在去集成</a>
+            </div>
+        </div>
+    </div>
+    <div class="layout-content" style="padding-top: 150px;" id="_content">
+        <div id="tab-panel" class="">
+            <div id="_deposit" class="my-app" style="">
+                <div class="tab-content">
+                    <div class="depoly-said" style="margin:60px 0 20px;color:#00A4B0"><b style="color:#00A4B0">提示：</b>apk上传完成后的首次安装中，可能会有少量的下载延时（分布式环境下的预热处理，延长时间视安装包大小而定，一般不超过10秒）。
+                    </div>
+                    <div class="tabbable deposite_list">
+                        <div class="tab-content tab-op">
+                            <div class="tab-pane active">
+                                <div class="pkgInfoContainer"></div>
+                                <div><a href="javascript:;" class="btn_a btn_upload btn-to-upload"
+                                        style="float:right;margin-bottom:15px">上传APK文件</a></div>
+                                <div class="pkgListContainer">
+                                    <div>
+                                        <table class="table-responsive table-hover channel_link_table">
+                                            <thead>
+                                            <tr>
+                                                <th width="160px">
+                                                    <a href="javascript:;" class="common-tip">
+                                                        <span class="tip-content">上传安装包时，openinstall将为每个安装包生成一个递增的序号</span>
+                                                    </a>
+                                                    序号
+                                                </th>
+                                                <th width="160px">版本号</th>
+                                                <th width="160px">内部版本号</th>
+                                                <th width="160px">文件大小</th>
+                                                <th width="180px">上传日期</th>
+                                                <th width="200px">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <!---->
+                                            <!--<tr class="empty">-->
+                                            <!--<td class="channel-table-bt" colspan="9" style="padding: 90px;line-height:30px">-->
+                                            <!--<p class="no-template">Android平台尚未集成，暂时无法使用！</p>-->
+                                            <!--<br/>-->
+                                            <!--<a href="javascript:;" class="btn_a doc-android"-->
+                                            <!--style="padding:8px 20px;display:inline;border-radius:0;background:#4890FF;cursor:pointer">现在去集成</a>-->
+                                            <!--</td>-->
+                                            <!--</tr>-->
+                                            <!---->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div style="padding:40px 0; text-align:center">
+
+                                        1/0
+
+                                        <span class="release-container-sp">共0条</span>
+                                    </div>
+                                </div>
+                                <script type="text/x-handlebars-template" class="pkgInfoTmp">
+                                    <div class="apk-detail clearfix"
+                                         style="text-align: left;margin: 30px 0 40px;position: relative">
+                                        <div class="depoly-length" style="padding-bottom: 30px;">
+                                            <div style="display:table">
+                                                <div style="display:table-cell;vertical-align:middle">
+                                                    {{#if iconUrl}}
+                                                    <img src="{{iconUrl}}" alt=""
+                                                         style="width:60px;height:60px;border-radius: 3px"/>
+                                                    {{else}}
+                                                    <img src="//res.cdn.openinstall.io/api_v2/images/default-icon.png"
+                                                         alt="" style="width:60px;height:60px;border-radius: 3px"/>
+                                                    {{/if}}
+                                                </div>
+                                                <div style="padding-left: 20px;display:table-cell;vertical-align:middle">
+                                                    <table class="detail-message">
+                                                        <tr>
+                                                            <td>
+                                                                {{#if serialNumber}}
+                                                                <p class="base-message">序号：<span>{{serialNumber}}</span>
+                                                                </p>
+                                                                {{/if}}
+                                                                {{#if fileName}}
+                                                                <p class="base-message">文件名：<span>{{fileName}}</span>
+                                                                </p>
+                                                                {{/if}}
+                                                            </td>
+                                                            <td>
+                                                                <p class="base-message">应用名：<span>{{name}}</span></p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <p class="base-message">文件大小：<span>{{sFileSize}}</span>
+                                                                </p>
+                                                            </td>
+                                                            <td>
+                                                                {{#if sUploadTime}}
+                                                                <p class="base-message">
+                                                                    上传时间：<span>{{sUploadTime}}</span></p>
+                                                                {{/if}}
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="depoly-length ipa-message"
+                                             style="padding: 30px 0;overflow: hidden;">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <p class="info">
+                                                            {{#if warns.appKey}}
+                                                            <img src="/images/type/warn.png" alt=""/>
+                                                            {{/if}}
+                                                            {{#if errors.appKey}}
+                                                            <img src="/images/type/error.png" alt=""/>
+                                                            {{/if}}
+                                                            <span>appKey：</span><span class="ipa-message-name">{{appKey}}</span>
+                                                        </p>
+                                                        {{#if warns.appKey}}
+                                                        <p class="warn">{{warns.appKey}} <a href="javascript:;"
+                                                                                            class="doc-android-appKey">点此查看详情</a>
+                                                        </p>
+                                                        {{/if}}
+                                                        {{#if errors.appKey}}
+                                                        <p class="error">{{errors.appKey}} <a href="javascript:;"
+                                                                                              class="doc-android-appKey">点此查看详情</a>
+                                                        </p>
+                                                        {{/if}}
+                                                    </td>
+                                                    <td>
+                                                        <p class="info">
+                                                            {{#if warns.packageName}}
+                                                            <img src="/images/type/warn.png" alt=""/>
+                                                            {{/if}}
+                                                            {{#if errors.packageName}}
+                                                            <img src="/images/type/error.png" alt=""/>
+                                                            {{/if}}
+                                                            <span>包名(applicationId)：</span><span
+                                                                class="ipa-message-name">{{packageName}}</span>
+                                                        </p>
+                                                        {{#if warns.packageName}}
+                                                        <p class="warn">{{warns.packageName}} <a href="javascript:;"
+                                                                                                 class="doc-android-packageName">点此查看详情</a>
+                                                        </p>
+                                                        {{/if}}
+                                                        {{#if errors.packageName}}
+                                                        <p class="error">{{errors.packageName}} <a href="javascript:;"
+                                                                                                   class="doc-android-packageName">点此查看详情</a>
+                                                        </p>
+                                                        {{/if}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <p class="info">
+                                                            {{#if warns.versionDisplay}}
+                                                            <img src="/images/type/warn.png" alt=""/>
+                                                            {{/if}}
+                                                            {{#if errors.versionDisplay}}
+                                                            <img src="/images/type/error.png" alt=""/>
+                                                            {{/if}}
+                                                            <span>版本号(versionName)：</span><span
+                                                                class="ipa-message-name">{{versionDisplay}}</span></p>
+                                                        {{#if warns.versionDisplay}}
+                                                        <p class="warn">{{warns.versionDisplay}}</p>
+                                                        {{/if}}
+                                                        {{#if errors.versionDisplay}}
+                                                        <p class="error">{{errors.versionDisplay}}</p>
+                                                        {{/if}}
+                                                    </td>
+                                                    <td>
+                                                        <p class="info">
+                                                            {{#if warns.versionCode}}
+                                                            <img src="/images/type/warn.png" alt=""/>
+                                                            {{/if}}
+                                                            {{#if errors.versionCode}}
+                                                            <img src="/images/type/error.png" alt=""/>
+                                                            {{/if}}
+                                                            <span>内部版本号(versionCode)：</span><span
+                                                                class="ipa-message-name">{{version}}</span></p>
+                                                        {{#if warns.version}}
+                                                        <p class="warn">{{warns.version}}</p>
+                                                        {{/if}}
+                                                        {{#if errors.version}}
+                                                        <p class="error">{{errors.version}}</p>
+                                                        {{/if}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <p class="info">
+                                                            {{#if warns.openinstallScheme}}
+                                                            <img src="/images/type/warn.png" alt=""/>
+                                                            {{/if}}
+                                                            {{#if errors.openinstallScheme}}
+                                                            <img src="/images/type/error.png" alt=""/>
+                                                            {{/if}}
+                                                            <span>scheme(由openinstall自动分配)：</span>
+                                                            <span class="ipa-message-name">{{openinstallScheme}}</span>
+                                                        </p>
+                                                        {{#if warns.openinstallScheme}}
+                                                        <p class="warn">{{warns.openinstallScheme}}&nbsp;&nbsp;<a
+                                                                href="javascript:;"
+                                                                class="doc-android-scheme">点此查看详情</a></p>
+                                                        {{/if}}
+                                                        {{#if errors.openinstallScheme}}
+                                                        <p class="warn">{{errors.openinstallScheme}}&nbsp;&nbsp;<a
+                                                                href="javascript:;"
+                                                                class="doc-android-scheme">点此查看详情</a></p>
+                                                        {{/if}}
+                                                    </td>
+                                                    <td>
+                                                        <p class="info">
+                                                            {{#if warns.certSha}}
+                                                            <img src="/images/type/warn.png" alt=""/>
+                                                            {{/if}}
+                                                            {{#if errors.certSha}}
+                                                            <img src="/images/type/error.png" alt=""/>
+                                                            {{/if}}
+                                                            <span>签名证书指纹(SHA-1)：</span>
+                                                            <span class="ipa-message-name">{{certSha}}</span>
+                                                        </p>
+                                                        {{#if warns.certSha}}
+                                                        <p class="warn">{{warns.certSha}}&nbsp;&nbsp;<a
+                                                                href="javascript:;" class="doc-android-cert">点此查看详情</a>
+                                                        </p>
+                                                        {{/if}}
+                                                        {{#if errors.certSha}}
+                                                        <p class="warn">{{errors.certSha}}&nbsp;&nbsp;<a
+                                                                href="javascript:;" class="doc-android-cert">点此查看详情</a>
+                                                        </p>
+                                                        {{/if}}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <!--<div class="dashbord-loading" id="loading_tr" style="z-index: 99999;position: absolute;display: none">-->
+                                        <!--<img src="/images/loading.gif" style="width: 60px;height: 60px;left: 50%;">-->
+                                        <!--</div>-->
+                                    </div>
+                                </script>
+                                <script type="text/x-handlebars-template" class="pkgListTmp">
+                                    <div>
+                                        <table class="table-responsive table-hover channel_link_table">
+                                            <thead>
+                                            <tr>
+                                                <th width="160px">
+                                                    <a href="javascript:;" class="common-tip">
+                                                        <span class="tip-content">上传安装包时，openinstall将为每个安装包生成一个递增的序号</span>
+                                                    </a>
+                                                    序号
+                                                </th>
+                                                <th width="160px">版本号</th>
+                                                <th width="160px">内部版本号</th>
+                                                <th width="160px">文件大小</th>
+                                                <th width="180px">上传日期</th>
+                                                <th width="200px">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {{#with rows}}
+                                            {{#each this}}
+                                            {{#if using}}
+                                            <tr style="color:blue" data-row-index="{{_index}}" data-pkgId="{{id}}">
+                                                {{else}}
+                                            <tr data-row-index="{{_index}}" data-pkgId="{{id}}">
+                                                {{/if}}
+                                                <td class="release_td">{{serialNumber}}</td>
+                                                <td class="release_td">{{versionDisplay}}</td>
+                                                <td class="release_td">{{version}}</td>
+                                                <td class="release_td">{{sFileSize}}</td>
+                                                <td class="release_td">{{sUploadTime}}</td>
+                                                <td class="release_td">
+                                                    {{#if using}}
+                                                    {{/if}}
+                                                    {{#unless using}}
+                                                    <a href="javascript:;" class="deploy-pkg-button"
+                                                       style="width:80px;display:inline-block;color:#5BD377"><img
+                                                            src="images/type/fabu.png" alt=""/>&nbsp;&nbsp;发布</a>
+                                                    <a href="javascript:;" class="remove-pkg-button"
+                                                       style="width:80px;display:inline-block;color:#399CFF"><img
+                                                            src="images/type/rubbish.png" alt=""/>&nbsp;&nbsp;删除</a>
+                                                    {{/unless}}
+                                                </td>
+                                            </tr>
+                                            {{/each}}
+                                            {{else}}
+                                            {{/with}}
+                                            <!--{{#unless integrated}}-->
+                                            <!--<tr class="empty">-->
+                                            <!--<td class="channel-table-bt" colspan="9" style="padding: 90px;line-height:30px">-->
+                                            <!--<p class="no-template">Android平台尚未集成，暂时无法使用！</p>-->
+                                            <!--<br/>-->
+                                            <!--<a href="javascript:;" class="btn_a doc-android"-->
+                                            <!--style="padding:8px 20px;display:inline;border-radius:0;background:#4890FF;cursor:pointer">现在去集成</a>-->
+                                            <!--</td>-->
+                                            <!--</tr>-->
+                                            <!--{{/unless}}-->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div style="padding:40px 0; text-align:center">
+                                        {{#if hasPrev}}<a style="cursor:pointer;" class="page-prev">上一页</a>{{/if}}
+                                        {{#eval}}pageNum+1{{/eval}}/{{pages}}
+                                        {{#if hasNext}}<a style="cursor:pointer;" class="page-next">下一页</a>{{/if}}
+                                        <span class="release-container-sp">共{{total}}条</span>
+                                    </div>
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin:0 auto 0 auto;display:none" class="deposite_upload">
+                        <div style="overflow:hidden;margin-bottom:-30px"><a href="javascript:;"
+                                                                            class="btn_a btn-upload-back btn_upload"
+                                                                            style="float:right;margin:0;padding:5px 30px">返&nbsp;&nbsp;回</a>
+                        </div>
+                        <div class="deposit-uploader-container">
+                            <style>.progress {
+                                height: 20px;
+                                background: #ebebeb;
+                                border-left: 1px solid transparent;
+                                border-right: 1px solid transparent;
+                                border-radius: 10px;
+                                width: 75%;
+                                margin: 30px auto
+                            }
+
+                            .progress > span {
+                                position: relative;
+                                float: left;
+                                margin: 0 -1px;
+                                min-width: 30px;
+                                height: 18px;
+                                line-height: 16px;
+                                text-align: right;
+                                background: #ccc;
+                                border: 1px solid;
+                                border-color: #bfbfbf #b3b3b3 #9e9e9e;
+                                border-radius: 10px;
+                                background-image: -webkit-linear-gradient(top, #f0f0f0 0, #dbdbdb 70%, #ccc 100%);
+                                background-image: -moz-linear-gradient(top, #f0f0f0 0, #dbdbdb 70%, #ccc 100%);
+                                background-image: -o-linear-gradient(top, #f0f0f0 0, #dbdbdb 70%, #ccc 100%);
+                                background-image: linear-gradient(to bottom, #f0f0f0 0, #dbdbdb 70%, #ccc 100%);
+                                -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, .3), 0 1px 2px rgba(0, 0, 0, .2);
+                                box-shadow: inset 0 1px rgba(255, 255, 255, .3), 0 1px 2px rgba(0, 0, 0, .2)
+                            }
+
+                            .progress .blue {
+                                background: #a5d4f1;
+                                border-color: #459fd6 #3094d2 #277db2;
+                                background-image: -webkit-linear-gradient(top, #aed5ed 0, #7bbbe2 70%, #5aaadb 100%);
+                                background-image: -moz-linear-gradient(top, #aed5ed 0, #7bbbe2 70%, #5aaadb 100%);
+                                background-image: -o-linear-gradient(top, #aed5ed 0, #7bbbe2 70%, #5aaadb 100%);
+                                background-image: linear-gradient(to bottom, #aed5ed 0, #7bbbe2 70%, #5aaadb 100%)
+                            }
+
+                            .upload-percent {
+                                position: relative;
+                                top: -50px;
+                                left: 40%;
+                                color: #78cfff;
+                                font-weight: 700;
+                                font-size: 16px
+                            }
+
+                            #up_container input[type=file] {
+                                cursor: pointer
+                            }</style>
+                            <div class="item-upload up_container">
+                                <div class="up_area" style="position:absolute;top:0;left:0;width:100%;height:100%">
+                                    <button class="btn_a up_button"
+                                            style="margin: 200px auto 40px; background: rgb(91, 211, 119); border-radius: 4px; color: rgb(255, 255, 255); position: relative; z-index: 1;">
+                                        选择apk文件
+                                    </button>
+                                    <p style="color:#898989">
+                                        在此上传apk安装包仅用于在线检查openinstall集成配置，方便开发者快速集成与测试，不存在额外的安全隐患。</p>
+                                    <p style="color:#898989">(单个文件最大支持800M)</p>
+                                    <p style="color:#f47870;margin-top:150px">请使用chrome,firefox,safari,edge或是IE&gt;=10的浏览器</p>
+                                </div>
+                                <div class="drag_area"
+                                     style="position:absolute;top:0;left:0;width:100%;height:100%;display:none"><p
+                                        style="height:100%;background:#4c4c4c;line-height:300px;color:#fff">
+                                    将文件拖拽至此区域，即可上传</p></div>
+                                <div class="drag_listener"
+                                     style="opacity:0;position:absolute;top:0;left:0;width:100%;height:100%;display:none"></div>
+                                <div id="html5_1c3uu47tv62v1ml0km1d201eve3_container"
+                                     class="moxie-shim moxie-shim-html5"
+                                     style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; overflow: hidden; z-index: 0;">
+                                    <input id="html5_1c3uu47tv62v1ml0km1d201eve3" type="file"
+                                           style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;"
+                                           accept=""></div>
+                            </div>
+                            <div class="item-upload item-upload-inner file_info" style="display:none">
+                                <div class="file_info_detail" style="padding:0 40px"></div>
+                                <script type="text/x-handlebars-template" class="file_info_detail_tmp">
+                                    <div class="apk-detail clearfix"
+                                         style="text-align: left;margin: 30px 0 40px;position: relative">
+                                        <div class="depoly-length" style="padding-bottom: 30px;">
+                                            <div style="display:table">
+                                                <div style="display:table-cell;vertical-align:middle">
+                                                    {{#if iconUrl}}
+                                                    <img src="{{iconUrl}}" alt=""
+                                                         style="width:60px;height:60px;border-radius: 3px"/>
+                                                    {{else}}
+                                                    <img src="//res.cdn.openinstall.io/api_v2/images/default-icon.png"
+                                                         alt="" style="width:60px;height:60px;border-radius: 3px"/>
+                                                    {{/if}}
+                                                </div>
+                                                <div style="padding-left: 20px;display:table-cell;vertical-align:middle">
+                                                    <table class="detail-message">
+                                                        <tr>
+                                                            <td>
+                                                                {{#if serialNumber}}
+                                                                <p class="base-message">序号：<span>{{serialNumber}}</span>
+                                                                </p>
+                                                                {{/if}}
+                                                                {{#if fileName}}
+                                                                <p class="base-message">文件名：<span>{{fileName}}</span>
+                                                                </p>
+                                                                {{/if}}
+                                                            </td>
+                                                            <td>
+                                                                <p class="base-message">应用名：<span>{{name}}</span></p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <p class="base-message">文件大小：<span>{{sFileSize}}</span>
+                                                                </p>
+                                                            </td>
+                                                            <td>
+                                                                {{#if sUploadTime}}
+                                                                <p class="base-message">
+                                                                    上传时间：<span>{{sUploadTime}}</span></p>
+                                                                {{/if}}
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="depoly-length ipa-message"
+                                             style="padding: 30px 0;overflow: hidden;">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <p class="info">
+                                                            {{#if warns.appKey}}
+                                                            <img src="/images/type/warn.png" alt=""/>
+                                                            {{/if}}
+                                                            {{#if errors.appKey}}
+                                                            <img src="/images/type/error.png" alt=""/>
+                                                            {{/if}}
+                                                            <span>appKey：</span><span class="ipa-message-name">{{appKey}}</span>
+                                                        </p>
+                                                        {{#if warns.appKey}}
+                                                        <p class="warn">{{warns.appKey}} <a href="javascript:;"
+                                                                                            class="doc-android-appKey">点此查看详情</a>
+                                                        </p>
+                                                        {{/if}}
+                                                        {{#if errors.appKey}}
+                                                        <p class="error">{{errors.appKey}} <a href="javascript:;"
+                                                                                              class="doc-android-appKey">点此查看详情</a>
+                                                        </p>
+                                                        {{/if}}
+                                                    </td>
+                                                    <td>
+                                                        <p class="info">
+                                                            {{#if warns.packageName}}
+                                                            <img src="/images/type/warn.png" alt=""/>
+                                                            {{/if}}
+                                                            {{#if errors.packageName}}
+                                                            <img src="/images/type/error.png" alt=""/>
+                                                            {{/if}}
+                                                            <span>包名(applicationId)：</span><span
+                                                                class="ipa-message-name">{{packageName}}</span>
+                                                        </p>
+                                                        {{#if warns.packageName}}
+                                                        <p class="warn">{{warns.packageName}} <a href="javascript:;"
+                                                                                                 class="doc-android-packageName">点此查看详情</a>
+                                                        </p>
+                                                        {{/if}}
+                                                        {{#if errors.packageName}}
+                                                        <p class="error">{{errors.packageName}} <a href="javascript:;"
+                                                                                                   class="doc-android-packageName">点此查看详情</a>
+                                                        </p>
+                                                        {{/if}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <p class="info">
+                                                            {{#if warns.versionDisplay}}
+                                                            <img src="/images/type/warn.png" alt=""/>
+                                                            {{/if}}
+                                                            {{#if errors.versionDisplay}}
+                                                            <img src="/images/type/error.png" alt=""/>
+                                                            {{/if}}
+                                                            <span>版本号(versionName)：</span><span
+                                                                class="ipa-message-name">{{versionDisplay}}</span></p>
+                                                        {{#if warns.versionDisplay}}
+                                                        <p class="warn">{{warns.versionDisplay}}</p>
+                                                        {{/if}}
+                                                        {{#if errors.versionDisplay}}
+                                                        <p class="error">{{errors.versionDisplay}}</p>
+                                                        {{/if}}
+                                                    </td>
+                                                    <td>
+                                                        <p class="info">
+                                                            {{#if warns.versionCode}}
+                                                            <img src="/images/type/warn.png" alt=""/>
+                                                            {{/if}}
+                                                            {{#if errors.versionCode}}
+                                                            <img src="/images/type/error.png" alt=""/>
+                                                            {{/if}}
+                                                            <span>内部版本号(versionCode)：</span><span
+                                                                class="ipa-message-name">{{version}}</span></p>
+                                                        {{#if warns.version}}
+                                                        <p class="warn">{{warns.version}}</p>
+                                                        {{/if}}
+                                                        {{#if errors.version}}
+                                                        <p class="error">{{errors.version}}</p>
+                                                        {{/if}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <p class="info">
+                                                            {{#if warns.openinstallScheme}}
+                                                            <img src="/images/type/warn.png" alt=""/>
+                                                            {{/if}}
+                                                            {{#if errors.openinstallScheme}}
+                                                            <img src="/images/type/error.png" alt=""/>
+                                                            {{/if}}
+                                                            <span>scheme(由openinstall自动分配)：</span>
+                                                            <span class="ipa-message-name">{{openinstallScheme}}</span>
+                                                        </p>
+                                                        {{#if warns.openinstallScheme}}
+                                                        <p class="warn">{{warns.openinstallScheme}}&nbsp;&nbsp;<a
+                                                                href="javascript:;"
+                                                                class="doc-android-scheme">点此查看详情</a></p>
+                                                        {{/if}}
+                                                        {{#if errors.openinstallScheme}}
+                                                        <p class="warn">{{errors.openinstallScheme}}&nbsp;&nbsp;<a
+                                                                href="javascript:;"
+                                                                class="doc-android-scheme">点此查看详情</a></p>
+                                                        {{/if}}
+                                                    </td>
+                                                    <td>
+                                                        <p class="info">
+                                                            {{#if warns.certSha}}
+                                                            <img src="/images/type/warn.png" alt=""/>
+                                                            {{/if}}
+                                                            {{#if errors.certSha}}
+                                                            <img src="/images/type/error.png" alt=""/>
+                                                            {{/if}}
+                                                            <span>签名证书指纹(SHA-1)：</span>
+                                                            <span class="ipa-message-name">{{certSha}}</span>
+                                                        </p>
+                                                        {{#if warns.certSha}}
+                                                        <p class="warn">{{warns.certSha}}&nbsp;&nbsp;<a
+                                                                href="javascript:;" class="doc-android-cert">点此查看详情</a>
+                                                        </p>
+                                                        {{/if}}
+                                                        {{#if errors.certSha}}
+                                                        <p class="warn">{{errors.certSha}}&nbsp;&nbsp;<a
+                                                                href="javascript:;" class="doc-android-cert">点此查看详情</a>
+                                                        </p>
+                                                        {{/if}}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <!--<div class="dashbord-loading" id="loading_tr" style="z-index: 99999;position: absolute;display: none">-->
+                                        <!--<img src="/images/loading.gif" style="width: 60px;height: 60px;left: 50%;">-->
+                                        <!--</div>-->
+                                    </div>
+                                </script>
+                                <div style="padding-bottom:20px">
+                                    <button class="btn_submit btn_submit_bg start_upload">确认上传</button>
+                                    <button style="color:#00c864" class="btn_submit cancel_upload">取消</button>
+                                </div>
+                            </div>
+                            <div class="item-upload up_progress" style="display:none"><p style="margin-top:45px"><span>文件名：</span><span
+                                    class="filename"></span></p>
+                                <p><span>已上传：</span><span class="prog_uploaded"></span></p>
+                                <p><span>上传速度：</span><span class="prog_speed"></span></p>
+                                <div class="progress"><span class="blue percent_progress" style="width:0"></span></div>
+                                <span class="upload-percent percent_text"></span>
+                                <p style="margin-top:-20px;margin-bottom:40px">文件正在上传，请勿关闭浏览器</p>
+                                <button style="color:#00c864" class="btn_submit stop_upload">取消上传</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="_config" class="my-app" style="display: none;">
+                <div class="tab-content">
+                    <div>
+                        <form method="post" class="common-form">
+                            <input type="hidden" name="appId" value="690052788" disabled="">
+                            <div class="depoly-length" style="padding-top:40px">
+                                <div class="depoly-web">
+                                    <div style="margin-bottom: 30px;">
+                            <span class="config-ios-name">
+                                <a href="javascript:;" class="common-tip">
+                                <span class="tip-content">appKey是openinstall平台为每个应用分配的唯一标识符，sdk(Android/iOS/javascript)中需指定这个appKey</span>
+                                </a>
+                                AppKey
+                            </span>
+                                        <div class="config-text">
+                                            <div>
+                                                <span style="color:#282828;font-weight:bold">beu850</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                            <span class="config-ios-name">
+                                <a href="javascript:;" class="common-tip">
+                                    <span class="tip-content">packageName在代码中使用，通常在AndroidManifest.xml中指定，applicationId则只是用于程序的标识，通常在build.gradle中指定。
+                                                                    如果您没有在您的 build.gradle 文件中定义 applicationId，这个applicationId 将默认为 AndroidManifest.xml 中所指定的packageName的值。
+                                    </span>
+                                </a>
+                                applicationId
+                                <b style="color:#F26358;">*</b>
+                            </span>
+                                        <div class="config-text">
+                                            <div>
+                                                <input type="text" name="pkgName" value="" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="depoly-length">
+                                <div style="padding: 0 0 30px;">
+                                    <fieldset>
+                                        <legend>
+                                            <div>
+                                                <span style="color:#282828;margin: 30px 0 20px 0;"
+                                                      class="config-ios-name">启用scheme</span>
+                                                <div class="config-text">
+                                                    <div>
+                                                        <label class="depoly-label"><input class="fieldset_switch"
+                                                                                           type="checkbox"
+                                                                                           name="schemaEnabled"
+                                                                                           value="true" checked=""
+                                                        >&nbsp;&nbsp;启用</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </legend>
+                                        <div style="height: 1px"></div>
+                                        <div class="depoly-said depoly-txt"><b>提示：</b>在app已安装的情况下，从各种浏览器中拉起App。</div>
+                                        <div>
+                            <span class="config-ios-name">
+                                <a href="javascript:;" class="common-tip">
+                                    <span class="tip-content">openinstall为每个应用随机分配的scheme，并保证唯一性，开发者需将此scheme配置到AndroidManifest.xml中，才能顺利拉起app</span>
+                                </a>
+                                scheme
+                            </span>
+                                            <div class="config-text">
+                                                <div>
+                                                    <span style="color:#282828;font-weight:bold">opbvt8gd</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="depoly-length" style="padding-bottom:30px">
+                                <fieldset>
+                                    <div class="depoly-web" style="padding:0">
+                                        <legend>
+                                            <div>
+                                                <span style="color:#282828;margin: 30px 0 20px 0;"
+                                                      class="config-ios-name">API安全验证</span>
+                                                <div class="config-text">
+                                                    <div>
+                                                        <label class="depoly-label"><input class="fieldset_switch"
+                                                                                           type="checkbox"
+                                                                                           name="certVerifyEnabled"
+                                                                                           value="true">&nbsp;&nbsp;启用</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </legend>
+                                        <div style="height: 1px"></div>
+                                    </div>
+                                    <div class="depoly-said depoly-txt"><b>提示：</b>通过启用API安全验证，开发者在保证本app签名证书不外泄的前提下，openinstall服务器可防止统计数据造假
+                                    </div>
+                                    <div class="depoly-web">
+                                        <div>
+                            <span class="config-ios-name">
+                                <a href="javascript:;" class="common-tip">
+                                    <span class="tip-content">apk签名证书的SHA-1指纹，使用jdk自带工具keytool即可获取:"keytool -list -keystore xxx -storepass xxx"</span>
+                                </a>
+                               apk签名证书指纹
+                                <br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（SHA-1）
+                            </span>
+                                            <div class="config-text">
+                                                <div>
+                                                    <input type="text" name="certSha" value="" disabled="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div style="padding:40px 0">
+                                <button type="submit" class="btn_a btn_submit submit_btn">保 存</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="_market" class="my-app" style="display: none;">
+                <div>
+                    <div class="tab-content">
+                        <div style="height: 20px;"></div>
+                        <div class="clearfix">
+                            <form id="android_form" class="common-form">
+                                <input type="hidden" name="appId" value="690052788" disabled="">
+                                <input type="hidden" name="android" value="true" disabled="">
+                                <div class="depoly-length">
+                                    <fieldset>
+                                        <div class="depoly-web" style="padding:0">
+                                            <legend>
+                                                <div>
+                                                    <span style="color:#282828;margin: 30px 0 20px 0;"
+                                                          class="config-ios-name">集成应用宝</span>
+                                                    <div class="config-text">
+                                                        <div>
+                                                            <label class="depoly-label"><input class="fieldset_switch"
+                                                                                               type="checkbox"
+                                                                                               name="yybEnabled"
+                                                                                               value="true">&nbsp;&nbsp;启用&nbsp;&nbsp;</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </legend>
+                                            <div style="height: 1px"></div>
+                                        </div>
+                                        <div class="depoly-said depoly-txt">
+                                            <b>提示：</b>只在微信QQ下有效，如无法申请到应用宝的app
+                                            link功能（在应用宝中使用scheme拉起app并还原数据），请联系openinstall技术客服！
+                                        </div>
+                                        <div class="depoly-web">
+                                            <div>
+                                                <span class="config-ios-name">应用宝地址</span>
+                                                <div class="config-text">
+                                                    <div>
+                                                        <input type="text" name="yybUrl" value="" disabled="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="depoly-length" style="padding-bottom:30px">
+                                    <fieldset>
+                                        <div class="depoly-web" style="padding:0">
+                                            <legend>
+                                                <div>
+                                                    <span style="color:#282828;margin: 30px 0 20px 0;"
+                                                          class="config-ios-name">APK包自行托管</span>
+                                                    <div class="config-text">
+                                                        <div>
+                                                            <label class="depoly-label"><input class="fieldset_switch"
+                                                                                               type="checkbox"
+                                                                                               name="apkExternalEnabled"
+                                                                                               value="true">&nbsp;&nbsp;启用&nbsp;&nbsp;</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </legend>
+                                            <div style="height: 1px"></div>
+                                        </div>
+                                        <div class="depoly-said depoly-txt">
+                                            <b>提示：</b>openinstall默认对APK包进行托管，用户也可在此提供APK文件的下载地址，使用第三方托管的方式<a
+                                                href="javascript:;" class="common-tip">
+                                            <span class="tip-content">我们推荐用户使用openinstall平台的apk包托管功能，以得到最优的安装流程；</span>
+                                        </a>
+                                            <!--<span-->
+                                            <!--style="color:red">但可能降低数据还原的成功率与app安装的体验，请慎重！</span>-->
+                                        </div>
+                                        <div class="depoly-web" style="padding:0">
+                                            <div>
+                                                <span class="config-ios-name">APK下载地址</span>
+                                                <div class="config-text">
+                                                    <div>
+                                                        <input type="text" name="apkExternalUrl" value="" disabled="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                </div>
+                                <div class="depoly-length" style="padding-bottom:30px">
+                                    <fieldset>
+                                        <div class="depoly-web" style="padding:0">
+                                            <legend>
+                                                <div>
+                                                    <span style="color:#282828;margin: 30px 0 20px 0;"
+                                                          class="config-ios-name">集成本地应用市场</span>
+                                                    <div class="config-text">
+                                                        <div>
+                                                            <label class="depoly-label"><input class="fieldset_switch"
+                                                                                               type="checkbox"
+                                                                                               name="marketEnabled"
+                                                                                               value="true" >&nbsp;&nbsp;启用&nbsp;&nbsp;</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </legend>
+                                            <div style="height: 1px"></div>
+                                        </div>
+                                        <div class="depoly-said depoly-txt"><b>提示：</b>将使用market协议拉起本机的应用市场app(即：<strong>market://details?id=packageName</strong>)；<span
+                                                style="color:red">由于国产Android厂商的多样性，在开启此选项前请确保app已上架到所有应用市场，请慎重！</span>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div style="padding:40px 0">
+                                    <button type="submit" class="btn_a btn_submit" >保 存</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="clear:both"></div>
+            </div>
+            <div id="_android" class="my-android container my-app" style="display: none">
+                <h1 style="margin-top:0">导入SDK</h1>
+                <h2>将aar文件拷贝到项目的libs文件夹下，并导入。</h2>
+                <div><pre style="width:400px;height:140px"><code style="width:100%;height:80%"
+                                                                 class="lang-javascript hljs scss">
+dependencies {
+    <span class="hljs-function">compile(name: <span class="hljs-string">'ShareInstall_1.0.0'</span>, ext: <span
+            class="hljs-string">'aar'</span>)</span>
+}
+</code>
+</pre>
+                    <h1>基础配置</h1>
+                    <h2>在AndroidMainfest.xml中添加权限声明。</h2>
+                    <pre style="width:600px;height:100px"><code style="width:100%;height:80%"
+                                                                class="lang-javascript hljs xml">
+<span class="hljs-tag">&lt;<span class="hljs-title">uses-permission</span> <span
+        class="hljs-attribute">android:name</span>=<span
+        class="hljs-value">"android.permission.INTERNET"</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">uses-permission</span> <span
+        class="hljs-attribute">android:name</span>=<span
+        class="hljs-value">"android.permission.ACCESS_NETWORK_STATE"</span> /&gt;</span>
+</code>
+</pre>
+                    <h2>在自定义Application中调用SHShareInstallSDK.getInstance().init(context)方法完成SDK初始化。</h2>
+                    <pre style="width:900px;height:540px"><code style="width:100%;height:96%"
+                                                                class="lang-javascript hljs java">
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span
+                            class="hljs-title">MyApp</span> <span class="hljs-keyword">extends</span> <span
+                            class="hljs-title">Application</span> {</span>
+
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span
+                            class="hljs-title">onCreate</span>() {
+        <span class="hljs-keyword">super</span>.onCreate();
+        <span class="hljs-keyword">if</span> (isMainProcess()) {
+            SHShareInstallSDK.getInstance().init(getApplicationContext());
+        }
+    }
+
+    <span class="hljs-javadoc">/**
+     * 判断当前进程是否是应用的主进程
+     *
+     *<span class="hljs-javadoctag"> @return</span>
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isMainProcess</span>() {
+        <span class="hljs-keyword">int</span> pid = android.os.Process.myPid();
+        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        <span class="hljs-keyword">for</span> (ActivityManager.RunningAppProcessInfo appProcess : activityManager.getRunningAppProcesses()) {
+            <span class="hljs-keyword">if</span> (appProcess.pid == pid) {
+                <span class="hljs-keyword">return</span> getApplicationInfo().packageName.equals(appProcess.processName);
+            }
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    }
+}
+</code>
+</pre>
+                    <h2>在AndroidMainfest.xml中的application标签中添加
+                        android:name=".MyApplication"指定自定义的Application类，以便程序启动的时候初始化自<br>定义Application类，而不是系统默认的Application类。
+                    </h2>
+                    <pre style="width:400px;height:200px"><code style="width:100%;height:91%"
+                                                                class="lang-javascript hljs applescript">
+&lt;<span class="hljs-type">application</span>
+        android:<span class="hljs-property">name</span>=<span class="hljs-string">".MyApplication"</span>
+        android:allowBackup=<span class="hljs-string">"false"</span>
+        android:icon=<span class="hljs-string">"@mipmap/ic_launcher"</span>
+        android:label=<span class="hljs-string">"@string/app_name"</span>
+        android:supportsRtl=<span class="hljs-string">"true"</span>
+        android:theme=<span class="hljs-string">"@style/AppTheme"</span>&gt;
+&lt;/<span class="hljs-type">application</span>&gt;
+</code>
+</pre>
+                    <h1>一键跳转</h1>
+                    <h2>在AndroidMainfest的唤醒页面activity标签中添加intent-filter（一般为MainActivity）, 配置scheme，用于浏览器中拉起。</h2>
+                    <pre style="width:600px;height:250px"><code style="width:100%;height:88%"
+                                                                class="lang-javascript hljs xml">
+<span class="hljs-tag">&lt;<span class="hljs-title">activity
+</span>        <span class="hljs-attribute">android:name</span>=<span class="hljs-value">".MainActivity"</span>
+        <span class="hljs-attribute">android:launchMode</span>=<span class="hljs-value">"singleTask"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">intent-filter</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">action</span> <span
+                class="hljs-attribute">android:name</span>=<span class="hljs-value">"android.intent.action.VIEW"</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">category</span> <span
+                class="hljs-attribute">android:name</span>=<span
+                class="hljs-value">"android.intent.category.DEFAULT"</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">category</span> <span
+                class="hljs-attribute">android:name</span>=<span
+                class="hljs-value">"android.intent.category.BROWSABLE"</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">data</span> <span
+                class="hljs-attribute">android:scheme</span>=<span
+                class="hljs-value">"shareinstall为当前应用自动分配的schame"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">intent-filter</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">activity</span>&gt;</span>
+</code>
+</pre>
+                    <h2>注：如果唤醒页面和启动页是同一Activity，则AndroidMaifest.xml的配置如下。</h2>
+                    <pre style="width:600px;height:330px"><code style="width:100%;height:94%"
+                                                                class="lang-javascript hljs xml">
+<span class="hljs-tag">&lt;<span class="hljs-title">activity
+</span>        <span class="hljs-attribute">android:name</span>=<span class="hljs-value">".MainActivity"</span>
+        <span class="hljs-attribute">android:launchMode</span>=<span class="hljs-value">"singleTask"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">intent-filter</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">action</span> <span
+                class="hljs-attribute">android:name</span>=<span class="hljs-value">"android.intent.action.MAIN"</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">category</span> <span
+                class="hljs-attribute">android:name</span>=<span
+                class="hljs-value">"android.intent.category.LAUNCHER"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">intent-filter</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">intent-filter</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">action</span> <span
+                class="hljs-attribute">android:name</span>=<span class="hljs-value">"android.intent.action.VIEW"</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">category</span> <span
+                class="hljs-attribute">android:name</span>=<span
+                class="hljs-value">"android.intent.category.DEFAULT"</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">category</span> <span
+                class="hljs-attribute">android:name</span>=<span
+                class="hljs-value">"android.intent.category.BROWSABLE"</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">data</span> <span
+                class="hljs-attribute">android:scheme</span>=<span
+                class="hljs-value">"shareinstall为当前应用自动分配的schame"</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">intent-filter</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">activity</span>&gt;</span>
+</code>
+</pre>
+                    <h2>个性化安装和一键唤醒都调用同一个方法SHShareInstallSDK.getInstance().getInfo()获取相关信息，第一个参数为Intent，第二个参数
+                        为接入方应用的apptypeId(尽量传个独特唯一的值)，因为目前后台没有为接入方应用配置一个单独的appkey，所以apptypeId用来区分应用，等以后后台完善。</h2>
+                    <h1>1、个性化安装</h1>
+                    <h2>在APP需要个性化安装参数时（由web网页中传递过来的，如邀请码、游戏房间号等 自定义参数），调用以下方法，在回调中获取参数。</h2>
+                    <pre style="width:700px;height:170px"><code style="width:100%;height:88%"
+                                                                class="lang-javascript hljs java">
+SHShareInstallSDK.getInstance().getInfo(getIntent(), <span class="hljs-string">"JSSTT"</span>, <span
+                            class="hljs-keyword">new</span> AppGetInfoListener() {
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onGetInfoFinish</span>(String info) {
+        Log.d(<span class="hljs-string">"ShareInstall"</span>, <span class="hljs-string">"info = "</span> + info);
+    }
+});
+</code>
+</pre>
+                    <h1>2、唤醒页面获取信息</h1>
+                    <pre style="width:600px;height:600px"><code style="width:100%;height:80%"
+                                                                class="lang-javascript hljs java">
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span
+                            class="hljs-title">WakeUpActivity</span> <span class="hljs-keyword">extends</span> <span
+                            class="hljs-title">AppCompatActivity</span> {</span>
+
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span
+                            class="hljs-title">onCreate</span>(Bundle savedInstanceState) {
+        <span class="hljs-keyword">super</span>.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_wake_up);
+        <span class="hljs-comment">// 获取唤醒参数</span>
+        SHShareInstallSDK.getInstance().getInfo(getIntent(), <span class="hljs-string">"JSSTT"</span>, listener);
+    }
+
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onNewIntent</span>(Intent intent) {
+        <span class="hljs-keyword">super</span>.onNewIntent(intent);
+        <span class="hljs-comment">// 此处要调用，否则app在后台运行时，会无法截获</span>
+        SHShareInstallSDK.getInstance().getInfo(intent, <span class="hljs-string">"JSSTT"</span>, listener);
+    }
+
+    <span class="hljs-keyword">private</span> AppGetInfoListener listener = <span class="hljs-keyword">new</span> AppGetInfoListener() {
+        <span class="hljs-annotation">@Override</span>
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onGetInfoFinish</span>(String info) {
+            Log.d(<span class="hljs-string">"ShareInstall"</span>, <span class="hljs-string">"info = "</span> + info);
+        }
+    };
+</code>
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
