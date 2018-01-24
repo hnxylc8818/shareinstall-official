@@ -1096,35 +1096,33 @@ span.chart-btn {
 .title .data_profile li.active {
   color: #fff;
   border-radius: 3px;
-  background-color: #4179FF
+  //background-color: #4179FF
 }
 
 .title .data_profile .all {
-  background: url("../../img/overview/icon.png") ;
-  background-position: -34px -276px;
+  background:url("../../img/console/all2.png") no-repeat 10px 5px;
 }
 
 .title .data_profile .all.active {
-  background-position: -34px -276px;
+  background:#4179FF url("../../img/console/all1.png") no-repeat 10px 5px;
+
 }
 
 .title .data_profile .android {
-  background: url("../../img/overview/icon.png");
-  background-position: -34px -95px;
+  background:url("../../img/console/android2.png") no-repeat 10px 5px;
 }
 
 .title .data_profile .android.active {
-  background-position: -34px -95px;
-
+  background:#4179FF url("../../img/console/android1.png") no-repeat 10px  5px;
 }
 
 .title .data_profile .iOS {
-  background: url("../../img/overview/icon.png");
-  background-position: -34px -126px;
+  background:url("../../img/console/iOS2.png") no-repeat 10px 5px;
 }
 
 .title .data_profile .iOS.active {
-  background-position: -34px -126px;
+  background:#4179FF url("../../img/console/iOS1.png") no-repeat 10px 5px;
+
 }
 
 .title .data_profile .traffic {

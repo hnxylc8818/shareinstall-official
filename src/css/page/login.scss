@@ -5,6 +5,7 @@ body, html {
 
 .my-login {
   width: 100%;
+
   .section {
     padding-top: 110px;
     position: relative;
@@ -324,14 +325,11 @@ body, html {
     }
   }
   .company {
-    position: absolute;
-    bottom: 20px;
-    left: 0;
     font-size: 14px;
     display: block;
     color: #a9adb1;
     text-align: center;
     width: 100%;
-    margin-top: 10px;
+    margin-top: 200px;
   }
 }

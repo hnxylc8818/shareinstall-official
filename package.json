@@ -1,7 +1,7 @@
 {
   "name": "shlab",
   "version": "1.0.0",
-  "description": "嵩恒研究院官网",
+  "description": "Shareinstall官网",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://codeio.dftoutiao.com/SHFE/shlab.git"
+    "url": "http://codeio.dftoutiao.com/SHFE/shareinstall-official.git"
   },
   "keywords": [],
   "author": "",

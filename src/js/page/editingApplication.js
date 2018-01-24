@@ -19,6 +19,8 @@ var DfttModule = (function (dm) {
         getImg: function () {
             var img = $.cookie("oldImg") ? $.cookie("oldImg") : 'http://mini.eastday.com/songheng/sharefolder/dftoutiao/s_window_activity_banner/20180115/5a5c5751b2b6d.png'
             $("#xmTanImg").attr("src", img)
+            var name = $.cookie("oldName") ? $.cookie("oldName") : "";
+            $("#appName").val(name)
         },
         /**
          *预览图片
@@ -59,7 +61,7 @@ var DfttModule = (function (dm) {
                     type: 'post',
                     success: function (data) {
                         console.log(data)
-                        if(data.code == 0){
+                        if (data.code == 0) {
                             alert("上传成功")
                             var data = data.data
                             var img = data.img

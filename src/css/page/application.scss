@@ -84,6 +84,9 @@ nav
             line-height: 70px;
             font-size: 14px;
             color: #49526c;
+            overflow: hidden;
+            white-space:nowrap;
+            text-overflow:ellipsis;
           }
           .nomore{
             text-align: center;
@@ -105,7 +108,7 @@ nav
               border: none;
               width: 66px;
               height: 32px;
-              line-height: 32px;
+              line-height: 0px;
               border-radius: 5px;
               outline: none;
             }
@@ -135,6 +138,9 @@ nav
             line-height: 70px;
             font-size: 14px;
             color: #49526c;
+            overflow: hidden;
+            white-space:nowrap;
+            text-overflow:ellipsis;
           }
           .icon {
             width: 14%;
@@ -150,7 +156,7 @@ nav
               border: none;
               width: 66px;
               height: 32px;
-              line-height: 32px;
+              line-height: 0px;
               border-radius: 5px;
               outline: none;
             }
@@ -235,10 +241,10 @@ nav
     }
     .my-button{
       button{
-        width: 100px;
-        height: 36px;
+        width: 66px;
+        height: 32px;
         text-align: center;
-        line-height: 36px;
+        line-height: 0px;
         border: none;
         border-radius: 5px;
         font-size: 16px;
@@ -248,7 +254,7 @@ nav
         background: #00a4ff;
         color: #fff;
         margin-right: 10px;
-        margin-left: 210px;
+        margin-left: 240px;
       }
       .cancel{
         border: 1px solid #a6b2ca;
