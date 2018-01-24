@@ -215,6 +215,9 @@ var DfttModule = (function(dm) {
               });
               alert('登录成功')
               window.location.href = './application.html'
+            } else {
+              $(".prompt").html(data.message)
+              $(".prompt").stop(true).fadeIn(1000).fadeOut(1000)
             }
           }
         })
@@ -312,7 +315,6 @@ var DfttModule = (function(dm) {
         }
       })
       $(".confirm").on("click", function() { //点击确认
-        var _this = this
         var url = _this.url + 'changepwd/update'
         var mobile = $(".phone-w").val()
         var sms_code = $(".code-w").val()

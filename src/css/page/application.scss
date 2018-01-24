@@ -1,36 +1,49 @@
 /***
 nav
  */
-.nav {
-  width: 100%;
-  height: 70px;
-  background: #1c2732;
-  .nav-left {
-    width: 168px;
-    height: 50px;
-    margin: 10px 0 0 34px;
-    background: url(../../img/index/mlogo.png) no-repeat center;
-  }
+.lanren,
+.layout-header {
+  position: fixed;
+  z-index: 999;
 }
 
+.layout-header {
+  height: 70px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background-color: #1c2732;
+  .logo-bar {
+    display: block;
+    width: 250px;
+    height: 70px;
+    text-align: center;
+  }
+}
 /**
 应用列表
  */
+
 .my-section {
   width: 100%;
   height: auto;
   background: #f2f7fc;
+  padding-top: 100px;
+
   .line {
     height: 70px;
   }
+
   .section {
     height: auto;
     min-height: 870px;
     background: #fff;
     padding: 0;
+
     .title {
       height: 58px;
       border-bottom: 1px solid #e8e8e8;
+
       span {
         display: inline-block;
         margin-left: 30px;
@@ -38,6 +51,7 @@ nav
         font-size: 14px;
         color: #49526c;
       }
+
       .add {
         width: 90px;
         height: 32px;
@@ -51,11 +65,13 @@ nav
         cursor: pointer;
       }
     }
+
     .list {
       .tit {
         margin-top: 60px;
         margin-bottom: 24px;
         height: 24px;
+
         span {
           display: inline-block;
           width: 20%;
@@ -69,13 +85,16 @@ nav
           width: 14%;
         }
       }
+
       .list-ul {
         margin-bottom: 0;
         padding: 0;
+
         .item:nth-child(2n+1) {
           list-style: none;
           height: 70px;
           background: #fafcfd;
+
           span {
             display: inline-block;
             width: 20%;
@@ -85,39 +104,45 @@ nav
             font-size: 14px;
             color: #49526c;
             overflow: hidden;
-            white-space:nowrap;
-            text-overflow:ellipsis;
+            white-space: nowrap;
+            text-overflow: ellipsis;
           }
-          .nomore{
+
+          .nomore {
             text-align: center;
             font-size: 16px;
             color: #333;
             line-height: 70px;
           }
+
           .icon {
             width: 14%;
           }
+
           .item-icon {
             img {
               width: 40px;
               height: 40px;
             }
           }
+
           .item-operation {
             button {
               border: none;
               width: 66px;
               height: 32px;
-              line-height: 0px;
+              line-height: 0;
               border-radius: 5px;
               outline: none;
             }
+
             .edit {
               background: #00a4ff;
               font-size: 14px;
               color: #FFF;
               margin-right: 20px;
             }
+
             .detailed {
               background: #fafcfd;
               font-size: 14px;
@@ -126,10 +151,12 @@ nav
             }
           }
         }
+
         .item:nth-child(2n) {
           list-style: none;
           height: 70px;
           background: #fff;
+
           span {
             display: inline-block;
             width: 20%;
@@ -139,33 +166,38 @@ nav
             font-size: 14px;
             color: #49526c;
             overflow: hidden;
-            white-space:nowrap;
-            text-overflow:ellipsis;
+            white-space: nowrap;
+            text-overflow: ellipsis;
           }
+
           .icon {
             width: 14%;
           }
+
           .item-icon {
             img {
               width: 40px;
               height: 40px;
             }
           }
+
           .item-operation {
             button {
               border: none;
               width: 66px;
               height: 32px;
-              line-height: 0px;
+              line-height: 0;
               border-radius: 5px;
               outline: none;
             }
+
             .edit {
               background: #00a4ff;
               font-size: 14px;
               color: #FFF;
               margin-right: 20px;
             }
+
             .detailed {
               background: #fafcfd;
               font-size: 14px;
@@ -178,10 +210,10 @@ nav
     }
   }
 }
-
 /****
 创建应用
  */
+
 .my-addApp {
   position: absolute;
   top: 0;
@@ -190,11 +222,13 @@ nav
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
+
   &:before {
     width: 100%;
     height: 100%;
     position: relative;
   }
+
   .addApp {
     position: absolute;
     top: 50%;
@@ -205,58 +239,67 @@ nav
     height: 230px;
     background: #fff;
     border-radius: 10px;
+
     .title {
       height: 40px;
       line-height: 40px;
       color: #49526c;
       font-size: 16px;
       border-bottom: 1px solid #ebebeb;
-      span{
+
+      span {
         padding-left: 20px;
       }
-      .close{
+
+      .close {
         padding-right: 20px;
         margin-top: 10px;
       }
     }
+
     .item {
       height: 40px;
       padding-left: 20px;
-      margin: 37px 0 50px 0;
-      span{
+      margin: 37px 0 50px;
+
+      span {
         display: inline-block;
         font-size: 14px;
         color: #49526c;
         line-height: 40px;
         margin-right: 33px;
       }
-      input{
+
+      input {
         width: 320px;
         height: 40px;
-        border:1px solid #e8e8e8;
+        border: 1px solid #e8e8e8;
         border-radius: 5px;
         outline: none;
         padding-left: 10px;
       }
     }
-    .my-button{
-      button{
+
+    .my-button {
+      button {
         width: 66px;
         height: 32px;
         text-align: center;
-        line-height: 0px;
+        line-height: 0;
         border: none;
         border-radius: 5px;
         font-size: 16px;
         outline: none;
       }
-      .preservation{
+
+      .preservation {
         background: #00a4ff;
         color: #fff;
         margin-right: 10px;
         margin-left: 240px;
       }
-      .cancel{
+
+      .cancel {
         border: 1px solid #a6b2ca;
         color: #a6b2ca;
         background: #fff;

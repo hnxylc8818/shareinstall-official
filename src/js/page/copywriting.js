@@ -11,6 +11,7 @@ var DfttModule = (function (dm) {
             _this.tabIntroduce()
             _this.backTop()
             _this.urlTo()
+            _this.console()
         },
         /***
          * 通过路径判断显示那个页面
@@ -64,6 +65,20 @@ var DfttModule = (function (dm) {
             $("#J_barBack").on('click', function () {
                 $('body,html').animate({scrollTop: 0}, 500);
             })
+        },
+        /*
+         *点击控制台判断
+         */
+        console: function() {
+          var _this = this
+          $("#J_console").on("click", function() {
+            var _token = $.cookie("_token")
+            if(_token == "null"){
+                window.location.href = './login.html'
+            }else{
+                window.location.href = './application.html'
+            }
+          })
         }
     }
 // 给模块单独定义一个命名空间
