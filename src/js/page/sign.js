@@ -16,7 +16,7 @@ var DfttModule = (function(dm) {
      */
     login: function() {
       var _token = $.cookie("_token")
-      if (_token == 'null') {
+      if (_token == 'null' || _token == undefined) {
         window.location.href = "./login.html"
       } else {
         $("#username").html($.cookie("userName"))

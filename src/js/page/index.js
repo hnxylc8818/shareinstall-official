@@ -39,10 +39,10 @@ var DfttModule = (function(dm) {
       var _this = this
       $("#J_console").on("click", function() {
         var _token = $.cookie("_token")
-        if(_token == "null"){
-            window.location.href = './login.html'
-        }else{
-            window.location.href = './application.html'
+        if (_token == "null" || _token == undefined) {
+          window.location.href = './login.html'
+        } else {
+          window.location.href = './application.html'
         }
       })
     }
