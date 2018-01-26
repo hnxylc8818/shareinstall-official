@@ -91,7 +91,7 @@ a:active {
 }
 
 .logo-bar a {
-  background-image: url(/images/new/dashbord_brand.png);
+  // background-image: url(/images/new/dashbord_brand.png);
   background-repeat: no-repeat;
   background-position: center center
 }
@@ -101,7 +101,7 @@ a:active {
 }
 
 .layout-container .logo-bar a {
-  background-image: url(/images/layout-menu/openinstall.png)
+  // background-image: url(/images/layout-menu/openinstall.png)
 }
 
 .lanren {
@@ -124,7 +124,7 @@ a:active {
   width: 154px;
   height: auto;
   overflow: hidden;
-  background: url(/images/slide_box_bg.jpg) repeat-y;
+  // background: url(/images/slide_box_bg.jpg) repeat-y;
   font-size: 12px;
   text-align: center;
   line-height: 130%;
@@ -168,12 +168,12 @@ a.common-tip {
   display: inline-block;
   width: 16px;
   height: 16px;
-  background: url(/images/type/wen.png) no-repeat;
+  // background: url(/images/type/wen.png) no-repeat;
   background-size: 16px
 }
 
 a:hover:enabled.common-tip {
-  background: url(/images/type/wen-hover.png) no-repeat;
+  // background: url(/images/type/wen-hover.png) no-repeat;
   background-size: 16px
 }
 
@@ -230,7 +230,7 @@ a:hover:enabled.common-tip {
 }
 
 .depoly-banner-test, .depoly-line-test {
-  background-image: url(/images/test.png);
+  // background-image: url(/images/test.png);
   background-repeat: no-repeat;
   background-position: 10px center;
   padding: 5px 15px 5px 30px;
@@ -244,23 +244,23 @@ a:hover:enabled.common-tip {
 .depoly-jicheng-test {
   border: 1px solid #5d8aff;
   color: #5d8aff;
-  background-image: url(/images/jicheng.png)
+  // background-image: url(/images/jicheng.png)
 }
 
 .depoly-banner-test {
-  background-image: url(/images/banner-test.png)
+  // background-image: url(/images/banner-test.png)
 }
 
 .depoly-line-test:hover {
   color: #01b32b;
   border: 1px solid #01b32b;
-  background: url(/images/test2.png) 10px center no-repeat #F4F7F9
+  // background: url(/images/test2.png) 10px center no-repeat #F4F7F9
 }
 
 .depoly-jicheng-test:hover {
   color: #0f53f8;
   border: 1px solid #0f53f8;
-  background: url(/images/jicheng2.png) 10px center no-repeat #F4F7F9
+  // background: url(/images/jicheng2.png) 10px center no-repeat #F4F7F9
 }
 
 .channel_link_table td, .channel_link_table th {
@@ -274,7 +274,7 @@ a:hover:enabled.common-tip {
 }
 
 .count_calendar {
-  background: url(/images/icon-excel.png) 15px center no-repeat
+  // background: url(/images/icon-excel.png) 15px center no-repeat
 }
 
 .channel_link_table {
@@ -304,35 +304,35 @@ a:hover:enabled.common-tip {
 }
 
 .img-link-look {
-  background: url(/images/type/erweima.png) center center no-repeat
+  // background: url(/images/type/erweima.png) center center no-repeat
 }
 
 .img-link-luck {
-  background: url(/images/type/bianji.png) center center no-repeat
+  // background: url(/images/type/bianji.png) center center no-repeat
 }
 
 .img-link-lock {
-  background: url(/images/type/rubbish.png) center center no-repeat
+  // background: url(/images/type/rubbish.png) center center no-repeat
 }
 
 .img-link-share {
-  background: url(/images/type/share.png) center center no-repeat
+  // background: url(/images/type/share.png) center center no-repeat
 }
 
 .img-table {
-  background: url(/images/type/channel-table.png) center center no-repeat
+  // background: url(/images/type/channel-table.png) center center no-repeat
 }
 
 .img-daochu {
-  background: url(/images/type/daochu.png) center center no-repeat
+  // background: url(/images/type/daochu.png) center center no-repeat
 }
 
 a.img-jia {
-  background: url(/images/type/jia.png) center center no-repeat
+  // background: url(/images/type/jia.png) center center no-repeat
 }
 
 a.img-jian {
-  background: url(/images/type/jian.png) center center no-repeat
+  // background: url(/images/type/jian.png) center center no-repeat
 }
 
 .img-daochu:hover, .img-link-lock:hover, .img-link-look:hover, .img-link-luck:hover, .img-link-share:hover, .img-table:hover {
@@ -897,7 +897,7 @@ input[type=checkbox], label > input[type=radio] {
 }
 
 .serve_main {
-  background-image: url(/images/price/price_bac.png);
+  // background-image: url(/images/price/price_bac.png);
   height: 100%;
   width: 100%;
   background-size: cover
@@ -1023,7 +1023,7 @@ a.price_formal {
 }
 
 .overlay-btn.active-btn {
-  background-image: url(/images/price/select.png);
+  // background-image: url(/images/price/select.png);
   background-position: bottom right;
   background-repeat: no-repeat
 }

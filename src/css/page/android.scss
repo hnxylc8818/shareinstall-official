@@ -91,7 +91,7 @@ a:active {
 }
 
 .logo-bar a {
-  background-image: url(/images/new/dashbord_brand.png);
+  // background-image: url(/images/new/dashbord_brand.png);
   background-repeat: no-repeat;
   background-position: center center
 }
@@ -101,7 +101,7 @@ a:active {
 }
 
 .layout-container .logo-bar a {
-  background-image: url(/images/layout-menu/openinstall.png)
+  // background-image: url(/images/layout-menu/openinstall.png)
 }
 
 .lanren {
@@ -168,12 +168,12 @@ a.common-tip {
   display: inline-block;
   width: 16px;
   height: 16px;
-  background: url(/images/type/wen.png) no-repeat;
+  // background: url(/images/type/wen.png) no-repeat;
   background-size: 16px
 }
 
 a:hover:enabled.common-tip {
-  background: url(/images/type/wen-hover.png) no-repeat;
+  // background: url(/images/type/wen-hover.png) no-repeat;
   background-size: 16px
 }
 

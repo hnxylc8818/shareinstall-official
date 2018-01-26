@@ -91,7 +91,7 @@ a:active {
 }
 
 .logo-bar a {
-  background-image: url(/images/new/dashbord_brand.png);
+  // background-image: url(/images/new/dashbord_brand.png);
   background-repeat: no-repeat;
   background-position: center center
 }
@@ -101,7 +101,7 @@ a:active {
 }
 
 .layout-container .logo-bar a {
-  background-image: url(/images/layout-menu/openinstall.png)
+  // background-image: url(/images/layout-menu/openinstall.png)
 }
 
 .lanren {
@@ -116,7 +116,7 @@ a:active {
 .lanren .slide_min {
   width: 28px;
   height: 112px;
-  background: url(/images/slide_box.jpg) no-repeat;
+  // background: url(/images/slide_box.jpg) no-repeat;
   cursor: pointer
 }
 
@@ -124,7 +124,7 @@ a:active {
   width: 154px;
   height: auto;
   overflow: hidden;
-  background: url(/images/slide_box_bg.jpg) repeat-y;
+  // background: url(/images/slide_box_bg.jpg) repeat-y;
   font-size: 12px;
   text-align: center;
   line-height: 130%;
@@ -168,12 +168,12 @@ a.common-tip {
   display: inline-block;
   width: 16px;
   height: 16px;
-  background: url(/images/type/wen.png) no-repeat;
+  // background: url(/images/type/wen.png) no-repeat;
   background-size: 16px
 }
 
 a:hover:enabled.common-tip {
-  background: url(/images/type/wen-hover.png) no-repeat;
+  // background: url(/images/type/wen-hover.png) no-repeat;
   background-size: 16px
 }
 
@@ -1052,7 +1052,7 @@ span.chart-btn {
 }
 
 .title .data_profile li, .title .data_profile li.active {
-  background-position: 10px 6px;
+  background-position: 10px 5px;
   background-repeat: no-repeat
 }
 
@@ -1099,58 +1099,35 @@ span.chart-btn {
   background-color: #4179FF
 }
 
-.title .data_profile .all {
-  background: url("../../img/overview/icon.png");
-  background-position: -34px -276px;
-}
 
-.title .data_profile .all.active {
-  background-position: -34px -276px;
-}
 
-.title .data_profile .android {
-  background: url("../../img/overview/icon.png");
-  background-position: -34px -95px;
-}
 
-.title .data_profile .android.active {
-  background-position: -34px -95px;
 
-}
+// .title .data_profile .android {
+//   background: url("../../img/overview/icon.png");
+//   background-position: -34px -95px;
+// }
+//
+// .title .data_profile .android.active {
+//   background-position: -34px -95px;
+//
+// }
+//
+// .title .data_profile .iOS {
+//   background: url("../../img/overview/icon.png");
+//   background-position: -34px -126px;
+// }
+//
+// .title .data_profile .iOS.active {
+//   background-position: -34px -126px;
+// }
+//
+// .title .data_profile .traffic {
+//   background: url("../../img/overview/icon.png");
+//   background-position: -34px -276px;
+// }
 
-.title .data_profile .iOS {
-  background: url("../../img/overview/icon.png");
-  background-position: -34px -126px;
-}
 
-.title .data_profile .iOS.active {
-  background-position: -34px -126px;
-}
-
-.title .data_profile .traffic {
-  background: url("../../img/overview/icon.png");
-  background-position: -34px -276px;
-}
-
-.title .data_profile .traffic.active {
-  background-image: url(/images/layout-menu/traffic1.png)
-}
-
-.title .data_profile .install {
-  background-image: url(/images/layout-menu/install2.png)
-}
-
-.title .data_profile .install.active {
-  background-image: url(/images/layout-menu/install1.png)
-}
-
-.title .data_profile .registration {
-  background-image: url(/images/layout-menu/registration2.png)
-}
-
-.title .data_profile .registration.active {
-  background-image: url(/images/layout-menu/registration1.png)
-}
 
 .content-menu {
   width: 250px;
@@ -1388,7 +1365,7 @@ span.chart-btn {
 .menu-items .menu-child div a p {
   display: inline-block;
 }
-.title .data_profile .all.active
+
 .icon {
   background: url("../../img/overview/icon.png") no-repeat center;
 }
@@ -1789,23 +1766,23 @@ android 页面
 }
 
 .title .data_profile .all.active {
-  background-image: url(images/layout-menu/all1.png)
+  background-image: url(../../img/console/all1.png) ;
 }
 
 .title .data_profile .android {
-  background-image: url(images/layout-menu/android2.png)
+  background-image: url(../../img/console/android2.png)
 }
 
 .title .data_profile .android.active {
-  background-image: url(images/layout-menu/android1.png)
+  background-image: url(../../img/console/android1.png)
 }
 
 .title .data_profile .iOS {
-  background-image: url(images/layout-menu/iOS2.png)
+  background-image: url(../../img/console/iOS2.png)
 }
 
 .title .data_profile .iOS.active {
-  background-image: url(images/layout-menu/iOS1.png)
+  background-image: url(../../img/console/iOS1.png)
 }
 
 .title .data_profile .traffic {
@@ -1962,4 +1939,3 @@ android 页面
 .total .first .instruction .Android>a {
   background: #4cdb94
 }
-
