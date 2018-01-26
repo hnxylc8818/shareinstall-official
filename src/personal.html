@@ -8,14 +8,11 @@
   <meta content="telephone=no" name="format-detection">
   <link rel="shortcut icon" href="/favicon.ico" />
   <link rel="stylesheet" href="./css/common/base.min.css">
-  <!-- <link rel="stylesheet" href="./css/page/personal.min.css"> -->
+  <link rel="stylesheet" href="./css/page/personal.min.css">
   <script src="./js/common/base.min.js"></script>
   <script src="./js/page/layer.min.js"></script>
   <script src="./js/page/jquery.cookie.min.js"></script>
-  <!-- <script src="./js/page/personal.min.js"></script> -->
-  <script>
-    var params = "1731585436"
-  </script>
+  <script src="./js/page/personal.min.js"></script>
   <title>个人中心</title>
   <style>
     .layout-header {
@@ -1563,22 +1560,22 @@
   <div class="layout-header">
     <div class="logo-bar" style="float:left">
       <a style="display:inline-block;width:100%;height:100%" target="_blank" href="">
-                <img src="./img/overview/logo.png" alt="" style="margin-top:11px">
-            </a>
+              <img src="./img/overview/logo.png" alt="" style="margin-top:11px">
+          </a>
     </div>
-    <div class="pull-right" style="margin:15px 20px 0 0">
+    <div class="pull-right" style="margin:15px 70px 0 0">
       <ul class="nav nav-pills">
-        <li>
-          <a href="">
-                        <span>应用管理</span>
-                    </a>
-        </li>
-        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span
-                        id="username"></span><span class="caret"></span></a>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <span id="username"></span>
+                <span class="caret"></span>
+              </a>
           <ul class="dropdown-menu">
-            <li><a href="">账号信息</a></li>
+            <li><a href="./application.html">应用列表</a></li>
             <li class="divider"></li>
-            <li onclick="logout()"><a href="javascript:;">退出登录</a></li>
+            <li><a href="./personal.html">用户信息</a></li>
+            <li class="divider"></li>
+            <li><a href="javascript:;" id='loginOut'>退出登录</a></li>
           </ul>
         </li>
       </ul>
@@ -1592,15 +1589,15 @@
             <p style="font-size: 1.5rem;line-height: 50px;padding-left: 30px">账号信息</p>
           </li>
           <li>
-            <p class="charge_list-title"><b>注册时间</b><span>2018-01-08 09:26:47</span>
+            <p class="charge_list-title"><b>注册时间</b><span id='uesrTime'></span>
             </p>
           </li>
           <li>
-            <p class="charge_list-title"><b>注册邮箱</b><span>zhujianwei@021.com</span><a href="javascript:;" class="person_txt" id="person_pass">修改密码</a>
+            <p class="charge_list-title"><b>注册邮箱</b><span id="uesrEmail"></span><a href="javascript:;" class="person_txt" id="person_pass">修改密码</a>
             </p>
           </li>
           <li>
-            <p class="charge_list-title"><b>绑定手机</b><span>17521216718</span><a href="javascript:;" class="person_txt" id="person_iphone">更换手机号</a></p>
+            <p class="charge_list-title"><b>绑定手机</b><span id="userPhone"></span><a href="javascript:;" class="person_txt" id="person_iphone">更换手机号</a></p>
           </li>
         </ul>
       </div>
