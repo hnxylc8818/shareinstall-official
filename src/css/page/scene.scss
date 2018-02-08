@@ -209,3 +209,119 @@ h3 {
 .f20 {
   font-size: 20px;
 }
+
+// 移动端样式
+@media only screen and (max-width: 767px) {
+  .logo {
+    display: none;
+  }
+  .my-banner {
+    .my-banner-top {
+
+      > a {
+        float: left;
+      }
+
+      .banner-left {
+        float: none!important;
+        width: 120px;
+        margin-left: 20px;
+        background-size: contain;
+      }
+  
+      .banner-right {
+        position: relative;
+        margin: 20px 0 0 0;
+        float: none!important;
+        width: 100%;
+        clear: both;
+  
+        .banner-nav {
+          width: 100%;
+          display: none;
+          background: #ffffff;
+    
+          li a {
+            width: 100%;
+            margin: 0;
+            padding: 5px 0;
+            text-align: center;
+          }
+        }
+
+        .btn-mobile-menu {
+          position: absolute;
+          top: -35px;
+          right: 20px;
+          width: 26px;
+          height: 20px;
+
+          i {
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: #000000;
+
+            &:nth-child(2) {
+              top: 8px;
+            }
+
+            &:nth-child(3) {
+              top: 16px;
+            }
+          }
+        }
+      }   
+    }
+  }
+
+  .my-code {
+    height: auto;
+  }
+
+  .my-extension {
+    height: auto;
+
+    .extension {
+      .left {
+        margin-top: 10px;
+        float: none!important;
+        height: 400px;
+        width: 100%;
+        background-size: contain;
+        background-position: center;
+      }
+
+      .right {
+        margin-top: 10px;
+        margin-left: 0;
+      }
+    }
+  }
+
+  .my-application {
+    height: auto;
+
+    .application {
+      .left {
+        margin-top: 10px;
+        float: none!important;
+        height: 400px;
+        width: 100%;
+        background-size: contain;
+        background-position: center;
+      }
+  
+      .right {
+        margin-top: 10px;
+        margin-left: 0;
+      }
+    }
+  }
+
+  .my-code {
+    .code {
+      padding-top: 20px;
+    }
+  }
+}
