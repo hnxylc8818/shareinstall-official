@@ -332,18 +332,25 @@ android 页面
     padding-right: 0;
 
     img {
-      max-width: 80%;
+      max-width: 90%;
+      margin-left: 5%;
     }
     pre {
       display: inline-block;
-      width: 80%!important;
+      width: 90%!important;
       height: auto!important;
-      margin-left: 10%;
+      margin-left: 5%;
     
       code {
         height: 100%!important;
         padding-bottom: 20px;
       }
+    }
+
+    h1,
+    h2 {
+      width: 90%;
+      margin-left: 5%;
     }
   }
 }

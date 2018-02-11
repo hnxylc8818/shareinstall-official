@@ -114,6 +114,12 @@ banner
   background: url("../../img/scene/bg1.png") no-repeat center;
   .code {
     padding-top: 200px;
+
+    h3,
+    .title,
+    .txt {
+      max-width: 700px;
+    }
   }
 }
 
@@ -132,7 +138,7 @@ banner
       background: url("../../img/scene/bg2.png") no-repeat left;
     }
     .right {
-      width: auto;
+      width: 700px;
       margin-top: 180px;
       margin-left: 100px;
       @media screen and (max-width: 1366px)  {
@@ -151,6 +157,12 @@ banner
   background: url("../../img/scene/bg3.png") no-repeat center;
   .statistics {
     padding-top: 220px;
+
+    h3,
+    .title,
+    .txt {
+      max-width: 700px;
+    }
   }
 }
 
@@ -168,7 +180,7 @@ banner
       background: url("../../img/scene/bg4.png") no-repeat left;
     }
     .right {
-      width: auto;
+      width: 700px;
       margin-top: 114px;
       margin-left: 100px;
       @media screen and (max-width: 1366px) {
@@ -208,6 +220,12 @@ h3 {
 
 .f20 {
   font-size: 20px;
+}
+
+@media (max-width: 1920px) and (min-width: 1440px) {
+  .container {
+    width: 1200px;
+  }
 }
 
 // 移动端样式
@@ -293,6 +311,7 @@ h3 {
       }
 
       .right {
+        width: 100%;
         margin-top: 10px;
         margin-left: 0;
       }
@@ -313,6 +332,7 @@ h3 {
       }
   
       .right {
+        width: 100%;
         margin-top: 10px;
         margin-left: 0;
       }
@@ -322,6 +342,13 @@ h3 {
   .my-code {
     .code {
       padding-top: 20px;
+    }
+  }
+
+  .my-introduce {
+    .introduce {
+      margin-top: 30px;
+      margin-bottom: 20px;
     }
   }
 }

@@ -407,7 +407,7 @@ body {
 
 @media (min-width: 1440px) and (max-width: 1920px) {
   .container {
-    width: 1800px;
+    // width: 1800px;
   }
   #navbar {
     margin-left: 260px;
@@ -673,3 +673,7 @@ body {
 //   }
 // }
 
+// 屏蔽用户系统
+.logo {
+  display: none;
+}
