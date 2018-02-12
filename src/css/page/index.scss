@@ -122,6 +122,7 @@ body {
       font-size: 16px;
       color: #fff;
       line-height: 30px;
+      word-break: break-all;
     }
     a {
       margin-top: 70px;
@@ -952,6 +953,10 @@ body {
 
     .title {
       padding: 0 15px;
+
+      h2 {
+        text-align: center;
+      }
     }
 
     .install-nav {
@@ -965,6 +970,38 @@ body {
       height: 260px;
       text-align: center;
       margin-bottom: 0px !important;
+
+      &:nth-child(1) .bg-img {
+        background-image: url(../../img/index/entry1.png)!important;
+      }
+
+      &:nth-child(2) .bg-img {
+        background-image: url(../../img/index/entry2.png)!important;
+      }
+
+      &:nth-child(3) .bg-img {
+        background-image: url(../../img/index/entry3.png)!important;
+      }
+
+      &:nth-child(4) .bg-img {
+        background-image: url(../../img/index/entry4.png)!important;
+      }
+
+      &:nth-child(5) .bg-img {
+        background-image: url(../../img/index/entry5.png)!important;
+      }
+
+      &:nth-child(6) .bg-img {
+        background-image: url(../../img/index/entry6.png)!important;
+      }
+
+      &:nth-child(7) .bg-img {
+        background-image: url(../../img/index/entry7.png)!important;
+      }
+
+      &:nth-child(8) .bg-img {
+        background-image: url(../../img/index/entry8.png)!important;
+      }
 
       .card-icn {
         margin: 0 auto;
@@ -1028,6 +1065,7 @@ body {
   .my-characteristic {
     margin-top: 0px;
     height: auto;
+    background: url(../../img/index/texing2.png);
     background-size: cover;
 
     ul {
