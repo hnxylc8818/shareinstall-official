@@ -1,3 +1,7 @@
+html,body {
+  min-width: 1200px;
+}
+
 /**
 banner
  */
@@ -132,6 +136,7 @@ banner
   background: #fff;
   .extension {
     height: 100%;
+    width: 100%!important;
     .left {
       width: 320px;
       height: 100%;
@@ -173,6 +178,7 @@ banner
   width: 100%;
   height: 800px;
   .application {
+    width: 100%!important;
     height: 100%;
     .left {
       width: 320px;
@@ -230,6 +236,10 @@ h3 {
 
 // 移动端样式
 @media only screen and (max-width: 767px) {
+  html,
+  body {
+    min-width: 0;
+  }
   .logo {
     display: none;
   }
