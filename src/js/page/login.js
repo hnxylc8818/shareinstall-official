@@ -6,7 +6,7 @@ var DfttModule = (function(dm) {
     typed: null,
     init: function() {
       var _this = this
-      _this.url = 'http://test-api.shareinstall.com/'
+      _this.url = 'http://api.shareinstall.com/'
       _this.goSign()
       _this.goRegister()
       _this.registerFun()
@@ -213,7 +213,7 @@ var DfttModule = (function(dm) {
               $.cookie('userName', userName, {
                 expires: 7
               });
-              alert('登录成功')
+              // alert('登录成功')
               window.location.href = './application.html'
             } else {
               $(".prompt").html(data.message)

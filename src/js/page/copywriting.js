@@ -12,6 +12,7 @@ var DfttModule = (function (dm) {
             _this.backTop()
             _this.urlTo()
             _this.console()
+            _this.toggleMenu()
         },
         /***
          * 通过路径判断显示那个页面
@@ -79,6 +80,12 @@ var DfttModule = (function (dm) {
                 window.location.href = './application.html'
             }
           })
+        },
+        // 移动端菜单收缩
+        toggleMenu: function () {
+            $('.btn-mobile-menu').on('click', function () {
+            $('.banner-nav').toggle();
+            })
         }
     }
 // 给模块单独定义一个命名空间

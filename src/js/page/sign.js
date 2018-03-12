@@ -7,7 +7,7 @@ var DfttModule = (function(dm) {
     _tempData: null,
     init: function() {
       var _this = this
-      _this.url = 'http://test-api.shareinstall.com/'
+      _this.url = 'http://api.shareinstall.com/'
       _this.login()
       _this.loginOut()
     },

@@ -1,11 +1,12 @@
 <!doctype html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta content="telephone=no" name="format-detection">
-    <link rel="shortcut icon" href="/favicon.ico"/>
+    <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="stylesheet" href="./css/common/base.min.css">
     <link rel="stylesheet" href="./css/common/layer.min.css">
     <script src="./js/common/base.min.js"></script>
@@ -16,7 +17,9 @@
     <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">
     <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
     <script src="./js/page/web.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
     <script>
         var params = "1731585436"
     </script>
@@ -49,135 +52,161 @@
         }
     </style>
 </head>
+
 <body style="background:#fff">
 
-<div class="layout-container">
-    <div class="dashbord-loading" id="_loading_mask">
-        <img src="/images/loading.gif">
-    </div>
-    <div class="layout-header">
-      <div class="logo-bar" style="float:left">
-        <a style="display:inline-block;width:100%;height:100%" target="_blank" href="">
-                <img src="./img/overview/logo.png" alt="" style="margin-top:11px">
-            </a>
-      </div>
-      <div class="pull-right" style="margin:15px 70px 0 0">
-        <ul class="nav nav-pills">
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                  <span id="username"></span>
-                  <span class="caret"></span>
+    <div class="layout-container">
+        <div class="dashbord-loading" id="_loading_mask">
+            <img src="/images/loading.gif">
+        </div>
+        <div class="layout-header">
+            <div class="logo-bar" style="float:left">
+                <a style="display:inline-block;width:100%;height:100%" target="_blank" href="./index.html">
+                    <img src="./img/overview/logo.png" alt="" style="margin-top:11px">
                 </a>
-            <ul class="dropdown-menu">
-              <li><a href="./application.html">应用列表</a></li>
-              <li class="divider"></li>
-              <li><a href="./personal.html">用户信息</a></li>
-              <li class="divider"></li>
-              <li><a href="javascript:;" id='loginOut'>退出登录</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
+            </div>
+            <div class="pull-right" style="margin:15px 70px 0 0">
+                <div class="app-apidoc fl">
+                    <a href="./copywriting.html" target="_blank">接入指南</a>
+                </div>
+                <div class="app-applist fl">
+                    <a href="./application.html">应用管理</a>
+                </div>
+                <ul class="nav nav-pills fl">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <span id="username"></span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- <li><a href="./application.html">应用列表</a></li> -->
+                            <!-- <li class="divider"></li> -->
+                            <li>
+                                <a href="./personal.html">用户信息</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="javascript:;" id='loginOut'>退出登录</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
 
-    <div class="layout-menu" id="_menu">
-        <div class="menu-app"><p><img id="app_icon" style="width:70px;height:70px"></p>
-            <p id="app_name" style="font-size:18px;padding:15px 0 0;margin:0;color:#fff"></p>
-            <p style="margin:5px 0 20px;color:#75777b">
-                <a href="javascript:;" class="common-tip">
-                    <span class="tip-content">appKey是openinstall平台为每个应用分配的唯一标识符，sdk(Android/iOS/javascript)中需指定这个appKey</span>
-                </a>
-                <span style="font-size:14px;font-weight:700;color:#c4c4c4">AppKey：</span>
-                <span id="app_key" style="color:#c4c4c4;font-size:16px"></span>
-            </p>
-            <p></p>
-        </div>
-        <div class="menu-items">
-            <div class="menu-item item-5">
-                <div class="menu-item-text"><span>应用统计</span></div>
-                <div class="menu-child">
-                    <div class="subItem-1">
-                        <a href="./overview.html" class="load-channel-a" id="my-overview">
-                            <span class="icon my-overview fl"></span>
-                            <p class="fl">数据概览</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="menu-item item-1">
-                <div class="menu-item-text"><span>应用集成</span></div>
-                <div class="menu-child my-active">
-                    <div class="subItem-1 ">
-                        <a href="./android.html" class="load-channel-a" id="my-android">
-                            <span class="icon my-android fl"></span>
-                            <p class="fl" style="color:#5f6b7e"> Android集成</p>
-                        </a>
-                    </div>
-                    <div class="subItem-2">
-                        <a href="./ios.html" class="load-channel-a" id="my-ios">
-                            <span class="icon my-ios fl"></span>
-                            <p class="fl" style="color:#5f6b7e"> iOS集成</p>
-                        </a>
-                    </div>
-                    <div class="subItem-3 active">
-                        <a href="javascript:;" class="load-channel-a" id="my-web">
-                            <span class="icon my-web fl"></span>
-                            <p class="fl" >Web集成</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="menu-item item-2">
-                <div class="menu-item-text"><span>渠道统计</span></div>
-                <div class="menu-child ">
-                    <div class="subItem-1 ">
-                        <a href="./management.html" class="load-channel-a" id="my-qudao1">
-                            <span class="icon my-qudao1 fl"></span>
-                            <p class="fl">渠道管理</p>
-                        </a>
-                    </div>
-                    <div class="subItem-2">
-                        <a href="./comparison.html" class="load-channel-a" id="my-qudao2">
-                            <span class="icon my-qudao2 fl"></span>
-                            <p class="fl">渠道对比</p>
-                        </a>
-                    </div>
-                </div>
+                <div class="fl apppay-state">免费体验中</div>
             </div>
         </div>
-    </div>
-    <div style="position:fixed;background:#fff;z-index:2;left:250px;top:70px;width:100%;padding:20px 300px 20px 50px;-webkit-box-shadow:#ccc 0 0 3px;-moz-box-shadow:#ccc 0 0 3px;box-shadow:#ccc 0 0 3px">
-        <!--<div class="integrated" style="float:right;padding-top:4px">-->
-        <!--<a href="javascript:;" class="depoly-line-test test-win-button">在线测试</a>-->
-        <!--</div>-->
-        <div id="tabs" class="tabs">
-            <ul class="tab-form">
-                <li class="active fl">
-                    <a href="">javascript集成</a>
-                </li>
-                <li class="fl">
+
+        <div class="layout-menu" id="_menu">
+            <div class="menu-app">
+                <p>
+                    <img id="app_icon" style="width:70px;height:70px">
+                </p>
+                <p id="app_name" style="font-size:18px;padding:15px 0 0;margin:0;color:#fff"></p>
+                <p style="margin:5px 0 20px;color:#75777b">
+                    <a href="javascript:;" class="common-tip">
+                        <span class="tip-content">appKey是openinstall平台为每个应用分配的唯一标识符，sdk(Android/iOS/javascript)中需指定这个appKey</span>
+                    </a>
+                    <span style="font-size:14px;font-weight:700;color:#c4c4c4">AppKey：</span>
+                    <span id="app_key" style="color:#c4c4c4;font-size:14px"></span>
+                </p>
+                <p></p>
+            </div>
+            <div class="menu-items">
+                <div class="menu-item item-5">
+                    <div class="menu-item-text">
+                        <span>应用统计</span>
+                    </div>
+                    <div class="menu-child">
+                        <div class="subItem-1">
+                            <a href="./overview.html" class="load-channel-a" id="my-overview">
+                                <span class="icon my-overview fl"></span>
+                                <p class="fl">数据概览</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item item-1">
+                    <div class="menu-item-text">
+                        <span>应用集成</span>
+                    </div>
+                    <div class="menu-child my-active">
+                        <div class="subItem-1 ">
+                            <a href="./android.html" class="load-channel-a" id="my-android">
+                                <span class="icon my-android fl"></span>
+                                <p class="fl" style="color:#5f6b7e"> Android集成</p>
+                            </a>
+                        </div>
+                        <div class="subItem-2">
+                            <a href="./ios.html" class="load-channel-a" id="my-ios">
+                                <span class="icon my-ios fl"></span>
+                                <p class="fl" style="color:#5f6b7e"> iOS集成</p>
+                            </a>
+                        </div>
+                        <div class="subItem-3 active">
+                            <a href="javascript:;" class="load-channel-a" id="my-web">
+                                <span class="icon my-web fl"></span>
+                                <p class="fl">Web集成</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item item-2">
+                    <div class="menu-item-text">
+                        <span>渠道统计</span>
+                    </div>
+                    <div class="menu-child ">
+                        <div class="subItem-1 ">
+                            <a href="./management.html" class="load-channel-a" id="my-qudao1">
+                                <span class="icon my-qudao1 fl"></span>
+                                <p class="fl">渠道管理</p>
+                            </a>
+                        </div>
+                        <div class="subItem-2">
+                            <a href="./comparison.html" class="load-channel-a" id="my-qudao2">
+                                <span class="icon my-qudao2 fl"></span>
+                                <p class="fl">渠道对比</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="blank-bg"></div>
+        <div style="position:fixed;background:#fff;z-index:2;left:270px;top:90px;right:20px;padding:25px 300px 25px 30px;min-width:1024px">
+            <!--<div class="integrated" style="float:right;padding-top:4px">-->
+            <!--<a href="javascript:;" class="depoly-line-test test-win-button">在线测试</a>-->
+            <!--</div>-->
+            <div id="tabs" class="tabs">
+                <ul class="tab-form">
+                    <li class="active fl">
+                        <a href="">javascript集成</a>
+                    </li>
+                    <!-- <li class="fl">
                     <a href="">App banner集成</a>
                 </li>
                 <li class="fl">
                     <a href="">Web安全配置</a>
-                </li>
-            </ul>
-        </div>
+                </li> -->
+                </ul>
+            </div>
 
-    </div>
-    <div class="layout-content" style="padding-top: 100px;" id="_content">
-        <div id="tab-panel" class="">
-            <div id="_deposit" class="my-app" style="">
-                <div>
-                    <div class="tab-content">
-                        <div style="height:20px"></div>
-                        <div class="clearfix">
-                            <div class="depoly-said"><p>除了快捷的App banner集成，openinstall同时提供完整的javascript
-                                api，方便web开发者实现完全自主的设计。</p></div>
-                            <div class="js_api"><h1 style="margin-top: 0;">SDK概述</h1>
-                                <h2>web sdk用于web页面启动/安装app,并在启动/安装app的同时，向app传递各种自定义参数（通过android/ios sdk可获取传递的参数）。</h2>
-                                <h2>集成步骤</h2>
-                                <pre style="width:800px;height:1450px">
+        </div>
+        <div class="layout-content" id="_content">
+            <div id="tab-panel" class="">
+                <div id="_deposit" class="my-app" style="">
+                    <div>
+                        <div class="tab-content">
+                            <div style="height:20px"></div>
+                            <div class="clearfix">
+                                <div class="depoly-said">
+                                    <p>除了快捷的App banner集成，openinstall同时提供完整的javascript api，方便web开发者实现完全自主的设计。
+                                    </p>
+                                </div>
+                                <div class="js_api">
+                                    <h1 style="margin-top: 0;">SDK概述</h1>
+                                    <h2>web sdk用于web页面启动/安装app,并在启动/安装app的同时，向app传递各种自定义参数（通过android/ios sdk可获取传递的参数）。</h2>
+                                    <h2>集成步骤</h2>
+                                    <pre style="width:800px;height:1450px">
 <code style="width: 100%;height: 90%;" class="lang-javascript">
 &lt;script type="text/javascript" src="ShareInstall.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript"&gt;
@@ -231,354 +260,341 @@
 &lt;/script&gt;
 </code>
 </pre>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
-
-            </div>
-            <div id="_config" class="my-app" style="display: none;">
-                <div class="tab-content">
-                    <div>
-                        <div class="tab-content">
-                            <div style="height:10px"></div>
-                            <div id="banner_content">
-                                <div class="banner-config" style="min-width:1290px;">
-                                    <div class="depoly-said">
-                                        <p style="padding: 5px;line-height: 25px;">App
-                                            banner是openinstall为开发者提供的一种Web快速集成方式，将下面的&lt;script&gt;标签复制到自己的web分享页中，将根据下面的配置自动生成App
-                                            banner，同时收集分享页url上的动态参数，应用被拉起或是首次安装时，通过相应的Android/iOS客户端api可以获取此数据。</p>
-                                        <p style="font-size:16px;color:#F26358;padding:5px">&lt;script
-                                            type="text/javascript" id="_openinstall_banner"
-                                            src="//openinstall.io/openinstall.js?id=8054290306926569960"&gt;&lt;/script&gt;</p>
-                                    </div>
-                                    <form enctype="multipart/form-data" method="post" target="ifrm"
-                                          action="/cgi/appinfo/save-banner">
-                                        <input type="hidden" name="appId" value="1908034947">
-                                        <input type="hidden" name="id" value="8054290306926569960">
-                                        <input type="hidden" name="callback" value="uploaded">
-                                        <h2 class="container-title">配置App banner的样式</h2>
-                                        <div style="float:left">
-                                            <table class="color_table">
-                                                <tbody>
-                                                <tr style="line-height:30px">
-                                                    <td style="line-height: 70px;">图标</td>
-                                                    <td style="vertical-align:middle">
-                                                        <img src="//res.cdn.openinstall.io/api_v2/images/default-icon.png"
-                                                             class="iconPreview"
-                                                             style="width:41px;float:left;margin-top: 8px;height:41px;">
-                                                        <div style="float:left;margin-left: 20px;">
-                                                            <p>建议使用41x41的图标</p>
-                                                            <p style="text-align: left;"><input type="file"
-                                                                                                name="iconFile"
-                                                                                                style="display:none"><a
-                                                                    class="iconBtn" href="javascript:;"
-                                                                    style="border: 1px solid #00a4ff;border-radius: 3px;padding: 3px 10px;color: #00a4ff;">选择图标</a>
-                                                            </p>
-                                                        </div>
-                                                    </td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>背景</td>
-                                                    <td class="common-form">
-                                                        <input name="bgRGB" class="color" value="rgba(9, 9, 9, 0.5)"
-                                                               type="text"
-                                                               style="background-color: rgba(9, 9, 9, 0.5); color: rgb(34, 34, 34);">
-                                                    </td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>标题</td>
-                                                    <td class="common-form"><input name="title" value="aaaa" type="text"
-                                                                                   style="width:300px"></td>
-                                                    <td class="common-form" style="padding-left: 30px;">
-                                                        前景色&nbsp;&nbsp;<input name="titleRGB" class="color"
-                                                                              value="rgb(255, 255, 255)" type="text"
-                                                                              style="background-color: rgb(255, 255, 255); color: rgb(34, 34, 34);">
-                                                    </td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>描述</td>
-                                                    <td class="common-form"><input name="desc" value="" type="text"
-                                                                                   style="width:300px"></td>
-                                                    <td class="common-form" style="padding-left: 30px;">
-                                                        前景色&nbsp;&nbsp;<input name="descRGB" class="color"
-                                                                              value="rgb(255, 255, 255)" type="text"
-                                                                              style="background-color: rgb(255, 255, 255); color: rgb(34, 34, 34);">
-                                                    </td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>按钮</td>
-                                                    <td class="common-form"><input name="button" value="进入App"
-                                                                                   type="text" style="width:300px"></td>
-                                                    <td class="common-form" style="padding-left: 30px;">
-                                                        前景色&nbsp;&nbsp;<input name="buttonRGB" class="color"
-                                                                              value="rgb(255, 255, 255)" type="text"
-                                                                              style="background-color: rgb(255, 255, 255); color: rgb(34, 34, 34);">
-                                                    </td>
-                                                    <td class="common-form" style="padding-left: 30px;">
-                                                        背景色&nbsp;&nbsp;<input name="buttonBgRGB" class="color"
-                                                                              value="rgb(255, 164, 255)" type="text"
-                                                                              style="background-color: rgb(255, 164, 255); color: rgb(34, 34, 34);">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="padding-top: 50px;"><input type="submit"
-                                                                                          style="background: #00C864;color: #fff;margin-left:40px;line-height: 30px;padding:0 30px;border-radius:4px"
-                                                                                          value="保 存"></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                <div id="_config" class="my-app" style="display: none;">
+                    <div class="tab-content">
+                        <div>
+                            <div class="tab-content">
+                                <div style="height:10px"></div>
+                                <div id="banner_content">
+                                    <div class="banner-config" style="min-width:1290px;">
+                                        <div class="depoly-said">
+                                            <p style="padding: 5px;line-height: 25px;">App banner是openinstall为开发者提供的一种Web快速集成方式，将下面的&lt;script&gt;标签复制到自己的web分享页中，将根据下面的配置自动生成App
+                                                banner，同时收集分享页url上的动态参数，应用被拉起或是首次安装时，通过相应的Android/iOS客户端api可以获取此数据。
+                                            </p>
+                                            <p style="font-size:16px;color:#F26358;padding:5px">&lt;script type="text/javascript" id="_openinstall_banner" src="//openinstall.io/openinstall.js?id=8054290306926569960"&gt;&lt;/script&gt;
+                                            </p>
                                         </div>
-                                    </form>
-                                    <div class="phone">
-                                        <div class="banner-display">
-                                            <div class="content channel-page">
-                                                <div class="page-index">
-                                                    <div style="padding-top: 20px;padding-left:10px">
-                                                        <p style="line-height:1.3rem;font-size:1.6rem;">
-                                                            App banner测试页-
-                                                            <span style="color: green;">aaaa</span>
-                                                        </p>
-                                                    </div>
-                                                    <div class="udid-content channel-content"
-                                                         style="margin: 2em auto 0;width: 100%;text-align: center">
-                                                        <img style="width: 72px; height: 72px;margin: 0" alt=""
-                                                             src="//res.cdn.openinstall.io/api_v2/images/default-icon.png">
-                                                        <p style="font-size:1.6rem;margin:2px auto;">aaaa</p>
-                                                    </div>
-                                                    <div class="channel-title" style="width: 90%;border: 1px dashed #8da2c9;margin: 4em auto;padding: .5em;">
-                                                        <p>这是一个App banner测试页，开发者可直接将相应的&lt;script&gt;标签插入到分享页中，openinstall将自动生成如下的App
-                                                            banner，同时收集分享页url上的动态参数,应用被拉起或是首次安装时，通过相应的Android/iOS
-                                                            api可以获取此动态参数。</p>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div class="-openinstall-banner"
-                                                 style="position: absolute; left: 0; bottom: 0; width: 100%; background: rgba(9, 9, 9, 0.5)">
-                                                <table style="table-layout: fixed; width: 100%;" border="0"
-                                                       cellspacing="0" cellpadding="0">
+                                        <form enctype="multipart/form-data" method="post" target="ifrm" action="/cgi/appinfo/save-banner">
+                                            <input type="hidden" name="appId" value="1908034947">
+                                            <input type="hidden" name="id" value="8054290306926569960">
+                                            <input type="hidden" name="callback" value="uploaded">
+                                            <h2 class="container-title">配置App banner的样式</h2>
+                                            <div style="float:left">
+                                                <table class="color_table">
                                                     <tbody>
-                                                    <tr>
-                                                        <td style="vertical-align: middle; height: 60px; text-align: center; width: 50px">
-                                                            <img class="-openinstall-banner-icon"
-                                                                 src="//res.cdn.openinstall.io/api_v2/images/default-icon.png"
-                                                                 alt=""
-                                                                 style="vertical-align: middle; width: 41px; height: 41px; margin: 0 5px">
-                                                        </td>
-                                                        <td style="vertical-align: middle; height: 60px; text-align: left">
-                                                            <p class="-openinstall-banner-title"
-                                                               style="font-size: 18px; margin: 0; line-height: 25px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: rgb(255, 255, 255)">
-                                                                aaaa</p>
-                                                            <p class="-openinstall-banner-desc"
-                                                               style="font-size: 14px; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: rgb(255, 255, 255)"></p>
-                                                        </td>
-                                                        <td style="vertical-align: middle; height: 60px; text-align: center; width: 100px">
-                                                            <a class="-openinstall-banner-button"
-                                                               href="javascript:void;"
-                                                               style="display: inline-block; text-decoration: none; cursor: pointer; font-size: 14px;margin:0; border-radius: 15px; padding: 5px 10px; max-width:70px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border: rgb(255, 164, 255) solid 1px; background: rgb(255, 164, 255); color: rgb(255, 255, 255);">进入App</a>
-                                                        </td>
-                                                    </tr>
+                                                        <tr style="line-height:30px">
+                                                            <td style="line-height: 70px;">图标</td>
+                                                            <td style="vertical-align:middle">
+                                                                <img src="//res.cdn.openinstall.io/api_v2/images/default-icon.png" class="iconPreview" style="width:41px;float:left;margin-top: 8px;height:41px;">
+                                                                <div style="float:left;margin-left: 20px;">
+                                                                    <p>建议使用41x41的图标</p>
+                                                                    <p style="text-align: left;">
+                                                                        <input type="file" name="iconFile" style="display:none">
+                                                                        <a class="iconBtn" href="javascript:;" style="border: 1px solid #00a4ff;border-radius: 3px;padding: 3px 10px;color: #00a4ff;">选择图标</a>
+                                                                    </p>
+                                                                </div>
+                                                            </td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>背景</td>
+                                                            <td class="common-form">
+                                                                <input name="bgRGB" class="color" value="rgba(9, 9, 9, 0.5)" type="text" style="background-color: rgba(9, 9, 9, 0.5); color: rgb(34, 34, 34);">
+                                                            </td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>标题</td>
+                                                            <td class="common-form">
+                                                                <input name="title" value="aaaa" type="text" style="width:300px">
+                                                            </td>
+                                                            <td class="common-form" style="padding-left: 30px;">
+                                                                前景色&nbsp;&nbsp;
+                                                                <input name="titleRGB" class="color" value="rgb(255, 255, 255)"
+                                                                    type="text" style="background-color: rgb(255, 255, 255); color: rgb(34, 34, 34);">
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>描述</td>
+                                                            <td class="common-form">
+                                                                <input name="desc" value="" type="text" style="width:300px">
+                                                            </td>
+                                                            <td class="common-form" style="padding-left: 30px;">
+                                                                前景色&nbsp;&nbsp;
+                                                                <input name="descRGB" class="color" value="rgb(255, 255, 255)"
+                                                                    type="text" style="background-color: rgb(255, 255, 255); color: rgb(34, 34, 34);">
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>按钮</td>
+                                                            <td class="common-form">
+                                                                <input name="button" value="进入App" type="text" style="width:300px">
+                                                            </td>
+                                                            <td class="common-form" style="padding-left: 30px;">
+                                                                前景色&nbsp;&nbsp;
+                                                                <input name="buttonRGB" class="color" value="rgb(255, 255, 255)"
+                                                                    type="text" style="background-color: rgb(255, 255, 255); color: rgb(34, 34, 34);">
+                                                            </td>
+                                                            <td class="common-form" style="padding-left: 30px;">
+                                                                背景色&nbsp;&nbsp;
+                                                                <input name="buttonBgRGB" class="color" value="rgb(255, 164, 255)"
+                                                                    type="text" style="background-color: rgb(255, 164, 255); color: rgb(34, 34, 34);">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding-top: 50px;">
+                                                                <input type="submit" style="background: #00C864;color: #fff;margin-left:40px;line-height: 30px;padding:0 30px;border-radius:4px"
+                                                                    value="保 存">
+                                                            </td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div style="clear:both"></div>
-                            </div>
-                            <script type="text/x-handlebars-template" id="banner_content_tmpl">
-                                <div class="banner-config" style="min-width:1290px;">
-                                    {{#with banner}}
-                                    <div class="depoly-said">
-                                        <p style="padding: 5px;line-height: 25px;">App
-                                            banner是openinstall为开发者提供的一种Web快速集成方式，将下面的&lt;script&gt;标签复制到自己的web分享页中，将根据下面的配置自动生成App
-                                            banner，同时收集分享页url上的动态参数，应用被拉起或是首次安装时，通过相应的Android/iOS客户端api可以获取此数据。</p>
-                                        <p style="font-size:16px;color:#F26358;padding:5px">{{scriptTag}}</p>
-                                    </div>
-                                    <form enctype="multipart/form-data" method="post" target="ifrm"
-                                          action="/cgi/appinfo/save-banner">
-                                        <input type="hidden" name="appId" value="{{appId}}"/>
-                                        <input type="hidden" name="id" value="{{id}}"/>
-                                        <input type="hidden" name="callback" value="uploaded"/>
-                                        <h2 class="container-title">配置App banner的样式</h2>
-                                        <div style="float:left">
-                                            <table class="color_table">
-                                                <tbody>
-                                                <tr style="line-height:30px">
-                                                    <td style="line-height: 70px;">图标</td>
-                                                    <td style="vertical-align:middle">
-                                                        <img src="{{iconUrl}}" class="iconPreview"
-                                                             style="width:41px;float:left;margin-top: 8px;height:41px;"/>
-                                                        <div style="float:left;margin-left: 20px;">
-                                                            <p>建议使用41x41的图标</p>
-                                                            <p style="text-align: left;"><input type="file"
-                                                                                                name="iconFile"
-                                                                                                style="display:none"/><a
-                                                                    class="iconBtn" href="javascript:;"
-                                                                    style="border: 1px solid #00a4ff;border-radius: 3px;padding: 3px 10px;color: #00a4ff;">选择图标</a>
+                                        </form>
+                                        <div class="phone">
+                                            <div class="banner-display">
+                                                <div class="content channel-page">
+                                                    <div class="page-index">
+                                                        <div style="padding-top: 20px;padding-left:10px">
+                                                            <p style="line-height:1.3rem;font-size:1.6rem;">
+                                                                App banner测试页-
+                                                                <span style="color: green;">aaaa</span>
                                                             </p>
                                                         </div>
-                                                    </td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>背景</td>
-                                                    <td class="common-form">
-                                                        <input name="bgRGB" class="color" value="{{bgRGB}}"
-                                                               type="text"/>
-                                                    </td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>标题</td>
-                                                    <td class="common-form"><input name="title" value="{{title}}"
-                                                                                   type="text" style="width:300px"/>
-                                                    </td>
-                                                    <td class="common-form" style="padding-left: 30px;">
-                                                        前景色&nbsp;&nbsp;<input name="titleRGB" class="color"
-                                                                              value="{{titleRGB}}" type="text"/></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>描述</td>
-                                                    <td class="common-form"><input name="desc" value="{{desc}}"
-                                                                                   type="text" style="width:300px"/>
-                                                    </td>
-                                                    <td class="common-form" style="padding-left: 30px;">
-                                                        前景色&nbsp;&nbsp;<input name="descRGB" class="color"
-                                                                              value="{{descRGB}}" type="text"/></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>按钮</td>
-                                                    <td class="common-form"><input name="button" value="{{button}}"
-                                                                                   type="text" style="width:300px"/>
-                                                    </td>
-                                                    <td class="common-form" style="padding-left: 30px;">
-                                                        前景色&nbsp;&nbsp;<input name="buttonRGB" class="color"
-                                                                              value="{{buttonRGB}}" type="text"/>
-                                                    </td>
-                                                    <td class="common-form" style="padding-left: 30px;">
-                                                        背景色&nbsp;&nbsp;<input name="buttonBgRGB" class="color"
-                                                                              value="{{buttonBgRGB}}" type="text"/></td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="padding-top: 50px;"><input type="submit"
-                                                                                          style="background: #00C864;color: #fff;margin-left:40px;line-height: 30px;padding:0 30px;border-radius:4px"
-                                                                                          value="保 存"></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </form>
-                                    {{/with}}
-                                    <div class="phone">
-                                        <div class="banner-display">
-                                            <iframe src="/cgi/appinfo/banner-page?appId={{banner.appId}}"></iframe>
-                                            {{{html}}}
+                                                        <div class="udid-content channel-content" style="margin: 2em auto 0;width: 100%;text-align: center">
+                                                            <img style="width: 72px; height: 72px;margin: 0" alt="" src="//res.cdn.openinstall.io/api_v2/images/default-icon.png">
+                                                            <p style="font-size:1.6rem;margin:2px auto;">aaaa</p>
+                                                        </div>
+                                                        <div class="channel-title" style="width: 90%;border: 1px dashed #8da2c9;margin: 4em auto;padding: .5em;">
+                                                            <p>这是一个App banner测试页，开发者可直接将相应的&lt;script&gt;标签插入到分享页中，openinstall将自动生成如下的App
+                                                                banner，同时收集分享页url上的动态参数,应用被拉起或是首次安装时，通过相应的Android/iOS api可以获取此动态参数。
+                                                            </p>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="-openinstall-banner" style="position: absolute; left: 0; bottom: 0; width: 100%; background: rgba(9, 9, 9, 0.5)">
+                                                    <table style="table-layout: fixed; width: 100%;" border="0" cellspacing="0" cellpadding="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="vertical-align: middle; height: 60px; text-align: center; width: 50px">
+                                                                    <img class="-openinstall-banner-icon" src="//res.cdn.openinstall.io/api_v2/images/default-icon.png" alt="" style="vertical-align: middle; width: 41px; height: 41px; margin: 0 5px">
+                                                                </td>
+                                                                <td style="vertical-align: middle; height: 60px; text-align: left">
+                                                                    <p class="-openinstall-banner-title" style="font-size: 18px; margin: 0; line-height: 25px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: rgb(255, 255, 255)">
+                                                                        aaaa</p>
+                                                                    <p class="-openinstall-banner-desc" style="font-size: 14px; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: rgb(255, 255, 255)"></p>
+                                                                </td>
+                                                                <td style="vertical-align: middle; height: 60px; text-align: center; width: 100px">
+                                                                    <a class="-openinstall-banner-button" href="javascript:void;" style="display: inline-block; text-decoration: none; cursor: pointer; font-size: 14px;margin:0; border-radius: 15px; padding: 5px 10px; max-width:70px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border: rgb(255, 164, 255) solid 1px; background: rgb(255, 164, 255); color: rgb(255, 255, 255);">进入App</a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div style="clear:both"></div>
                                 </div>
-                                <div style="clear:both"></div>
-                            </script>
+                                <script type="text/x-handlebars-template" id="banner_content_tmpl">
+                                    <div class="banner-config" style="min-width:1290px;">
+                                        {{#with banner}}
+                                        <div class="depoly-said">
+                                            <p style="padding: 5px;line-height: 25px;">App banner是openinstall为开发者提供的一种Web快速集成方式，将下面的&lt;script&gt;标签复制到自己的web分享页中，将根据下面的配置自动生成App
+                                                banner，同时收集分享页url上的动态参数，应用被拉起或是首次安装时，通过相应的Android/iOS客户端api可以获取此数据。
+                                            </p>
+                                            <p style="font-size:16px;color:#F26358;padding:5px">{{scriptTag}}</p>
+                                        </div>
+                                        <form enctype="multipart/form-data" method="post" target="ifrm" action="/cgi/appinfo/save-banner">
+                                            <input type="hidden" name="appId" value="{{appId}}" />
+                                            <input type="hidden" name="id" value="{{id}}" />
+                                            <input type="hidden" name="callback" value="uploaded" />
+                                            <h2 class="container-title">配置App banner的样式</h2>
+                                            <div style="float:left">
+                                                <table class="color_table">
+                                                    <tbody>
+                                                        <tr style="line-height:30px">
+                                                            <td style="line-height: 70px;">图标</td>
+                                                            <td style="vertical-align:middle">
+                                                                <img src="{{iconUrl}}" class="iconPreview" style="width:41px;float:left;margin-top: 8px;height:41px;" />
+                                                                <div style="float:left;margin-left: 20px;">
+                                                                    <p>建议使用41x41的图标</p>
+                                                                    <p style="text-align: left;">
+                                                                        <input type="file" name="iconFile" style="display:none"
+                                                                        />
+                                                                        <a class="iconBtn" href="javascript:;" style="border: 1px solid #00a4ff;border-radius: 3px;padding: 3px 10px;color: #00a4ff;">选择图标</a>
+                                                                    </p>
+                                                                </div>
+                                                            </td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>背景</td>
+                                                            <td class="common-form">
+                                                                <input name="bgRGB" class="color" value="{{bgRGB}}" type="text" />
+                                                            </td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>标题</td>
+                                                            <td class="common-form">
+                                                                <input name="title" value="{{title}}" type="text" style="width:300px"
+                                                                />
+                                                            </td>
+                                                            <td class="common-form" style="padding-left: 30px;">
+                                                                前景色&nbsp;&nbsp;
+                                                                <input name="titleRGB" class="color" value="{{titleRGB}}"
+                                                                    type="text" />
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>描述</td>
+                                                            <td class="common-form">
+                                                                <input name="desc" value="{{desc}}" type="text" style="width:300px"
+                                                                />
+                                                            </td>
+                                                            <td class="common-form" style="padding-left: 30px;">
+                                                                前景色&nbsp;&nbsp;
+                                                                <input name="descRGB" class="color" value="{{descRGB}}"
+                                                                    type="text" />
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>按钮</td>
+                                                            <td class="common-form">
+                                                                <input name="button" value="{{button}}" type="text" style="width:300px"
+                                                                />
+                                                            </td>
+                                                            <td class="common-form" style="padding-left: 30px;">
+                                                                前景色&nbsp;&nbsp;
+                                                                <input name="buttonRGB" class="color" value="{{buttonRGB}}"
+                                                                    type="text" />
+                                                            </td>
+                                                            <td class="common-form" style="padding-left: 30px;">
+                                                                背景色&nbsp;&nbsp;
+                                                                <input name="buttonBgRGB" class="color" value="{{buttonBgRGB}}"
+                                                                    type="text" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding-top: 50px;">
+                                                                <input type="submit" style="background: #00C864;color: #fff;margin-left:40px;line-height: 30px;padding:0 30px;border-radius:4px"
+                                                                    value="保 存">
+                                                            </td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </form>
+                                        {{/with}}
+                                        <div class="phone">
+                                            <div class="banner-display">
+                                                <iframe src="/cgi/appinfo/banner-page?appId={{banner.appId}}"></iframe>
+                                                {{{html}}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="clear:both"></div>
+                                </script>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="_market" class="my-app" style="display: none;">
-                <div class="tab-content">
-                    <div>
-                        <div style="height: 20px;"></div>
-                        <div class="clearfix">
-                            <form>
-                                <input type="hidden" name="appId" value="1908034947">
-                                <fieldset>
-                                    <div class="depoly-web" style="padding:0">
-                                        <legend>
-                                            <label class="depoly-label"><input class="fieldset_switch" type="checkbox"
-                                                                               name="restrictDomainEnabled"
-                                                                               value="true">&nbsp;&nbsp;启用域名验证&nbsp;&nbsp;(选
-                                                用)</label>
-                                        </legend>
-                                        <div style="height: 1px"></div>
-                                    </div>
-                                    <div class="depoly-said"><b>提示：</b>通过http Refer头部验证web
-                                        api的调用来源，支持通配符*，最多可添加5个；如：192.168.0.*；*.example.com；a.example.com
-                                    </div>
-                                    <div class="depoly-web">
-                                        <div style="border-bottom: 1px solid #F1F3F9;padding:0 0 40px 0;">
-                                            <div class="common-form" style="margin:20px 0">
-                                                                    <span style="margin-right:30px">
-                                                                    <!--<span>域名1</span>-->
-                                                                    域名1
-                                                                </span>
-                                                <input type="text" name="restrictDomains" value="" style="width:68.5%"
-                                                       disabled="">
-                                            </div>
-                                            <div class="common-form" style="margin:20px 0">
-                                                                    <span style="margin-right:30px">
-                                                                    <!--<span>域名2</span>-->
-                                                                    域名2
-                                                                </span>
-                                                <input type="text" name="restrictDomains" value="" style="width:68.5%"
-                                                       disabled="">
-                                            </div>
-                                            <div class="common-form" style="margin:20px 0">
-                                                                    <span style="margin-right:30px">
-                                                                    <!--<span>域名3</span>-->
-                                                                    域名3
-                                                                </span>
-                                                <input type="text" name="restrictDomains" value="" style="width:68.5%"
-                                                       disabled="">
-                                            </div>
-                                            <div class="common-form" style="margin:20px 0">
-                                                                    <span style="margin-right:30px">
-                                                                    <!--<span>域名4</span>-->
-                                                                    域名4
-                                                                </span>
-                                                <input type="text" name="restrictDomains" value="" style="width:68.5%"
-                                                       disabled="">
-                                            </div>
-                                            <div class="common-form" style="margin:20px 0">
-                                                                    <span style="margin-right:30px">
-                                                                    <!--<span>域名5</span>-->
-                                                                    域名5
-                                                                </span>
-                                                <input type="text" name="restrictDomains" value="" style="width:68.5%"
-                                                       disabled="">
-                                            </div>
+                <div id="_market" class="my-app" style="display: none;">
+                    <div class="tab-content">
+                        <div>
+                            <div style="height: 20px;"></div>
+                            <div class="clearfix">
+                                <form>
+                                    <input type="hidden" name="appId" value="1908034947">
+                                    <fieldset>
+                                        <div class="depoly-web" style="padding:0">
+                                            <legend>
+                                                <label class="depoly-label">
+                                                    <input class="fieldset_switch" type="checkbox" name="restrictDomainEnabled"
+                                                        value="true">&nbsp;&nbsp;启用域名验证&nbsp;&nbsp;(选 用)
+                                                </label>
+                                            </legend>
+                                            <div style="height: 1px"></div>
                                         </div>
-                                        <div class="clearfix"></div>
+                                        <div class="depoly-said">
+                                            <b>提示：</b>通过http Refer头部验证web api的调用来源，支持通配符*，最多可添加5个；如：192.168.0.*；*.example.com；a.example.com
+                                        </div>
+                                        <div class="depoly-web">
+                                            <div style="border-bottom: 1px solid #F1F3F9;padding:0 0 40px 0;">
+                                                <div class="common-form" style="margin:20px 0">
+                                                    <span style="margin-right:30px">
+                                                        <!--<span>域名1</span>-->
+                                                        域名1
+                                                    </span>
+                                                    <input type="text" name="restrictDomains" value="" style="width:68.5%" disabled="">
+                                                </div>
+                                                <div class="common-form" style="margin:20px 0">
+                                                    <span style="margin-right:30px">
+                                                        <!--<span>域名2</span>-->
+                                                        域名2
+                                                    </span>
+                                                    <input type="text" name="restrictDomains" value="" style="width:68.5%" disabled="">
+                                                </div>
+                                                <div class="common-form" style="margin:20px 0">
+                                                    <span style="margin-right:30px">
+                                                        <!--<span>域名3</span>-->
+                                                        域名3
+                                                    </span>
+                                                    <input type="text" name="restrictDomains" value="" style="width:68.5%" disabled="">
+                                                </div>
+                                                <div class="common-form" style="margin:20px 0">
+                                                    <span style="margin-right:30px">
+                                                        <!--<span>域名4</span>-->
+                                                        域名4
+                                                    </span>
+                                                    <input type="text" name="restrictDomains" value="" style="width:68.5%" disabled="">
+                                                </div>
+                                                <div class="common-form" style="margin:20px 0">
+                                                    <span style="margin-right:30px">
+                                                        <!--<span>域名5</span>-->
+                                                        域名5
+                                                    </span>
+                                                    <input type="text" name="restrictDomains" value="" style="width:68.5%" disabled="">
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </fieldset>
+                                    <div style="margin-top: 30px;">
+                                        <button type="submit" class="btn_submit" style="background: #00C864;color: #fff">保 存
+                                        </button>
                                     </div>
-                                </fieldset>
-                                <div style="margin-top: 30px;">
-                                    <button type="submit" class="btn_submit" style="background: #00C864;color: #fff">保
-                                        存
-                                    </button>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 </body>
+
 </html>

@@ -1,3 +1,8 @@
+html,
+body {
+  min-width: 1200px;
+}
+
 .my-banner {
   width: 100%;
   height: 870px;
@@ -117,6 +122,7 @@
       font-size: 16px;
       color: #fff;
       line-height: 30px;
+      word-break: break-all;
     }
     a {
       margin-top: 70px;
@@ -227,32 +233,32 @@
     transition: all 0.3s ease-in-out 0.1s;
   }
 
-  .core-cards li:nth-child(2), .core-cards li:nth-child(6) {
-    //margin: 0 5%;
-  }
+  // .core-cards li:nth-child(2), .core-cards li:nth-child(6) {
+  //   //margin: 0 5%;
+  // }
 
-  @media only screen and (max-width: 992px) {
-    .core-cards li {
-      width: 45%;
-    }
+  // @media only screen and (max-width: 992px) {
+  //   .core-cards li {
+  //     width: 45%;
+  //   }
 
-    .core-cards li:nth-child(2), .core-cards li:nth-child(5), .core-cards li:nth-child(8) {
-      margin: 0;
-    }
+  //   .core-cards li:nth-child(2), .core-cards li:nth-child(5), .core-cards li:nth-child(8) {
+  //     margin: 0;
+  //   }
 
-    .core-cards li:nth-child(odd) {
-      margin-right: 10%;
-    }
-  }
+  //   .core-cards li:nth-child(odd) {
+  //     margin-right: 10%;
+  //   }
+  // }
 
-  @media only screen and (max-width: 767px) {
-    .core-cards li {
-      width: 100%;
-      margin-right: 0;
-      margin-left: 0;
-      height: 260px;
-    }
-  }
+  // @media only screen and (max-width: 767px) {
+  //   .core-cards li {
+  //     width: 100%;
+  //     margin-right: 0;
+  //     margin-left: 0;
+  //     height: 260px;
+  //   }
+  // }
 
   .core-cards a {
     float: left;
@@ -926,6 +932,304 @@
           -ms-transform: rotate(360deg);
           -o-transform: rotate(360deg);
           transform: rotate(360deg);
+        }
+      }
+    }
+  }
+}
+
+// 移动端样式
+@media only screen and (max-width: 767px) {
+  html,
+  body {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .my-install {
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 30px;
+
+    .title {
+      padding: 0 15px;
+
+      h2 {
+        text-align: center;
+      }
+    }
+
+    .install-nav {
+      margin-top: 30px;
+    }
+
+    .core-cards li {
+      width: 100%;
+      margin-right: 0;
+      margin-left: 0;
+      height: 260px;
+      text-align: center;
+      margin-bottom: 0px !important;
+
+      &:nth-child(1) .bg-img {
+        background-image: url(../../img/index/entry1.png)!important;
+      }
+
+      &:nth-child(2) .bg-img {
+        background-image: url(../../img/index/entry2.png)!important;
+      }
+
+      &:nth-child(3) .bg-img {
+        background-image: url(../../img/index/entry3.png)!important;
+      }
+
+      &:nth-child(4) .bg-img {
+        background-image: url(../../img/index/entry4.png)!important;
+      }
+
+      &:nth-child(5) .bg-img {
+        background-image: url(../../img/index/entry5.png)!important;
+      }
+
+      &:nth-child(6) .bg-img {
+        background-image: url(../../img/index/entry6.png)!important;
+      }
+
+      &:nth-child(7) .bg-img {
+        background-image: url(../../img/index/entry7.png)!important;
+      }
+
+      &:nth-child(8) .bg-img {
+        background-image: url(../../img/index/entry8.png)!important;
+      }
+
+      .card-icn {
+        margin: 0 auto;
+      }
+
+      p {
+        margin: 0 auto;
+        color: #fff;
+      }
+
+      h3 {
+        color: #fff;
+      }
+
+      .bg-img {
+        opacity: 1;
+      }
+
+      .border {
+        height: 30px;
+      }
+
+      a {
+        &::after {
+          position: absolute;
+          display: inline-block;
+          content: "";
+          width: 10px;
+          height: 10px;
+          bottom: 0px;
+          left: 67px;
+          margin-bottom: 9px;
+          z-index: 1;
+          opacity: 1;
+          border-top: 5px solid transparent;
+          border-bottom: 5px solid transparent;
+          border-left: 5px solid rgb(255, 255, 255);
+          transition: all 0.3s ease-in-out 0s;
+        }
+
+        &::before {
+          position: absolute;
+          display: inline-block;
+          content: "";
+          background: #ffffff;
+          width: 40px;
+          height: 2px;
+          left: 30px;
+          bottom: 0;
+          margin-bottom: 13px;
+          z-index: 1;
+          opacity: 1;
+          -webkit-transition: all 0.3s ease-in-out 0s;
+          -moz-transition: all 0.3s ease-in-out 0s;
+          transition: all 0.3s ease-in-out 0s;
+        }
+      }
+    }
+  }
+
+  .my-characteristic {
+    margin-top: 0px;
+    height: auto;
+    background: url(../../img/index/texing2.png);
+    background-size: cover;
+
+    ul {
+      padding-bottom: 20px;
+      li {
+        width: 100%;
+        margin: 15px 0 0 0;
+        height: auto;
+      }
+    }
+  }
+
+  .logo {
+    display: none;
+  }
+
+  .my-banner {
+    height: auto;
+    padding-bottom: 30px;
+
+    .my-banner-bottom {
+      margin-top: 30px;
+      height: auto;
+
+      h1 .typed-element {
+        font-size: 28px;
+      }
+    }
+
+    .my-banner-top {
+
+      > a {
+        float: left;
+      }
+
+      .banner-left {
+        float: none!important;
+        width: 120px;
+        margin-left: 20px;
+        background-size: contain;
+      }
+  
+      .banner-right {
+        position: relative;
+        margin: 20px 0 0 0;
+        float: none!important;
+        width: 100%;
+        clear: both;
+  
+        .banner-nav {
+          width: 100%;
+          display: none;
+    
+          li a {
+            width: 100%;
+            margin: 0;
+            padding: 5px 0;
+            text-align: center;
+          }
+        }
+
+        .btn-mobile-menu {
+          position: absolute;
+          top: -35px;
+          right: 20px;
+          width: 26px;
+          height: 20px;
+          z-index: 9999;
+
+          i {
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: #ffffff;
+
+            &:nth-child(2) {
+              top: 8px;
+            }
+
+            &:nth-child(3) {
+              top: 16px;
+            }
+          }
+        }
+      }   
+    }
+  }
+
+  .my-customer {
+    margin-top: 30px;
+
+    ul {
+      li {
+        width: 50%;
+        height: auto;
+        p {
+          width: 100%;
+          overflow: hidden;
+          margin-bottom: 0;
+          .img {
+            display: block;
+            margin: 22px auto 0;
+          }
+
+          .img6 {
+            margin-top: 30px;
+          }
+
+        }
+      }
+    }
+  }
+
+  .my-extension {
+    margin-top: 30px;
+    .extension {
+      .right {
+        display: none;
+      }
+    }
+  }
+
+  .my-footer {
+    height: auto;
+
+    .footer {
+      .top {
+        height: auto;
+        margin-top: 20px;
+        text-align: center;
+        font-size: 0;
+
+        .logo {
+          display: none;
+        }
+
+        .wendangzhongxin {
+          width: 50%;
+          margin-right: 0;
+          float: none!important;
+          text-align: left;
+          vertical-align: top;
+        }
+
+        .lianxiwomen {
+          width: 50%;
+          float: none!important;
+          text-align: left;
+        }
+
+        .qitalianxifangshi {
+          width: 100%;
+          float: none!important;
+          text-align: left;
+        }
+      }
+
+      .bottom {
+        height: auto;
+
+        .left {
+          height: auto;
+          line-height: 1.5;
+          padding: 10px 0;
         }
       }
     }

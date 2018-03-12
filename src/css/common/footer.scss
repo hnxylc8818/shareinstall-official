@@ -173,3 +173,60 @@ html, body {
 .layout-menu {
   overflow-y: auto;
 }
+
+.footer.container {
+  width: 100% !important;
+  max-width: 1200px;
+}
+
+
+// 移动端样式
+@media only screen and (max-width: 767px) {
+
+  .my-footer {
+    height: auto;
+
+    .footer {
+      .top {
+        height: auto;
+        margin-top: 20px;
+        text-align: center;
+        font-size: 0;
+
+        .logo {
+          display: none;
+        }
+
+        .wendangzhongxin {
+          width: 50%;
+          margin-right: 0;
+          float: none!important;
+          text-align: left;
+          vertical-align: top;
+        }
+
+        .lianxiwomen {
+          width: 50%;
+          float: none!important;
+          text-align: left;
+        }
+
+        .qitalianxifangshi {
+          width: 100%;
+          float: none!important;
+          text-align: left;
+        }
+      }
+
+      .bottom {
+        height: auto;
+
+        .left {
+          height: auto;
+          line-height: 1.5;
+          padding: 10px 0;
+        }
+      }
+    }
+  }
+}

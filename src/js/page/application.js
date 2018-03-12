@@ -9,8 +9,8 @@ var DfttModule = (function(dm) {
     typed: null,
     init: function() {
       var _this = this;
-  
-      _this.url = 'http://test-api.shareinstall.com/'
+
+      _this.url = 'http://api.shareinstall.com/'
       _this.addApp()
       _this.closeApp()
       _this.addEdit()
@@ -83,7 +83,19 @@ var DfttModule = (function(dm) {
       })
     },
     detailed: function() {
-      $(".detailed").on("click", function() {
+      $('body').on('click', '.detailed', function () {
+        var key = $(this).attr('data-key')
+        var img = $(this).attr('data-img')
+        var name = $(this).attr('data-name')
+        $.cookie('appkey', key, {
+          expires: 7
+        });
+        $.cookie('img', img, {
+          expires: 7
+        });
+        $.cookie('appName', name, {
+          expires: 7
+        });
         window.location.href = './overview.html'
       })
     },
@@ -109,6 +121,9 @@ var DfttModule = (function(dm) {
             var list = data.list;
             $(".list-ul").html("")
             _this.renderingList(list)
+          } else {
+            alert('登录已过期，请重新登录');
+            window.location.href = './login.html'
           }
         }
       })
@@ -127,6 +142,9 @@ var DfttModule = (function(dm) {
         var htmlStr = ''
         for (var i = 0; i < list.length; i++) {
           var item = list[i]
+          if (item.name.indexOf('script') > 0) {
+            item.name = '&bnsp;'
+          }
           htmlStr += ' <li class="item">' +
             '<span class="item-appkey">' + item.app_key + '</span>' +
             '<span class="item-name">' + item.name + '</span>' +
@@ -135,10 +153,8 @@ var DfttModule = (function(dm) {
             '</span>' +
             '<span class="item-pingtai">暂无</span>' +
             '<span class="item-operation">' +
-            '<button class="edit" data-key="' + item.app_key + '">编辑</button>' +
-            '<a href="./overview.html">' +
-            '<button class="detailed" data-key="' + item.app_key + '">详细</button>' +
-            '</a>' +
+            '<button class="edit" data-key="' + item.app_key + '" data-img="' + item.icon + '">编辑</button>' +
+            '<button class="detailed" data-name="' + item.name + '" data-key="' + item.app_key + '" data-img="' + item.icon + '">详细</button>' +
             '</span>' +
             '</li>'
         }
@@ -156,7 +172,8 @@ $(function() {
   $.each(DfttModule, function(i, obj) {
     if ($.isPlainObject(obj)) {
       if ($.isFunction(obj.init)) {
-        obj.init()
+        // obj.init()
+        // console.log(obj.init)
       } else {
         console.error(obj.init + ' is not a Function!')
       }

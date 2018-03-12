@@ -11,6 +11,7 @@ var DfttModule = (function(dm) {
       _this.typedElement()
       _this.backTop()
       _this.console()
+      _this.toggleMenu()
     },
     /***
      * 首页打字效果
@@ -44,6 +45,13 @@ var DfttModule = (function(dm) {
         } else {
           window.location.href = './application.html'
         }
+      })
+    },
+
+    // 移动端菜单收缩
+    toggleMenu: function () {
+      $('.my-banner-top').on('click', '.btn-mobile-menu', function () {
+        $('.banner-nav').toggle();
       })
     }
   }

@@ -168,7 +168,7 @@ a.common-tip {
   display: inline-block;
   width: 16px;
   height: 16px;
-  // background: url(/images/type/wen.png) no-repeat;
+  background: url(../../img/console/wen.png) no-repeat;
   background-size: 16px
 }
 
@@ -1341,7 +1341,15 @@ span.chart-btn {
 /***
 左侧导航划过样式
  */
-.my-active div {
+.menu-items .menu-child div {
+  margin: 20px auto;
+  height: 50px;
+  width: 100%;
+  line-height: 50px;
+  border-left: 2px solid transparent;
+}
+
+.menu-items .my-active div {
   background: #1c2732;
   border-left: 2px solid #2893e3;
 
@@ -1351,20 +1359,13 @@ span.chart-btn {
   color: #fff;
 }
 
-.menu-child div:hover {
+.menu-items .menu-child  div:hover {
   background: #1c2732;
   border-left: 2px solid #2893e3;
 }
 
 .menu-child div:hover a p {
   color: #fff;
-}
-
-.menu-items .menu-child div {
-  margin: 20px auto;
-  height: 50px;
-  width: 100%;
-  line-height: 50px;
 }
 
 .menu-items .menu-child div a {
