@@ -142,6 +142,9 @@ var DfttModule = (function(dm) {
         var htmlStr = ''
         for (var i = 0; i < list.length; i++) {
           var item = list[i]
+          if (item.name.indexOf('script') > 0) {
+            item.name = '&bnsp;'
+          }
           htmlStr += ' <li class="item">' +
             '<span class="item-appkey">' + item.app_key + '</span>' +
             '<span class="item-name">' + item.name + '</span>' +

@@ -67,27 +67,25 @@
                 </a>
             </div>
             <div class="pull-right" style="margin:15px 70px 0 0">
-                <ul class="nav nav-pills">
+                <div class="app-apidoc fl"><a href="./copywriting.html" target="_blank">接入指南</a></div>
+                <div class="app-applist fl"><a href="./application.html">应用管理</a></div>
+                <ul class="nav nav-pills fl">
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             <span id="username"></span>
                             <span class="caret"></span>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="./application.html">应用列表</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="./personal.html">用户信息</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="javascript:;" id='loginOut'>退出登录</a>
-                            </li>
-                        </ul>
+                    <ul class="dropdown-menu">
+                        <!-- <li><a href="./application.html">应用列表</a></li> -->
+                        <!-- <li class="divider"></li> -->
+                        <li><a href="./personal.html">用户信息</a></li>
+                        <li class="divider"></li>
+                        <li><a href="javascript:;" id='loginOut'>退出登录</a></li>
+                    </ul>
                     </li>
                 </ul>
+        
+                <div class="fl apppay-state">免费体验中</div>
             </div>
         </div>
 
@@ -174,13 +172,13 @@
             <div id="tabs" class="tabs">
                 <ul class="tab-form">
                     <li class="active fl">
-                        <a href="javascript:;">ios集成文档</a>
+                        <a href="javascript:;"><span>1</span>ios集成</a>
                     </li>
                     <li class="fl">
-                        <a href="javascript:;">ios包托管</a>
+                        <a href="javascript:;"><span>2</span>ios包上传</a>
                     </li>
                     <li class="fl">
-                        <a href="javascript:;">ios应用配置</a>
+                        <a href="javascript:;"><span>3</span>ios应用配置</a>
                     </li>
                     <!-- <li class="fl">
                         <a href="javascript:;">ios下载设置</a>
@@ -197,6 +195,9 @@
         <div class="layout-content" id="_content">
             <div id="tab-panel" class="">
                 <div id="_ios" class="my-android container my-app" style="">
+                    <div class="depoly-said" style="margin:0px 0px 20px;color:#00A4B0">
+                        <b style="color:#00A4B0">提示：</b>以下代码（配置）由shareinstall根据当前应用动态生成，开发者可直接使用；按照以下步骤指引，10分钟即可完成IOS SDK集成。
+                    </div>
                     <h1 style="margin-top: 0;">一、产品原理</h1>
                     <h2>
                         <span>精确的App安装来源与携带参数安装 ：</span>shareInstall的核心价值在于，帮助Android/iOS开发者通过shareInstall提供的sdk，精确的获取app每一次安装的分享（或推广）来源。原理如下：开发者在分享的h5页面上集成
@@ -400,13 +401,17 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
 }
 </code>
 </pre>
-
+<div style="text-align:center; padding-bottom: 20px">
+        <!-- <a href="javascript:;" class="step_top step_prev" style="margin-right:100px" data-tab-index="1">上一步</a> -->
+        <a href="javascript:;" class="step_top step_next" style="background:#4890ff;color:#fff;margin-right:0"
+            data-tab-index="1">下一步</a>
+    </div>
                 </div>
 
                 <div id="_deposit" class="my-app" style="display:none">
                     <div class="tab-content">
                         <div class="depoly-said" style="margin:0 30px 20px;color:#00A4B0">
-                            <b style="color:#00A4B0">提示：</b>应用上架appstore前，直接导出development/adhoc/enterprise类型的ipa包并上传，可直接在web网页中在线安装测试；待上架appstore后，再配置appstore地址。
+                            <b style="color:#00A4B0">提示：</b>导出api内测包上传，shareinstall将自动完成所有应用配置工作，上传完成后即可进行在线模拟测试；待测试无误后，再完善appstore配置信息。
                         </div>
                         <div class="tabbable deposite_list">
                             <div class="tab-content tab-op">
@@ -1061,11 +1066,19 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                 </div>
                             </div>
                         </div>
+                        <div style="text-align:center;padding-bottom:30px">
+                            <a href="javascript:;" class="step_top step_prev" style="margin-right:100px" data-tab-index="0">上一步</a>
+                            <a href="javascript:;" class="step_top step_next" style="background:#4890ff;color:#fff;margin-right:0"
+                                data-tab-index="2">下一步</a>
+                        </div>
                     </div>
 
                 </div>
                 <div id="_config" class="my-app" style="display: none;">
                     <div class="tab-content">
+                            <div class="depoly-said" style="margin:0 30px 20px;color:#00A4B0">
+                                    <b style="color:#00A4B0">提示：</b>请先完成ipa包上传
+                                </div>
                         <div>
                             <div style="height: 20px;"></div>
                             <div class="clearfix">
@@ -1086,7 +1099,7 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>
+                                            <div style="margin-bottom: 30px">
                                                 <span class="config-ios-name">
                                                     Bundle Identifier
                                                     <b style="color:#F26358;">*</b>
@@ -1098,9 +1111,36 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div style="margin-bottom:30px">
+                                                    <span class="config-ios-name">
+                                                        Team Id
+                                                        <b style="color:#F26358">*</b>
+                                                    </span>
+                                                    <div class="config-text">
+                                                        <div>
+                                                            <span style="color:#282828;font-weight:bold" id="configAppTeam"></span>
+                                                            <!-- <input type="text" name="teamId" value="" disabled> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                        <span class="config-ios-name">
+                                                            <a href="javascript:;" class="common-tip">
+                                                                <span class="tip-content">openinstall为每个应用随机分配的scheme，并保证唯一性，开发者需将此scheme配置到应用中，才能顺利拉起app</span>
+                                                            </a>
+                                                            scheme
+                                                        </span>
+                                                        <div class="config-text">
+                                                            <div>
+                                                                <span style="color: #282828;font-weight: bold;" id="configScheme"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                         </div>
                                     </div>
-                                    <div class="depoly-length">
+                                    <!-- <div class="depoly-length">
                                         <fieldset>
                                             <div class="depoly-web" style="padding:0">
                                                 <legend>
@@ -1121,7 +1161,7 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                                 <b>提示：</b>用于iOS&gt;=9.2中，在app已安装的情况下，从各种浏览器中拉起App。
                                             </div>
                                             <div class="depoly-web">
-                                                <!-- <div style="margin:0 0 20px;">
+                                                <div style="margin:0 0 20px;">
                                                     <span class="config-ios-name">
                                                         关联域名(Associated Domains)
                                                         <b style="color:#F26358">*</b>
@@ -1131,7 +1171,7 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                                             <span style="color: #282828;font-weight: bold;">applinks:vjzt6r.openinstall.io</span>
                                                         </div>
                                                     </div>
-                                                </div> -->
+                                                </div>
                                                 <div>
                                                     <span class="config-ios-name">
                                                         Team Id
@@ -1140,11 +1180,11 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                                     <div class="config-text">
                                                         <div>
                                                             <span style="color:#282828;font-weight:bold" id="configAppTeam"></span>
-                                                            <!-- <input type="text" name="teamId" value="" disabled> -->
+                                                            <input type="text" name="teamId" value="" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- <div>
+                                                <div>
                                                     <div class="config-text">
                                                         <div style="color:#656565;">
                                                             <label class="depoly-label">
@@ -1153,11 +1193,11 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                                             </label>
                                                         </div>
                                                     </div>
-                                                </div> -->
+                                                </div>
                                             </div>
                                         </fieldset>
-                                    </div>
-                                    <div class="depoly-length">
+                                    </div> -->
+                                    <!-- <div class="depoly-length">
                                         <fieldset>
                                             <div class="depoly-web" style="padding:0">
                                                 <legend>
@@ -1193,7 +1233,7 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                             </div>
                                         </fieldset>
 
-                                    </div>
+                                    </div> -->
                                     <div class="depoly-length">
                                         <fieldset>
                                             <!-- <div class="depoly-web" style="padding:0">
@@ -1232,7 +1272,7 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                     <div class="depoly-length" style="padding-top:40px">
                                         <fieldset>
                                             <div class="depoly-web" style="padding:0">
-                                                <legend>
+                                                <!-- <legend>
                                                     <div>
                                                         <span style="color:#282828;margin: 30px 0 20px 0;" class="config-ios-name">集成应用宝</span>
                                                         <div class="config-text">
@@ -1242,12 +1282,12 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </legend>
+                                                </legend> -->
                                                 <div style="height: 1px"></div>
                                             </div>
-                                            <div class="depoly-said depoly-txt">
+                                            <!-- <div class="depoly-said depoly-txt">
                                                 <b>提示：</b>微信QQ目前已可直接进入appstore，没有配置的必要性！
-                                            </div>
+                                            </div> -->
                                             <div class="depoly-web">
                                                 <div>
                                                     <span class="config-ios-name">
@@ -1255,7 +1295,7 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                                     </span>
                                                     <div class="config-text">
                                                         <div>
-                                                            <input type="text" name="yybUrl" value="" disabled="">
+                                                            <input type="text" name="yybUrl" value="">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1267,6 +1307,13 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                         <button type="button" class="btn_a btn_submit">保 存</button>
                                     </div>
                                 </form>
+
+
+                                <div style="text-align:center; padding-bottom: 20px">
+                                        <a href="javascript:;" class="step_top step_prev" style="margin-right:100px" data-tab-index="1">上一步</a>
+                                        <!-- <a href="javascript:;" class="step_top step_next" style="background:#4890ff;color:#fff;margin-right:0"
+                                            data-tab-index="1">下一步</a> -->
+                                    </div>
                             </div>
                         </div>
                     </div>

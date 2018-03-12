@@ -18,6 +18,8 @@ var DfttModule = (function (dm) {
       _this.gotoLink()
       _this.getPackageInfo()
       _this.configApp()
+      _this.nextFun()
+      _this.prevFun()
     },
 
     // 获取url中的参数
@@ -73,6 +75,7 @@ var DfttModule = (function (dm) {
         $(this).addClass("active").siblings().removeClass("active")
         var index = $(this).index()
         $("#tab-panel .my-app").eq(index).show().siblings().hide()
+        $(document).scrollTop(0)
       })
     },
     /**
@@ -81,9 +84,10 @@ var DfttModule = (function (dm) {
     prevFun: function () {
       var _this = this
       $(".step_prev").on("click", function () {
-        var index = parseInt($(this).attr("data-tab-index")) - 1
-        $(".tabs-item").eq(index).addClass("active").parent("div").siblings().children("a").removeClass("active")
-        $("#steps").children(".step").eq(index).show().siblings().hide()
+        var index = parseInt($(this).attr("data-tab-index"))
+        $("#tabs li").eq(index).addClass("active").siblings().removeClass("active")
+        $(".my-app").eq(index).show().siblings().hide()
+        $(document).scrollTop(0)
       })
     },
     /***
@@ -92,14 +96,15 @@ var DfttModule = (function (dm) {
     nextFun: function () {
       var _this = this
       $(".step_next").on("click", function () {
-        var index = parseInt($(this).attr("data-tab-index")) + 1
-        $(".tabs-item").eq(index).addClass("active").parent("div").siblings().children("a").removeClass("active")
-        $("#steps").children(".step").eq(index).show().siblings().hide()
+        var index = parseInt($(this).attr("data-tab-index"))
+        $("#tabs li").eq(index).addClass("active").siblings().removeClass("active")
+        $(".my-app").eq(index).show().siblings().hide()
+        $(document).scrollTop(0)
       })
     },
 
     /***
-     * 点击下一步
+     * 点击上传
      */
 
     uploadPackage: function () {

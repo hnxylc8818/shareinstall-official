@@ -677,3 +677,48 @@ body {
 .logo {
   // display: none;
 }
+
+
+.dropdown-toggle {
+  color: #ffffff;
+}
+
+.dropdown-toggle:focus{
+  background: none!important;
+  color: #ffffff;
+}
+
+.dropdown-toggle:hover {
+  color: #ffffff;
+  background: none!important;
+}
+
+.apppay-state {
+  margin-left: 30px;
+  line-height: 40px;
+  color: #ffffff;
+}
+
+.app-applist {
+  margin-right: 30px;
+  line-height: 40px;
+  color: #ffffff;
+
+  a {
+    color: #ffffff;
+  }
+}
+
+.app-apidoc {
+  margin-right: 35px;
+  margin-top: 4px;
+  a {
+    display: block;
+    padding: 0 10px 0 36px;
+    line-height: 30px;
+    border: solid 1px #ffffff;
+    border-radius: 3px;
+    color: #ffffff;
+    background: url(../../img/console/file.png) no-repeat 10px center
+  }
+}

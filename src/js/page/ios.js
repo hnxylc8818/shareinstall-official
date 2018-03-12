@@ -17,6 +17,8 @@ var DfttModule = (function (dm) {
       _this.uploadPackage()
       _this.getPackageInfo()
       _this.configApp()
+      _this.nextFun()
+      _this.prevFun()
     },
 
     // 渲染页面appkey
@@ -63,6 +65,32 @@ var DfttModule = (function (dm) {
         $(this).addClass("active").siblings().removeClass("active")
         var index = $(this).index()
         $(".my-app").eq(index).show().siblings().hide()
+        $(document).scrollTop(0)
+      })
+    },
+
+    /**
+     * 点击上一步
+     */
+    prevFun: function () {
+      var _this = this
+      $(".step_prev").on("click", function () {
+        var index = parseInt($(this).attr("data-tab-index"))
+        $("#tabs li").eq(index).addClass("active").siblings().removeClass("active")
+        $(".my-app").eq(index).show().siblings().hide()
+        $(document).scrollTop(0)
+      })
+    },
+    /***
+     * 点击下一步
+     */
+    nextFun: function () {
+      var _this = this
+      $(".step_next").on("click", function () {
+        var index = parseInt($(this).attr("data-tab-index"))
+        $("#tabs li").eq(index).addClass("active").siblings().removeClass("active")
+        $(".my-app").eq(index).show().siblings().hide()
+        $(document).scrollTop(0)
       })
     },
 

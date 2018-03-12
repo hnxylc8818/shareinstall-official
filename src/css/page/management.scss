@@ -1371,7 +1371,7 @@ span.chart-btn {
   color: #fff;
 }
 
-.menu-child div:hover {
+.menu-items .menu-child div:hover {
   background: #1c2732;
   border-left: 2px solid #2893e3;
 }
@@ -1385,6 +1385,7 @@ span.chart-btn {
   height: 50px;
   width: 100%;
   line-height: 50px;
+  border-left: 2px solid transparent;
 }
 
 .menu-items .menu-child div a {
