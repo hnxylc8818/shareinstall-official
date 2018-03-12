@@ -115,7 +115,7 @@ body, html {
             margin-bottom: 0;
           }
           .erification {
-            width: 80px;
+            width: 88px;
             margin-top: 0;
             height: 26px;
             line-height: 26px;
@@ -224,7 +224,7 @@ body, html {
             margin-bottom: 0;
           }
           .erification-w {
-            width: 80px;
+            width: 88px;
             margin-top: 0;
             height: 26px;
             line-height: 26px;
@@ -315,7 +315,7 @@ body, html {
       top: 240px;
       left: 50%;
       margin-left: -75px;
-      width: 150px;
+      width: 200px;
       height: 50px;
       color: #fff;
       font-size: 12px;
@@ -325,11 +325,16 @@ body, html {
     }
   }
   .company {
+    position: fixed;
+    bottom: 0;
     font-size: 14px;
     display: block;
     color: #a9adb1;
     text-align: center;
     width: 100%;
-    margin-top: 200px;
+    // margin-top: 200px;
+    line-height: 40px;
+    padding-top: 40px;
+    z-index: 0;
   }
 }

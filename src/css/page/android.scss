@@ -44,7 +44,8 @@ a:active {
 
 .layout-container {
   height: 100%;
-  width: 100%
+  width: 100%;
+  background: #f2f7fc;
 }
 
 .layout-menu {
@@ -76,11 +77,16 @@ a:active {
 }
 
 .layout-content {
-
+  background: #f2f7fc;
   overflow: hidden;
-  padding: 100px 50px 50px 300px;
+  padding: 150px 0 0 250px;
   min-width: 1024px;
-  box-sizing: content-box
+  box-sizing: content-box;
+
+  #tab-panel {
+    background: #ffffff;
+    margin: 20px;
+  }
 }
 
 .logo-bar {
@@ -159,7 +165,7 @@ a:active {
 }
 
 .depoly-said, .depoly-said > b {
-  font-size: 16px;
+  font-size: 14px;
   color: #8796b7
 }
 
@@ -168,7 +174,7 @@ a.common-tip {
   display: inline-block;
   width: 16px;
   height: 16px;
-  // background: url(/images/type/wen.png) no-repeat;
+  background: url(../../img/console/wen.png) no-repeat;
   background-size: 16px
 }
 
@@ -203,7 +209,7 @@ a:hover:enabled.common-tip {
 }
 
 .btn_upload {
-  background: #0c6;
+  background: #00a4ff;
   border-radius: 4px;
   margin: 0 0 20px
 }
@@ -397,7 +403,8 @@ a.img-jian {
 .tabs {
   display: inline-block;
   border: 1px solid #e8e8e8;
-  border-right: none
+  border-right: none;
+  vertical-align: top;
 }
 
 .tabs li {
@@ -578,10 +585,9 @@ input[type=checkbox], label > input[type=radio] {
 
 .item-upload {
   min-height: 540px;
-  border: 1px dashed #3BB6FB;
   text-align: center;
-  margin: 50px 0;
-  background: #f4f3f2
+  margin: 50px 20px;
+  background: #fafdff;
 }
 
 .create-all {
@@ -1512,11 +1518,12 @@ span.chart-btn {
 #tabs a {
   display: inline-block;
   width: 180px;
-  height: 46px;
-  line-height: 34px;
+  height: 38px;
+  line-height: 38px;
   font-size: 16px;
   color: #999;
   text-align: center;
+  padding: 0;
 }
 
 .tabs_bc {
@@ -1581,7 +1588,7 @@ android 页面
  */
 .my-app {
   height: auto;
-  margin-top: 100px;
+  margin-top: 30px;
   h1 {
     font-size: 20px;
     color: #333;
@@ -1652,4 +1659,37 @@ android 页面
       }
     }
   }
+}
+
+.upload-filebtn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  filter: opacity(alpha=0);
+}
+
+.blank-bg {
+  position: fixed;
+  top: 70px;
+  left: 270px;
+  right: 20px;
+  height: 20px;
+  background: #f2f7fc;
+  z-index: 99;
+}
+
+.common-form {
+  padding: 0 30px;
+}
+
+.tab-form {
+  overflow: hidden;
+}
+
+.deposite_list {
+  padding: 0 20px;
 }

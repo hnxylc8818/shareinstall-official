@@ -44,7 +44,7 @@ a:active {
 
 .layout-container {
   height: 100%;
-  width: 100%
+  width: 100%;
 }
 
 .layout-menu {
@@ -76,11 +76,25 @@ a:active {
 }
 
 .layout-content {
-
+  background: #f2f7fc;
   overflow: hidden;
-  padding: 100px 50px 50px 300px;
+  padding: 70px 0 0 250px;
   min-width: 1024px;
-  box-sizing: content-box
+  box-sizing: content-box;
+
+  > div {
+    margin: 20px;
+    background: #ffffff;
+  }
+
+  #channelContainer {
+    padding: 20px 30px;
+    overflow: hidden;
+  }
+
+  #channelList {
+    padding: 0 30px;
+  }
 }
 
 .logo-bar {
@@ -101,7 +115,7 @@ a:active {
 }
 
 .layout-container .logo-bar a {
-  // background-image: url(/images/layout-menu/openinstall.png)
+  // background-image: url(/../../img/console/openinstall.png)
 }
 
 .lanren {
@@ -168,7 +182,7 @@ a.common-tip {
   display: inline-block;
   width: 16px;
   height: 16px;
-  // background: url(/images/type/wen.png) no-repeat;
+  background: url(../../img/console/wen.png) no-repeat;
   background-size: 16px
 }
 
@@ -195,11 +209,11 @@ a:hover:enabled.common-tip {
 
 .btn_a {
   display: inline-block;
-  padding: 5px 15px 5px 10px;
+  padding: 8px 18px 8px 13px;
   font-size: 14px;
   color: #fff;
-  background: #399CFF;
-  border-radius: 20px
+  background: #40d6d6;
+  border-radius: 5px
 }
 
 .btn_upload {
@@ -209,6 +223,7 @@ a:hover:enabled.common-tip {
 }
 
 .btn_submit {
+  display: inline-block;
   color: #00Cc66;
   border: 1px solid #00Cc66;
   padding: 7px 30px;
@@ -278,19 +293,19 @@ a:hover:enabled.common-tip {
 }
 
 .channel_link_table {
-  width: 100%
+  // width: 100%
 }
 
 .channel_link_table td {
-  height: 60px
+  height: 56px
 }
 
 .channel_link_table th {
   font-size: 16px;
   color: #282828;
   font-weight: 400;
-  background: #F6F6F6;
-  height: 47px
+  background: #f2f9ff;
+  height: 48px
 }
 
 .channel_link_table tr.selected-row {
@@ -353,7 +368,10 @@ a.img-jian {
 .container-title {
   font-size: 20px;
   color: #898989;
-  margin: 0 0 15px
+  margin: 0 0 15px;
+  padding: 20px 30px;
+  border-bottom: 1px solid #e8e8e8;
+  font-weight: normal;
 }
 
 .data-count {
@@ -426,9 +444,11 @@ a.img-jian {
 }
 
 .common-form input[type=text] {
-  padding: 4px 8px;
+  padding: 8px 18px;
   border: 1px solid #c4c4c4;
-  border-radius: 4px
+  border-radius: 4px;
+  // font-size: 12px;
+  color: #a6b2ca
 }
 
 .common-form input:disabled {
@@ -1087,7 +1107,7 @@ span.chart-btn {
 
 .title .data_profile li {
   margin-left: 20px;
-  padding: 2px 10px 4px 30px;
+  padding: 6px 16px 6px 30px;
   cursor: pointer;
   color: #282828;
   font-size: 14px
@@ -1100,28 +1120,28 @@ span.chart-btn {
 }
 
 .title .data_profile .all {
-  background:url("../../img/console/all2.png") no-repeat 10px 5px;
+  background: #ecf4fc url("../../img/console/all2.png") no-repeat 10px 9px;
 }
 
 .title .data_profile .all.active {
-  background:#4179FF url("../../img/console/all1.png") no-repeat 10px 5px;
+  background:#00a4ff url("../../img/console/all1.png") no-repeat 10px 9px;
 
 }
 
 .title .data_profile .android {
-  background:url("../../img/console/android2.png") no-repeat 10px 5px;
+  background:#ecf4fc url("../../img/console/android2.png") no-repeat 10px 9px;
 }
 
 .title .data_profile .android.active {
-  background:#4179FF url("../../img/console/android1.png") no-repeat 10px  5px;
+  background:#00a4ff url("../../img/console/android1.png") no-repeat 10px  9px;
 }
 
 .title .data_profile .iOS {
-  background:url("../../img/console/iOS2.png") no-repeat 10px 5px;
+  background:#ecf4fc url("../../img/console/iOS2.png") no-repeat 10px 9px;
 }
 
 .title .data_profile .iOS.active {
-  background:#4179FF url("../../img/console/iOS1.png") no-repeat 10px 5px;
+  background:#00a4ff url("../../img/console/iOS1.png") no-repeat 10px 9px;
 
 }
 
@@ -1131,23 +1151,23 @@ span.chart-btn {
 }
 
 .title .data_profile .traffic.active {
-  background-image: url(/images/layout-menu/traffic1.png)
+  background-image: url(/../../img/console/traffic1.png)
 }
 
 .title .data_profile .install {
-  background-image: url(/images/layout-menu/install2.png)
+  background-image: url(/../../img/console/install2.png)
 }
 
 .title .data_profile .install.active {
-  background-image: url(/images/layout-menu/install1.png)
+  background-image: url(/../../img/console/install1.png)
 }
 
 .title .data_profile .registration {
-  background-image: url(/images/layout-menu/registration2.png)
+  background-image: url(/../../img/console/registration2.png)
 }
 
 .title .data_profile .registration.active {
-  background-image: url(/images/layout-menu/registration1.png)
+  background-image: url(/../../img/console/registration1.png)
 }
 
 .content-menu {
@@ -1727,6 +1747,180 @@ span.chart-btn {
 
 .overview .main .item h3 span {
   padding: 0 10px
+}
+
+.sort-asc, .sort-desc, .sort-none {
+  background-repeat: no-repeat;
+  background-position: center right;
+  padding-right: 10px;
+}
+
+.sort-none {
+  background-image: url(../../img/console/sj.png);
+}
+
+.sort-desc {
+  background-image: url(../../img/console/sj_bottom.png)
+}
+
+.sort-asc {
+  background-image: url(../../img/console/sj_top.png)
+}
+
+#channel_link_table thead th[data-field] {
+  cursor: pointer
+}
+
+#channel_link_table thead th * {
+  font-size: 14px
+}
+
+#channel_link_table tr:hover .times_bac {
+  background: #f5827b;
+  color: #fff;
+  padding: 3px 5px;
+  border-radius: 20px
+}
+
+#channel_link_table tr:hover .times_bac2 {
+  background: #67afff;
+  color: #fff;
+  padding: 3px 5px;
+  border-radius: 20px
+}
+
+#channel_link_table tr:hover .times_bac3 {
+  background: #00d282;
+  color: #fff;
+  padding: 3px 5px;
+  border-radius: 20px
+}
+
+.channel-table-bt {
+  text-align: center;
+  height: 100px;
+  background: #fff;
+  width: 100%;
+  line-height: 100px
+}
+
+.img-link-report {
+  background: url(../../img/console/report.png) no-repeat center center
+}
+
+.img-link-download {
+  background: url(../../img/console/download.png) no-repeat center center
+}
+
+.img-link-look {
+  background: url(../../img/console/erweima.png) center center no-repeat
+}
+
+.img-link-luck {
+  background: url(../../img/console/bianji.png) center center no-repeat
+}
+
+.img-link-lock {
+  background: url(../../img/console/rubbish.png) center center no-repeat
+}
+
+.img-link-share {
+  background: url(../../img/console/share.png) center center no-repeat
+}
+
+.img-link-download:hover,.img-link-report:hover {
+  background-image: none
+}
+
+.share_table tr>td {
+  padding: 10px 0
+}
+
+.share_table tr>td:first-child span {
+  color: #282828
+}
+
+.share_table tr>td:last-child {
+  width: 500px;
+  padding-left: 10px;
+  color: #282828
+}
+
+#share_password_change,#share_password_submit {
+  width: 90px;
+  height: 35px;
+  border-radius: 5px;
+  margin-left: 20px;
+  color: #4179ff;
+  border: 1px solid #4179ff;
+  background: #fff
+}
+
+#share_password_submit {
+  background: #0c6;
+  color: #fff;
+  border-width: 0
+}
+
+#share_password {
+  background: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  border: 1px solid #c4c4c4;
+  border-radius: 5px;
+  padding: 0 5px;
+  height: 35px;
+  width: 145px;
+  color: #898989
+}
+
+#share_password:disabled {
+  background: #f0f0f0
+}
+
+#share_url {
+  width: 450px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  vertical-align: middle;
+  color: #5670fc
+}
+
+.data_profile li {
+  float: left
+}
+
+.overlay-btn.active {
+  color: #0c6;
+  border: 1px solid #0c6;
+  background-image: url(/images/price/select.png);
+  background-position: bottom right;
+  background-repeat: no-repeat
+}
+
+#channel_link_table {
+  width: 100%;
+  // table-layout: fixed;
+}
+
+#channel_link_table, #channel_link_table td, th {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.count_calendar {
+  background: url(../../img/console/icon-excel.png) 15px center no-repeat;
+}
+
+#addLink:focus, #addLink:hover {
+  color: #ffffff
+}
+
+#channel_form {
+  padding: 0 20px;
 }
 
 @media screen and (max-width: 900px) {

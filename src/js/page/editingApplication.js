@@ -7,7 +7,7 @@ var DfttModule = (function (dm) {
         typed: null,
         init: function () {
             var _this = this
-            _this.url = 'http://test-api.shareinstall.com/'
+            _this.url = 'http://api.shareinstall.com/'
             _this.previewImg()
             _this.getImg()
             _this.preservationOk()
