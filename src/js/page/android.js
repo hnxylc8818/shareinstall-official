@@ -7,12 +7,14 @@
 var DfttModule = (function (dm) {
   var Index = {
     name: 'Index',
+    hasBag: false,
     typed: null,
     init: function () {
       var _this = this;
       _this.writeAppkey()
       _this.writeAppName()
       _this.drawAppicon()
+      _this.writeScheme()
       _this.tabsFun()
       _this.uploadPackage()
       _this.gotoLink()
@@ -39,6 +41,7 @@ var DfttModule = (function (dm) {
       if (appKey) {
         $('#app_key').text(appKey)
         $('#configAppKey').text(appKey)
+        $('.doc-appkey').text(appKey)
       }
     },
 
@@ -56,6 +59,25 @@ var DfttModule = (function (dm) {
       if (appName) {
         $('#app_name').text(appName)
       }
+    },
+
+    // 渲染文档scheme
+    writeScheme: function () {
+      var scheme = $.cookie('scheme')
+      if (scheme) {
+        $('.doc-scheme').text(scheme)
+        $('#configScheme').text(scheme)
+      }
+    },
+
+    // url格式判断
+    normalizeUrl: function (t, e) {
+      if (!t || !(t = $.trim(t))) {
+        return null;
+      }
+      var n = e === !0 ? /^([0-9a-zA-Z_\-]+):\/\/[^\/]+(\/.*)?/i : /^(http|https):\/\/[^\/]+(\/.*)?/i,
+        a = n.exec(t);
+      return a ? (a[2] || (t += '/'), t) : null
     },
 
     // 左侧链接跳转
@@ -108,6 +130,7 @@ var DfttModule = (function (dm) {
      */
 
     uploadPackage: function () {
+      var _this = this
       $('.btn-to-upload').on('click', function () {
         // $(this).parents('.tab-op').hide();
         $('.deposite_upload').show();
@@ -203,6 +226,7 @@ var DfttModule = (function (dm) {
                         },
                         success: function (res) {
                           if (res.code === '0') {
+                            _this.hasBag = true
                             var date = new Date(res.data.createTime * 1000)
                             res.data.createTime = date.getFullYear() + '/' + ((date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : '0' + (date.getMonth() + 1)) + '/' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate())
                             var tpl = $('.pkgInfoTmp').html();
@@ -212,6 +236,7 @@ var DfttModule = (function (dm) {
                             $('#configAppId').html(res.data.application_id)
                             $('#configScheme').html(res.data.scheme)
                             $('.btn-upload-back').click()
+                            layer.msg('包上传成功')
                           } else {
                             layer.msg(res.message || '文件解析失败')
                           }
@@ -269,6 +294,7 @@ var DfttModule = (function (dm) {
 
     // 初始化页面获取应用信息
     getPackageInfo: function () {
+      var _this = this
       var appKey = $.cookie('appkey')
       $.ajax({
         url: 'http://api.shareinstall.com/passage/info',
@@ -281,6 +307,7 @@ var DfttModule = (function (dm) {
         },
         success: function (res) {
           if (res.code === '0') {
+            _this.hasBag = true
             var date = new Date(res.data.createTime * 1000)
             res.data.createTime = date.getFullYear() + '/' + ((date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : '0' + (date.getMonth() + 1)) + '/' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate())
             var tpl = $('.pkgInfoTmp').html();
@@ -289,14 +316,39 @@ var DfttModule = (function (dm) {
             $('.pkgInfoContainer').html(html);
             $('#configAppId').html(res.data.application_id)
             $('#configScheme').html(res.data.scheme)
+            $('input[name="appstoreUrl"]').val(res.data.app_store)
+            $('input[name="yybEnabled"]').prop('checked', !!res.data.is_applied)
+            $('input[name="yybUrl"]').prop('disabled', !res.data.is_applied).val(res.data.applied_path)
             // $('.file_info').show();
           }
         }
       })
     },
 
+    // 填充包信息
+    setAndroidInfo: function (allow, yybUrl) {
+      var param = {}
+      param.is_applied = allow
+      param.applied_path = yybUrl || ''
+      $.ajax({
+        url: 'http://api.shareinstall.com/passage/setinfo',
+        type: 'POST',
+        data: {
+          username: $.cookie('userName'),
+          token: $.cookie('_token'),
+          app_key: $.cookie('appkey'),
+          plantform: 'android',
+          para: param
+        },
+        success: function (res) {
+          layer.msg(res.message)
+        }
+      })
+    },
+
     // 应用配置
     configApp: function () {
+      var _this = this
       $('input[name="yybEnabled"]').on('change', function () {
         if ($(this).prop('checked')) {
           $('input[name="yybUrl"]').prop('disabled', false)
@@ -306,7 +358,24 @@ var DfttModule = (function (dm) {
       })
 
       $('.btn_submit').on('click', function () {
-        layer.msg('保存成功')
+        var is_applied = $('input[name="yybEnabled"]').prop('checked') ? 1 : 0
+        var applied_path = $('input[name="yybUrl"]').val()
+
+        if (!_this.hasBag) {
+          layer.msg('请先上传包')
+          return
+        }
+
+        if (is_applied && !_this.normalizeUrl(applied_path)) {
+          layer.tips('请正确填写应用宝地址', $('input[name="yybUrl"]'), {
+            tipsMore: !0,
+            tips: [2, '#ff3333']
+          })
+
+          return
+        }
+
+        _this.setAndroidInfo(is_applied, applied_path)
       })
     }
   };

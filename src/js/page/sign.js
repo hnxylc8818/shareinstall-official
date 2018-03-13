@@ -10,6 +10,7 @@ var DfttModule = (function(dm) {
       _this.url = 'http://api.shareinstall.com/'
       _this.login()
       _this.loginOut()
+      _this.commonTip()
     },
     /*
      *判断用户是否登录
@@ -45,6 +46,19 @@ var DfttModule = (function(dm) {
               window.location.href = './index.html'
             }
           }
+        })
+      })
+    },
+
+    // 提示信息
+    commonTip: function () {
+      $('body').on('click', '.common-tip', function () {
+        layer.tips($(this).find('.tip-content').text(), $(this), {
+          tips: [3, '#1bd1ab'],
+          time: 0,
+          area: '300px',
+          shade: 0.01,
+          shadeClose: !0
         })
       })
     }

@@ -222,6 +222,12 @@ var DfttModule = (function(dm) {
           }
         })
       })
+
+      $('.login').on('keyup', function (event) {
+        if (event.keyCode === 13) {
+          $('.sign').click()
+        }
+      })
     },
     /***
      * 点击忘记密码
@@ -345,7 +351,7 @@ var DfttModule = (function(dm) {
           })
         }
       })
-    },
+    }
 
   }
   // 给模块单独定义一个命名空间

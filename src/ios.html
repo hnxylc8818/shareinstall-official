@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="zh-cn">
 
 <head>
     <meta charset="UTF-8">
@@ -97,7 +97,7 @@
                 <p id="app_name" style="font-size:18px;padding:15px 0 0;margin:0;color:#fff"></p>
                 <p style="margin:5px 0 20px;color:#75777b">
                     <a href="javascript:;" class="common-tip">
-                        <span class="tip-content">appKey是openinstall平台为每个应用分配的唯一标识符，sdk(Android/iOS/javascript)中需指定这个appKey</span>
+                        <span class="tip-content">appKey是shareinstall平台为每个应用分配的唯一标识符，sdk(Android/iOS/javascript)中需指定这个appKey</span>
                     </a>
                     <span style="font-size:14px;font-weight:700;color:#c4c4c4">AppKey：</span>
                     <span id="app_key" style="color:#c4c4c4;font-size:14px"></span>
@@ -237,36 +237,28 @@
                             </ul>
                         </div>
                     </div>
-                    <h2>下载并解压最新版SDK压缩包，将libShareInstall.a和SHSmartInstallSDK.h导入工程中。</h2>
-                    <h2>
-                        <span>2、初始化SDK</span>
-                    </h2>
-                    <h2>在AppDelegate中，增加头文件的引用：</h2>
-                    <pre style="width:820px;height:270px">
+                    <h2>下载并解压最新版SDK压缩包，将libShareInstall.a和ShareInstallSDK.h导入工程中。</h2>
+                    <h2><span>2、初始化SDK</span></h2>
+        <h2>在AppDelegate中，增加头文件的引用：</h2>
+        <pre style="width:820px;height:300px">
 <code style="width: 100%;height: 92%;" class="lang-javascript">
-#import “SHSmartInstallSDK”
+#import “ShareInstallSDK”
 
 在-(BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     方法中调用setAppKey方法来初始化SDK，如下代码所示：
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-//这里设置的是江苏头条的apptypeid ，东方头条需替换成东方头条的apptypeid，后面会完善
- [[NSUserDefaults standardUserDefaults] setObject:@"JSSTT" forKey: @"apptypeid"];
-[SHSmartInstallSDK setAppKey:@"jgec0y" withDelegate:self WithOptions:launchOptions];
+[ShareInstallSDK setAppKey:@"<span class="doc-appkey">jgec0y</span>" withDelegate:self WithOptions:launchOptions];
 return YES;
 }
 </code>
 </pre>
-                    <h2>注:目前后台没有为介入方应用配置一个单独的appkey,所以目前是固定的，以后会完善。</h2>
-                    <h2>
-                        <span>3、个性化安装</span>
-                    </h2>
-                    <h2>当应用安装后首次打开时，iOS sdk会收到网页端通过js sdk传来的自定义动态参数，精确的获取app每一次安装的分享（或推广）来源。 比如通过在分享链接url中附带app邀请人的用户id,就可达到免填邀请码的效果；url中可拼接自定义的参数。
-                        在AppDelegate中，添加获取安装参数的回调方法，代码如下所示:
-                    </h2>
-                    <pre style="width:820px;height:230px">
+        <h2>注:AppKey需填写自己的AppKey,请到ShareInstall官网后台查看自己应用的AppKey。</h2>
+        <h2><span>3、个性化安装</span></h2>
+        <h2>当应用安装后首次打开时，iOS sdk会收到网页端通过js sdk传来的自定义动态参数，精确的获取app每一次安装的分享（或推广）来源。比如通过在分享链接url中附带app邀请人的用户id，就可达到免填邀请码的效果；url中可拼接自定义的参数。在AppDelegate中，添加获取安装参数的回调方法，代码如下所示:</h2>
+        <pre style="width:820px;height:220px">
 <code style="width: 100%;height: 92%;" class="lang-javascript">
-#pragma mark smartInstallDelegate
+#pragma mark ShareInstallDelegate
 //通过ShareInstall获取自定义参数，数据为空时也会调用此方法
 - (void)getInstallParamsFromSmartInstall:(id) params withError: (NSError *) error{
 NSLog(@"安装参数params=%@",params);
@@ -276,36 +268,28 @@ UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"直接点击App进来�
 }
 </code>
 </pre>
-                    <h2>
-                        <span>4、一键跳转</span>
-                    </h2>
-                    <h2>ShareInstall通过标准的scheme,universal link等技术，在app安装的情况下，从各种浏览器（微信、QQ、新浪微博、钉钉等主流社交软件的内置浏览器）唤醒 app 并传递自定义参数，避免重复安装。
-                    </h2>
-                    <h2>
-                        <span>5、 universal link 配置</span>
-                    </h2>
-                    <h2>Universal link是iOS9的一个新特性，通过Universal link, App可以通过各种浏览器跳转到App（例如微信内可不通过safari,一键跳转到App），真正实现一键跳转到相应界面。
-                        <br/>备注：iOS9以上推荐使用Universal link。
-                    </h2>
+        <h2><span>4、一键跳转</span></h2>
+        <h2>ShareInstall通过标准的scheme，universal link等技术，在app安装的情况下，从各种浏览器（微信、QQ、新浪微博、钉钉等主流社交软件的内置浏览器）唤醒 app
+            并传递自定义参数，避免重复安装。</h2>
+        <h2><span>5、 universal link 配置</span></h2>
+        <h2>Universal link是iOS9的一个新特性，通过Universal link，App可以通过各种浏览器跳转到App（例如微信内可不通过safari，一键跳转到App），真正实现一键跳转到相应界面。
+            <br/>备注：iOS9以上推荐使用Universal link。
+        </h2>
 
-                    <h2>
-                        <span>5.1 配置developer.apple.com的相关信息</span>
-                    </h2>
-                    <h2>到苹果开发者中心，为当前的App ID开启Associated Domains服务：</h2>
-                    <img src="./img/copywriting/iOS1.jpg" alt="">
-                    <h2>
-                        <span>5.2 配置Xcode</span>
-                    </h2>
-                    <h2>在XCode中配置shareInstall为当前应用生成的关联域名：Associated Domains 开关打开，添加Domains。</h2>
-                    <img src="./img/copywriting/ios2.jpg" alt="">
-                    <h2>在AppDelegate中的continueUserActivity方法中调用，用来处理Universal link。</h2>
-                    <pre style="width:800px;height:300px">
+        <h2><span>5.1 配置developer.apple.com的相关信息</span></h2>
+        <h2>到苹果开发者中心，为当前的App ID开启Associated Domains服务：</h2>
+        <img src="./img/copywriting/ios1.png" alt="">
+        <h2><span>5.2 配置Xcode</span></h2>
+        <h2>在Xcode中配置ShareInstall为当前应用生成的关联域名：Associated Domains 开关打开，添加Domains。</h2>
+        <img src="./img/copywriting/ios2.png" alt="">
+        <h2>在AppDelegate中的continueUserActivity方法中调用，用来处理Universal link。</h2>
+        <pre style="width:800px;height:280px">
 <code style="width: 100%;height: 90%;" class="lang-javascript">
 //Universal Links 通用链接
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler
 {
     //判断是否通过ShareInstall Universal Links 唤起App
-    if ([SHSmartInstallSDK continueUserActivity:userActivity]) {
+    if ([ShareInstallSDK continueUserActivity:userActivity]) {
 return YES ;
 }else{
         //其他代码
@@ -314,27 +298,23 @@ return YES ;
 }
 </code>
 </pre>
-                    <h2>
-                        <span>5.3 配置App的URL Scheme</span>
-                    </h2>
-                    <h2>iOS系统中App之间是相互隔离的，通过URL Scheme, App之间可以相互调用，并且可以传递参数。
-                        <br/>备注：iOS9以下通过Url Scheme实现拉起。
-                    </h2>
-                    <h2>
-                        <span>5.4 在Xcode里选中Target—Info—URL Types, 配置shareInstall为当前应用生成的Url Scheme,如图所示：</span>
-                    </h2>
-                    <img src="./img/copywriting/ios3.jpg" alt="">
-                    <h2>
-                        <span>5.5 URL Scheme相关代码配置</span>
-                    </h2>
-                    <h2>注意：当需要在shareInstall这个方法中处理第三方回调的时候（比如支付宝、微信回调等），请注意区分。</h2>
-                    <pre style="width:800px;height:670px">
+        <h2><span>5.3 配置App的URL Scheme</span></h2>
+        <h2>iOS系统中App之间是相互隔离的，通过URL Scheme, App之间可以相互调用，并且可以传递参数。
+            <br/>备注：iOS9以下通过Url Scheme实现拉起。
+        </h2>
+        <h2><span>5.4 在Xcode里选中Target—Info—URL Types, 配置shareInstall为当前应用生成的Url Scheme，如图所示：</span></h2>
+        <h2>identifier 配置为 com.ShareInstall，URL Schemes从shareInstall获取。</h2>
+        <h2>注：identifier 一定要配置为com.ShareInstall</h2>
+        <img src="./img/copywriting/ios3.png" alt="">
+        <h2><span>5.5 URL Scheme相关代码配置</span></h2>
+        <h2>注意：当需要在shareInstall这个方法中处理第三方回调的时候（比如支付宝、微信回调等），请注意区分。</h2>
+        <pre style="width:800px;height:650px">
 <code style="width: 100%;height: 90%;" class="lang-javascript">
 //ios9以下 URI Scheme
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
 
     //判断是否通过ShareInstall URL Scheme 唤起App
-    if ([SHSmartInstallSDK handLinkURL:url]) {
+    if ([ShareInstallSDK handLinkURL:url]) {
          return YES;
     }else{
         //其他代码
@@ -348,7 +328,7 @@ return YES ;
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(nonnull NSDictionary *)options
 {
     //判断是否通过ShareInstall URL Scheme 唤起App
-    if ([SHSmartInstallSDK handLinkURL:url]) {
+    if ([ShareInstallSDK handLinkURL:url]) {
 
         return YES;
     }else{
@@ -360,11 +340,9 @@ return YES ;
 }
 </code>
 </pre>
-                    <h2>
-                        <span>5.6获取唤醒参数，直达具体页</span>
-                    </h2>
-                    <h2>通过在url中附带具体的参数，唤醒app并跳转到具体页。</h2>
-                    <pre style="width:800px;height:200px">
+        <h2><span>5.6获取唤醒参数，直达具体页</span></h2>
+        <h2>通过在url中附带具体的参数，唤醒app并跳转到具体页。</h2>
+        <pre style="width:800px;height:180px">
 <code style="width: 100%;height: 90%;" class="lang-javascript">
 - (void)getWakeUpParamsFromSmartInstall: (id) params withError: (NSError *) error{
 NSLog(@"唤醒参数params=%@",params);
@@ -374,11 +352,9 @@ UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"URL shceme 进来的" 
 }
 </code>
 </pre>
-                    <h2>
-                        <span>5.7 其他代码配置</span>
-                    </h2>
-                    <h2>如果做测试，获取参数，则必须在Appdelegate.h加上如下测试代码。</h2>
-                    <pre style="width:800px;height:440px">
+        <h2><span>5.7 其他代码配置</span></h2>
+        <h2>如果做测试，获取参数，则必须在Appdelegate.h加上如下测试代码。</h2>
+        <pre style="width:800px;height:420px">
 <code style="width: 100%;height: 90%;" class="lang-javascript">
 #pragma mark 将oc数据类型转成NSString
 -(NSString *)DataTOjsonString:(id)object
@@ -401,6 +377,10 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
 }
 </code>
 </pre>
+
+    <h2>6、注册量统计</h2>
+    <h2>使用Shareinstall 控制中心提供的渠道统计时，在App用户注册完成后调用，可以统计渠道注册量。</h2>
+    <h2>#warning 必须在注册成功的时调用[ShareInstallSDK    reportRegister] 方法，否则可能导致注册统计不准。</h2>
 <div style="text-align:center; padding-bottom: 20px">
         <!-- <a href="javascript:;" class="step_top step_prev" style="margin-right:100px" data-tab-index="1">上一步</a> -->
         <a href="javascript:;" class="step_top step_next" style="background:#4890ff;color:#fff;margin-right:0"
@@ -427,7 +407,7 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                             <tr>
                                                 <th width="160px">
                                                     <a href="javascript:;" class="common-tip">
-                                                        <span class="tip-content">上传安装包时，openinstall将为每个安装包生成一个递增的序号</span>
+                                                        <span class="tip-content">上传安装包时，shareinstall将为每个安装包生成一个递增的序号</span>
                                                     </a>
                                                     序号
                                                 </th>
@@ -611,7 +591,7 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                                             {{/if}}
                                                         </td>
                                                     </tr> -->
-                                                    <!-- {{#if openinstallDomain}}
+                                                    <!-- {{#if shareinstallDomain}}
                                                     <tr>
                                                         <td>
                                                             <p class="info">
@@ -635,19 +615,19 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                                         </td>
                                                         <td>
                                                             <p class="info">
-                                                                {{#if warns.openinstallDomain}}
-                                                                <img src="/images/type/warn.png" alt="" /> {{/if}} {{#if errors.openinstallDomain}}
+                                                                {{#if warns.shareinstallDomain}}
+                                                                <img src="/images/type/warn.png" alt="" /> {{/if}} {{#if errors.shareinstallDomain}}
                                                                 <img src="/images/type/error.png" alt="" /> {{/if}}
-                                                                <span>关联域名(由openinstall自动分配)：</span>
-                                                                <span class="ipa-message-name">{{openinstallDomain}}</span>
+                                                                <span>关联域名(由shareinstall自动分配)：</span>
+                                                                <span class="ipa-message-name">{{shareinstallDomain}}</span>
                                                             </p>
-                                                            {{#if warns.openinstallDomain}}
-                                                            <p class="warn">{{warns.openinstallDomain}}&nbsp;&nbsp;
+                                                            {{#if warns.shareinstallDomain}}
+                                                            <p class="warn">{{warns.shareinstallDomain}}&nbsp;&nbsp;
                                                                 <a href="javascript:;"
                                                                     class="doc-ios-ulink">点此查看详情</a>
                                                             </p>
-                                                            {{/if}} {{#if errors.openinstallDomain}}
-                                                            <p class="warn">{{errors.openinstallDomain}}&nbsp;&nbsp;
+                                                            {{/if}} {{#if errors.shareinstallDomain}}
+                                                            <p class="warn">{{errors.shareinstallDomain}}&nbsp;&nbsp;
                                                                 <a href="javascript:;"
                                                                     class="doc-ios-ulink">点此查看详情</a>
                                                             </p>
@@ -659,18 +639,18 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                                     <tr>
                                                         <td>
                                                             <p class="info">
-                                                                {{#if warns.openinstallScheme}}
-                                                                <img src="/images/type/warn.png" alt="" /> {{/if}} {{#if errors.openinstallScheme}}
+                                                                {{#if warns.shareinstallScheme}}
+                                                                <img src="/images/type/warn.png" alt="" /> {{/if}} {{#if errors.shareinstallScheme}}
                                                                 <img src="/images/type/error.png" alt="" /> {{/if}}
-                                                                <span>scheme(由openinstall自动分配)：</span>
+                                                                <span>scheme(由shareinstall自动分配)：</span>
                                                                 <span class="ipa-message-name">{{scheme}}</span>
                                                             </p>
-                                                            {{#if warns.openinstallScheme}}
-                                                            <p class="warn">{{warns.openinstallScheme}}&nbsp;&nbsp;
+                                                            {{#if warns.shareinstallScheme}}
+                                                            <p class="warn">{{warns.shareinstallScheme}}&nbsp;&nbsp;
                                                                 <a href="javascript:;" class="doc-ios-scheme">点此查看详情</a>
                                                             </p>
-                                                            {{/if}} {{#if errors.openinstallScheme}}
-                                                            <p class="warn">{{errors.openinstallScheme}}&nbsp;&nbsp;
+                                                            {{/if}} {{#if errors.shareinstallScheme}}
+                                                            <p class="warn">{{errors.shareinstallScheme}}&nbsp;&nbsp;
                                                                 <a href="javascript:;" class="doc-ios-scheme">点此查看详情</a>
                                                             </p>
                                                             {{/if}}
@@ -716,7 +696,7 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                                     <tr>
                                                         <th width="160px">
                                                             <a href="javascript:;" class="common-tip">
-                                                                <span class="tip-content">上传安装包时，openinstall将为每个安装包生成一个递增的序号</span>
+                                                                <span class="tip-content">上传安装包时，shareinstall将为每个安装包生成一个递增的序号</span>
                                                             </a>
                                                             序号
                                                         </th>
@@ -859,7 +839,7 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                             <div id="load" style="width: 0%;">0%</div>
                                         </div>
                                         <p style="color:#898989">
-                                            在此上传安装包仅用于在线检查openinstall集成配置，方便开发者快速集成与测试，不存在额外的安全隐患。</p>
+                                            在此上传安装包仅用于在线检查shareinstall集成配置，方便开发者快速集成与测试，不存在额外的安全隐患。</p>
                                         <p style="color:#898989">(单个文件最大支持800M)</p>
                                         <p style="color:#f47870;margin-top:150px">请使用chrome,firefox,safari,edge或是IE&gt;=10的浏览器</p>
                                     </div>
@@ -997,18 +977,18 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                                     <tr>
                                                         <td>
                                                             <p class="info">
-                                                                {{#if warns.openinstallScheme}}
-                                                                <img src="/images/type/warn.png" alt="" /> {{/if}} {{#if errors.openinstallScheme}}
+                                                                {{#if warns.shareinstallScheme}}
+                                                                <img src="/images/type/warn.png" alt="" /> {{/if}} {{#if errors.shareinstallScheme}}
                                                                 <img src="/images/type/error.png" alt="" /> {{/if}}
-                                                                <span>scheme(由openinstall自动分配)：</span>
-                                                                <span class="ipa-message-name">{{openinstallScheme}}</span>
+                                                                <span>scheme(由shareinstall自动分配)：</span>
+                                                                <span class="ipa-message-name">{{shareinstallScheme}}</span>
                                                             </p>
-                                                            {{#if warns.openinstallScheme}}
-                                                            <p class="warn">{{warns.openinstallScheme}}&nbsp;&nbsp;
+                                                            {{#if warns.shareinstallScheme}}
+                                                            <p class="warn">{{warns.shareinstallScheme}}&nbsp;&nbsp;
                                                                 <a href="javascript:;" class="doc-android-scheme">点此查看详情</a>
                                                             </p>
-                                                            {{/if}} {{#if errors.openinstallScheme}}
-                                                            <p class="warn">{{errors.openinstallScheme}}&nbsp;&nbsp;
+                                                            {{/if}} {{#if errors.shareinstallScheme}}
+                                                            <p class="warn">{{errors.shareinstallScheme}}&nbsp;&nbsp;
                                                                 <a href="javascript:;" class="doc-android-scheme">点此查看详情</a>
                                                             </p>
                                                             {{/if}}
@@ -1089,7 +1069,7 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                             <div style="margin-bottom: 30px;">
                                                 <span class="config-ios-name">
                                                     <a href="javascript:;" class="common-tip">
-                                                        <span class="tip-content">appKey是openinstall平台为每个应用分配的唯一标识符，sdk(Android/iOS/javascript)中需指定这个appKey</span>
+                                                        <span class="tip-content">appKey是shareinstall平台为每个应用分配的唯一标识符，sdk(Android/iOS/javascript)中需指定这个appKey</span>
                                                     </a>
                                                     AppKey
                                                 </span>
@@ -1128,7 +1108,7 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                                 <div>
                                                         <span class="config-ios-name">
                                                             <a href="javascript:;" class="common-tip">
-                                                                <span class="tip-content">openinstall为每个应用随机分配的scheme，并保证唯一性，开发者需将此scheme配置到应用中，才能顺利拉起app</span>
+                                                                <span class="tip-content">shareinstall为每个应用随机分配的scheme，并保证唯一性，开发者需将此scheme配置到应用中，才能顺利拉起app</span>
                                                             </a>
                                                             scheme
                                                         </span>
@@ -1168,7 +1148,7 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                                     </span>
                                                     <div class="config-text">
                                                         <div>
-                                                            <span style="color: #282828;font-weight: bold;">applinks:vjzt6r.openinstall.io</span>
+                                                            <span style="color: #282828;font-weight: bold;">applinks:vjzt6r.shareinstall.io</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1220,7 +1200,7 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                                 <div>
                                                     <span class="config-ios-name">
                                                         <a href="javascript:;" class="common-tip">
-                                                            <span class="tip-content">openinstall为每个应用随机分配的scheme，并保证唯一性，开发者需将此scheme配置到应用中，才能顺利拉起app</span>
+                                                            <span class="tip-content">shareinstall为每个应用随机分配的scheme，并保证唯一性，开发者需将此scheme配置到应用中，才能顺利拉起app</span>
                                                         </a>
                                                         scheme
                                                     </span>
@@ -1272,7 +1252,7 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                     <div class="depoly-length" style="padding-top:40px">
                                         <fieldset>
                                             <div class="depoly-web" style="padding:0">
-                                                <!-- <legend>
+                                                <legend>
                                                     <div>
                                                         <span style="color:#282828;margin: 30px 0 20px 0;" class="config-ios-name">集成应用宝</span>
                                                         <div class="config-text">
@@ -1282,7 +1262,7 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </legend> -->
+                                                </legend>
                                                 <div style="height: 1px"></div>
                                             </div>
                                             <!-- <div class="depoly-said depoly-txt">
@@ -1295,7 +1275,7 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                                     </span>
                                                     <div class="config-text">
                                                         <div>
-                                                            <input type="text" name="yybUrl" value="">
+                                                            <input type="text" name="yybUrl" value="" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
