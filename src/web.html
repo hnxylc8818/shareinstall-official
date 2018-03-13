@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="zh-cn">
 
 <head>
     <meta charset="UTF-8">
@@ -242,9 +242,9 @@
      android/ios api可以获取此数据*/
     var data = ShareInstall.parseUrlParams();//shareinstall.js中提供的工具函数，解析url中的所有查询参数
     new ShareInstall({
-        apptypeid : "shareinstall为当前应用分配的apptypeid",
+        appKey : "shareinstall为当前应用分配的appkey",
         onready : function() {
-            //openinstall已成功回调，清除定时器
+            //shareinstall已成功回调，清除定时器
             clearTimeout(timer);
             timer = null;
 

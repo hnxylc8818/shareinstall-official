@@ -87,6 +87,7 @@ var DfttModule = (function(dm) {
         var key = $(this).attr('data-key')
         var img = $(this).attr('data-img')
         var name = $(this).attr('data-name')
+        var scheme = $(this).attr('data-scheme')
         $.cookie('appkey', key, {
           expires: 7
         });
@@ -94,6 +95,9 @@ var DfttModule = (function(dm) {
           expires: 7
         });
         $.cookie('appName', name, {
+          expires: 7
+        });
+        $.cookie('scheme', scheme, {
           expires: 7
         });
         window.location.href = './overview.html'
@@ -143,7 +147,7 @@ var DfttModule = (function(dm) {
         for (var i = 0; i < list.length; i++) {
           var item = list[i]
           if (item.name.indexOf('script') > 0) {
-            item.name = '&bnsp;'
+            item.name = 'name'
           }
           htmlStr += ' <li class="item">' +
             '<span class="item-appkey">' + item.app_key + '</span>' +
@@ -154,7 +158,7 @@ var DfttModule = (function(dm) {
             '<span class="item-pingtai">暂无</span>' +
             '<span class="item-operation">' +
             '<button class="edit" data-key="' + item.app_key + '" data-img="' + item.icon + '">编辑</button>' +
-            '<button class="detailed" data-name="' + item.name + '" data-key="' + item.app_key + '" data-img="' + item.icon + '">详细</button>' +
+            '<button class="detailed" data-name="' + item.name + '" data-key="' + item.app_key + '" data-img="' + item.icon + '" data-scheme="' + item.scheme + '">详细</button>' +
             '</span>' +
             '</li>'
         }

@@ -7,6 +7,7 @@
 var DfttModule = (function (dm) {
   var Index = {
     name: 'Index',
+    hasBag: false,
     init: function () {
       var _this = this;
       _this.handlebarsHelp()
@@ -14,6 +15,7 @@ var DfttModule = (function (dm) {
       _this.writeAppkey()
       _this.drawAppicon()
       _this.writeAppName()
+      _this.writeScheme()
       _this.uploadPackage()
       _this.getPackageInfo()
       _this.configApp()
@@ -27,6 +29,7 @@ var DfttModule = (function (dm) {
       if (appKey) {
         $('#app_key').text(appKey)
         $('#configAppKey').text(appKey)
+        $('.doc-appkey').text(appKey)
       }
     },
 
@@ -43,6 +46,14 @@ var DfttModule = (function (dm) {
       var appName = $.cookie('appName')
       if (appName) {
         $('#app_name').text(appName)
+      }
+    },
+
+    // 渲染scheme
+    writeScheme: function () {
+      var scheme = $.cookie('scheme')
+      if (scheme) {
+        $('#configScheme').text(scheme)
       }
     },
 
@@ -191,6 +202,7 @@ var DfttModule = (function (dm) {
                         },
                         success: function (res) {
                           if (res.code === '0') {
+                            _this.hasBag = true
                             var date = new Date(res.data.createTime * 1000)
                             res.data.createTime = date.getFullYear() + '/' + ((date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : '0' + (date.getMonth() + 1)) + '/' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate())
                             var tpl = $('.pkgInfoTmp').html();
@@ -266,9 +278,11 @@ var DfttModule = (function (dm) {
     },
 
     // 填充包信息
-    setIosInfo: function (url) {
+    setIosInfo: function (url, allow, yybUrl) {
       var param = {}
       param.app_store = url || ''
+      param.is_applied = allow
+      param.applied_path = yybUrl || ''
       $.ajax({
         url: 'http://api.shareinstall.com/passage/setinfo',
         type: 'POST',
@@ -280,13 +294,14 @@ var DfttModule = (function (dm) {
           para: param
         },
         success: function (res) {
-          layer.msg('信息保存成功')
+          layer.msg(res.message)
         }
       })
     },
 
     // 初始化页面获取应用信息
     getPackageInfo: function () {
+      var _this = this
       var appKey = $.cookie('appkey')
       $.ajax({
         url: 'http://api.shareinstall.com/passage/info',
@@ -299,6 +314,7 @@ var DfttModule = (function (dm) {
         },
         success: function (res) {
           if (res.code === '0') {
+            _this.hasBag = true
             var date = new Date(res.data.createTime * 1000)
             res.data.createTime = date.getFullYear() + '/' + ((date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : '0' + (date.getMonth() + 1)) + '/' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate())
             var tpl = $('.pkgInfoTmp').html();
@@ -308,6 +324,9 @@ var DfttModule = (function (dm) {
             $('#configAppBundle').html(res.data.bundle_id)
             $('#configAppTeam').html(res.data.team_id)
             $('#configScheme').html(res.data.scheme)
+            $('input[name="appstoreUrl"]').val(res.data.app_store)
+            $('input[name="yybEnabled"]').prop('checked', !!res.data.is_applied)
+            $('input[name="yybUrl"]').prop('disabled', !res.data.is_applied).val(res.data.applied_path)
             // $('.file_info').show();
           }
         }
@@ -351,6 +370,14 @@ var DfttModule = (function (dm) {
 
       $('.btn_submit').on('click', function () {
         var appUrl = $('input[name="appstoreUrl"]').val()
+        var is_applied = $('input[name="yybEnabled"]').prop('checked') ? 1 : 0
+        var applied_path = $('input[name="yybUrl"]').val()
+
+        if (!_this.hasBag) {
+          layer.msg('请先上传包')
+          return
+        }
+
         if (!_this.normalizeUrl(appUrl)) {
           $('input[name="appstoreUrl"]').focus()
           layer.tips('请正确填写appstore地址', $('input[name="appstoreUrl"]'), {
@@ -361,7 +388,16 @@ var DfttModule = (function (dm) {
           return
         }
 
-        _this.setIosInfo(appUrl)
+        if (is_applied && !_this.normalizeUrl(applied_path)) {
+          layer.tips('请正确填写应用宝地址', $('input[name="yybUrl"]'), {
+            tipsMore: !0,
+            tips: [2, '#ff3333']
+          })
+
+          return
+        }
+
+        _this.setIosInfo(appUrl, is_applied, applied_path)
       })
     }
   };

@@ -1,7 +1,15 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="keywords" content=""><meta name="description" content=""><title>文档</title><link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="./css/common/base.min.css"><link rel="stylesheet" href="./css/page/copywriting.min.css"><link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet"><script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script><script>hljs.initHighlightingOnLoad()</script></head><body><div class="my-banner"><div class="my-banner-top clearfix"><a href="./index.html"><div class="banner-left fl"></div></a><div class="banner-right fr"><a href="javascript:;" class="btn-mobile-menu fr"><i></i><i></i><i></i></a><ul class="banner-nav fl clearfix"><li><a href="./index.html">产品</a> <a href="./scene.html">场景</a> <a href="javascript:volid(0);" class="active">文档</a><a href="./about.html">关于我们</a></li></ul><div class="logo fl clearfix"><a href="javascript:;" class="fl console" id="J_console">控制台</a> <a href="./login.html" class="fl apply">申请使用</a></div></div></div><div class="my-banner-bottom container"><span class="typed-element">集成文档</span><div class="copy"><div class="android active activeAn" data-index="android"><span class="icon"></span> <span class="txt">Android集成</span></div><div class="ios" data-index="ios"><span class="icon"></span> <span class="txt">iOS集成</span></div><div class="web" data-index="web"><span class="icon"></span> <span class="txt">Web集成</span></div></div></div></div><div class="app" id="J_app"><div class="my-android container my-app"><h1 style="margin-top:0">导入SDK</h1><h2>将aar文件拷贝到项目的libs文件夹下，并导入。</h2><div><pre style="width:400px;height:140px">
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="keywords" content=""><meta name="description" content=""><title>文档</title><link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="./css/common/base.min.css"><link rel="stylesheet" href="./css/page/copywriting.min.css"><link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet"><script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script><script>hljs.initHighlightingOnLoad()</script></head><body><div class="my-banner"><div class="my-banner-top clearfix"><a href="./index.html"><div class="banner-left fl"></div></a><div class="banner-right fr"><a href="javascript:;" class="btn-mobile-menu fr"><i></i><i></i><i></i></a><ul class="banner-nav fl clearfix"><li><a href="./index.html">产品</a> <a href="./scene.html">场景</a> <a href="javascript:volid(0);" class="active">文档</a><a href="./about.html">关于我们</a></li></ul><div class="logo fl clearfix"><a href="javascript:;" class="fl console" id="J_console">控制台</a> <a href="./login.html" class="fl apply">申请使用</a></div></div></div><div class="my-banner-bottom container"><span class="typed-element">集成文档</span><div class="copy"><div class="android active activeAn" data-index="android"><span class="icon"></span> <span class="txt">Android集成</span></div><div class="ios" data-index="ios"><span class="icon"></span> <span class="txt">iOS集成</span></div><div class="web" data-index="web"><span class="icon"></span> <span class="txt">Web集成</span></div></div></div></div><div class="app" id="J_app"><div class="my-android container my-app"><h1 style="margin-top:0">导入SDK</h1><h2>将aar文件拷贝到项目的libs文件夹下，并导入。</h2><div><pre style="width:400px;height:140px">
 <code style="width:100%;height:80%" class="lang-javascript">
 dependencies {
-    compile(name: 'ShareInstall_1.0.0', ext: 'aar')
+    compile(name: 'ShareInstall_1.0.1', ext: 'aar')
+}
+</code>
+</pre><h2>（注：导入aar需检查build文件中是否已经加入以下代码，否则会报错）</h2><pre style="width:400px;height:140px">
+<code style="width:100%;height:80%" class="lang-javascript">
+repositories { 
+    flatDir {
+        dirs 'libs'
+    }
 }
 </code>
 </pre><h1>基础配置</h1><h2>在AndroidMainfest.xml中添加权限声明。</h2><pre style="width:600px;height:100px">
@@ -9,7 +17,13 @@ dependencies {
 &lt;uses-permission android:name="android.permission.INTERNET" /&gt;
 &lt;uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /&gt;
 </code>
-</pre><h2>在自定义Application中调用SHShareInstallSDK.getInstance().init(context)方法完成SDK初始化。</h2><pre style="width:900px;height:540px">
+</pre><h2>在AndroidMainfest.xml中的application标签中添加分配给你应用的Appkey</h2><pre style="width:600px;height:120px">
+<code style="width:100%;height:80%" class="lang-javascript">
+&lt;meta-data    
+    android:name="com.shareinstall.APP_KEY"   
+    android:value="<span>shareinstall为当前应用自动分配的Appkey</span>"/>
+</code>
+</pre><h2>在自定义Application中调用ShareInstall.getInstance().init(context)方法完成SDK初始化，初始化前先判断当前进程是否是应用的主进程。</h2><pre style="width:900px;height:540px">
 <code style="width:100%;height:96%" class="lang-javascript">
 public class MyApp extends Application {
 
@@ -17,7 +31,7 @@ public class MyApp extends Application {
     public void onCreate() {
         super.onCreate();
         if (isMainProcess()) {
-            SHShareInstallSDK.getInstance().init(getApplicationContext());
+            ShareInstall.getInstance().init(getApplicationContext());
         }
     }
 
@@ -37,6 +51,11 @@ public class MyApp extends Application {
         return false;
     }
 }
+</code>
+</pre><h2>如果使用ShareInstall控制中心提供的注册统计功能，可调用方法ShareInstall.getInstance().reportRegister(); 注意该方法要在ShareInstall.getInstance().init (context)方法之后调用，否则会抛异常。</h2><pre style="width:400px;height:120px">
+<code style="width:100%;height:91%" class="lang-javascript">
+// 调用注册接口
+ShareInstall.getInstance().reportRegister();
 </code>
 </pre><h2>在AndroidMainfest.xml中的application标签中添加android:name=".MyApplication"指定自定义的Application类，以便程序启动的时候初始化自定义Application类，而不是系统默认的Application类。</h2><pre style="width:400px;height:200px">
 <code style="width:100%;height:91%" class="lang-javascript">
@@ -58,7 +77,7 @@ public class MyApp extends Application {
         &lt;action android:name="android.intent.action.VIEW" /&gt;
         &lt;category android:name="android.intent.category.DEFAULT" /&gt;
         &lt;category android:name="android.intent.category.BROWSABLE" /&gt;
-        &lt;data android:scheme="shareinstall为当前应用自动分配的schame" /&gt;
+        &lt;data android:scheme="<span>shareinstall为当前应用自动分配的schame</span>" /&gt;
     &lt;/intent-filter&gt;
 &lt;/activity&gt;
 </code>
@@ -75,13 +94,13 @@ public class MyApp extends Application {
         &lt;action android:name="android.intent.action.VIEW" /&gt;
         &lt;category android:name="android.intent.category.DEFAULT" /&gt;
         &lt;category android:name="android.intent.category.BROWSABLE" /&gt;
-        &lt;data android:scheme="shareinstall为当前应用自动分配的schame"/&gt;
+        &lt;data android:scheme="<span>shareinstall为当前应用自动分配的schame</span>"/&gt;
     &lt;/intent-filter&gt;
 &lt;/activity&gt;
 </code>
-</pre><h2>个性化安装和一键唤醒都调用同一个方法SHShareInstallSDK.getInstance().getInfo()获取相关信息，第一个参数为Intent，第二个参数 为接入方应用的apptypeId(尽量传个独特唯一的值)，因为目前后台没有为接入方应用配置一个单独的appkey，所以apptypeId用来区分应用，等以后后台完善。</h2><h1>1、个性化安装</h1><h2>在APP需要个性化安装参数时（由web网页中传递过来的，如邀请码、游戏房间号等 自定义参数），调用以下方法，在回调中获取参数。</h2><pre style="width:700px;height:170px">
+</pre><h2>个性化安装和一键唤醒都调用同一个方法ShareInstall.getInstance().getInfo()获取相关信息，第一个参数为Intent，第二个参数为信息回调监听</h2><h1>1、个性化安装</h1><h2>在APP需要个性化安装参数时（由web网页中传递过来的，如邀请码、游戏房间号等 自定义参数），调用以下方法，在回调中获取参数。</h2><pre style="width:700px;height:170px">
 <code style="width:100%;height:88%" class="lang-javascript">
-SHShareInstallSDK.getInstance().getInfo(getIntent(), "JSSTT", new AppGetInfoListener() {
+ShareInstall.getInstance().getInfo(intent, new AppGetInfoListener() {
     @Override
     public void onGetInfoFinish(String info) {
         Log.d("ShareInstall", "info = " + info);
@@ -97,14 +116,14 @@ public class WakeUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wake_up);
         // 获取唤醒参数
-        SHShareInstallSDK.getInstance().getInfo(getIntent(), "JSSTT", listener);
+        ShareInstall.getInstance().getInfo(getIntent(), listener);
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         // 此处要调用，否则app在后台运行时，会无法截获
-        SHShareInstallSDK.getInstance().getInfo(intent, "JSSTT", listener);
+        ShareInstall.getInstance().getInfo(intent, listener);
     }
 
     private AppGetInfoListener listener = new AppGetInfoListener() {
@@ -114,23 +133,21 @@ public class WakeUpActivity extends AppCompatActivity {
         }
     };
 </code>
-</pre></div></div><div class="my-ios container my-app" style="display:none"><h1 style="margin-top:0">一、产品原理</h1><h2><span>精确的App安装来源与携带参数安装 ：</span>shareInstall的核心价值在于，帮助Android/iOS开发者通过shareInstall提供的sdk，精确的获取app每一次安装的分享（或推广）来源。原理如下：开发者在分享的h5页面上集成shareInstall web sdk,发布分享链接时在url上动态的拼接任意的自定义参数（如推广渠道号，邀请码等等）；当某一终端访问该h5页面时，shareinstall web sdk将同时确定该设备的个性化信息和采集自定义参数，上传至shareInstall服务器，待用户通过该h5页面安装app后首次打开时（如当前设备已安装该app，将直接拉起该app并传递参数），使用shareInstall Android/iOS sdk从shareInstall服务器再取回暂存的自定义参数。</h2><h2><span>一键拉起功能：</span>shareInstall通过标准的scheme，universal link等技术，在app已安装的情况下，从各种浏览器（包括微信、QQ、新浪微博、钉钉等主流社交软件的内置浏览器）拉起app并传递自定义参数，避免重复安装,如没安装则跳至appStore或应用宝下载app,下载完毕唤醒app的相应页面。</h2><h1>二、iOS SDK集成</h1><h2><span>1、导入SDK</span></h2><h2>下载并解压最新版SDK压缩包，将libShareInstall.a和SHSmartInstallSDK.h导入工程中。</h2><h2><span>2、初始化SDK</span></h2><h2>在AppDelegate中，增加头文件的引用：</h2><pre style="width:820px;height:250px">
+</pre></div></div><div class="my-ios container my-app" style="display:none"><h1 style="margin-top:0">一、产品原理</h1><h2><span>精确的App安装来源与携带参数安装 ：</span>ShareInstall的核心价值在于，帮助Android/iOS开发者通过ShareInstall提供的sdk，精确的获取app每一次安装的分享（或推广）来源。原理如下：开发者在分享的h5页面上集成ShareInstall web sdk,发布分享链接时在url上动态的拼接任意的自定义参数（如推广渠道号，邀请码等等）；当某一终端访问该h5页面时，Shareinstall web sdk将同时确定该设备的个性化信息和采集自定义参数，上传至shareInstall服务器，待用户通过该h5页面安装app后首次打开时（如当前设备已安装该app，将直接拉起该app并传递参数），使用ShareInstall Android/iOS sdk从ShareInstall服务器再取回暂存的自定义参数。</h2><h2><span>一键拉起功能：</span>ShareInstall通过标准的scheme，universal link等技术，在app已安装的情况下，从各种浏览器（包括微信、QQ、新浪微博、钉钉等主流社交软件的内置浏览器）拉起app并传递自定义参数，避免重复安装,如没安装则跳至appStore或应用宝下载app,下载完毕唤醒app的相应页面。</h2><h1>二、iOS SDK集成</h1><h2><span>1、导入SDK</span></h2><h2>下载并解压最新版SDK压缩包，将libShareInstall.a和ShareInstallSDK.h导入工程中。</h2><h2><span>2、初始化SDK</span></h2><h2>在AppDelegate中，增加头文件的引用：</h2><pre style="width:820px;height:300px">
 <code style="width:100%;height:92%" class="lang-javascript">
-#import “SHSmartInstallSDK”
+#import “ShareInstallSDK”
 
 在-(BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     方法中调用setAppKey方法来初始化SDK，如下代码所示：
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-//这里设置的是江苏头条的apptypeid ，东方头条需替换成东方头条的apptypeid，后面会完善
- [[NSUserDefaults standardUserDefaults] setObject:@"JSSTT" forKey: @"apptypeid"];
-[SHSmartInstallSDK setAppKey:@"jgec0y" withDelegate:self WithOptions:launchOptions];
+[ShareInstallSDK setAppKey:@"<span>jgec0y</span>" withDelegate:self WithOptions:launchOptions];
 return YES;
 }
 </code>
-</pre><h2>注:目前后台没有为介入方应用配置一个单独的appkey，所以目前是固定的，以后会完善。</h2><h2><span>3、个性化安装</span></h2><h2>当应用安装后首次打开时，iOS sdk会收到网页端通过js sdk传来的自定义动态参数，精确的获取app每一次安装的分享（或推广）来源。比如通过在分享链接url中附带app邀请人的用户id，就可达到免填邀请码的效果；url中可拼接自定义的参数。在AppDelegate中，添加获取安装参数的回调方法，代码如下所示:</h2><pre style="width:820px;height:220px">
+</pre><h2>注:AppKey需填写自己的AppKey,请到ShareInstall官网后台查看自己应用的AppKey。</h2><h2><span>3、个性化安装</span></h2><h2>当应用安装后首次打开时，iOS sdk会收到网页端通过js sdk传来的自定义动态参数，精确的获取app每一次安装的分享（或推广）来源。比如通过在分享链接url中附带app邀请人的用户id，就可达到免填邀请码的效果；url中可拼接自定义的参数。在AppDelegate中，添加获取安装参数的回调方法，代码如下所示:</h2><pre style="width:820px;height:220px">
 <code style="width:100%;height:92%" class="lang-javascript">
-#pragma mark smartInstallDelegate
+#pragma mark ShareInstallDelegate
 //通过ShareInstall获取自定义参数，数据为空时也会调用此方法
 - (void)getInstallParamsFromSmartInstall:(id) params withError: (NSError *) error{
 NSLog(@"安装参数params=%@",params);
@@ -139,13 +156,13 @@ UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"直接点击App进来�
     [alert show];
 }
 </code>
-</pre><h2><span>4、一键跳转</span></h2><h2>ShareInstall通过标准的scheme，universal link等技术，在app安装的情况下，从各种浏览器（微信、QQ、新浪微博、钉钉等主流社交软件的内置浏览器）唤醒 app 并传递自定义参数，避免重复安装。</h2><h2><span>5、 universal link 配置</span></h2><h2>Universal link是iOS9的一个新特性，通过Universal link，App可以通过各种浏览器跳转到App（例如微信内可不通过safari，一键跳转到App），真正实现一键跳转到相应界面。<br>备注：iOS9以上推荐使用Universal link。</h2><h2><span>5.1 配置developer.apple.com的相关信息</span></h2><h2>到苹果开发者中心，为当前的App ID开启Associated Domains服务：</h2><img src="./img/copywriting/iOS1.jpg" alt=""><h2><span>5.2 配置Xcode</span></h2><h2>在Xcode中配置shareInstall为当前应用生成的关联域名：Associated Domains 开关打开，添加Domains。</h2><img src="./img/copywriting/ios2.jpg" alt=""><h2>在AppDelegate中的continueUserActivity方法中调用，用来处理Universal link。</h2><pre style="width:800px;height:280px">
+</pre><h2><span>4、一键跳转</span></h2><h2>ShareInstall通过标准的scheme，universal link等技术，在app安装的情况下，从各种浏览器（微信、QQ、新浪微博、钉钉等主流社交软件的内置浏览器）唤醒 app 并传递自定义参数，避免重复安装。</h2><h2><span>5、 universal link 配置</span></h2><h2>Universal link是iOS9的一个新特性，通过Universal link，App可以通过各种浏览器跳转到App（例如微信内可不通过safari，一键跳转到App），真正实现一键跳转到相应界面。<br>备注：iOS9以上推荐使用Universal link。</h2><h2><span>5.1 配置developer.apple.com的相关信息</span></h2><h2>到苹果开发者中心，为当前的App ID开启Associated Domains服务：</h2><img src="./img/copywriting/ios1.png" alt=""><h2><span>5.2 配置Xcode</span></h2><h2>在Xcode中配置ShareInstall为当前应用生成的关联域名：Associated Domains 开关打开，添加Domains。</h2><img src="./img/copywriting/ios2.png" alt=""><h2>在AppDelegate中的continueUserActivity方法中调用，用来处理Universal link。</h2><pre style="width:800px;height:280px">
 <code style="width:100%;height:90%" class="lang-javascript">
 //Universal Links 通用链接
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler
 {
     //判断是否通过ShareInstall Universal Links 唤起App
-    if ([SHSmartInstallSDK continueUserActivity:userActivity]) {
+    if ([ShareInstallSDK continueUserActivity:userActivity]) {
 return YES ;
 }else{
         //其他代码
@@ -153,13 +170,13 @@ return YES ;
     }
 }
 </code>
-</pre><h2><span>5.3 配置App的URL Scheme</span></h2><h2>iOS系统中App之间是相互隔离的，通过URL Scheme, App之间可以相互调用，并且可以传递参数。<br>备注：iOS9以下通过Url Scheme实现拉起。</h2><h2><span>5.4 在Xcode里选中Target—Info—URL Types, 配置shareInstall为当前应用生成的Url Scheme，如图所示：</span></h2><img src="./img/copywriting/ios3.jpg" alt=""><h2><span>5.5 URL Scheme相关代码配置</span></h2><h2>注意：当需要在shareInstall这个方法中处理第三方回调的时候（比如支付宝、微信回调等），请注意区分。</h2><pre style="width:800px;height:650px">
+</pre><h2><span>5.3 配置App的URL Scheme</span></h2><h2>iOS系统中App之间是相互隔离的，通过URL Scheme, App之间可以相互调用，并且可以传递参数。<br>备注：iOS9以下通过Url Scheme实现拉起。</h2><h2><span>5.4 在Xcode里选中Target—Info—URL Types, 配置shareInstall为当前应用生成的Url Scheme，如图所示：</span></h2><h2>identifier 配置为 com.ShareInstall，URL Schemes从shareInstall获取。</h2><h2>注：identifier 一定要配置为com.ShareInstall</h2><img src="./img/copywriting/ios3.png" alt=""><h2><span>5.5 URL Scheme相关代码配置</span></h2><h2>注意：当需要在shareInstall这个方法中处理第三方回调的时候（比如支付宝、微信回调等），请注意区分。</h2><pre style="width:800px;height:650px">
 <code style="width:100%;height:90%" class="lang-javascript">
 //ios9以下 URI Scheme
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
 
     //判断是否通过ShareInstall URL Scheme 唤起App
-    if ([SHSmartInstallSDK handLinkURL:url]) {
+    if ([ShareInstallSDK handLinkURL:url]) {
          return YES;
     }else{
         //其他代码
@@ -173,7 +190,7 @@ return YES ;
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(nonnull NSDictionary *)options
 {
     //判断是否通过ShareInstall URL Scheme 唤起App
-    if ([SHSmartInstallSDK handLinkURL:url]) {
+    if ([ShareInstallSDK handLinkURL:url]) {
 
         return YES;
     }else{
@@ -215,7 +232,7 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
     return jsonString;
 }
 </code>
-</pre></div><div class="my-web container my-app" style="display:none"><h1 style="margin-top:0">SDK概述</h1><h2>web sdk用于web页面启动/安装app，并在启动/安装app的同时，向app传递各种自定义参数（通过android/ios sdk可获取传递的参数）。</h2><h2>集成步骤</h2><pre style="width:800px;height:1070px">
+</pre><h2>6、注册量统计</h2><h2>使用Shareinstall 控制中心提供的渠道统计时，在App用户注册完成后调用，可以统计渠道注册量。</h2><h2>#warning 必须在注册成功的时调用[ShareInstallSDK reportRegister] 方法，否则可能导致注册统计不准。</h2></div><div class="my-web container my-app" style="display:none"><h1 style="margin-top:0">SDK概述</h1><h2>web sdk用于web页面启动/安装app，并在启动/安装app的同时，向app传递各种自定义参数（通过android/ios sdk可获取传递的参数）。</h2><h2>集成步骤</h2><pre style="width:800px;height:1070px">
 <code style="width:100%;height:90%" class="lang-javascript">
 &lt;script type="text/javascript" src="ShareInstall.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript"&gt;
@@ -251,9 +268,9 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
      android/ios api可以获取此数据*/
     var data = ShareInstall.parseUrlParams();//shareinstall.js中提供的工具函数，解析url中的所有查询参数
     new ShareInstall({
-        apptypeid : "shareinstall为当前应用分配的apptypeid",
+        appKey : "ShareInstall为当前应用分配的appkey",
         onready : function() {
-            //openinstall已成功回调，清除定时器
+            //shareinstall已成功回调，清除定时器
             clearTimeout(timer);
             timer = null;
 
