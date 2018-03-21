@@ -1,3 +1,6 @@
+html,body {
+  min-width: 1200px;
+}
 /**
 banner
  */
@@ -9,22 +12,24 @@ banner
     .banner-left {
       width: 168px;
       height: 50px;
-      margin: 15px 0 0 34px;
+      margin: 12px 0 0 34px;
       background: url("../../img/install/logo.png") no-repeat center;
     }
     .banner-right {
-      margin-top: 26px;
+      margin-top: 24px;
+      margin-right: 4px;
       .banner-nav {
         padding: 0;
         li {
           list-style: none;
           a {
             display: inline-block;
-            margin: 0 32px;
+            margin: 0 30px;
             text-decoration: none;
             color: #343434;
             font-weight: 800;
             font-size: 16px;
+            float: left;
           }
           a:hover {
             color: #00a4ff;
@@ -39,7 +44,7 @@ banner
         margin-top: -5px;
         a {
           display: inline-block;
-          padding: 7px 22px;
+          padding: 3px 20px;
           font-size: 16px;
           border: 1px solid #acadae;
           border-radius: 5px;
@@ -115,13 +120,25 @@ banner
         margin-top: 50px;
         position: relative;
         span {
-          background: url("../../img/download/ios.png") no-repeat;
+          background: url("../../img/download/ios2.png") no-repeat;
+        }
+
+        &.active {
+          span {
+            background: url("../../img/download/ios.png") no-repeat;
+          }
         }
       }
       .android {
         margin-top: 20px;
         span {
           background: url("../../img/download/android.png") no-repeat;
+        }
+
+        &.active {
+          span {
+            background: url("../../img/download/android2.png") no-repeat;
+          }
         }
       }
     }
@@ -187,4 +204,146 @@ banner
    width: 100%;
    height: 10px;
  }
+}
+
+// 移动端样式
+@media only screen and (max-width: 767px) {
+  html,body {
+    min-width: 0;
+  }
+  .logo {
+    display: none;
+  }
+  .my-banner {
+    .my-banner-top {
+
+      > a {
+        float: left;
+      }
+
+      .banner-left {
+        float: none!important;
+        width: 120px;
+        margin-left: 20px;
+        background-size: contain;
+      }
+  
+      .banner-right {
+        position: relative;
+        margin: 20px 0 0 0;
+        float: none!important;
+        width: 100%;
+        clear: both;
+  
+        .banner-nav {
+          width: 100%;
+          display: none;
+          background: #ffffff;
+    
+          li a {
+            width: 100%;
+            margin: 0;
+            padding: 5px 0;
+            text-align: center;
+          }
+        }
+
+        .btn-mobile-menu {
+          position: absolute;
+          top: -35px;
+          right: 20px;
+          width: 26px;
+          height: 20px;
+
+          i {
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: #000000;
+
+            &:nth-child(2) {
+              top: 8px;
+            }
+
+            &:nth-child(3) {
+              top: 16px;
+            }
+          }
+        }
+      }   
+    }
+  }
+
+  .my-introduce {
+    height: auto;
+  }
+
+  .my-section {
+    height: auto;
+
+    .section {
+      padding-top: 40px;
+      
+      div {
+        width: 50%;
+
+        span {
+          margin-bottom: 10px;
+        }
+      }
+
+      .email {
+        p {
+          word-break: break-all;
+          padding: 0 10px;
+        }
+      }
+    }
+  }
+
+  .my-section .section {
+    .download-con {
+      width: 100%;
+    }
+
+    .right {
+      width: 100%;
+      float: none!important;
+      margin-left: 0;
+      margin: 30px auto;
+
+      div {
+        width: 90%;
+      }
+
+      .top,
+      .bottom {
+        margin: 20px auto;
+      }
+
+      .download {
+        width: 100%;
+      }
+    }
+
+    .left {
+      width: 100%;
+      float: none!important;
+      text-align: center;
+
+      .download-menu {
+        display: inline-block;
+        margin-top: 0;
+        text-align: left;
+      }
+    }
+  }
+
+  .my-banner .my-banner-bottom {
+    background-size: cover;
+  }
+
+  .my-section .section {
+    min-height: 0;
+  }
 }

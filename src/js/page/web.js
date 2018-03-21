@@ -2,6 +2,8 @@
  * Created by admin on 2018/1/5.
  */
 /* global $ */
+/* global layer */
+/* global QRCode  */
 var DfttModule = (function (dm) {
   var Index = {
     name: 'Index',
@@ -12,6 +14,7 @@ var DfttModule = (function (dm) {
       _this.writeAppkey()
       _this.writeAppName()
       _this.drawAppicon()
+      _this.onlineTest()
     },
 
     // 渲染页面appkey
@@ -20,6 +23,7 @@ var DfttModule = (function (dm) {
       if (appKey) {
         $("#app_key").text(appKey)
         $('#configAppKey').text(appKey)
+        $('.doc-appkey').text(appKey)
       }
     },
 
@@ -37,6 +41,34 @@ var DfttModule = (function (dm) {
       if (appName) {
         $('#app_name').text(appName)
       }
+    },
+
+    // 在线测试链接
+    onlineTest: function () {
+      $(document).on('click', '.depoly-line-test', function () {
+        var testWrap = $('#_win_web_test')
+        testWrap.find('.qr_img').empty()
+        testWrap.find('.qr_text').text('')
+        layer.open({
+          title: '测试',
+          type: 1,
+          area: '800',
+          content: testWrap
+        })
+      })
+
+      $(document).on('click', '.depoly-button', function () {
+        var url = window.location.href.replace('web.html', '') + '/js-test.html?appkey=' + $.cookie('appkey') + '&' + $('input[name="key"]').val() + '=' + $('input[name="value"]').val()
+        var curCode = new QRCode($('.qr_img').empty()[0], {
+          text: url,
+          width: 180,
+          height: 180,
+          colorDark: '#000000',
+          colorLight: '#ffffff',
+          correctLevel: QRCode.CorrectLevel.H
+        })
+        console.log(url)
+      })
     },
     /**
      * 点击导航切换
@@ -56,20 +88,6 @@ var DfttModule = (function (dm) {
   return dm
 })(DfttModule || {}) // eslint-disable-line
 
-$(function () {
-  // 调用初始化方法
-  $.each(DfttModule, function (i, obj) {
-    if ($.isPlainObject(obj)) {
-      if ($.isFunction(obj.init)) {
-        obj.init()
-      } else {
-        console.error(obj.init + ' is not a Function!')
-      }
-    } else {
-      console.error(obj + ' is not a PlainObject!')
-    }
-  })
-})
 /**
  * Created by admin on 2018/1/12.
  */

@@ -1,11 +1,14 @@
 body, html {
-  background: url("../../img/login/bg.png") no-repeat center;
-  background-size: cover;
+  
   min-height: 700px;
+  height: 100%;
 }
 
 .my-login {
   width: 100%;
+  min-height: 100%;
+  background: url("../../img/login/bg.png") no-repeat center;
+  background-size: cover;
 
   .section {
     padding-top: 110px;
@@ -13,6 +16,7 @@ body, html {
     min-height: 700px;
     overflow-y: hidden;
     z-index: 11;
+    padding-bottom: 60px;
     h1 {
       font-size: 42px;
       color: #fff;
@@ -316,8 +320,8 @@ body, html {
       position: absolute;
       top: 240px;
       left: 50%;
-      margin-left: -75px;
-      width: 200px;
+      margin-left: -95px;
+      width: 240px;
       height: 50px;
       color: #fff;
       font-size: 12px;
@@ -326,17 +330,19 @@ body, html {
       background: rgba(0, 0, 0, 0.8);
     }
   }
-  .company {
-    position: fixed;
-    bottom: 0;
-    font-size: 14px;
-    display: block;
-    color: #a9adb1;
-    text-align: center;
-    width: 100%;
-    // margin-top: 200px;
-    line-height: 40px;
-    padding-top: 40px;
-    z-index: 0;
-  }
+  
+}
+
+.company {
+  // position: fixed;
+  // bottom: 0;
+  font-size: 14px;
+  display: block;
+  color: #a9adb1;
+  text-align: center;
+  width: 100%;
+  // margin-top: 200px;
+  line-height: 40px;
+  margin-top: -40px;
+  z-index: 0;
 }

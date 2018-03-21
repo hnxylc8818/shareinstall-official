@@ -158,6 +158,11 @@ var DfttModule = (function (dm) {
           success: function (data) {
             if (data.code === '0' || data.code === 0) {
               window.location.href = './management.html'
+            } else if (parseInt(data.code) === 88) {
+              layer.msg('登录失效，请重新登录')
+              setTimeout(function () {
+                window.location.href = './login.html'
+              }, 3000)
             } else {
               layer.msg('保存失败')
             }

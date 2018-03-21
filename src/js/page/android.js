@@ -4,6 +4,7 @@
 /* global $ */
 /* global layer */
 /* global Handlebars */
+/* global QRCode */
 var DfttModule = (function (dm) {
   var Index = {
     name: 'Index',
@@ -22,6 +23,7 @@ var DfttModule = (function (dm) {
       _this.configApp()
       _this.nextFun()
       _this.prevFun()
+      _this.onlineTest()
     },
 
     // 获取url中的参数
@@ -78,6 +80,34 @@ var DfttModule = (function (dm) {
       var n = e === !0 ? /^([0-9a-zA-Z_\-]+):\/\/[^\/]+(\/.*)?/i : /^(http|https):\/\/[^\/]+(\/.*)?/i,
         a = n.exec(t);
       return a ? (a[2] || (t += '/'), t) : null
+    },
+
+    // 在线测试链接
+    onlineTest: function () {
+      $(document).on('click', '.depoly-line-test', function () {
+        var testWrap = $('#_win_web_test')
+        testWrap.find('.qr_img').empty()
+        testWrap.find('.qr_text').text('')
+        layer.open({
+          title: '测试',
+          type: 1,
+          area: '800',
+          content: testWrap
+        })
+      })
+
+      $(document).on('click', '.depoly-button', function () {
+        var url = window.location.href.replace('android.html', '') + 'js-test.html?appkey=' + $.cookie('appkey') + '&' + $('input[name="key"]').val() + '=' + $('input[name="value"]').val()
+        var curCode = new QRCode($('.qr_img').empty()[0], {
+          text: url,
+          width: 180,
+          height: 180,
+          colorDark: '#000000',
+          colorLight: '#ffffff',
+          correctLevel: QRCode.CorrectLevel.H
+        })
+        console.log(url)
+      })
     },
 
     // 左侧链接跳转
@@ -146,13 +176,29 @@ var DfttModule = (function (dm) {
       });
 
       $('.upload-filebtn').on('change', function () {
-        $('#upimg').show()
-        upfile();
+        var name = $('.upload-filebtn')[0].files[0].name
+        if (/.apk$/.test(name)) {
+          $('#upimg').show()
+          $('.up_progress').show()
+          $('.up_container').hide()
+          $('.up_progress .filename').text(name)
+          upfile();
+        } else {
+          layer.msg('请上传.apk文件')
+        }
+      })
+
+      $('.stop_upload').off('click').on('click', function () {
+        xhr.abort()
+        clearTimeout(timer)
+        $('.up_progress').hide()
+        $('.up_container').show()
       })
 
       var xhr = new XMLHttpRequest();
       var fd;
       var des = document.getElementById('load');
+      var desProcess = document.getElementById('loadProcess');
       var num = document.getElementById('upimg');
       var file;
       const LENGTH = 5 * 1024 * 1024;
@@ -162,6 +208,7 @@ var DfttModule = (function (dm) {
       var pecent;
       var filename;
       var appKey = $.cookie('appkey');
+      var timer = null
       // var pending;
       // var clock;
       function upfile() {
@@ -173,7 +220,7 @@ var DfttModule = (function (dm) {
         file = document.getElementsByName('mof')[0].files[0];
         //filename = file.name;
         if (!file) {
-          alert('请选择文件');
+          // alert('请选择文件');
           return;
         }
         //clock=setInterval('up()',1000);
@@ -195,18 +242,18 @@ var DfttModule = (function (dm) {
 
           xhr.onreadystatechange = function () {
             if (this.readyState == 4) {
-              console.log(this);
-              console.log(this.status);
+              // console.log(this);
+              // console.log(this.status);
               if (this.status >= 200 && this.status < 300) {
-                console.log(this.responseText);
-                console.log(this.responseText['code']);
+                // console.log(this.responseText);
+                // console.log(this.responseText['code']);
                 tmp = this.responseText;
                 resp = eval('(' + tmp + ')');
                 console.log(typeof resp);
                 console.log(resp['code']);
                 if (resp['code'] < 0) {
                   //alert(this.responseText);
-                  alert('文件发送失败，请重新发送');
+                  layer.msg('文件发送失败，请重新发送')
                   des.style.width = '0%';
                   //num.innerHTML='';
                   //clearInterval(clock);
@@ -216,7 +263,7 @@ var DfttModule = (function (dm) {
                   start = end;
                   end = start + LENGTH;
                   if (blob_num == total_blob_num) {
-                    setTimeout(function () {
+                    timer = setTimeout(function () {
                       $.ajax({
                         async: false,
                         'type': 'POST',
@@ -226,19 +273,37 @@ var DfttModule = (function (dm) {
                         },
                         success: function (res) {
                           if (res.code === '0') {
+                            file.value = ''
                             _this.hasBag = true
                             var date = new Date(res.data.createTime * 1000)
-                            res.data.createTime = date.getFullYear() + '/' + ((date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : '0' + (date.getMonth() + 1)) + '/' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate())
+                            res.data.createTime = date.getFullYear() + '/' + ((date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : '0' + (date.getMonth() + 1)) + '/' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate()) + ' ' + (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':' + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':' + (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
                             var tpl = $('.pkgInfoTmp').html();
                             var template = Handlebars.compile(tpl);
                             var html = template(res.data);
                             $('.pkgInfoContainer').html(html);
                             $('#configAppId').html(res.data.application_id)
                             $('#configScheme').html(res.data.scheme)
+                            $('input[name="yybEnabled"]').prop('checked', false)
+                            $('input[name="yybUrl"]').prop('disabled', true).val('')
+                            $('#load').css('width', '0%').text('0%')
+                            $('#upimg').css('display', 'none')
+                            $('.upload-filebtn').val('')
                             $('.btn-upload-back').click()
+                            $('.depoly-line-test').show()
+                            $('.up_progress').hide()
+                            $('.up_container').show()
+                            $('.depoly-top').hide()
                             layer.msg('包上传成功')
+                          } else if (res.code === '88') {
+                            layer.msg('登录失效，请重新登录')
+                            setTimeout(function () {
+                              window.location.href = './login.html'
+                            }, 3000)
                           } else {
+                            file.value = ''
                             layer.msg(res.message || '文件解析失败')
+                            $('.up_progress').hide()
+                            $('.up_container').show()
                           }
                         }
                       });
@@ -251,9 +316,9 @@ var DfttModule = (function (dm) {
                     up();
                   }, 1000);
                 }
-
               } else {
-                alert('文件发送失败，请重新发送');
+                $('.upload-filebtn').val('')
+                layer.msg('已取消文件上传');
                 des.style.width = '0%';
               }
             }
@@ -266,7 +331,9 @@ var DfttModule = (function (dm) {
               }
               //num.innerHTML=parseInt(pecent)+'%';
               des.style.width = pecent + '%';
-              des.innerHTML = parseInt(pecent) + '%'
+              // des.innerHTML = parseInt(pecent) + '%'
+              desProcess.innerHTML = parseInt(pecent) + '%'
+              $('.up_progress .prog_uploaded').text(((ev.loaded + start) / 1024 / 1024).toFixed(2) + 'MB')
             }
           }
 
@@ -309,7 +376,7 @@ var DfttModule = (function (dm) {
           if (res.code === '0') {
             _this.hasBag = true
             var date = new Date(res.data.createTime * 1000)
-            res.data.createTime = date.getFullYear() + '/' + ((date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : '0' + (date.getMonth() + 1)) + '/' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate())
+            res.data.createTime = date.getFullYear() + '/' + ((date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : '0' + (date.getMonth() + 1)) + '/' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate()) + ' ' + (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':' + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':' + (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
             var tpl = $('.pkgInfoTmp').html();
             var template = Handlebars.compile(tpl);
             var html = template(res.data);
@@ -319,7 +386,16 @@ var DfttModule = (function (dm) {
             $('input[name="appstoreUrl"]').val(res.data.app_store)
             $('input[name="yybEnabled"]').prop('checked', !!res.data.is_applied)
             $('input[name="yybUrl"]').prop('disabled', !res.data.is_applied).val(res.data.applied_path)
+            $('.depoly-line-test').show()
+            $('.depoly-top').hide()
             // $('.file_info').show();
+          } else if (res.code === '88') {
+            layer.msg('登录失效，请重新登录')
+            setTimeout(function () {
+              window.location.href = './login.html'
+            }, 3000)
+          } else {
+            // layer.msg(res.message)
           }
         }
       })
@@ -341,7 +417,16 @@ var DfttModule = (function (dm) {
           para: param
         },
         success: function (res) {
-          layer.msg(res.message)
+          if (res.code === '0') {
+            layer.msg('信息保存成功')
+          } else if (res.code === '88') {
+            layer.msg('登录失效，请重新登录')
+            setTimeout(function () {
+              window.location.href = './login.html'
+            }, 3000)
+          } else {
+            layer.msg(res.message)
+          }
         }
       })
     },
@@ -357,7 +442,7 @@ var DfttModule = (function (dm) {
         }
       })
 
-      $('.btn_submit').on('click', function () {
+      $('#saveForm').on('click', function () {
         var is_applied = $('input[name="yybEnabled"]').prop('checked') ? 1 : 0
         var applied_path = $('input[name="yybUrl"]').val()
 

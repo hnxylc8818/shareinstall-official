@@ -236,7 +236,7 @@ a:hover:enabled.common-tip {
 }
 
 .depoly-banner-test, .depoly-line-test {
-  background-image: url(/images/test.png);
+  background-image: url(../../img/console/test.png);
   background-repeat: no-repeat;
   background-position: 10px center;
   padding: 5px 15px 5px 30px;
@@ -260,7 +260,11 @@ a:hover:enabled.common-tip {
 .depoly-line-test:hover {
   color: #01b32b;
   border: 1px solid #01b32b;
-  background: url(/images/test2.png) 10px center no-repeat #F4F7F9
+  background: url(../../img/console/test2.png) 10px center no-repeat #F4F7F9
+}
+
+.depoly-line-test:focus {
+  color: #01b32b;
 }
 
 .depoly-jicheng-test:hover {
@@ -1742,4 +1746,11 @@ android 页面
 
 .tab-content {
   padding: 0 30px;
+}
+
+#app_name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
 }

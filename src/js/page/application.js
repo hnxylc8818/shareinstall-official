@@ -2,7 +2,7 @@
  * Created by admin on 2018/1/5.
  */
 /* global $ */
-/* global Typed */
+/* global layer */
 var DfttModule = (function(dm) {
   var Index = {
     name: 'Index',
@@ -27,16 +27,27 @@ var DfttModule = (function(dm) {
         $("#J_my-addApp").show()
       })
     },
+
     /**
      * 确认创建
      */
     addAppOk: function() {
       var _this = this;
+      var regEn = /[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im,
+        regCn = /[·！#￥（——）：；“”‘、，|《。》？、【】[\]]/im;
       $(".preservation").on("click", function() {
         var name = $("#addApp").val()
         if (name == '') {
-          alert("应用名不能为空")
-          return
+          layer.tips('应用名不能为空', $('#addApp'), {
+            tipsMore: !0,
+            tips: [2, '#ff3333']
+          })
+          // return
+        } else if (regEn.test(name) || regCn.test(name)) {
+          layer.tips('应用名不能包含特殊符号', $('#addApp'), {
+            tipsMore: !0,
+            tips: [2, '#ff3333']
+          })
         } else {
           var url = _this.url + 'appliance/create'
           $.ajax({
@@ -54,6 +65,8 @@ var DfttModule = (function(dm) {
                 $("#addApp").val("")
                 $("#J_my-addApp").hide()
                 _this.getList()
+              } else {
+                layer.msg(data.message)
               }
             }
           })
@@ -116,7 +129,7 @@ var DfttModule = (function(dm) {
           username: $.cookie("userName"),
           token: $.cookie("_token"),
           page: 1,
-          size: 10
+          size: 10000
         },
         success: function(data) {
           console.log(data)
@@ -126,8 +139,10 @@ var DfttModule = (function(dm) {
             $(".list-ul").html("")
             _this.renderingList(list)
           } else {
-            alert('登录已过期，请重新登录');
-            window.location.href = './login.html'
+            layer.msg('登录已过期，请重新登录');
+            setTimeout(function () {
+              window.location.href = './login.html'
+            }, 3000)
           }
         }
       })

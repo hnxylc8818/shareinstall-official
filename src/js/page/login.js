@@ -116,6 +116,8 @@ var DfttModule = (function(dm) {
                 }
                 console.log(data)
                 if (data.code == 0) { //验证码发送成功
+                  $(".prompt").html('验证码发送成功')
+                  $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
                   code = true
                   var count = 60;
 
@@ -136,7 +138,7 @@ var DfttModule = (function(dm) {
                 } else {
                   $(".erification").attr("data-click", "1");
                   $(".prompt").html(data.message)
-                  $(".prompt").stop(true).fadeIn(1000).fadeOut(1000)
+                  $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
                 }
               }
             })
@@ -155,7 +157,61 @@ var DfttModule = (function(dm) {
         var Rpasswordsc = $(".Rpasswordsc").val()
         var Rphone = $(".Rphone").val()
         var Rcode = $(".Rcode").val()
+        var regMobile = /^1[0-9]{10}$/
+        var regMail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/
         var urlRegister = _this.url + 'login/register'
+
+        if (Ruser == '') {
+          $(".prompt").html('邮箱是必填项')
+          $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
+          return
+        }
+        if (!regMail.test(Ruser)) {
+          $(".prompt").html('邮箱格式错误')
+          $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
+          return
+        }
+        if (Rpassword == '') {
+          $(".prompt").html('请输入密码')
+          $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
+          return
+        }
+        if (Rpassword.length < 6 || Rpassword.length > 12) {
+          $(".prompt").html('密码为6-12位（数字、英文字母）组合')
+          $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
+          return
+        }
+        if (!Rpasswordsc) {
+          $(".prompt").html('请再次输入密码')
+          $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
+          return
+        }
+        if (Rpasswordsc !== Rpassword) {
+          $(".prompt").html('两次密码输入不一致')
+          $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
+          return
+        }
+        if (Rphone == '') {
+          $(".prompt").html('请输入绑定手机号')
+          $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
+          return
+        }
+        if (!regMobile.test(Rphone)) {
+          $(".prompt").html('手机号格式错误')
+          $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
+          return
+        }
+        if (Rcode == '') {
+          $(".prompt").html('手机验证码为空')
+          $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
+          return
+        }
+        if (Rcode.length !== 6) {
+          $(".prompt").html('手机验证码应为6位数字')
+          $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
+          return
+        }
+
         $.ajax({
           url: urlRegister,
           type: "post",
@@ -171,13 +227,16 @@ var DfttModule = (function(dm) {
               data = JSON.parse(data);
             }
             if (data.code == '0') {
-              alert('注册成功')
-              $(".section h2").html("登录账号")
-              $(".login").show()
-              $(".nologin").hide()
+              $(".prompt").html('注册成功')
+              $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
+              setTimeout(function () {
+                $(".section h2").html("登录账号")
+                $(".login").show()
+                $(".nologin").hide()
+              }, 3000)
             } else {
               $(".prompt").html(data.message)
-              $(".prompt").stop(true).fadeIn(1000).fadeOut(1000)
+              $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
             }
           }
         })
@@ -192,6 +251,13 @@ var DfttModule = (function(dm) {
         var phone = $(".user").val()
         var password = $(".password").val()
         var login = _this.url + 'login/loginwithpwd'
+
+        if (!phone || !password) {
+          $(".prompt").html('用户名或密码为空')
+          $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
+          return
+        }
+
         $.ajax({
           url: login,
           type: "post",
@@ -217,7 +283,7 @@ var DfttModule = (function(dm) {
               window.location.href = './application.html'
             } else {
               $(".prompt").html(data.message)
-              $(".prompt").stop(true).fadeIn(1000).fadeOut(1000)
+              $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
             }
           }
         })
@@ -252,7 +318,7 @@ var DfttModule = (function(dm) {
       var phone = false
       $(".phone-w").on("blur", function() { //手机号验证
         var value = $(".phone-w").val()
-        var myreg = /^1[34578]\d{9}$/
+        var myreg = /^1[345678]\d{9}$/
         if (value == '' || !myreg.test(value)) {
           $(".phone-w").css("border-color", "rgba(231, 94, 94, 0.3)")
         } else {
@@ -262,12 +328,18 @@ var DfttModule = (function(dm) {
       })
       $(".erification-w").on("click", function() { //忘记密码获取验证码
         var mobile = $(".phone-w").val()
-        var myreg = /^1[34578]\d{9}$/
+        var myreg = /^1[345678]\d{9}$/
         var disabled = $(".erification-w").attr("data-click")
         var urlSendmessage = _this.url + 'changepwd/getsms'
-        if (mobile == '' || !myreg.test(mobile)) {
-          $(".my-code").css("border-color", "rgba(231, 94, 94, 0.3)")
+        if (mobile == '') {
+          // $(".my-code").css("border-color", "rgba(231, 94, 94, 0.3)")
+          $(".prompt").html('手机号为空')
+          $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
           return false
+        } else if (!myreg.test(mobile)) {
+          // $(".my-code").css("border-color", "rgba(231, 94, 94, 0.3)")
+          $(".prompt").html('手机号格式错误')
+          $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
         } else {
           if (disabled != 1) { //点击拦截
             return
@@ -325,31 +397,68 @@ var DfttModule = (function(dm) {
         var mobile = $(".phone-w").val()
         var sms_code = $(".code-w").val()
         var password = $(".password-w").val()
-        if (Rpassword && code && phone) {
-          $.ajax({
-            url: url,
-            type: "post",
-            data: {
-              mobile_num: mobile,
-              sms_code: sms_code,
-              password: password
-            },
-            success: function(data) {
-              if (typeof data === "string") {
-                data = JSON.parse(data);
-              }
-              console.log(data)
-              if (data.code == 0) { //修改成功
+        var myreg = /^1[345678]\d{9}$/
+
+        if (mobile == '') {
+          // $(".my-code").css("border-color", "rgba(231, 94, 94, 0.3)")
+          $(".prompt").html('手机号为空')
+          $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
+          return false
+        } else if (!myreg.test(mobile)) {
+          // $(".my-code").css("border-color", "rgba(231, 94, 94, 0.3)")
+          $(".prompt").html('手机号格式错误')
+          $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
+          return false
+        }
+
+        if (sms_code == '') {
+          $(".prompt").html('手机验证码为空')
+          $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
+          return false
+        } else if (sms_code.length !== 6) {
+          $(".prompt").html('手机验证码为6位数字')
+          $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
+          return false
+        }
+
+        if (password == '') {
+          $(".prompt").html('密码为空')
+          $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
+          return false
+        } else if (password.length < 6 || password.length > 12) {
+          $(".prompt").html('密码为6-12位（数字、英文字母）组合')
+          $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
+          return false
+        }
+
+        $.ajax({
+          url: url,
+          type: "post",
+          data: {
+            mobile_num: mobile,
+            sms_code: sms_code,
+            password: password
+          },
+          success: function(data) {
+            if (typeof data === "string") {
+              data = JSON.parse(data);
+            }
+            console.log(data)
+            if (data.code == 0) { //修改成功
+              $(".prompt").html('密码重置成功，前往登录')
+              $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
+              
+              setTimeout(function () {
                 $(".login").show()
                 $(".nologin").hide()
                 $(".forgetPassword").hide()
-              } else {
-                $(".prompt").html(data.message)
-                $(".prompt").stop(true).fadeIn(1000).fadeOut(1000)
-              }
+              }, 3000)
+            } else {
+              $(".prompt").html(data.message)
+              $(".prompt").stop(true).fadeIn(1000).delay(1000).fadeOut(1000)
             }
-          })
-        }
+          }
+        })
       })
     }
 

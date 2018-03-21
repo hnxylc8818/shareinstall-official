@@ -681,6 +681,7 @@ body {
 
 .dropdown-toggle {
   color: #ffffff;
+  background: none!important;
 }
 
 .dropdown-toggle:focus{
@@ -721,4 +722,15 @@ body {
     color: #ffffff;
     background: url(../../img/console/file.png) no-repeat 10px center
   }
+}
+
+.layui-layer-ico {
+  background-image: url(../../img/console/icon.png)!important;
+}
+
+.up_progress {
+  overflow: hidden;
+  font-size: 14px;
+  color: #8496b9;
+  line-height: 2;
 }
