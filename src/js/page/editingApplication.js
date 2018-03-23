@@ -8,9 +8,9 @@ var DfttModule = (function (dm) {
     init: function () {
       var _this = this
       _this.url = 'http://api.shareinstall.com/'
+      _this.getImg()
       _this.getAppInfo()
       _this.previewImg()
-      _this.getImg()
       _this.preservationOk()
       _this.cancelFun()
     },
@@ -21,7 +21,7 @@ var DfttModule = (function (dm) {
       var img = $.cookie("oldImg") ? $.cookie("oldImg") : 'http://mini.eastday.com/songheng/sharefolder/dftoutiao/s_window_activity_banner/20180115/5a5c5751b2b6d.png'
       $("#xmTanImg").attr("src", img)
       var name = $.cookie("oldName") ? $.cookie("oldName") : "";
-      $("#appName").val(name)
+      // $("#appName").val(name)
     },
     /**
      *预览图片
@@ -157,6 +157,8 @@ var DfttModule = (function (dm) {
           if (data.code === 0) {
             $('#appKey').text(data.data.app_key)
             $('#appTime').text(_this.timetrans(data.data.createTime))
+            $('#appName').val(data.data.name)
+            $('#xmTanImg').attr('src', data.data.icon)
             if (data.data.status === 1) {
               $('#appStatus').text('免费体验中')
             } else if (data.data.status === 2) {

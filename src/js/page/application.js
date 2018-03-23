@@ -216,7 +216,7 @@ var DfttModule = (function(dm) {
             htmlStr += '<span class="item-pingtai">暂无</span>'
           }
           if (parseInt(item.app_status) === 0) {
-            htmlStr += '<span class="item-status" style="color:#a6b2ca">试用期已过<a href="./payment.html" style="color:#00a4ff;margin-left:5px">开通</a></span>'
+            htmlStr += '<span class="item-status" style="color:#a6b2ca">试用期已过<a href="./payment.html?appkey=' + item.app_key + '" style="color:#00a4ff;margin-left:5px">开通</a></span>'
           } else if (parseInt(item.app_status) === 1) {
             htmlStr += '<span class="item-status">免费体验中</span>'
           } else if (parseInt(item.app_status) === 2) {

@@ -8,10 +8,10 @@ var DfttModule = (function (dm) {
     init: function () {
       var _this = this
       _this.url = 'http://api.shareinstall.com/'
+      _this.getImg()
       _this.getAppInfo()
       _this.previewImg()
-      _this.getImg()
-      _this.preservationOk()
+      // _this.preservationOk()
       _this.cancelFun()
       _this.countPrice()
     },
@@ -31,7 +31,7 @@ var DfttModule = (function (dm) {
       var img = $.cookie("oldImg") ? $.cookie("oldImg") : 'http://mini.eastday.com/songheng/sharefolder/dftoutiao/s_window_activity_banner/20180115/5a5c5751b2b6d.png'
       $("#xmTanImg").attr("src", img)
       var name = $.cookie("oldName") ? $.cookie("oldName") : "";
-      $("#appName").val(name)
+      // $("#appName").val(name)
     },
     /**
      *预览图片
@@ -86,41 +86,41 @@ var DfttModule = (function (dm) {
     /**
      * 点击保存按钮
      */
-    preservationOk: function () {
-      var _this = this
-      $(".preservation").on("click", function () {
-        var url = _this.url + 'appliance/update'
-        var key = window.location.href.split("=")[1]
-        var img = $("#xmTanImg").attr("src")
-        var name = $("#appName").val()
-        if (name == '') {
-          alert("APP名称不能为空")
-          return
-        }
-        $.ajax({
-          url: url,
-          type: 'post',
-          data: {
-            username: $.cookie("userName"),
-            token: $.cookie("_token"),
-            app_name: name,
-            app_icon: img,
-            app_key: key
-          },
-          success: function (data) {
-            console.log(data)
-            if (data.code == 0) {
-              window.location.href = './application.html'
-            } else if (parseInt(data.code) == 88) {
-              layer.msg('登录失效，请重新登录')
-              setTimeout(function () {
-                window.location.href = './login.html'
-              }, 3000)
-            }
-          }
-        })
-      })
-    },
+    // preservationOk: function () {
+    //   var _this = this
+    //   $(".preservation").on("click", function () {
+    //     var url = _this.url + 'appliance/update'
+    //     var key = window.location.href.split("=")[1]
+    //     var img = $("#xmTanImg").attr("src")
+    //     var name = $("#appName").val()
+    //     if (name == '') {
+    //       alert("APP名称不能为空")
+    //       return
+    //     }
+    //     $.ajax({
+    //       url: url,
+    //       type: 'post',
+    //       data: {
+    //         username: $.cookie("userName"),
+    //         token: $.cookie("_token"),
+    //         app_name: name,
+    //         app_icon: img,
+    //         app_key: key
+    //       },
+    //       success: function (data) {
+    //         console.log(data)
+    //         if (data.code == 0) {
+    //           window.location.href = './application.html'
+    //         } else if (parseInt(data.code) == 88) {
+    //           layer.msg('登录失效，请重新登录')
+    //           setTimeout(function () {
+    //             window.location.href = './login.html'
+    //           }, 3000)
+    //         }
+    //       }
+    //     })
+    //   })
+    // },
     /***
      * 点击取消
      */
@@ -159,15 +159,16 @@ var DfttModule = (function (dm) {
       $.ajax({
         url: _this.url + '/appliance/getone',
         data: {
-          app_key: $.cookie('appkey')
+          app_key: _this.getQueryString('appkey')
         },
         type: 'POST',
         success: function (data) {
           data.code = parseInt(data.code)
           if (data.code === 0) {
             $('#appKey').text(data.data.app_key)
-            $('#appName').text(data.data.name)
             $('#appTime').text(_this.timetrans(data.data.createTime))
+            $('#appName').text(data.data.name)
+            $('#xmTanImg').attr('src', data.data.icon)
             if (data.data.status === 1) {
               $('#appStatus').text('免费体验中')
             } else if (data.data.status === 2) {
