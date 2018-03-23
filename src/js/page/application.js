@@ -2,7 +2,7 @@
  * Created by admin on 2018/1/5.
  */
 /* global $ */
-/* global Typed */
+/* global layer */
 var DfttModule = (function(dm) {
   var Index = {
     name: 'Index',
@@ -17,6 +17,7 @@ var DfttModule = (function(dm) {
       _this.detailed()
       _this.getList()
       _this.addAppOk()
+      _this.inputLimit()
     },
 
     /**
@@ -27,16 +28,51 @@ var DfttModule = (function(dm) {
         $("#J_my-addApp").show()
       })
     },
+
+    getLength: function(str) {
+      return str.replace(/[\u0391-\uFFE5]/g, 'aa').length;  //先把中文替换成两个字节的英文，在计算长度
+    },
+
+    inputLimit: function () {
+      var _this = this
+      var wordsLen = 0
+      $('#addApp').on('input propertychange', function () {
+        var value = $(this).val()
+        if (_this.getLength(value) <= 30) {
+          wordsLen = value.length
+        }
+        if (_this.getLength(value) > 30) {
+          $(this).val($(this).val().substr(0, wordsLen))
+          return false
+        }
+      })
+    },
+
     /**
      * 确认创建
      */
     addAppOk: function() {
       var _this = this;
+      var regEn = /[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im,
+        regCn = /[·！#￥（——）：；“”‘、，|《。》？、【】[\]]/im;
       $(".preservation").on("click", function() {
         var name = $("#addApp").val()
         if (name == '') {
-          alert("应用名不能为空")
-          return
+          layer.tips('应用名不能为空', $('#addApp'), {
+            tipsMore: !0,
+            tips: [2, '#ff3333']
+          })
+          // return
+        } else if (regEn.test(name) || regCn.test(name)) {
+          layer.tips('应用名不能包含特殊符号', $('#addApp'), {
+            tipsMore: !0,
+            tips: [2, '#ff3333']
+          })
+        } else if (_this.getLength(name) > 30) {
+          layer.tips('应用名不能超过30个字符', $('#addApp'), {
+            tipsMore: !0,
+            tips: [2, '#ff3333']
+          })
         } else {
           var url = _this.url + 'appliance/create'
           $.ajax({
@@ -54,6 +90,8 @@ var DfttModule = (function(dm) {
                 $("#addApp").val("")
                 $("#J_my-addApp").hide()
                 _this.getList()
+              } else {
+                layer.msg(data.message)
               }
             }
           })
@@ -73,10 +111,17 @@ var DfttModule = (function(dm) {
         var key = $(this).attr("data-key")
         var url = $(this).parent().siblings(".item-icon").children("img").attr("src")
         var name = $(this).parent().siblings(".item-name").html()
+        var status = $(this).attr('data-status')
         $.cookie('oldImg', url, {
           expires: 7
         });
         $.cookie('oldName', name, {
+          expires: 7
+        });
+        $.cookie('appkey', key, {
+          expires: 7
+        });
+        $.cookie('status', status, {
           expires: 7
         });
         window.location.href = './editingApplication.html?key=' + key
@@ -88,6 +133,7 @@ var DfttModule = (function(dm) {
         var img = $(this).attr('data-img')
         var name = $(this).attr('data-name')
         var scheme = $(this).attr('data-scheme')
+        var status = $(this).attr('data-status')
         $.cookie('appkey', key, {
           expires: 7
         });
@@ -98,6 +144,9 @@ var DfttModule = (function(dm) {
           expires: 7
         });
         $.cookie('scheme', scheme, {
+          expires: 7
+        });
+        $.cookie('status', status, {
           expires: 7
         });
         window.location.href = './overview.html'
@@ -116,7 +165,7 @@ var DfttModule = (function(dm) {
           username: $.cookie("userName"),
           token: $.cookie("_token"),
           page: 1,
-          size: 10
+          size: 10000
         },
         success: function(data) {
           console.log(data)
@@ -124,10 +173,12 @@ var DfttModule = (function(dm) {
             var data = data.data
             var list = data.list;
             $(".list-ul").html("")
-            _this.renderingList(list)
+            _this.renderingList(data.list)
           } else {
-            alert('登录已过期，请重新登录');
-            window.location.href = './login.html'
+            layer.msg('登录已过期，请重新登录');
+            setTimeout(function () {
+              window.location.href = './login.html'
+            }, 3000)
           }
         }
       })
@@ -149,20 +200,40 @@ var DfttModule = (function(dm) {
           if (item.name.indexOf('script') > 0) {
             item.name = 'name'
           }
-          htmlStr += ' <li class="item">' +
-            '<span class="item-appkey">' + item.app_key + '</span>' +
-            '<span class="item-name">' + item.name + '</span>' +
-            '<span class="item-icon icon">' +
-            '<img src="' + item.icon + '" alt="">' +
-            '</span>' +
-            '<span class="item-pingtai">暂无</span>' +
-            '<span class="item-operation">' +
-            '<button class="edit" data-key="' + item.app_key + '" data-img="' + item.icon + '">编辑</button>' +
-            '<button class="detailed" data-name="' + item.name + '" data-key="' + item.app_key + '" data-img="' + item.icon + '" data-scheme="' + item.scheme + '">详细</button>' +
-            '</span>' +
-            '</li>'
+          htmlStr += ' <li class="item">'
+          htmlStr += '<span class="item-appkey">' + item.app_key + '</span>'
+          htmlStr += '<span class="item-name">' + item.name + '</span>'
+          htmlStr += '<span class="item-icon icon">'
+          htmlStr += '<img src="' + item.icon + '" alt="">'
+          htmlStr += '</span>'
+          if (parseInt(item.plantform) === 5) {
+            htmlStr += '<span class="item-pingtai">Android</span>'
+          } else if (parseInt(item.plantform) === 6) {
+            htmlStr += '<span class="item-pingtai">iOS</span>'
+          } else if (parseInt(item.plantform) === 7) {
+            htmlStr += '<span class="item-pingtai">Android/iOS</span>'
+          } else {
+            htmlStr += '<span class="item-pingtai">暂无</span>'
+          }
+          if (parseInt(item.app_status) === 0) {
+            htmlStr += '<span class="item-status" style="color:#a6b2ca">试用期已过<a href="./payment.html?appkey=' + item.app_key + '" style="color:#00a4ff;margin-left:5px">开通</a></span>'
+          } else if (parseInt(item.app_status) === 1) {
+            htmlStr += '<span class="item-status">免费体验中</span>'
+          } else if (parseInt(item.app_status) === 2) {
+            htmlStr += '<span class="item-status">已付费</span>'
+          } else {
+            htmlStr += '<span class="item-status">已过期</span>'
+          }
+          htmlStr += '<span class="item-operation">'
+          htmlStr += '<button class="edit" data-key="' + item.app_key + '" data-img="' + item.icon + '" data-status="' + item.app_status + '">编辑</button>'
+          htmlStr += '<button class="detailed" data-name="' + item.name + '" data-key="' + item.app_key + '" data-img="' + item.icon + '" data-scheme="' + item.scheme + '" data-status="' + item.app_status + '">详细</button>'
+          htmlStr += '</span>'
+          htmlStr += '</li>'
         }
-        $(".list-ul").append(htmlStr)
+        // console.log(list)
+        // var template = Handlebars.compile($('#listTmp').html())
+        // var html = template(list)
+        $('.list-ul').html(htmlStr)
       }
     }
   };

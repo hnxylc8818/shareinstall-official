@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta content="telephone=no" name="format-detection">
-    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="./css/common/base.min.css">
     <link rel="stylesheet" href="./css/common/layer.min.css">
     <script src="./js/common/base.min.js"></script>
@@ -14,6 +14,7 @@
     <script src="./js/page/jquery.cookie.min.js" charset="utf-8"></script>
     <script src="./js/page/sign.min.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
+    <script src="./js/page/qrcode.min.js"></script>
     <script src="./js/page/management.min.js"></script>
     <link rel="stylesheet" href="./css/page/management.min.css">
     <script>
@@ -52,7 +53,7 @@
 <body style="background:#fff">
     <div class="layout-container">
         <div class="dashbord-loading" id="_loading_mask">
-            <img src="/images/loading.gif">
+            <!-- <img src="/images/loading.gif"> -->
         </div>
         <div class="layout-header">
             <div class="logo-bar" style="float:left">
@@ -104,7 +105,8 @@
                     <span style="font-size:14px;font-weight:700;color:#c4c4c4">AppKey：</span>
                     <span id="app_key" style="color:#c4c4c4;font-size:14px"></span>
                 </p>
-                <p></p>
+                <p><a href="./editingApplication.html" class="detail_icon"><img src="./img/overview/i.png" alt="" style="vertical-align:middle;margin-right:8px;position: relative;top:-1px">应用信息</a></p>
+
             </div>
             <div class="menu-items">
                 <div class="menu-item item-5">
@@ -156,12 +158,12 @@
                                 <p class="fl">渠道管理</p>
                             </a>
                         </div>
-                        <div class="subItem-2">
+                        <!-- <div class="subItem-2">
                             <a href="./comparison.html" class="load-channel-a" id="my-qudao2">
                                 <span class="icon my-qudao2 fl"></span>
                                 <p class="fl" style="color: #5f6b7e">渠道对比</p>
                             </a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -178,13 +180,13 @@
                     </div>
                     <div class="add-trend" style="float:right;margin:24px 0 0;width:500px;border: none;box-shadow:none;" id="stats_bar">
                         <div class="title clear" style="border: none">
-                            <ul class="data_profile" style="float:left;margin-left:-20px">
+                            <ul class="data_profile" style="float:right">
                                 <li class="all active" data-name="platform" data-value="">all</li>
                                 <li class="android" data-name="platform" data-value="android">android</li>
                                 <li class="iOS" data-name="platform" data-value="ios">ios</li>
                             </ul>
-                            <div class="div clear" style="float:left;margin:4px 0 0 50px">
-                                <!--<div class="overlay-btn" data-name="exclude" data-value="true" style="float:left">排除重复</div>-->
+                            <!-- <div class="div clear" style="float:left;margin:4px 0 0 50px">
+                                <div class="overlay-btn" data-name="exclude" data-value="true" style="float:left">排除重复</div>
                                 <div class="time" style="float:left">
                                     <div class="count_calendar_right date-container" style="margin:0 0 0 20px;line-height:30px;height:32px;float:left">
                                         <span class="glyphicon glyphicon-calendar fa fa-calendar" style="padding-left:10px"></span>&nbsp;
@@ -192,12 +194,12 @@
                                         <span class="caret" style="margin-right:10px"></span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div style="margin-top:34px">
-                        <a id="stats_export" class="count_calendar btn_a" style="border:1px solid #00c864;border-radius:4px;color:#00c864;padding-left:40px;background-color:#fff"
-                            href="javascript:;">导出</a>
+                        <!-- <a id="stats_export" class="count_calendar btn_a" style="border:1px solid #00c864;border-radius:4px;color:#00c864;padding-left:40px;background-color:#fff"
+                            href="javascript:;">导出</a> -->
                         <div style="float:left" class="common-form">
                             <form id="search_form">
                                 <input type="text" placeholder="输入关键字搜索" name="search" style="background:#ffffff">
@@ -258,9 +260,9 @@
                                     <td style="color:#282828">{{channel_name}}</td>
                                     <td style="text-align:left;">
                                         <div>
-                                            <!-- <a class="img-link-look channel-link-operate" href="javascript:;" style="vertical-align:top"
-                                       onclick="showQRCode('{{linkUrl}}','渠道名称：<strong style=\'font-size:1.1em;color:green\'>{{channelName}}</strong>')"><span>查看</span>
-                                    </a> -->
+                                            <a class="img-link-look channel-link-operate" href="javascript:;" style="vertical-align:top"
+                                       ><span>查看</span>
+                                    </a>
                                             <a style="color: #656565;width: 200px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;display: inline-block;"
                                                 target="_blank" href="{{page}}">{{page}}</a>
 
@@ -277,21 +279,21 @@
                                     </td>
                                     <td>{{createTime}}</td>
                                     <td>
-                                        <a class="img-link-report channel-link-operate" href="channel-report.html?channelId={{id}}">
+                                        <!-- <a class="img-link-report channel-link-operate" href="channel-report.html?channelId={{id}}">
                                             <span>报表</span>
-                                        </a>
+                                        </a> -->
                                         <a class="img-link-luck channel-link-operate" href="editingChannel.html?channelId={{id}}">
                                             <span>编辑</span>
                                         </a>
                                         <a class="img-link-lock channel-link-operate" href="javascript:;" data-id="{{id}}">
                                             <span>删除</span>
                                         </a>
-                                        <a class="img-link-share channel-link-operate" href="javascript:;" onclick="shareChannel('{{id}}')">
+                                        <!-- <a class="img-link-share channel-link-operate" href="javascript:;" onclick="shareChannel('{{id}}')">
                                             <span>分享</span>
-                                        </a>
-                                        <a class="img-link-download channel-link-operate" onclick="showApkExport('{{id}}')" href="javascript:;">
+                                        </a> -->
+                                        <!-- <a class="img-link-download channel-link-operate" onclick="showApkExport('{{id}}')" href="javascript:;">
                                             <span>导出</span>
-                                        </a>
+                                        </a> -->
                                     </td>
                                 </tr>
                                 {{/each}} {{/with}}
@@ -330,6 +332,25 @@
                     </script>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div id="J_functionBar" class="functionBar">
+        <div class="bar-qq">
+            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2881355608&amp;site=qq&amp;menu=yes" class="icon icon1" title="点击这里给我发消息">
+    
+            </a>
+            联系
+        </div>
+        <!--<div class="bar-code">-->
+        <!--<span class="icon icon2">-->
+    
+        <!--</span>-->
+        <!--关注-->
+        <!--</div>-->
+        <div class="bar-back" id="J_barBack">
+            返&nbsp;回<br>
+            顶&nbsp;部
         </div>
     </div>
 </body>

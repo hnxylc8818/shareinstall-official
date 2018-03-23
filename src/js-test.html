@@ -1,0 +1,117 @@
+
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>javascript api测试页</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel="stylesheet" href='//res.cdn.openinstall.io/api_v2/css/style.css?1159539975' />
+  <style type="text/css">
+  *{
+      -webkit-tap-highlight-color:rgba(0,0,0,0);
+  }
+  </style>
+  </head>
+  <body>
+  <div class="content channel-page">
+    <div class="page-index">
+      <div style="padding-top: 20px;padding-left:10px">
+        <p style="line-height:1.3rem;font-size:1.6rem;">
+          javascript api测试页-<span style="color: green" class="name"></span>
+        </p>
+      </div>
+      <div class="udid-content channel-content">
+        <img style="width: 72px; height: 72px" alt="" class="icon" src="//res.cdn.openinstall.io/api_v2/images/default-icon.png" />
+        <p class="name" style="font-size:1.6rem;margin:2px auto;">shareinstall</p>
+      </div>
+      <div class="channel-title">
+    <p>这是一个javascript api测试页，仅用于测试使用。开发者可通过javascript api将任意的json数据发送到shareinstall服务器,应用被拉起或是首次安装时，通过相应的Android/iOS api可以获取此json参数</p>
+  </div>
+  <div class="content-block">
+    <p style="text-align: center">
+      <a id="downloadButton" href="javascript:;" style="visibility:hidden" class="button button-big udid-bt channel-bt">立即使用</a>
+    </p>
+  </div>
+  
+    </div>
+  </div>
+
+  <script src="./js/common/base.min.js"></script>
+
+  <script type="text/javascript" src="./js/page/shareinstall.min.js?20180322v1"></script>
+<script type="text/javascript">
+//错误处理：确保app始终能正常的安装
+var timer = setTimeout(
+    function() {
+      var button = document.getElementById("downloadButton");
+      button.style.visibility = "visible";
+      button.onclick = function() {
+        var ua = navigator.userAgent;
+        if (ua.indexOf(" MicroMessenger/") > -1) {
+          //微信中显示遮罩提示在浏览器中打开或进入应用宝
+          var div = document.createElement("div");
+          div.innerHTML = "<div style='font-size:2rem;color:#fff;text-align:center;"
+          +"position:fixed;left:0;top:0;background:rgba(0,0,0,0.5);filter:alpha(opacity=50);"
+          +"width:100%;height:100%;z-index:10000;'>点击右上角在浏览器中打开</div>";
+          document.body.appendChild(div);
+        } else {
+          if (ua.indexOf("Android") > -1) {
+            //直接下载apk
+            //window.location="apk地址";
+          } else if (ua.indexOf("iPhone") > -1 || ua.indexOf("iPad") > -1 || ua.indexOf("iPod") > -1) {
+            //直接进入appstore
+            //window.location="appstore地址";
+          }
+        }
+      }
+    }, 5000);
+
+//openinstall初始化，初始化时将与openinstall服务器交互，应尽可能早的调用
+/*web页面向app传递的json数据(json string/js Object)，应用被拉起或是首次安装时，通过相应的android/ios api可以获取此数据*/
+var data = ShareInstall.parseUrlParams();//ShareInstall.js中提供的工具函数，解析url中的所有查询参数
+var copyData = JSON.parse(JSON.stringify(data))
+delete data.appkey
+
+// 页面信息渲染
+$.ajax({
+      url: 'http://api.shareinstall.com/appliance/getone',
+      type: 'POST',
+      data: {
+        app_key: copyData.appkey
+      },
+      success: function (res) {
+        $('.icon').attr('src', res.data.icon)
+        $('.name').text(res.data.name)
+      }
+    })
+// console.log(copyData.appkey)
+new ShareInstall({
+  /*appKey必选参数，ShareInstall平台为每个应用分配的ID*/
+  appKey : copyData.appkey,
+  /*可选参数，自定义android平台的apk下载文件名，只有apk在ShareInstall托管时才有效；个别andriod浏览器下载时，中文文件名显示乱码，请慎用中文文件名！*/
+  //apkFileName : 'io.ShareInstall.monitor-v1.0.1.apk',
+  /*可选参数，是否优先考虑拉起app，以牺牲下载体验为代价*/
+  //preferWakeup:true,
+  /*ShareInstall初始化完成的回调函数，可选*/
+  onready : function() {
+    //ShareInstall已成功回调，清除定时器
+    clearTimeout(timer);
+    timer = null;
+
+    var m = this, button = document.getElementById("downloadButton");
+    button.style.visibility = "visible";
+
+    /*在app已安装的情况尝试拉起app*/
+    // m.schemeWakeup();
+    /*用户点击某个按钮时(假定按钮id为downloadButton)，安装app*/
+    button.onclick = function() {
+      m.wakeupOrInstall();
+    }
+  }
+}, data);
+</script>
+  
+  </body>
+  </html>

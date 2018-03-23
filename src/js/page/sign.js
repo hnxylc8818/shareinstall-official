@@ -11,6 +11,8 @@ var DfttModule = (function(dm) {
       _this.login()
       _this.loginOut()
       _this.commonTip()
+      _this.backTop()
+      _this.getInfo()
     },
     /*
      *判断用户是否登录
@@ -44,6 +46,10 @@ var DfttModule = (function(dm) {
               $.cookie("_token", null)
               $.cookie("userName", null)
               window.location.href = './index.html'
+            } else if (data.code == '88') {
+              $.cookie("_token", null)
+              $.cookie("userName", null)
+              window.location.href = './login.html'
             }
           }
         })
@@ -61,7 +67,33 @@ var DfttModule = (function(dm) {
           shadeClose: !0
         })
       })
-    }
+    },
+
+    // 应用信息
+    getInfo: function () {
+      var appStatus = $.cookie('status')
+      if (!appStatus) {
+        return
+      }
+      if (parseInt(appStatus) === 1) {
+        $('.apppay-state').text('免费体验中')
+      } else if (parseInt(appStatus) === 2) {
+        $('.apppay-state').text('已支付')
+      } else {
+        $('.apppay-state').text('已过期')
+      }
+    },
+
+    /***
+     * 返回顶部
+     */
+    backTop: function() {
+      $("#J_barBack").on('click', function() {
+        $('body,html').animate({
+          scrollTop: 0
+        }, 500);
+      })
+    },
   }
   // 给模块单独定义一个命名空间
   dm[News.name] = News

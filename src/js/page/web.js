@@ -2,6 +2,8 @@
  * Created by admin on 2018/1/5.
  */
 /* global $ */
+/* global layer */
+/* global QRCode  */
 var DfttModule = (function (dm) {
   var Index = {
     name: 'Index',
@@ -12,6 +14,7 @@ var DfttModule = (function (dm) {
       _this.writeAppkey()
       _this.writeAppName()
       _this.drawAppicon()
+      _this.onlineTest()
     },
 
     // 渲染页面appkey
@@ -20,6 +23,7 @@ var DfttModule = (function (dm) {
       if (appKey) {
         $("#app_key").text(appKey)
         $('#configAppKey').text(appKey)
+        $('.doc-appkey').text(appKey)
       }
     },
 
@@ -37,6 +41,75 @@ var DfttModule = (function (dm) {
       if (appName) {
         $('#app_name').text(appName)
       }
+    },
+
+    // 获取字符数
+    getLength: function(str) {
+      return str.replace(/[\u0391-\uFFE5]/g, 'aa').length; // 先把中文替换成两个字节的英文，在计算长度
+    },
+
+    // 输入限制
+    inputLimit: function () {
+      var _this = this
+      var wordsLen = 0
+      $('input[name="key"], input[name="value"]').on('input propertychange', function () {
+        var value = $(this).val()
+        if (_this.getLength(value) <= 20) {
+          wordsLen = value.length
+        }
+        if (_this.getLength(value) > 20) {
+          $(this).val($(this).val().substr(0, wordsLen))
+          return false
+        }
+      })
+    },
+
+    // 在线测试链接
+    onlineTest: function () {
+      this.inputLimit()
+      $(document).on('click', '.depoly-line-test', function () {
+        var testWrap = $('#_win_web_test')
+        testWrap.find('.qr_img').empty()
+        testWrap.find('.qr_text').text('')
+        layer.open({
+          title: '  ',
+          type: 1,
+          area: '800',
+          content: testWrap
+        })
+      })
+
+      $(document).on('click', '.depoly-button', function () {
+        var key = $('input[name="key"]').val()
+        var value = $('input[name="value"]').val()
+        var url = window.location.href.replace('android.html', '') + 'js-test.html?appkey=' + $.cookie('appkey') + '&' + key + '=' + value
+        var tag = true
+        if (/[\u4e00-\u9fa5]+/.test(key)) {
+          tag = false
+          layer.tips('输入不能包含中文', $('input[name="key"]'), {
+            tipsMore: !0,
+            tips: [2, '#ff3333']
+          })
+        }
+        if (/[\u4e00-\u9fa5]+/.test(value)) {
+          tag = false
+          layer.tips('输入不能包含中文', $('input[name="value"]'), {
+            tipsMore: !0,
+            tips: [2, '#ff3333']
+          })
+        }
+        if (tag) {
+          var curCode = new QRCode($('.qr_img').empty()[0], {
+            text: url,
+            width: 180,
+            height: 180,
+            colorDark: '#000000',
+            colorLight: '#ffffff',
+            correctLevel: QRCode.CorrectLevel.H
+          })
+        }
+        console.log(url)
+      })
     },
     /**
      * 点击导航切换
@@ -56,20 +129,6 @@ var DfttModule = (function (dm) {
   return dm
 })(DfttModule || {}) // eslint-disable-line
 
-$(function () {
-  // 调用初始化方法
-  $.each(DfttModule, function (i, obj) {
-    if ($.isPlainObject(obj)) {
-      if ($.isFunction(obj.init)) {
-        obj.init()
-      } else {
-        console.error(obj.init + ' is not a Function!')
-      }
-    } else {
-      console.error(obj + ' is not a PlainObject!')
-    }
-  })
-})
 /**
  * Created by admin on 2018/1/12.
  */

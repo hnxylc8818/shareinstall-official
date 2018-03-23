@@ -4,6 +4,7 @@
 /* global $ */
 /* global Handlebars */
 /* global layer */
+/* global QRCode */
 var DfttModule = (function (dm) {
   var Index = {
     name: 'Index',
@@ -23,6 +24,7 @@ var DfttModule = (function (dm) {
       _this.searchList()
       _this.selectPage()
       _this.changePlate()
+      _this.viewCodeMa()
     },
 
     // 转换时间戳
@@ -62,6 +64,51 @@ var DfttModule = (function (dm) {
       }
     },
 
+    // 生成二维码
+    generateCodeMa: function (url, name) {
+      // var requestUrl = 'http://s.jiathis.com/qrcode.php?url=' + url
+      // $.get(requestUrl, function (data) {
+      //   callback(data)
+      // })
+      var codeWrap = $('#_qr_container')
+      if (codeWrap.length <= 0) {
+        codeWrap = $('<div id="_qr_container"><p class="qr_title"></p><div class="qr_img"></div><p class="qr_url"></p>')
+        codeWrap.appendTo(document.body)
+        codeWrap.find('.qr_title').html(name);
+      }
+      var curCode = new QRCode(codeWrap.find('.qr_img').empty()[0], {
+        text: url,
+        width: 300,
+        height: 300,
+        colorDark: '#000000',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.H
+      })
+
+      console.log(curCode)
+
+      layer.open({
+        type: 1,
+        title: '',
+        closeBtn: 0,
+        area: '400px',
+        skin: 'layui-layer-nobg',
+        shadeClose: !0,
+        content: codeWrap
+      })
+    },
+
+    // 查看二维码
+    viewCodeMa: function () {
+      var _this = this
+      $(document).on('click', '.img-link-look', function () {
+        var url = $(this).siblings('a').attr('href'),
+          name = $(this).parents('td').prev('td').text(),
+          text = '渠道名称：<strong style=\'font-size:1.1em;color:green\'>' + name + '</strong>'
+        _this.generateCodeMa(url, text)
+      })
+    },
+
     // 渲染应用列表
     renderList: function () {
       var _this = this
@@ -82,6 +129,9 @@ var DfttModule = (function (dm) {
             data.data.page.more = (data.data.page.next < data.data.page.max) ? !0 : !1
             $.each(data.data.list, function (index, item) {
               item.createTime = _this.timetrans(item.createTime)
+              if (item.page_type === '1') {
+                item.page = window.location.href.replace('management.html', '') + 'demo.html?appkey=' + $.cookie('appkey') + '&channel=' + item.channel_code
+              }
               item.stats = {
                 v: 0,
                 i: 0,
@@ -92,6 +142,11 @@ var DfttModule = (function (dm) {
             var html = template(data.data)
             $('#channelContainer').html(html)
             console.log(data.data)
+          } else if (data.code === '88') {
+            layer.msg('登录失效，请重新登录')
+            setTimeout(function () {
+              window.location.href = './login.html'
+            }, 3000)
           }
         }
       })

@@ -1224,13 +1224,17 @@ span.chart-btn {
 .detail_icon {
   font-size: 14px;
   width: 108px;
-  height: 28px;
-  border: 1px solid #5d8aff;
+  // height: 30px;
+  border: 1px solid #00a4ff;
   display: inline-block;
-  line-height: 28px;
-  border-radius: 5px;
-  color: #5d8aff;
-  margin-bottom: 20px
+  line-height: 30px;
+  border-radius: 3px;
+  color: #00a4ff;
+  margin-bottom: 20px;
+
+  &:hover {
+    color: #00a4ff
+  }
 }
 
 .doc {
