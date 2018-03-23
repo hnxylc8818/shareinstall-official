@@ -12,6 +12,7 @@ var DfttModule = (function(dm) {
       _this.loginOut()
       _this.commonTip()
       _this.backTop()
+      _this.getInfo()
     },
     /*
      *判断用户是否登录
@@ -66,6 +67,21 @@ var DfttModule = (function(dm) {
           shadeClose: !0
         })
       })
+    },
+
+    // 应用信息
+    getInfo: function () {
+      var appStatus = $.cookie('status')
+      if (!appStatus) {
+        return
+      }
+      if (parseInt(appStatus) === 1) {
+        $('.apppay-state').text('免费体验中')
+      } else if (parseInt(appStatus) === 2) {
+        $('.apppay-state').text('已支付')
+      } else {
+        $('.apppay-state').text('已过期')
+      }
     },
 
     /***

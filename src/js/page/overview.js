@@ -7,8 +7,8 @@ var DfttModule = (function (dm) {
   var Overview = {
     name: 'Overview',
     typed: null,
-    baseUrl: 'http://123.59.85.60/datacenterapi/',
-    // baseUrl: 'http://tongji.021.com/datacenterapi/',
+    // baseUrl: 'http://123.59.85.60/datacenterapi/',
+    baseUrl: 'http://tongji.021.com/datacenterapi/',
     init: function () {
       var _this = this;
       _this.writeAppkey()
@@ -71,7 +71,8 @@ var DfttModule = (function (dm) {
 
     // 请求封装
     ajaxGet: function (url, data, successCallback, errorCallback) {
-      data.appkey = 'K6BKB62B7BHABH' // $.cookie('appkey') // 
+      data.appkey = $.cookie('appkey') // 'K6BKB62B7BHABH' // 
+      data.channel = ''
       $.ajax({
         type: 'get',
         url: this.baseUrl + url,
@@ -634,9 +635,11 @@ var DfttModule = (function (dm) {
       var obj = {'startDate': date[0],
         'endDate': date[1],
         'appkey': 'K6BKB62B7BHABH',
-        'exclude': exclude
+        'exclude': exclude,
+        'platform': 'all'
       }
       this.ajaxGet('shareinstallgatherdata/shareinstallgather', obj, function (json) {
+        if (json.code !== 200) return
         var data = json.datalist[0]
         var registerTotal = 0,
           installTotal = 0,
@@ -719,6 +722,7 @@ var DfttModule = (function (dm) {
       var register = []
 
       this.ajaxGet('shareinstallgatherdata/shareinstallgrowgather', obj, function (json) {
+        if (json.code !== 200) return
         var data = json.datalist
         if (data.length > 0) {
           $.each(data, function (index, item) {
@@ -817,7 +821,7 @@ var DfttModule = (function (dm) {
       var obj = {'startDate': date[0],
         'endDate': date[1],
         'appkey': 'K6BKB62B7BHABH',
-        'exclude': exclude,
+        // 'exclude': exclude,
         'platform': platform,
         'type': type
       }
@@ -840,12 +844,13 @@ var DfttModule = (function (dm) {
       // ]
 
       this.ajaxGet('shareinstallgatherdata/shareinstallactivegather', obj, function (json) {
+        if (json.code !== 200) return
         var data = json.datalist
         if (data.length > 0) {
           $.each(data, function (index, item) {
             // console.log(item)
-            var temp = item.act_time.split(':')
-            item.act_time = parseInt(temp[0] * 60 * 60) + parseInt(temp[1] * 60) + parseInt(temp[2])
+            // var temp = item.act_time.split(':')
+            // item.act_time = parseInt(temp[0] * 60 * 60) + parseInt(temp[1] * 60) + parseInt(temp[2])
             value.actUv.push(item.act_uv)
             value.registerAct.push(item.register_act)
             value.actTime.push(item.act_time)
@@ -884,6 +889,7 @@ var DfttModule = (function (dm) {
       var ipData = []
 
       this.ajaxGet('shareinstallgatherdata/shareinstallipspreadgather', obj, function (json) {
+        if (json.code !== 200) return
         var data = json.datalist
         // console.log(data)
         if (data.length > 0) {
@@ -1053,6 +1059,7 @@ var DfttModule = (function (dm) {
       var osData = []
 
       this.ajaxGet('shareinstallgatherdata/shareinstallsysvergather', obj, function (json) {
+        if (json.code !== 200) return
         var data = json.datalist
         // console.log(data)
         if (data.length > 0) {
@@ -1105,6 +1112,7 @@ var DfttModule = (function (dm) {
       var osData = []
 
       this.ajaxGet('shareinstallgatherdata/shareinstallbranddevicegather', obj, function (json) {
+        if (json.code !== 200) return
         var data = json.datalist
         // console.log(data)
         if (data.length > 0) {

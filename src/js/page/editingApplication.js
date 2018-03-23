@@ -8,6 +8,7 @@ var DfttModule = (function (dm) {
     init: function () {
       var _this = this
       _this.url = 'http://api.shareinstall.com/'
+      _this.getAppInfo()
       _this.previewImg()
       _this.getImg()
       _this.preservationOk()
@@ -52,7 +53,7 @@ var DfttModule = (function (dm) {
       $("#fileImg").on("change", function () {
         var url = _this.url + 'appliance/upload'
         var file = $("#form1").serialize();
-        $("#username").val($.cookie("userName"))
+        $("#username2").val($.cookie("userName"))
         $("#token").val($.cookie("_token"))
         //$("#form1").submit()
         var form = $("form[name=form1]");
@@ -79,7 +80,7 @@ var DfttModule = (function (dm) {
       var _this = this
       $(".preservation").on("click", function () {
         var url = _this.url + 'appliance/update'
-        var key = window.location.href.split("=")[1]
+        var key = $.cookie('appkey')
         var img = $("#xmTanImg").attr("src")
         var name = $("#appName").val()
         if (name == '') {
@@ -118,24 +119,63 @@ var DfttModule = (function (dm) {
       $("body").on("click", ".cancel", function () {
         window.location.href = './application.html'
       })
+    },
+
+    // 获取url中的参数
+    getQueryString: function (name) {
+      var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i'); // 匹配目标参数
+      var result = window.location.search.substr(1).match(reg); // 对querystring匹配目标参数
+      if (result != null) {
+        return decodeURIComponent(result[2]);
+      } else {
+        return null;
+      }
+    },
+    // 转换时间戳
+    timetrans: function (date) {
+      date = new Date(date * 1000); // 如果date为10位不需要乘1000
+      var Y = date.getFullYear() + '-';
+      var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+      var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
+      var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+      var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+      var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
+      return Y + M + D + h + m + s;
+    },
+
+    // 获取应用信息
+    getAppInfo: function () {
+      var _this = this;
+      $.ajax({
+        url: _this.url + '/appliance/getone',
+        data: {
+          app_key: $.cookie('appkey')
+        },
+        type: 'POST',
+        success: function (data) {
+          data.code = parseInt(data.code)
+          if (data.code === 0) {
+            $('#appKey').text(data.data.app_key)
+            $('#appTime').text(_this.timetrans(data.data.createTime))
+            if (data.data.status === 1) {
+              $('#appStatus').text('免费体验中')
+            } else if (data.data.status === 2) {
+              $('#appStatus').text('已支付')
+            } else {
+              $('#appStatus').text('已过期')
+            }
+            $('#appOver').text(data.data.app_over_time)
+          } else if (data.code === 88) {
+            layer.msg('登录已过期，请重新登录')
+            setTimeout(function () {
+              window.location.href = './login.html'
+            }, 3000)
+          }
+        }
+      })
     }
   }
   // 给模块单独定义一个命名空间
   dm[Index.name] = Index
   return dm
 })(DfttModule || {}) // eslint-disable-line
-
-$(function () {
-  // 调用初始化方法
-  $.each(DfttModule, function (i, obj) {
-    if ($.isPlainObject(obj)) {
-      if ($.isFunction(obj.init)) {
-        obj.init()
-      } else {
-        console.error(obj.init + ' is not a Function!')
-      }
-    } else {
-      console.error(obj + ' is not a PlainObject!')
-    }
-  })
-})

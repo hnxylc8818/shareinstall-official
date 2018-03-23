@@ -103,7 +103,7 @@
                     <span style="font-size:14px;font-weight:700;color:#c4c4c4">AppKey：</span>
                     <span id="app_key" style="color:#c4c4c4;font-size:14px"></span>
                 </p>
-                <p></p>
+                <p><a href="./editingApplication.html" class="detail_icon"><img src="./img/overview/i.png" alt="" style="vertical-align:middle;margin-right:8px;position: relative;top:-1px">应用信息</a></p>
             </div>
             <div class="menu-items">
                 <div class="menu-item item-5">
@@ -155,12 +155,12 @@
                                 <p class="fl">渠道管理</p>
                             </a>
                         </div>
-                        <div class="subItem-2">
+                        <!-- <div class="subItem-2">
                             <a href="./comparison.html" class="load-channel-a" id="my-qudao2">
                                 <span class="icon my-qudao2 fl"></span>
                                 <p class="fl">渠道对比</p>
                             </a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -243,7 +243,7 @@
         <h2>在AppDelegate中，增加头文件的引用：</h2>
         <pre style="width:820px;height:300px">
 <code style="width: 100%;height: 92%;" class="lang-javascript">
-#import “ShareInstallSDK”
+#import “ShareInstallSDK.h”
 
 在-(BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     方法中调用setAppKey方法来初始化SDK，如下代码所示：
@@ -281,7 +281,7 @@ UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"直接点击App进来�
         <h2>到苹果开发者中心，为当前的App ID开启Associated Domains服务：</h2>
         <img src="./img/copywriting/ios1.png" alt="">
         <h2><span>5.2 配置Xcode</span></h2>
-        <h2>在Xcode中配置ShareInstall为当前应用生成的关联域名：Associated Domains 开关打开，添加Domains。</h2>
+        <h2>在Xcode中配置ShareInstall为当前应用生成的关联域名：Associated Domains 开关打开，添加Domains: <span style="color:red">applinks:<span class="doc-link"></span>.shareinstall.com</span></h2>
         <img src="./img/copywriting/ios2.png" alt="">
         <h2>在AppDelegate中的continueUserActivity方法中调用，用来处理Universal link。</h2>
         <pre style="width:800px;height:280px">
@@ -940,7 +940,7 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                                     </div>
                                                 </div>
 
-                                                <div>
+                                                <div style="margin-bottom:30px">
                                                         <span class="config-ios-name">
                                                             <a href="javascript:;" class="common-tip">
                                                                 <span class="tip-content">shareinstall为每个应用随机分配的scheme，并保证唯一性，开发者需将此scheme配置到应用中，才能顺利拉起app</span>
@@ -953,6 +953,18 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                                             </div>
                                                         </div>
                                                     </div>
+
+                                                    <div>
+                                                            <span class="config-ios-name">
+                                                                关联域名(Associated Domains)
+                                                                <b style="color:#F26358">*</b>
+                                                            </span>
+                                                            <div class="config-text">
+                                                                <div>
+                                                                    <span style="color: #282828;font-weight: bold;">applinks:<span class="doc-link"></span>.shareinstall.com</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                         </div>
                                     </div>
                                     <!-- <div class="depoly-length">
@@ -1163,7 +1175,7 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                         <p style="width:300px;height:auto;margin-top:20px"></p>
                     </div>
                 </div>
-                <p>
+                <p style="text-align:center">
                     <button type="button" class="depoly-button" style="margin:30px 0 20px 65px;color:#0c6;border:1px solid #0c6;background:#fff">生成测试链接</button>
                 </p>
             </fieldset>

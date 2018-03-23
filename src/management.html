@@ -53,7 +53,7 @@
 <body style="background:#fff">
     <div class="layout-container">
         <div class="dashbord-loading" id="_loading_mask">
-            <img src="/images/loading.gif">
+            <!-- <img src="/images/loading.gif"> -->
         </div>
         <div class="layout-header">
             <div class="logo-bar" style="float:left">
@@ -105,7 +105,8 @@
                     <span style="font-size:14px;font-weight:700;color:#c4c4c4">AppKey：</span>
                     <span id="app_key" style="color:#c4c4c4;font-size:14px"></span>
                 </p>
-                <p></p>
+                <p><a href="./editingApplication.html" class="detail_icon"><img src="./img/overview/i.png" alt="" style="vertical-align:middle;margin-right:8px;position: relative;top:-1px">应用信息</a></p>
+
             </div>
             <div class="menu-items">
                 <div class="menu-item item-5">
@@ -157,12 +158,12 @@
                                 <p class="fl">渠道管理</p>
                             </a>
                         </div>
-                        <div class="subItem-2">
+                        <!-- <div class="subItem-2">
                             <a href="./comparison.html" class="load-channel-a" id="my-qudao2">
                                 <span class="icon my-qudao2 fl"></span>
                                 <p class="fl" style="color: #5f6b7e">渠道对比</p>
                             </a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -179,13 +180,13 @@
                     </div>
                     <div class="add-trend" style="float:right;margin:24px 0 0;width:500px;border: none;box-shadow:none;" id="stats_bar">
                         <div class="title clear" style="border: none">
-                            <ul class="data_profile" style="float:left;margin-left:-20px">
+                            <ul class="data_profile" style="float:right">
                                 <li class="all active" data-name="platform" data-value="">all</li>
                                 <li class="android" data-name="platform" data-value="android">android</li>
                                 <li class="iOS" data-name="platform" data-value="ios">ios</li>
                             </ul>
-                            <div class="div clear" style="float:left;margin:4px 0 0 50px">
-                                <!--<div class="overlay-btn" data-name="exclude" data-value="true" style="float:left">排除重复</div>-->
+                            <!-- <div class="div clear" style="float:left;margin:4px 0 0 50px">
+                                <div class="overlay-btn" data-name="exclude" data-value="true" style="float:left">排除重复</div>
                                 <div class="time" style="float:left">
                                     <div class="count_calendar_right date-container" style="margin:0 0 0 20px;line-height:30px;height:32px;float:left">
                                         <span class="glyphicon glyphicon-calendar fa fa-calendar" style="padding-left:10px"></span>&nbsp;
@@ -193,12 +194,12 @@
                                         <span class="caret" style="margin-right:10px"></span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div style="margin-top:34px">
-                        <a id="stats_export" class="count_calendar btn_a" style="border:1px solid #00c864;border-radius:4px;color:#00c864;padding-left:40px;background-color:#fff"
-                            href="javascript:;">导出</a>
+                        <!-- <a id="stats_export" class="count_calendar btn_a" style="border:1px solid #00c864;border-radius:4px;color:#00c864;padding-left:40px;background-color:#fff"
+                            href="javascript:;">导出</a> -->
                         <div style="float:left" class="common-form">
                             <form id="search_form">
                                 <input type="text" placeholder="输入关键字搜索" name="search" style="background:#ffffff">
@@ -278,21 +279,21 @@
                                     </td>
                                     <td>{{createTime}}</td>
                                     <td>
-                                        <a class="img-link-report channel-link-operate" href="channel-report.html?channelId={{id}}">
+                                        <!-- <a class="img-link-report channel-link-operate" href="channel-report.html?channelId={{id}}">
                                             <span>报表</span>
-                                        </a>
+                                        </a> -->
                                         <a class="img-link-luck channel-link-operate" href="editingChannel.html?channelId={{id}}">
                                             <span>编辑</span>
                                         </a>
                                         <a class="img-link-lock channel-link-operate" href="javascript:;" data-id="{{id}}">
                                             <span>删除</span>
                                         </a>
-                                        <a class="img-link-share channel-link-operate" href="javascript:;" onclick="shareChannel('{{id}}')">
+                                        <!-- <a class="img-link-share channel-link-operate" href="javascript:;" onclick="shareChannel('{{id}}')">
                                             <span>分享</span>
-                                        </a>
-                                        <a class="img-link-download channel-link-operate" onclick="showApkExport('{{id}}')" href="javascript:;">
+                                        </a> -->
+                                        <!-- <a class="img-link-download channel-link-operate" onclick="showApkExport('{{id}}')" href="javascript:;">
                                             <span>导出</span>
-                                        </a>
+                                        </a> -->
                                     </td>
                                 </tr>
                                 {{/each}} {{/with}}

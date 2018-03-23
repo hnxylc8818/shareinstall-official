@@ -58,7 +58,7 @@
 <body style="background:#fff">
     <div class="layout-container">
         <div class="dashbord-loading" id="_loading_mask">
-            <img src="/images/loading.gif">
+            <!-- <img src="/images/loading.gif"> -->
         </div>
         <div class="layout-header">
             <div class="logo-bar" style="float:left">
@@ -110,7 +110,8 @@
                     <span style="font-size:14px;font-weight:700;color:#c4c4c4">AppKey：</span>
                     <span id="app_key" style="color:#c4c4c4;font-size:14px"></span>
                 </p>
-                <p></p>
+                <p><a href="./editingApplication.html" class="detail_icon"><img src="./img/overview/i.png" alt="" style="vertical-align:middle;margin-right:8px;position: relative;top:-1px">应用信息</a></p>
+
             </div>
             <div class="menu-items">
                 <div class="menu-item item-5">
@@ -162,12 +163,12 @@
                                 <p class="fl">渠道管理</p>
                             </a>
                         </div>
-                        <div class="subItem-2">
+                        <!-- <div class="subItem-2">
                             <a href="./comparison.html" class="load-channel-a" id="my-qudao2">
                                 <span class="icon my-qudao2 fl"></span>
                                 <p class="fl">渠道对比</p>
                             </a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -412,7 +413,7 @@ public class WakeUpActivity extends AppCompatActivity {
                 <div id="_deposit" class="my-app" style="display:none">
                     <div class="tab-content">
                         <div class="depoly-said" style="margin:0px 30px 20px;color:#00A4B0">
-                            <b style="color:#00A4B0">提示：</b>apk上传完成后的首次安装中，可能会有少量的下载延时（分布式环境下的预热处理，延长时间视安装包大小而定，一般不超过10秒）。
+                            <b style="color:#00A4B0">提示：</b>导出apk测试包上传，shareinstall将自动完成所有应用配置工作，上传完成后即可进行在线模拟测试；待测试无误后，再完善下载配置信息。
                         </div>
                         <div class="tabbable deposite_list">
                             <div class="tab-content tab-op">
@@ -1091,7 +1092,7 @@ public class WakeUpActivity extends AppCompatActivity {
                         <p style="width:300px;height:auto;margin-top:20px"></p>
                     </div>
                 </div>
-                <p>
+                <p style="text-align:center">
                     <button type="button" class="depoly-button" style="margin:30px 0 20px 65px;color:#0c6;border:1px solid #0c6;background:#fff">生成测试链接</button>
                 </p>
             </fieldset>

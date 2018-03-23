@@ -298,13 +298,10 @@ ShareInstall = function (win, doc, xhr) {
           }
           if (ResObj.schemaUrl && isWakeUp) {
             if ('ios' === os && ResObj.schemaUrl.indexOf('https://') > -1) {
-              if (ResObj.fallbackUrl.indexOf('https://itunes.apple.com') > -1) {
-                  ResObj.schemaUrl = ResObj.schemaUrl + '?url=' + ResObj.fallbackUrl
-                } else {
-                  // ResObj.schemaUrl = ResObj.fallbackUrl
-                  ResObj.schemaUrl = 'http://api.shareinstall.com/plists/page?app_key=' + appKey
+              if (ResObj.fallbackUrl.indexOf('https://itunes.apple.com') < 0) {
                   ResObj.fallbackUrl = 'http://api.shareinstall.com/plists/page?app_key=' + appKey
-                }
+              }
+              ResObj.schemaUrl = ResObj.schemaUrl + '?url=' + ResObj.fallbackUrl
             }
             var waitTime = (obj || {}).timeout || ResObj.wt // 等待设定时间后app尚未拉起，再安装app
             y(ResObj.schemaMethod, ResObj.schemaUrl, downApk, waitTime)
