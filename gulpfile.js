@@ -56,6 +56,13 @@ gulp.task('plugin', function (cb) {
   cb()
 })
 
+// 插件css复制
+gulp.task('pluginCss', function (cb) {
+  gulp.src(srcStaticPath + '/js/common/*/*.css')
+    .pipe(gulp.dest(distStaticPath + '/js/common'))
+  cb()
+})
+
 // 页面scss的处理
 gulp.task('pageCss', function (cb) {
   // scss转成css压缩
@@ -122,7 +129,7 @@ gulp.task('pageJs', function (cb) {
 
 // 生产环境
 gulp.task('production', ['clean'], function () {
-  gulp.start(['img', 'pageJs', 'commonJs', 'commonCss', 'pageCss', 'html', 'swf', 'font', 'plugin'], function () {
+  gulp.start(['img', 'pageJs', 'commonJs', 'commonCss', 'pageCss', 'html', 'swf', 'font', 'plugin', 'pluginCss'], function () {
     console.log('编译打包完成!')
     gulp.start('minhtml', function () {
       console.log('html压缩完成！')

@@ -13,6 +13,8 @@ var DfttModule = (function (dm) {
       _this.previewImg()
       _this.preservationOk()
       _this.cancelFun()
+      _this.inputLimit()
+      _this.payLink()
     },
     /**
      * 进入页面读取之前的图片
@@ -51,6 +53,7 @@ var DfttModule = (function (dm) {
     previewImg: function () {
       var _this = this
       $("#fileImg").on("change", function () {
+        console.log($(this[0].files[0]))
         var url = _this.url + 'appliance/upload'
         var file = $("#form1").serialize();
         $("#username2").val($.cookie("userName"))
@@ -63,7 +66,7 @@ var DfttModule = (function (dm) {
           success: function (data) {
             console.log(data)
             if (data.code == 0) {
-              alert("上传成功")
+              layer.msg('上传成功')
               var data = data.data
               var img = data.img
               $("#xmTanImg").attr("src", img)
@@ -71,6 +74,26 @@ var DfttModule = (function (dm) {
           }
         };
         form.ajaxSubmit(options);
+      })
+    },
+
+    getLength: function(str) {
+      return str.replace(/[\u0391-\uFFE5]/g, 'aa').length;  //先把中文替换成两个字节的英文，在计算长度
+    },
+
+    // 输入长度限制
+    inputLimit: function () {
+      var _this = this
+      var wordsLen = 0
+      $('#appName').on('input propertychange', function () {
+        var value = $(this).val()
+        if (_this.getLength(value) <= 30) {
+          wordsLen = value.length
+        }
+        if (_this.getLength(value) > 30) {
+          $(this).val($(this).val().substr(0, wordsLen))
+          return false
+        }
       })
     },
     /**
@@ -84,7 +107,10 @@ var DfttModule = (function (dm) {
         var img = $("#xmTanImg").attr("src")
         var name = $("#appName").val()
         if (name == '') {
-          alert("APP名称不能为空")
+          layer.tips('应用名不能为空', $('#addApp'), {
+            tipsMore: !0,
+            tips: [2, '#ff3333']
+          })
           return
         }
         $.ajax({
@@ -174,6 +200,14 @@ var DfttModule = (function (dm) {
             }, 3000)
           }
         }
+      })
+    },
+
+    // 支付跳转
+    payLink: function () {
+      var _this = this
+      $('.to-pay').click(function () {
+        window.location.href = './payment.html?appkey=' + $('#appKey').text()
       })
     }
   }
