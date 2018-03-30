@@ -7,6 +7,7 @@ var DfttModule = (function (dm) {
   var Overview = {
     name: 'Overview',
     typed: null,
+    channel: '',
     // baseUrl: 'http://123.59.85.60/datacenterapi/',
     baseUrl: 'http://tongji.021.com/datacenterapi/',
     init: function () {
@@ -15,6 +16,7 @@ var DfttModule = (function (dm) {
       _this.writeAppName()
       _this.drawAppicon()
       _this.getAppInfo()
+      _this.getQidList()      
       _this.getAmountStatistics() // 获取总量统计数据
       _this.amountStatistics()
       _this.growthTrendStatistics()
@@ -24,6 +26,7 @@ var DfttModule = (function (dm) {
       // _this.getModel()
       _this.gotoLink()
       _this.valuePicker()
+      _this.showQidForm()
     },
 
     // 获取url中的参数
@@ -127,14 +130,14 @@ var DfttModule = (function (dm) {
     // 请求封装
     ajaxGet: function (url, data, successCallback, errorCallback) {
       data.appkey = $.cookie('appkey') //'K6BKB62B7BHABH' // 
-      data.channel = ''
+      // data.channel = ''
       $.ajax({
         type: 'get',
         url: this.baseUrl + url,
         data: data,
         dataType: 'jsonp',
         jsonp: 'callbackparam', // 服务端用于接收callback调用的function名的参数
-        success: function(res) {
+        success: function (res) {
           successCallback(res)
         },
         error: function (res) {
@@ -143,6 +146,92 @@ var DfttModule = (function (dm) {
       });
     },
 
+    // 获取渠道列表
+    getQidList: function () {
+      var _this = this;
+      $.ajax({
+        url: 'http://api.shareinstall.com/channel/getlist',
+        data: {
+          app_key: $.cookie('appkey'),
+          username: $.cookie('userName'),
+          token: $.cookie('_token'),
+          page: 1,
+          size: 1000,
+          startDate: '20180328',
+          endDate: '20180328',
+          plantform: 'all',
+          exclude: 0,
+          sortname: 'createTime',
+          sorttype: 'asc',
+          search: {'channel_name': ''}
+        },
+        type: 'POST',
+        async: false,
+        success: function (data) {
+          if (data.code == 0) {
+            var datalist = data.data
+            var _html = ''
+            $.each(datalist, function (index, item) {
+              _html += '<li>'
+              _html += '<div class="fl w30">'
+              if (index < 5) {
+                _this.channel += item.channel_code + '|'
+                _html += '<input type="checkbox" name="" id="" checked>'
+              } else {
+                _html += '<input type="checkbox" name="" id="">'
+              }
+
+              _html += '</div>'
+              _html += '<div class="fl w30 qid-code">' + item.channel_code + '</div>'
+              _html += '<div class="fl w30 qid-name">' + item.channel_name + '</div>'
+              _html += '</li>'
+            })
+
+            $('.qidtable-list').html(_html)
+            _this.channel = _this.channel.substr(0, _this.channel.length - 1)
+          }
+        }
+      })
+    },
+
+    // 渠道列表弹框
+    showQidForm: function () {
+      var _this = this;
+      var $pop = $('#selectQid')
+      $('#select_btn').on('click', function () {
+        layer.open({
+          title: '选择要对比的渠道',
+          type: 1,
+          area: '800',
+          content: $pop,
+          closeBtn: 1,
+          btn: ['确定', '取消'],
+          yes: function (index) {
+            var qidSelect = $('input:checked').parents('.w30').siblings('.qid-code');
+            _this.channel = ''
+            qidSelect.each(function (index, item) {
+              _this.channel += $(item).text()
+              if (index === qidSelect.length - 1) return
+              _this.channel += '|'
+            })
+            layer.close(index)
+            $('.data_profile .active').click()
+          }
+        })
+      })
+
+      $pop.on('change', 'input', function () {
+        if ($('input:checked').length === 0) {
+          $(this).prop('checked', true)
+        }
+        if ($('input:checked').length > 5) {
+          $(this).prop('checked', false)
+          layer.msg('最多可选择5个渠道')
+        }
+      })
+    },
+
+    // 采集页面数据
     valuePicker: function (ele) {
       var _this = this
 
@@ -258,13 +347,14 @@ var DfttModule = (function (dm) {
           firstDay: 1
         }
       }
-      if (tag) {
-        var label = label ? label : '最近七日'
-        opt.startDate = moment().subtract('days', 6)
-        opt.endDate = moment()
-      } else {
-        var label = label ? label : '今日'
-      }
+      // if (tag) {
+      //   var label = label ? label : '最近七日'
+      //   opt.startDate = moment().subtract('days', 6)
+      //   opt.endDate = moment()
+      // } else {
+      //   var label = label ? label : '今日'
+      // }
+      var label = label ? label : '今日'
       name.html(label)
       name.daterangepicker(opt, function (start, end, label) { //格式化日期显示框
         //name.html(start.format('YYYY/MM/DD') + ' - ' + end.format('YYYY/MM/DD'));
@@ -288,6 +378,43 @@ var DfttModule = (function (dm) {
           }
         })
         _this.getAmountStatistics(timeRangeChange, name, exclude, platform, type)
+      });
+    },
+
+    /***
+     * 初始化柱状图
+     */
+    initEchartsBar: function (id, name, data) {
+      // console.log(data)
+      var myChart = echarts.init(document.getElementById(id));
+      var option = {
+        tooltip: {
+          trigger: 'axis'
+        },
+        yAxis: {
+          type: 'value',
+          min: 0,
+          minInterval: 1,
+          boundaryGap: '10%'
+        },
+        legend: {
+          data: name
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: !0,
+          data: ['访问量', '安装量', '注册量']
+        },
+        series: data
+      }
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+
+      window.addEventListener('resize', function () {
+        setTimeout(function () {
+          myChart.resize();
+        }, 500)
       });
     },
     /***
@@ -352,7 +479,8 @@ var DfttModule = (function (dm) {
     /**
      * 初始化折线图
      */
-    initEchartsCategory: function (id, dataTypeX, install, register) {
+    initEchartsCategory: function (id, dataTypeX, legendData, data) {
+      // console.log(data)
       var myChart = echarts.init(document.getElementById(id));
       // 指定图表的配置项和数据
       var option = {
@@ -360,16 +488,7 @@ var DfttModule = (function (dm) {
           trigger: 'axis'
         },
         legend: {
-          data: [{
-              name: '安装量',
-              icon: 'bar'
-            },
-            {
-              name: '注册量',
-              icon: 'bar'
-            },
-            '安装量', '注册量'
-          ]
+          data: legendData
         },
         calculable: true,
         xAxis: [{
@@ -380,47 +499,7 @@ var DfttModule = (function (dm) {
         yAxis: [{
           type: 'value'
         }],
-        series: [{
-            name: '安装量',
-            type: 'line',
-            smooth: true,
-            itemStyle: {
-              normal: {
-                areaStyle: {
-                  color: "#62c1fb"
-                },
-                color: "#62c1fb",
-                borderColor: "#62c1fb"
-              }
-            },
-            lineStyle: {
-              normal: {
-                color: "#62c1fb" //连线颜色
-              }
-            },
-            data: install
-          },
-          {
-            name: '注册量',
-            type: 'line',
-            smooth: true,
-            itemStyle: {
-              normal: {
-                areaStyle: {
-                  color: "#21e8ee"
-                }
-              }
-            },
-            lineStyle: {
-              normal: {
-                width: 3, //连线粗细
-                color: "#21e8ee" //连线颜色
-              }
-            },
-            data: register
-          }
-        ],
-        color: ["#4ad8dc", "#2492e7"]
+        series: data
       };
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(option);
@@ -435,252 +514,134 @@ var DfttModule = (function (dm) {
     /**
      * 初始化折线图
      */
-    initEchartsCategoryActive: function (id, dataTypeX, value, type) {
+    initEchartsCategoryActive: function (id, dataTypeX, legendData, value, type) {
       var myChart = echarts.init(document.getElementById(id));
+      console.log(dataTypeX)
       var option
-      // 指定图表的配置项和数据
-      if (type == 0 || !type) {
-        option = {
-          tooltip: {
-            trigger: 'axis'
-          },
-          legend: {
-            data: [{
-                name: '活跃设备数',
-                icon: 'bar'
-              },
-              {
-                name: '活跃用户数',
-                icon: 'bar'
-              },
-              '活跃设备数', '活跃用户数'
-            ]
-          },
-          calculable: true,
-          xAxis: [{
-            type: 'category',
-            boundaryGap: false,
-            data: dataTypeX
-          }],
-          yAxis: [{
-            type: 'value'
-          }],
-          series: [{
-              name: '活跃设备数',
-              type: 'line',
-              smooth: true,
-              itemStyle: {
-                normal: {
-                  areaStyle: {
-                    color: "#62c1fb"
-                  },
-                  color: "#62c1fb",
-                  borderColor: "#62c1fb"
-                }
-              },
-              lineStyle: {
-                normal: {
-                  color: "#62c1fb" //连线颜色
-                }
-              },
-              data: value.actUv
-            },
-            {
-              name: '活跃用户数',
-              type: 'line',
-              smooth: true,
-              itemStyle: {
-                normal: {
-                  areaStyle: {
-                    color: "#21e8ee"
-                  }
-                }
-              },
-              lineStyle: {
-                normal: {
-                  width: 3, //连线粗细
-                  color: "#21e8ee" //连线颜色
-                }
-              },
-              data: value.registerAct
-            }
-          ],
-          color: ["#4ad8dc", "#2492e7"]
-        };
-      } else if (type == 1) {
-        option = {
-          tooltip: {
-            trigger: 'axis'
-          },
-          legend: {
-            data: [{
-                name: '活跃设备数',
-                icon: 'bar'
-              }
-            ]
-          },
-          calculable: true,
-          xAxis: [{
-            type: 'category',
-            boundaryGap: false,
-            data: dataTypeX
-          }],
-          yAxis: [{
-            type: 'value'
-          }],
-          series: [{
-              name: '平均打开次数',
-              type: 'line',
-              smooth: true,
-              itemStyle: {
-                normal: {
-                  areaStyle: {
-                    color: "#62c1fb"
-                  },
-                  color: "#62c1fb",
-                  borderColor: "#62c1fb"
-                }
-              },
-              lineStyle: {
-                normal: {
-                  color: "#62c1fb" //连线颜色
-                }
-              },
-              data: value.actRate
-            }
-          ],
-          color: ["#4ad8dc"]
-        };
-      } else if (type == 2) {
-        option = {
-          tooltip: {
-            trigger: 'axis'
-          },
-          legend: {
-            data: [{
-                name: '平均在线时长',
-                icon: 'bar'
-              }
-            ]
-          },
-          calculable: true,
-          xAxis: [{
-            type: 'category',
-            boundaryGap: false,
-            data: dataTypeX
-          }],
-          yAxis: [{
-            type: 'value'
-          }],
-          series: [{
-              name: '平均在线时长',
-              type: 'line',
-              smooth: true,
-              itemStyle: {
-                normal: {
-                  areaStyle: {
-                    color: "#62c1fb"
-                  },
-                  color: "#62c1fb",
-                  borderColor: "#62c1fb"
-                }
-              },
-              lineStyle: {
-                normal: {
-                  color: "#62c1fb" //连线颜色
-                }
-              },
-              data: value.actTime
-            }
-          ],
-          color: ["#4ad8dc"]
-        };
-      }
-      // 使用刚指定的配置项和数据显示图表。
-      myChart.setOption(option);
-
-      window.addEventListener('resize', function () {
-        setTimeout(function () {
-          myChart.resize();
-        }, 500)
-      });
-    },
-    /***
-     * 初始化中国地图
-     */
-    initEchartsMap: function (id, data, type) {
-      var myChart = echarts.init(document.getElementById(id));
-      var option = {
-        title: {
-          x: 'center'
-        },
+      option = {
         tooltip: {
-          trigger: 'item',
-          show: true,
-          formatter: function (params) {
-            var value = params.data.value ? params.data.value : 0
-            var res = params.data.name + ':' + value
-            return res
-          },
-          backgroundColor: '#000'
+          trigger: 'axis'
         },
-        dataRange: {
-          min: 0,
-          max: 2500,
-          x: 'left',
-          y: 'bottom',
-          text: ['高', '低'], // 文本，默认为数值文本
-          calculable: true
+        legend: {
+          data: legendData
         },
-
-        roamController: {
-          show: true,
-          x: 'right',
-          mapTypeControl: {
-            'china': true
-          }
-        },
-        series: [{
-            name: 'ip',
-            type: 'map',
-            mapType: 'china',
-            roam: false,
-            itemStyle: {
-              normal: {
-                label: {
-                  show: false
-
-                },
-                textStyle: {
-                  backgroundColor: "#000"
-                }
-              },
-              emphasis: {
-                areaStyle: {
-                  color: '#000',
-                  backgroundColor: 'blue',
-                },
-                label: {
-                  show: true,
-                  color: '#000',
-                  textStyle: {
-                    // fontWeight:'bold',
-                  }
-                }
-              }
-            },
-
-            data: data
-          },
-
-        ]
+        calculable: true,
+        xAxis: [{
+          type: 'category',
+          boundaryGap: false,
+          data: dataTypeX
+        }],
+        yAxis: [{
+          type: 'value'
+        }],
+        series: value
       };
-
-      if (type == 1) {
-        option.tooltip.show = false
-      }
-
-
+      // 指定图表的配置项和数据
+      // if (type == 0 || !type || type == 00) {
+      //   option = {
+      //     tooltip: {
+      //       trigger: 'axis'
+      //     },
+      //     legend: {
+      //       data: legendData
+      //     },
+      //     calculable: true,
+      //     xAxis: [{
+      //       type: 'category',
+      //       boundaryGap: false,
+      //       data: dataTypeX
+      //     }],
+      //     yAxis: [{
+      //       type: 'value'
+      //     }],
+      //     series: value
+      //   };
+      // } else if (type == 1) {
+      //   option = {
+      //     tooltip: {
+      //       trigger: 'axis'
+      //     },
+      //     legend: {
+      //       data: [{
+      //         name: '活跃设备数',
+      //         icon: 'bar'
+      //       }]
+      //     },
+      //     calculable: true,
+      //     xAxis: [{
+      //       type: 'category',
+      //       boundaryGap: false,
+      //       data: dataTypeX
+      //     }],
+      //     yAxis: [{
+      //       type: 'value'
+      //     }],
+      //     series: [{
+      //       name: '平均打开次数',
+      //       type: 'line',
+      //       smooth: true,
+      //       itemStyle: {
+      //         normal: {
+      //           areaStyle: {
+      //             color: "#62c1fb"
+      //           },
+      //           color: "#62c1fb",
+      //           borderColor: "#62c1fb"
+      //         }
+      //       },
+      //       lineStyle: {
+      //         normal: {
+      //           color: "#62c1fb" //连线颜色
+      //         }
+      //       },
+      //       data: value.actRate
+      //     }],
+      //     color: ["#4ad8dc"]
+      //   };
+      // } else if (type == 2) {
+      //   option = {
+      //     tooltip: {
+      //       trigger: 'axis'
+      //     },
+      //     legend: {
+      //       data: [{
+      //         name: '平均在线时长',
+      //         icon: 'bar'
+      //       }]
+      //     },
+      //     calculable: true,
+      //     xAxis: [{
+      //       type: 'category',
+      //       boundaryGap: false,
+      //       data: dataTypeX
+      //     }],
+      //     yAxis: [{
+      //       type: 'value'
+      //     }],
+      //     series: [{
+      //       name: '平均在线时长',
+      //       type: 'line',
+      //       smooth: true,
+      //       itemStyle: {
+      //         normal: {
+      //           areaStyle: {
+      //             color: "#62c1fb"
+      //           },
+      //           color: "#62c1fb",
+      //           borderColor: "#62c1fb"
+      //         }
+      //       },
+      //       lineStyle: {
+      //         normal: {
+      //           color: "#62c1fb" //连线颜色
+      //         }
+      //       },
+      //       data: value.actTime
+      //     }],
+      //     color: ["#4ad8dc"]
+      //   };
+      // }
+      // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(option);
 
       window.addEventListener('resize', function () {
@@ -692,115 +653,151 @@ var DfttModule = (function (dm) {
     /**
      * 安装量统计饼图数据
      */
-    initEchartsInstallRegister: function (date, exclude) {
+    initEchartsInstallRegister: function (date, exclude, platform) {
+      var channel = this.channel
+      var channelList = channel.split('|')
+      // console.log(channelList)
       var _this = this
-      var obj = {'startDate': date[0],
+      var obj = {
+        'startDate': date[0],
         'endDate': date[1],
         'appkey': 'K6BKB62B7BHABH',
         'exclude': exclude,
-        'platform': 'all'
+        'platform': platform,
+        'channel': channel
       }
-      this.ajaxGet('shareinstallgatherdata/shareinstallgather', obj, function (json) {
+      var idTotal = 'J_total',
+        dataTotal = []
+      for (var ii = 0; ii < channelList.length; ii++) {
+        dataTotal.push({
+          name: channelList[ii],
+          type: 'bar',
+          data: [0, 0, 0],
+          barWidth: 20
+        })
+      }
+      this.ajaxGet('shareinstallgatherdata/shareinstallqidmanager', obj, function (json) {
         if (json.code !== 200) return
-        var data = json.datalist[0]
-        var registerTotal = 0,
-          installTotal = 0,
-          registerIos = 0,
-          registerAndroid = 0,
-          installIos = 0,
-          installAndroid = 0,
-          idInstall = 'J_install',
-          nameInstall = '安装量',
-          nameRegister = '注册量',
-          idRegister = 'J_register'
+        var data = json.datalist
 
-        if (data) {
-          registerTotal = data.register_total
-          installTotal = data.install_total
-          registerIos = data.register_ios
-          installIos = data.install_ios
-          registerAndroid = data.register_android
-          installAndroid = data.install_android
-        }
+        // console.log(data)
 
-        $('.register').html(registerTotal)
-        $('.install').html(installTotal)
+        $.each(data, function (index, item) {
+          if (item) {
+            // console.log(item)
+            $.each(channelList, function (chaIndex, chaItem) {
+              if (item.channel === chaItem) {
+                dataTotal[chaIndex]['data'][0] = item.visit_cnt
+                dataTotal[chaIndex]['data'][1] = item.install_cnt
+                dataTotal[chaIndex]['data'][2] = item.register_cnt
+              }
+            })
+          }
+        })
 
-        var dataInstall = [{
-          value: installIos,
-          name: 'ios'
-        },
-        {
-          value: installAndroid,
-          name: 'Android'
-        }]
-
-        var dataRegister = [{
-          value: registerIos,
-          name: 'ios'
-        },
-        {
-          value: registerAndroid,
-          name: 'Android'
-        }]
-        _this.initEchartsPie(idInstall, nameInstall, dataInstall)
-        _this.initEchartsPie(idRegister, nameRegister, dataRegister)
+        _this.initEchartsBar(idTotal, channelList, dataTotal)
       })
     },
-    /**
-     *注册量统计饼图数据
-     */
-    // initEchartsRegister: function () {
-    //   var _this = this
-    //   $(".register").html('15')
-    //   $(".install").html('15')
-    //   var id = "J_register"
-    //   var name = '注册量'
-    //   var data = [{
-    //       value: 10,
-    //       name: 'ios'
-    //     },
-    //     {
-    //       value: 5,
-    //       name: 'Android'
-    //     }
-    //   ]
-    //   _this.initEchartsPie(id, name, data)
-    // },
     /***
      * 增长趋势数据
      */
-    growthTrend: function (date, exclude, platform) {
+    growthTrend: function (date, exclude, platform, type) {
       var _this = this
       var id = 'J_trend'
-      var obj = {'startDate': date[0],
+      var channel = _this.channel
+      var channelList = channel.split('|')
+      var obj = {
+        'startDate': date[0],
         'endDate': date[1],
         'appkey': 'K6BKB62B7BHABH',
         'exclude': exclude,
-        'platform': platform
+        'platform': platform,
+        'channel': channel
       }
+      var dataStyle = {}
       var dataTypeX = []
-      var install = []
-      var register = []
+      var dataInstallGrowth = []
+      var dataRegisterGrowth = []
+      var dataVisitGrowth = []
+      var dataInstall = []
+      var dataRegister = []
+      var dataVisit = []
+      for (var ii = 0; ii < channelList.length; ii++) {
+        dataStyle[channelList[ii]] = []
+      }
 
-      this.ajaxGet('shareinstallgatherdata/shareinstallgrowgather', obj, function (json) {
+      this.ajaxGet('shareinstallgatherdata/shareinstallqidgrow', obj, function (json) {
         if (json.code !== 200) return
-        var data = json.datalist
+        var data = json.datalist.reverse()
+        // console.log(data)
         if (data.length > 0) {
           $.each(data, function (index, item) {
-            // console.log(item)
-            install.push(item.install_num)
-            register.push(item.register_num)
-            // console.log(date)
+            if (dataStyle[item.channel]) {
+              // console.log(item.channel)
+              dataStyle[item.channel].push(item) // 渠道分类
+            }
             if (date[0] === date[1]) {
-              dataTypeX.push(item.time)
+              if (dataTypeX.indexOf(item.hh) < 0) {
+                dataTypeX.push(item.hh)
+              }
             } else {
-              dataTypeX.push(item.dt)
+              if (dataTypeX.indexOf(item.dt) < 0) {
+                dataTypeX.push(item.dt)
+              }
             }
           })
+
+          for (var jj = 0; jj < channelList.length; jj++) {
+            // console.log(dataStyle[channelList[jj]])
+            dataInstall[jj] = []
+            dataRegister[jj] = []
+            dataVisit[jj] = []
+            for (var kk = 0; kk < dataStyle[channelList[jj]].length; kk++) {
+              dataInstall[jj].push(dataStyle[channelList[jj]][kk]['install_cnt'])
+              dataRegister[jj].push(dataStyle[channelList[jj]][kk]['register_cnt'])
+              dataVisit[jj].push(dataStyle[channelList[jj]][kk]['visit_cnt'])
+            }
+            dataInstallGrowth.push({
+              name: channelList[jj],
+              type: 'line',
+              data: dataInstall[jj],
+              animationDuration: 1e3,
+              animationDurationUpdate: 1e3,
+              smooth: !0,
+              symbol: 'none'
+            })
+            dataRegisterGrowth.push({
+              name: channelList[jj],
+              type: 'line',
+              data: dataRegister[jj],
+              animationDuration: 1e3,
+              animationDurationUpdate: 1e3,
+              smooth: !0,
+              symbol: 'none'
+            })
+            dataVisitGrowth.push({
+              name: channelList[jj],
+              type: 'line',
+              data: dataVisit[jj],
+              animationDuration: 1e3,
+              animationDurationUpdate: 1e3,
+              smooth: !0,
+              symbol: 'none'
+            })
+          }
+        } else {
+          return
         }
 
-        _this.initEchartsCategory(id, dataTypeX, install, register)
+        // dataTypeX = dataTypeX.reverse()
+
+        if (type == 1) {
+          _this.initEchartsCategory(id, dataTypeX, channelList, dataInstallGrowth)
+        } else if (type == 2) {
+          _this.initEchartsCategory(id, dataTypeX, channelList, dataRegisterGrowth)
+        } else {
+          _this.initEchartsCategory(id, dataTypeX, channelList, dataVisitGrowth)
+        }
       })
     },
     /**
@@ -829,30 +826,24 @@ var DfttModule = (function (dm) {
       }
       // console.log(number)
       if (name == undefined) { // 初始化
-        _this.initEchartsInstallRegister(number, exclude)
-        // _this.initEchartsRegister()
-        _this.growthTrend(number, exclude, platform)
-        _this.increaseTrend([moment().subtract('days', 6).format('YYYYMMDD'), moment().format('YYYYMMDD')], exclude, platform, type)
-        _this.ipTrend(number, exclude, platform, type)
-        _this.getSystemVersion(number, exclude, platform, type)
-        _this.getModel(number, exclude, platform, type)
-    } else {
+        _this.initEchartsInstallRegister(number, exclude, platform)
+        _this.growthTrend(number, exclude, platform, type)
+        _this.increaseTrend(number, exclude, platform, type)
+        // _this.increaseTrend([moment().subtract('days', 6).format('YYYYMMDD'), moment().format('YYYYMMDD')], exclude, platform, type)
+        // _this.ipTrend(number, exclude, platform, type)
+        // _this.getSystemVersion(number, exclude, platform, type)
+        // _this.getModel(number, exclude, platform, type)
+      } else {
         var id = name.attr("id")
         if (id == "total") { // 总量统计
-          _this.initEchartsInstallRegister(number, exclude) //总量统计安装量
+          _this.initEchartsInstallRegister(number, exclude, platform) //总量统计安装量
           // _this.initEchartsRegister() //总量统计注册量
         } else if (id == "trend") { //增长趋势
           // console.log('增长趋势')
-          _this.growthTrend(number, exclude, platform) //折线图
+          _this.growthTrend(number, exclude, platform, type) //折线图
         } else if (id == 'increase') { //活跃趋势
           // console.log('活跃趋势')
           _this.increaseTrend(number, exclude, platform, type) //折线图
-        } else if (id == 'ipspread') {  // ip分布
-          _this.ipTrend(number, exclude, platform, type)
-        } else if (id == 'sys') {
-          _this.getSystemVersion(number, exclude, platform)
-        } else if (id == 'branddevice') {
-          _this.getModel(number, exclude, platform, type)
         }
       }
 
@@ -877,60 +868,128 @@ var DfttModule = (function (dm) {
      *  获取活跃趋势数据
      */
     increaseTrend: function (date, exclude, platform, type) {
+      // console.log(date)
       var _this = this
       var id = 'J_increase'
 
-      var obj = {'startDate': date[0],
+      var channel = _this.channel
+      var channelList = channel.split('|')
+
+      var obj = {
+        'startDate': date[0],
         'endDate': date[1],
         'appkey': 'K6BKB62B7BHABH',
         // 'exclude': exclude,
         'platform': platform,
-        'type': type
+        'type': type === '00' ? '0' : type,
+        'channel': channel
       }
 
-      var value = {}
-
+      var dataChart
+      var dataStyle = {}
       var dataTypeX = []
-      value.actUv = []
-      value.registerAct = []
-      value.actTime = []
-      value.actRate = []
-      // var data = [{
-      //   value: 10,
-      //   name: 'ios'
-      // },
-      // {
-      //   value: 5,
-      //   name: 'Android'
-      // }
-      // ]
+      var dataDeviceActive = []
+      var dataUserActive = []
+      var dataRateActive = []
+      var dataTimeActive = []
+      var dataDevice = []
+      var dataUser = []
+      var dataRate = []
+      var dataTime = []
+      for (var ii = 0; ii < channelList.length; ii++) {
+        dataStyle[channelList[ii]] = []
+      }
 
-      this.ajaxGet('shareinstallgatherdata/shareinstallactivegather', obj, function (json) {
+      this.ajaxGet('shareinstallgatherdata/shareinstallqidactive', obj, function (json) {
         if (json.code !== 200) return
-        var data = json.datalist
+        var data = json.datalist.reverse()
         if (data.length > 0) {
           $.each(data, function (index, item) {
-            // console.log(item)
-            // var temp = item.act_time.split(':')
-            // item.act_time = parseInt(temp[0] * 60 * 60) + parseInt(temp[1] * 60) + parseInt(temp[2])
-            value.actUv.push(item.act_uv)
-            value.registerAct.push(item.register_act)
-            value.actTime.push(item.act_time)
-            value.actRate.push(item.act_rate)
-            // console.log(date)
+            if (dataStyle[item.channel]) {
+              // console.log(item.channel)
+              dataStyle[item.channel].push(item) // 渠道分类
+            }
             if (type === '1' || type === '2') {
-              dataTypeX.push(item.dt)
-            } else {
-              if (date[0] === date[1]) {
-                dataTypeX.push(item.hh)
-              } else {
+              if (dataTypeX.indexOf(item.dt) < 0) {
                 dataTypeX.push(item.dt)
               }
-            } 
+            } else if (date[0] === date[1]) {
+              if (dataTypeX.indexOf(item.hh) < 0) {
+                dataTypeX.push(item.hh)
+              }
+            } else {
+              if (dataTypeX.indexOf(item.dt) < 0) {
+                dataTypeX.push(item.dt)
+              }
+            }
           })
+
+          for (var jj = 0; jj < channelList.length; jj++) {
+            // console.log(dataStyle[channelList[jj]])
+            dataDevice[jj] = []
+            dataUser[jj] = []
+            dataRate[jj] = []
+            dataTime[jj] = []
+            for (var kk = 0; kk < dataStyle[channelList[jj]].length; kk++) {
+              dataDevice[jj].push(dataStyle[channelList[jj]][kk]['act_cnt'])
+              dataUser[jj].push(dataStyle[channelList[jj]][kk]['register_act'])
+              dataRate[jj].push(dataStyle[channelList[jj]][kk]['act_rate'])
+              dataTime[jj].push(dataStyle[channelList[jj]][kk]['act_time'])
+            }
+            dataDeviceActive.push({
+              name: channelList[jj],
+              type: 'line',
+              data: dataDevice[jj],
+              animationDuration: 1e3,
+              animationDurationUpdate: 1e3,
+              smooth: !0,
+              symbol: 'none'
+            })
+            dataUserActive.push({
+              name: channelList[jj],
+              type: 'line',
+              data: dataUser[jj],
+              animationDuration: 1e3,
+              animationDurationUpdate: 1e3,
+              smooth: !0,
+              symbol: 'none'
+            })
+            dataRateActive.push({
+              name: channelList[jj],
+              type: 'line',
+              data: dataRate[jj],
+              animationDuration: 1e3,
+              animationDurationUpdate: 1e3,
+              smooth: !0,
+              symbol: 'none'
+            })
+            dataTimeActive.push({
+              name: channelList[jj],
+              type: 'line',
+              data: dataTime[jj],
+              animationDuration: 1e3,
+              animationDurationUpdate: 1e3,
+              smooth: !0,
+              symbol: 'none'
+            })
+          }
+        } else {
+          return
         }
 
-        _this.initEchartsCategoryActive(id, dataTypeX, value, type)
+        if (type === '00') {
+          dataChart = dataUserActive
+        } else if (type === '1') {
+          dataChart = dataRateActive
+        } else if (type === '2') {
+          dataChart = dataTimeActive
+        } else {
+          dataChart = dataDeviceActive
+        }
+
+        console.log(dataTimeActive)
+
+        _this.initEchartsCategoryActive(id, dataTypeX, channelList, dataChart, type)
       })
     },
     /***
@@ -940,7 +999,8 @@ var DfttModule = (function (dm) {
       var _this = this
       var id = 'J_ipMap'
 
-      var obj = {'startDate': moment().subtract('days', 1).startOf('day').format('YYYYMMDD'),
+      var obj = {
+        'startDate': moment().subtract('days', 1).startOf('day').format('YYYYMMDD'),
         'endDate': moment().subtract('days', 1).endOf('day').format('YYYYMMDD'),
         'appkey': 'K6BKB62B7BHABH',
         'exclude': exclude,
@@ -975,7 +1035,7 @@ var DfttModule = (function (dm) {
           _this.initEchartsMap(id, ipData)
         }
         _this.ipTrendRendering(ipData)
-        
+
 
         // _this.initEchartsCategoryActive(id, dataTypeX, value, type)
       })
@@ -1089,21 +1149,19 @@ var DfttModule = (function (dm) {
      */
     ipTrendRendering: function (data) {
       var _this = this
+      // console.log(data)
       var html = ''
-      if (data.length > 0) {
+      if (data) {
         for (var i = 0; i < data.length; i++) {
           var item = data[i]
           if (item.name) {
             html += '<div>' +
-            '<span>' + data[i].name + '</span>：' +
-            '<span>' + data[i].value + '</span>' +
-            '</div>'
+              '<span>' + data[i].name + '</span>：' +
+              '<span>' + data[i].value + '</span>' +
+              '</div>'
           }
         }
-        $('.location_city img').hide()
-        $('.location_city').append(html)
-      } else {
-        $('.location_city img').show()
+        $('.location_city').html(html)
       }
     },
     /***
@@ -1113,7 +1171,8 @@ var DfttModule = (function (dm) {
       var _this = this
       var id = 'J_systemVersion'
 
-      var obj = {'startDate': moment().subtract('days', 1).startOf('day').format('YYYYMMDD'),
+      var obj = {
+        'startDate': moment().subtract('days', 1).startOf('day').format('YYYYMMDD'),
         'endDate': moment().subtract('days', 1).endOf('day').format('YYYYMMDD'),
         'appkey': 'K6BKB62B7BHABH',
         'exclude': exclude,
@@ -1133,12 +1192,12 @@ var DfttModule = (function (dm) {
             item.name = item.osver
             item.value = parseInt(item.cnt)
             osData.push(item)
-          }) 
+          })
         } else {
           $('.none-sysver').show()
         }
         _this.SystemVersionPie(id, osData)
-                // _this.initEchartsCategoryActive(id, dataTypeX, value, type)
+        // _this.initEchartsCategoryActive(id, dataTypeX, value, type)
       })
 
       // var data = [{
@@ -1166,7 +1225,8 @@ var DfttModule = (function (dm) {
     getModel: function (date, exclude, platform, type) {
       var _this = this
       var id = 'J_getModel'
-      var obj = {'startDate': moment().subtract('days', 1).startOf('day').format('YYYYMMDD'),
+      var obj = {
+        'startDate': moment().subtract('days', 1).startOf('day').format('YYYYMMDD'),
         'endDate': moment().subtract('days', 1).endOf('day').format('YYYYMMDD'),
         'appkey': 'K6BKB62B7BHABH',
         'exclude': exclude,
@@ -1191,7 +1251,7 @@ var DfttModule = (function (dm) {
           $('.none-device').show()
         }
         _this.SystemVersionPie(id, osData, 1)
-                // _this.initEchartsCategoryActive(id, dataTypeX, value, type)
+        // _this.initEchartsCategoryActive(id, dataTypeX, value, type)
       })
       // var data = [{
       //     value: 335,
@@ -1219,7 +1279,7 @@ var DfttModule = (function (dm) {
       // console.log(data)
       var myChart = echarts.init(document.getElementById(id));
       var option = {
-        tooltip : {
+        tooltip: {
           trigger: 'item',
           formatter: "{a} <br/>{b} : {c} ({d}%)"
         },

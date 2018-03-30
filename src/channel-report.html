@@ -14,7 +14,7 @@
     <script>
         var params = "1731585436"
     </script>
-    <title>数据概览</title>
+    <title>渠道报表</title>
     <style type="text/css">
         .layout-content {
             min-width: 1024px;
@@ -92,11 +92,11 @@
         <div class="menu-items">
             <div class="menu-item item-5">
                 <div class="menu-item-text"><span>应用统计</span></div>
-                <div class="menu-child my-active">
+                <div class="menu-child">
                     <div class="subItem-1">
-                        <a href="#" class="load-channel-a" id="my-overview">
-                            <span class="icon my-overview fl"></span>
-                            <p class="fl">数据概览</p>
+                        <a href="./overview.html" class="load-channel-a" id="my-overview">
+                            <span class="icon my-overview my-overview-nor fl"></span>
+                            <p class="fl">渠道概览</p>
                         </a>
                     </div>
                 </div>
@@ -127,7 +127,7 @@
             <div class="menu-item item-2">
                 <div class="menu-item-text"><span>渠道统计</span></div>
                 <div class="menu-child">
-                    <div class="subItem-1">
+                    <div class="subItem-1 active">
                         <a href="./management.html" class="load-channel-a" id="my-qudao1">
                             <span class="icon my-qudao1 fl"></span>
                             <p class="fl">渠道管理</p>
@@ -143,12 +143,12 @@
             </div>
         </div>
     </div>
-    <div class="layout-content clear">
-        <div><h2 class="container-title" style="color:#282828;">数据概览</h2>
+    <div class="layout-content clear" style="min-width: 1300px">
+        <div><h2 class="container-title" style="color:#282828;">渠道报表- <span id="reportQid"></span></h2>
             <!-- <div class="depoly-said" style="margin:0 0 15px 30px"><b>提示：</b>老用户请注意，完整的统计功能只在sdk>=2.0.0下可用</div> -->
             <!--总量统计/增长趋势-->
             <div class="clear box">
-                <div class="total" id="chart_total">
+                <div class="total" id="chart_total" style="width: 674px">
                     <div class="title clear"><p>总量统计</p>
                         <div class="div clear">
                             <!-- <div class="overlay-btn" data-name="exclude" data-value="false">排除重复</div> -->
@@ -162,6 +162,13 @@
                         </div>
                     </div>
                     <div class="mainContent first clear">
+                        <div class="item" data-type="v">
+                            <div class="head">
+                                <p>访问量</p>
+                                <span class="visit"></span>
+                            </div>
+                            <div class="neirong" id="J_visit"></div>
+                        </div>
                         <div class="item" data-type="i">
                             <div class="head">
                                 <p>安装量</p>
@@ -308,7 +315,7 @@
             <script src="./js/page/echarts.min.js"></script>
             <script src="http://echarts.baidu.com/asset/map/js/china.js"></script>
             <script src="./js/page/sign.min.js" charset="utf-8"></script>
-            <script src="./js/page/overview.min.js"></script>
+            <script src="./js/page/report.min.js"></script>
 
         </div>
     </div>

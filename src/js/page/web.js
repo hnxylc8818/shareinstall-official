@@ -14,6 +14,7 @@ var DfttModule = (function (dm) {
       _this.writeAppkey()
       _this.writeAppName()
       _this.drawAppicon()
+      _this.getAppInfo()
       _this.onlineTest()
     },
 
@@ -62,6 +63,60 @@ var DfttModule = (function (dm) {
           return false
         }
       })
+    },
+
+    // 获取应用信息
+    getAppInfo: function () {
+      var _this = this;
+      $.ajax({
+        url: 'http://api.shareinstall.com/appliance/getone',
+        data: {
+          app_key: $.cookie('appkey')
+        },
+        type: 'POST',
+        success: function (data) {
+          var overTime = data.data.app_over_time.replace(/-/g, '/');
+          var remainTime = parseInt(new Date(overTime) - new Date()) / 1000 / 60 / 60 / 24
+          // console.log(remainTime)
+          data.code = parseInt(data.code)
+          if (data.code === 0) {
+            if (data.data.status == 0) {
+              _this.pageInit()
+            } else if (remainTime <= 10) {
+              _this.pageInit(remainTime)
+            }
+          }
+        }
+      })
+    },
+
+    pageInit: function (time) {
+      var $dom = $('#paymentInfo')
+      var hasClose = 0
+      if (time) {
+        $dom.find('.pop-status').text('还有' + Math.round(time) + '天服务将过期')
+        hasClose = 1
+      }
+      if (hasClose && !$.cookie('warnshow' + $.cookie('appkey'))) {
+        $.cookie('warnshow' + $.cookie('appkey'), 1, {
+          expires: 1
+        })
+        layer.open({
+          title: '到期提醒',
+          type: 1,
+          area: '800',
+          content: $dom,
+          closeBtn: hasClose
+        })
+      } else if (!hasClose) {
+        layer.open({
+          title: '到期提醒',
+          type: 1,
+          area: '800',
+          content: $dom,
+          closeBtn: hasClose
+        })
+      }
     },
 
     // 在线测试链接

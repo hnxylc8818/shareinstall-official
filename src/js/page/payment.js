@@ -5,18 +5,19 @@ var DfttModule = (function (dm) {
   var Index = {
     name: 'Index',
     typed: null,
+    order_id: '',
     init: function () {
       var _this = this
       _this.url = 'http://api.shareinstall.com/'
-      _this.getImg()
       _this.getAppInfo()
-      _this.previewImg()
       // _this.preservationOk()
       _this.cancelFun()
       _this.countPrice()
+      _this.clickToPay()
+      _this.verifyStatement()
     },
     /**
-     * 进入页面读取之前的图片
+     * 计算价格
      */
     countPrice: function () {
       var priceList = [3000, 5000, 7000, 10000]
@@ -26,101 +27,6 @@ var DfttModule = (function (dm) {
         $('#appPrice').html(price + '元')
       })
     },
-
-    getImg: function () {
-      var img = $.cookie("oldImg") ? $.cookie("oldImg") : 'http://mini.eastday.com/songheng/sharefolder/dftoutiao/s_window_activity_banner/20180115/5a5c5751b2b6d.png'
-      $("#xmTanImg").attr("src", img)
-      var name = $.cookie("oldName") ? $.cookie("oldName") : "";
-      // $("#appName").val(name)
-    },
-    /**
-     *预览图片
-     */
-    // previewImg: function () {
-    //     var _this = this
-    //     $("#fileImg").on("change", function () {
-    //         var file = document.getElementById("fileImg").files[0];
-    //         var reader = new FileReader();
-    //         reader.onload = function (e) {
-    //             var mb = (e.total / 1024) / 1024;
-    //             if (mb >= 1) {
-    //                 alert('文件大小大于1M');
-    //                 return;
-    //             }
-    //             var img = document.getElementById("xmTanImg");
-    //             img.src = reader.result;
-    //             console.log(img.src)
-    //             //或者 img.src = this.result;  //e.target == this
-    //         }
-    //         reader.readAsDataURL(file)
-    //     })
-    // },
-    /**
-     *预览图片
-     */
-    previewImg: function () {
-      var _this = this
-      $("#fileImg").on("change", function () {
-        var url = _this.url + 'appliance/upload'
-        var file = $("#form1").serialize();
-        $("#username").val($.cookie("userName"))
-        $("#token").val($.cookie("_token"))
-        //$("#form1").submit()
-        var form = $("form[name=form1]");
-        var options = {
-          url: url,
-          type: 'post',
-          success: function (data) {
-            console.log(data)
-            if (data.code == 0) {
-              alert("上传成功")
-              var data = data.data
-              var img = data.img
-              $("#xmTanImg").attr("src", img)
-            }
-          }
-        };
-        form.ajaxSubmit(options);
-      })
-    },
-    /**
-     * 点击保存按钮
-     */
-    // preservationOk: function () {
-    //   var _this = this
-    //   $(".preservation").on("click", function () {
-    //     var url = _this.url + 'appliance/update'
-    //     var key = window.location.href.split("=")[1]
-    //     var img = $("#xmTanImg").attr("src")
-    //     var name = $("#appName").val()
-    //     if (name == '') {
-    //       alert("APP名称不能为空")
-    //       return
-    //     }
-    //     $.ajax({
-    //       url: url,
-    //       type: 'post',
-    //       data: {
-    //         username: $.cookie("userName"),
-    //         token: $.cookie("_token"),
-    //         app_name: name,
-    //         app_icon: img,
-    //         app_key: key
-    //       },
-    //       success: function (data) {
-    //         console.log(data)
-    //         if (data.code == 0) {
-    //           window.location.href = './application.html'
-    //         } else if (parseInt(data.code) == 88) {
-    //           layer.msg('登录失效，请重新登录')
-    //           setTimeout(function () {
-    //             window.location.href = './login.html'
-    //           }, 3000)
-    //         }
-    //       }
-    //     })
-    //   })
-    // },
     /***
      * 点击取消
      */
@@ -159,7 +65,7 @@ var DfttModule = (function (dm) {
       $.ajax({
         url: _this.url + '/appliance/getone',
         data: {
-          app_key: _this.getQueryString('appkey')
+          app_key: $.cookie('appkey')
         },
         type: 'POST',
         success: function (data) {
@@ -169,6 +75,9 @@ var DfttModule = (function (dm) {
             $('#appTime').text(_this.timetrans(data.data.createTime))
             $('#appName').text(data.data.name)
             $('#xmTanImg').attr('src', data.data.icon)
+            $.cookie('appName', data.data.name, {
+              expires: 7
+            });
             if (data.data.status === 1) {
               $('#appStatus').text('免费体验中')
             } else if (data.data.status === 2) {
@@ -179,6 +88,88 @@ var DfttModule = (function (dm) {
             $('#appOver').text(data.data.app_over_time)
           }
         }
+      })
+    },
+
+    // 点击去支付
+    clickToPay: function () {
+      var _this = this
+      $(document).on('click', '.pay-code', function () {
+        var data = {}
+        // var priceList = [3000, 5000, 7000, 10000]
+        var priceList = {'1': 3000, '2': 5000, '3': 7000, '5': 10000}
+        data.username = $.cookie('userName')
+        data.token = $.cookie('_token')
+        data.app_key = $.cookie('appkey')
+        data.count = parseInt($('.price-list').find('.selected').text())
+        data.price = priceList[data.count]
+        var tempwindow = window.open();
+        _this.getOrderId(data, function (res) {
+          if (res.code == 0) {
+            data.order_id = res.data.order_id
+            $.cookie('orderid', res.data.order_id, {
+              expires: 7
+            });
+            _this.purchaseOrder(data, tempwindow)
+          } else if (res.code == 88) {
+            tempwindow.close()
+            layer.msg('登录已过期，请重新登录');
+            setTimeout(function () {
+              window.location.href = './login.html'
+            }, 3000)
+          } else {
+            tempwindow.close()
+            layer.msg(res.message);
+          }
+        })
+      })
+    },
+
+    // 获取订单号
+    getOrderId: function (data, cb) {
+      return $.ajax({
+        type: 'POST',
+        url: this.url + '/pay/createorder',
+        data: data,
+        success: function (res) {
+          cb(res)
+        }
+      })
+    },
+
+    // 购买
+    purchaseOrder: function (data, tempwindow) {
+      tempwindow.location = this.url + '/pay/purchase?username=' + data.username + '&token=' + data.token + '&order_id=' + data.order_id
+      // var $dom = '<a href="' + this.url + '/pay/purchase?username=' + data.username + '&token=' + data.token + '&order_id=' + data.order_id + '" target="_blank" ></a>'
+      // var a = $($dom).get(0);
+      // var e = document.createEvent('MouseEvents');
+      // e.initEvent('click', false, true);
+      // a.dispatchEvent(e);
+    },
+
+    // 确认支付完成状态
+    verifyStatement: function () {
+      var _this = this
+      $('.preservation').on('click', function () {
+        $.ajax({
+          type: 'POST',
+          url: _this.url + '/pay/verifyorder',
+          data: {
+            username: $.cookie('userName'),
+            token: $.cookie('_token'),
+            app_key: $.cookie('appkey'),
+            order_id: $.cookie('orderid')
+          },
+          success: function (res) {
+            if (res.code == 0) {
+              layer.msg('支付成功')
+              $.cookie('orderid', null)
+              window.location.href = './application.html'
+            } else {
+              layer.msg('未支付,请完成支付')
+            }
+          }
+        })
       })
     }
   }

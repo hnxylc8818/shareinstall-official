@@ -12,6 +12,7 @@ var DfttModule = (function (dm) {
       _this.console()
       _this.toggleMenu()
       _this.plateChange()
+      _this.toggleLog()
     },
     /***
      * 返回顶部
@@ -51,6 +52,13 @@ var DfttModule = (function (dm) {
         $('.download-menu').removeClass('active')
         $(this).addClass('active')
         $('.download-con').hide().eq(index).show()
+      })
+    },
+
+    // 日志更新显示隐藏
+    toggleLog: function () {
+      $(document).on('click', '.edition a', function () {
+        $(this).parents('.top').siblings('.bottom').toggle()
       })
     }
   }

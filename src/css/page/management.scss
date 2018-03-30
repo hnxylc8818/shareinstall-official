@@ -1939,3 +1939,10 @@ span.chart-btn {
     display: initial
   }
 }
+
+#app_name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+}

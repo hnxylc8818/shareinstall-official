@@ -13,7 +13,6 @@ var DfttModule = (function (dm) {
       _this.previewImg()
       _this.preservationOk()
       _this.cancelFun()
-      _this.inputLimit()
       _this.payLink()
     },
     /**
@@ -53,9 +52,14 @@ var DfttModule = (function (dm) {
     previewImg: function () {
       var _this = this
       $("#fileImg").on("change", function () {
-        console.log($(this[0].files[0]))
+        var size = $('#fileImg')[0].files[0].size / 1024 / 1024
         var url = _this.url + 'appliance/upload'
         var file = $("#form1").serialize();
+        if (size > 1) {
+          $("#fileImg").val('')
+          layer.msg('图片大于1M，请重新选择')
+          return
+        }
         $("#username2").val($.cookie("userName"))
         $("#token").val($.cookie("_token"))
         //$("#form1").submit()
@@ -64,7 +68,7 @@ var DfttModule = (function (dm) {
           url: url,
           type: 'post',
           success: function (data) {
-            console.log(data)
+            // console.log(data)
             if (data.code == 0) {
               layer.msg('上传成功')
               var data = data.data
@@ -84,7 +88,7 @@ var DfttModule = (function (dm) {
     // 输入长度限制
     inputLimit: function () {
       var _this = this
-      var wordsLen = 0
+      var wordsLen = $('#appName').val().length
       $('#appName').on('input propertychange', function () {
         var value = $(this).val()
         if (_this.getLength(value) <= 30) {
@@ -106,8 +110,17 @@ var DfttModule = (function (dm) {
         var key = $.cookie('appkey')
         var img = $("#xmTanImg").attr("src")
         var name = $("#appName").val()
+        var regEn = /[`~!@#$%^&*()+<>?:"{},.\/;'[\]]/im,
+          regCn = /[·！#￥（）：；“”‘、，|《。》？、【】[\]]/im;
         if (name == '') {
-          layer.tips('应用名不能为空', $('#addApp'), {
+          layer.tips('应用名不能为空', $('#appName'), {
+            tipsMore: !0,
+            tips: [2, '#ff3333']
+          })
+          return
+        }
+        if (regEn.test(name) || regCn.test(name)) {
+          layer.tips('应用名不能包含特殊符号', $('#appName'), {
             tipsMore: !0,
             tips: [2, '#ff3333']
           })
@@ -188,11 +201,12 @@ var DfttModule = (function (dm) {
             if (data.data.status === 1) {
               $('#appStatus').text('免费体验中')
             } else if (data.data.status === 2) {
-              $('#appStatus').text('已支付')
+              $('#appStatus').text('已付费')
             } else {
               $('#appStatus').text('已过期')
             }
             $('#appOver').text(data.data.app_over_time)
+            _this.inputLimit()
           } else if (data.code === 88) {
             layer.msg('登录已过期，请重新登录')
             setTimeout(function () {

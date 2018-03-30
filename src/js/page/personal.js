@@ -17,6 +17,18 @@ var DfttModule = (function(dm) {
       _this.grxxCode()
       _this.primaryPhone()
       _this.closeLayer2()
+      _this.backTop()
+    },
+
+    /***
+     * 返回顶部
+     */
+    backTop: function() {
+      $("#J_barBack").on('click', function() {
+        $('body,html').animate({
+          scrollTop: 0
+        }, 500);
+      })
     },
     /*
      *判断用户是否登录
@@ -69,7 +81,7 @@ var DfttModule = (function(dm) {
           token: $.cookie("_token")
         },
         success: function(data) {
-          console.log(data)
+          // console.log(data)
           if (data.code == 0) {
             $("#uesrTime").html(data.data.register_time)
             $("#uesrEmail").html(data.data.email)
@@ -156,7 +168,7 @@ var DfttModule = (function(dm) {
               new_password: newPass
             },
             success: function(data) {
-              console.log(data)
+              // console.log(data)
               if (data.code == 0) {
                 $("#primaryEmail").removeClass("disabled")
                 layer.msg("修改成功", {
@@ -165,6 +177,8 @@ var DfttModule = (function(dm) {
                 }, function() {
                   layer.closeAll()
                 })
+              } else {
+                layer.msg(data.message)
               }
             }
           })
@@ -278,7 +292,7 @@ var DfttModule = (function(dm) {
               sms_code: code
             },
             success: function(data) {
-              console.log(data)
+              // console.log(data)
               if (data.code == 0) {
                 $("#primaryPhone").removeClass("disabled")
                 $.cookie("userName", phone)
