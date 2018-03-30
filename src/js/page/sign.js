@@ -78,7 +78,7 @@ var DfttModule = (function(dm) {
       if (parseInt(appStatus) === 1) {
         $('.apppay-state').text('免费体验中')
       } else if (parseInt(appStatus) === 2) {
-        $('.apppay-state').text('已支付')
+        $('.apppay-state').text('已付费')
       } else {
         $('.apppay-state').text('已过期')
       }
@@ -93,7 +93,7 @@ var DfttModule = (function(dm) {
           scrollTop: 0
         }, 500);
       })
-    },
+    }
   }
   // 给模块单独定义一个命名空间
   dm[News.name] = News

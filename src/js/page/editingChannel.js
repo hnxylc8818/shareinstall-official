@@ -133,7 +133,7 @@ var DfttModule = (function (dm) {
         }
 
         if (!_this.normalizeUrl(channelUrl) && _this.pageType === 2) {
-          layer.tips('请填写合法的url，如：http://www.opeinstall.io/', $('input[name="customURL"]'), {
+          layer.tips('请填写合法的url，如：http://www.shareinstall.com/', $('input[name="customURL"]'), {
             tipsMore: !0,
             tips: [2, '#ff3333']
           })
@@ -163,6 +163,8 @@ var DfttModule = (function (dm) {
               setTimeout(function () {
                 window.location.href = './login.html'
               }, 3000)
+            } else if (data.code == 4) {
+              layer.msg(data.message)
             } else {
               layer.msg('保存失败')
             }

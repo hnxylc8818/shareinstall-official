@@ -1353,6 +1353,19 @@ span.chart-btn {
   border-left: 2px solid transparent;
 }
 
+.menu-items .menu-child .active {
+  background: #1c2732;
+  border-left: 2px solid #2893e3;
+
+  a {
+    color: #fff;
+  }
+
+  .my-qudao1 {
+    background-position: -8px -188px;
+  }
+}
+
 .menu-items .my-active div {
   background: #1c2732;
   border-left: 2px solid #2893e3;
@@ -1398,6 +1411,14 @@ span.chart-btn {
 
 .my-overview {
   background-position: -8px -67px;
+}
+
+.my-overview-nor {
+  background-position: -38px -67px;
+
+  &:hover {
+    background-position: -8px -67px;
+  }
 }
 
 //#my-overview:hover .my-overview {
@@ -1742,4 +1763,17 @@ span.chart-btn {
   .box {
     display: initial
   }
+}
+
+#app_name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+}
+
+.my-active .active {
+  background: #1c2732;
+  border-left: 2px solid #2893e3 !important;
+  color: #fff;
 }

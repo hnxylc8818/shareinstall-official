@@ -1944,3 +1944,45 @@ android 页面
 .total .first .instruction .Android>a {
   background: #4cdb94
 }
+
+#app_name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+}
+
+.qidtable-con {
+  padding: 20px;
+
+  .w30 {
+    width: 30%;
+  }
+
+  .w40 {
+    width: 40%;
+  }
+
+  .qidtable-head {
+    background: #fafcfd;
+    font-size: 14px;
+    color: #49526c;
+    line-height: 40px;
+
+    span {
+      // padding-left: 20px;
+    }
+  }
+
+  .qidtable-list {
+    float: none;
+    max-height: 240px;
+    overflow: auto;
+
+    li {
+      border-bottom: 1px solid #e8e8e8;
+      line-height: 46px;
+      overflow: hidden;
+    }
+  }
+}

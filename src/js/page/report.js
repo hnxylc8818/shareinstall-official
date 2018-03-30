@@ -11,7 +11,9 @@ var DfttModule = (function (dm) {
     baseUrl: 'http://tongji.021.com/datacenterapi/',
     init: function () {
       var _this = this;
+      _this.channel = _this.getQueryString('channelCode')
       _this.writeAppkey()
+      _this.writeQidName()
       _this.writeAppName()
       _this.drawAppicon()
       _this.getAppInfo()
@@ -59,6 +61,11 @@ var DfttModule = (function (dm) {
       if (appName) {
         $('#app_name').text(appName)
       }
+    },
+
+    // 渲染渠道名称
+    writeQidName: function () {
+      $('#reportQid').text(this.channel)
     },
 
     // 获取应用信息
@@ -127,7 +134,7 @@ var DfttModule = (function (dm) {
     // 请求封装
     ajaxGet: function (url, data, successCallback, errorCallback) {
       data.appkey = $.cookie('appkey') //'K6BKB62B7BHABH' // 
-      data.channel = ''
+      data.channel = this.channel
       $.ajax({
         type: 'get',
         url: this.baseUrl + url,
@@ -352,7 +359,7 @@ var DfttModule = (function (dm) {
     /**
      * 初始化折线图
      */
-    initEchartsCategory: function (id, dataTypeX, install, register) {
+    initEchartsCategory: function (id, dataTypeX, install, register, visit) {
       var myChart = echarts.init(document.getElementById(id));
       // 指定图表的配置项和数据
       var option = {
@@ -360,7 +367,12 @@ var DfttModule = (function (dm) {
           trigger: 'axis'
         },
         legend: {
-          data: [{
+          data: [
+            {
+              name: '访问量',
+              icon: 'bar'
+            },
+            {
               name: '安装量',
               icon: 'bar'
             },
@@ -368,7 +380,7 @@ var DfttModule = (function (dm) {
               name: '注册量',
               icon: 'bar'
             },
-            '安装量', '注册量'
+            '访问量', '安装量', '注册量'
           ]
         },
         calculable: true,
@@ -380,7 +392,28 @@ var DfttModule = (function (dm) {
         yAxis: [{
           type: 'value'
         }],
-        series: [{
+        series: [
+          {
+            name: '访问量',
+            type: 'line',
+            smooth: true,
+            itemStyle: {
+              normal: {
+                areaStyle: {
+                  color: '#F88a87'
+                },
+                color: '#F88a87',
+                borderColor: '#F88a87'
+              }
+            },
+            lineStyle: {
+              normal: {
+                color: '#F88a87' //连线颜色
+              }
+            },
+            data: visit
+          },
+          {
             name: '安装量',
             type: 'line',
             smooth: true,
@@ -705,26 +738,35 @@ var DfttModule = (function (dm) {
         var data = json.datalist[0]
         var registerTotal = 0,
           installTotal = 0,
+          visitTotal = 0,
           registerIos = 0,
           registerAndroid = 0,
           installIos = 0,
           installAndroid = 0,
+          visitIos = 0,
+          visitAndroid = 0,
           idInstall = 'J_install',
           nameInstall = '安装量',
           nameRegister = '注册量',
-          idRegister = 'J_register'
+          nameVisit = '注册量',
+          idRegister = 'J_register',
+          idVisit = 'J_visit'
 
         if (data) {
           registerTotal = data.register_total
           installTotal = data.install_total
+          visitTotal = data.visit_total
           registerIos = data.register_ios
           installIos = data.install_ios
+          visitIos = data.visit_ios
           registerAndroid = data.register_android
           installAndroid = data.install_android
+          visitAndroid = data.visit_android
         }
 
         $('.register').html(registerTotal)
         $('.install').html(installTotal)
+        $('.visit').html(visitTotal)
 
         var dataInstall = [{
           value: installIos,
@@ -743,6 +785,17 @@ var DfttModule = (function (dm) {
           value: registerAndroid,
           name: 'Android'
         }]
+
+        var dataVisit = [{
+          value: visitIos,
+          name: 'ios'
+        },
+        {
+          value: visitAndroid,
+          name: 'Android'
+        }]
+
+        _this.initEchartsPie(idVisit, nameVisit, dataVisit)
         _this.initEchartsPie(idInstall, nameInstall, dataInstall)
         _this.initEchartsPie(idRegister, nameRegister, dataRegister)
       })
@@ -782,15 +835,17 @@ var DfttModule = (function (dm) {
       var dataTypeX = []
       var install = []
       var register = []
+      var visit = []
 
-      this.ajaxGet('shareinstallgatherdata/shareinstallgrowgather', obj, function (json) {
+      this.ajaxGet('shareinstallgatherdata/shareinstallqidgrow', obj, function (json) {
         if (json.code !== 200) return
         var data = json.datalist
         if (data.length > 0) {
           $.each(data, function (index, item) {
             // console.log(item)
-            install.push(item.install_num)
-            register.push(item.register_num)
+            install.push(item.install_cnt)
+            register.push(item.register_cnt)
+            visit.push(item.visit_cnt)
             // console.log(date)
             if (date[0] === date[1]) {
               dataTypeX.push(item.time)
@@ -800,7 +855,7 @@ var DfttModule = (function (dm) {
           })
         }
 
-        _this.initEchartsCategory(id, dataTypeX, install, register)
+        _this.initEchartsCategory(id, dataTypeX, install, register, visit)
       })
     },
     /**

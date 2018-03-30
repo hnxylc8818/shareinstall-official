@@ -18,13 +18,15 @@ var DfttModule = (function (dm) {
       _this.writeAppkey()
       _this.writeAppName()
       _this.drawAppicon()
+      _this.getAppInfo()
       _this.handlebarHelp()
       _this.renderList()
       _this.removeChannel()
-      _this.searchList()
       _this.selectPage()
-      _this.changePlate()
       _this.viewCodeMa()
+      _this.initTime()
+      _this.triggerEvent()
+      // _this.valuePicker()
     },
 
     // 转换时间戳
@@ -64,8 +66,63 @@ var DfttModule = (function (dm) {
       }
     },
 
+    // 获取应用信息
+    getAppInfo: function () {
+      var _this = this;
+      $.ajax({
+        url: 'http://api.shareinstall.com/appliance/getone',
+        data: {
+          app_key: $.cookie('appkey')
+        },
+        type: 'POST',
+        success: function (data) {
+          var overTime = data.data.app_over_time.replace(/-/g, '/');
+          var remainTime = parseInt(new Date(overTime) - new Date()) / 1000 / 60 / 60 / 24
+          // console.log(remainTime)
+          data.code = parseInt(data.code)
+          if (data.code === 0) {
+            if (data.data.status == 0) {
+              _this.pageInit()
+            } else if (remainTime <= 10) {
+              _this.pageInit(remainTime)
+            }
+          }
+        }
+      })
+    },
+
+    pageInit: function (time) {
+      var $dom = $('#paymentInfo')
+      var hasClose = 0
+      if (time) {
+        $dom.find('.pop-status').text('还有' + Math.round(time) + '天服务将过期')
+        hasClose = 1
+      }
+      if (hasClose && !$.cookie('warnshow' + $.cookie('appkey'))) {
+        $.cookie('warnshow' + $.cookie('appkey'), 1, {
+          expires: 1
+        })
+        layer.open({
+          title: '到期提醒',
+          type: 1,
+          area: '800',
+          content: $dom,
+          closeBtn: hasClose
+        })
+      } else if (!hasClose) {
+        layer.open({
+          title: '到期提醒',
+          type: 1,
+          area: '800',
+          content: $dom,
+          closeBtn: hasClose
+        })
+      }
+    },
+
     // 生成二维码
     generateCodeMa: function (url, name) {
+      // console.log(name)
       // var requestUrl = 'http://s.jiathis.com/qrcode.php?url=' + url
       // $.get(requestUrl, function (data) {
       //   callback(data)
@@ -74,8 +131,8 @@ var DfttModule = (function (dm) {
       if (codeWrap.length <= 0) {
         codeWrap = $('<div id="_qr_container"><p class="qr_title"></p><div class="qr_img"></div><p class="qr_url"></p>')
         codeWrap.appendTo(document.body)
-        codeWrap.find('.qr_title').html(name);
       }
+      codeWrap.find('.qr_title').html(name);
       var curCode = new QRCode(codeWrap.find('.qr_img').empty()[0], {
         text: url,
         width: 300,
@@ -85,7 +142,7 @@ var DfttModule = (function (dm) {
         correctLevel: QRCode.CorrectLevel.H
       })
 
-      console.log(curCode)
+      // console.log(curCode)
 
       layer.open({
         type: 1,
@@ -109,39 +166,133 @@ var DfttModule = (function (dm) {
       })
     },
 
-    // 渲染应用列表
-    renderList: function () {
+    // 初始化日期插件
+    initTime: function () {
       var _this = this
+      var name = $('#qidlistDate')
+      name.attr('date-value', [moment().format('YYYYMMDD'), moment().format('YYYYMMDD')])
+      var opt = {
+        // startDate: moment().startOf('day'),
+        //endDate: moment(),
+        //minDate: '01/01/2012',    //最小时间
+        maxDate: moment(), //最大时间
+        dateLimit: {
+          days: 30
+        }, //起止时间的最大间隔
+        showDropdowns: false,
+        showWeekNumbers: false, //是否显示第几周
+        timePicker: false, //是否显示小时和分钟
+        timePickerIncrement: 60, //时间的增量，单位为分钟
+        timePicker12Hour: false, //是否使用12小时制来显示时间
+        ranges: {
+          '所有': [moment("20160101", "YYYYMMDD"), moment()],
+          '今日': [moment().startOf('day'), moment()],
+          '昨日': [moment().subtract('days', 1).startOf('day'), moment().subtract('days', 1).endOf('day')],
+          '最近7日': [moment().subtract('days', 6), moment()],
+          '最近30日': [moment().subtract('days', 29), moment()]
+        },
+        opens: 'right', //日期选择框的弹出位置
+        buttonClasses: ['btn btn-default'],
+        applyClass: 'btn-small btn-primary blue',
+        cancelClass: 'btn-small',
+        format: 'YYYY/MM/DD', //控件中from和to 显示的日期格式
+        separator: ' to ',
+        locale: {
+          applyLabel: '确定',
+          cancelLabel: '取消',
+          fromLabel: '起始时间',
+          toLabel: '结束时间',
+          customRangeLabel: '自定义',
+          daysOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
+          monthNames: ['一月', '二月', '三月', '四月', '五月', '六月',
+            '七月', '八月', '九月', '十月', '十一月', '十二月'
+          ],
+          firstDay: 1
+        }
+      }
+      var label = label ? label : '今日'
+
+      name.html(label)
+      name.daterangepicker(opt, function (start, end, label) { //格式化日期显示框
+        var label = (label == '自定义' ? start.format('YYYY/MM/DD') + ' - ' + end.format('YYYY/MM/DD') : label)
+        name.html(label)
+        var timeRangeChange = [start.format('YYYYMMDD'), end.format('YYYYMMDD')]
+        name.attr('date-value', timeRangeChange)
+        var exclude = name.parents('time').siblings('overlay-btn').attr('data-value')
+        var platform = 'all'
+        name.parents('.title').find('.data_profile li').each(function (index, item) {
+          if ($(item).hasClass('active')) {
+            platform = $(item).attr('data-value')
+          }
+        })
+
+        var type = 0
+
+        name.parents('.title').siblings('.contentER, .btnBox').find('[data-name="type"]').each(function (index, item) {
+          if ($(item).hasClass('active')) {
+            type = $(item).attr('data-value')
+          }
+        })
+
+        _this.valuePicker()
+        // _this.getAmountStatistics(timeRangeChange, name, exclude, platform, type)
+      });
+    },
+
+    // 渲染应用列表
+    renderList: function (date, plantform, sortname, sorttype, searchWord) {
+      // console.log(date, plantform, sortname, sorttype, searchWord)
+      var _this = this
+      var sdate = moment().format('YYYYMMDD')
+      var edate = moment().format('YYYYMMDD')
+      if (date) {
+        sdate = date.split(',')[0]
+        edate = date.split(',')[1]
+      }
       $.ajax({
         url: 'http://api.shareinstall.com/channel/getlist',
         type: 'POST',
+        async: false,
         data: {
           username: $.cookie('userName'),
           token: $.cookie('_token'),
           app_key: $.cookie('appkey'),
           page: _this.page || 1,
           size: 10,
-          search: {'channel_name': _this.word || ''}
+          startDate: sdate,
+          endDate: edate,
+          plantform: plantform || 'all',
+          exclude: 0,
+          sortname: sortname || 'createTime',
+          sorttype: sorttype || 'desc',
+          search: {'channel_name': searchWord || ''}
         },
         success: function (data) {
-          if (data.code === '0') {
-            _this.pageMax = data.data.page.max
-            data.data.page.more = (data.data.page.next < data.data.page.max) ? !0 : !1
-            $.each(data.data.list, function (index, item) {
+          if (data.code == 0) {
+            // _this.pageMax = data.data.page.max
+            // data.data.page.more = (data.data.page.next < data.data.page.max) ? !0 : !1
+            if (data.data instanceof Array !== true && _this.page === 1 && !searchWord) {
+              data.data = []
+            }
+            $.each(data.data, function (index, item) {
               item.createTime = _this.timetrans(item.createTime)
               if (item.page_type === '1') {
                 item.page = window.location.href.replace('management.html', '') + 'demo.html?appkey=' + $.cookie('appkey') + '&channel=' + item.channel_code
-              }
-              item.stats = {
-                v: 0,
-                i: 0,
-                r: 0
+              } else if (item.page_type === '2') {
+                item.page = item.page + '?channel=' + item.channel_code
               }
             })
+
+            if (data.data.length === 10) {
+              data.pageNext = _this.page + 1
+            }
+
+            data.pageCur = _this.page
+            data.pagePre = _this.page - 1
             var template = Handlebars.compile(_this.tpl)
-            var html = template(data.data)
+            var html = template(data)
             $('#channelContainer').html(html)
-            console.log(data.data)
+            // console.log(data.data)
           } else if (data.code === '88') {
             layer.msg('登录失效，请重新登录')
             setTimeout(function () {
@@ -191,67 +342,112 @@ var DfttModule = (function (dm) {
       })
     },
 
-    // 关键字搜索
-    searchList: function () {
-      var _this = this
-      $('#search_button').on('click', function () {
-        _this.word = $('input[name="search"]').val()
-        _this.renderList()
-      })
-    },
-
     // 翻页
     selectPage: function () {
       var _this = this
       $('body').on('click', '.page-change', function () {
         _this.page = $(this).attr('data-page')
-        _this.renderList()
+        _this.valuePicker()
       })
 
       $('body').on('click', '.page-change-start', function () {
-        _this.page = 1
+        _this.page -= 1
         _this.renderList()
       })
 
       $('body').on('click', '.page-change-end', function () {
-        _this.page = _this.pageMax
-        _this.renderList()
+        _this.page += 1
+        _this.valuePicker()
       })
     },
 
-    // 渠道平台切换
-    changePlate: function () {
+    // 页面数据采集
+    valuePicker: function () {
+      // $('.data_profile li').on('click', function () {
+      //   $(this).addClass('active').siblings('li').removeClass('active')
+      // })
+      var searchWord = $('#search_form input').val()
+      var plantform = $('.data_profile').find('.active').attr('data-value')
+      var date = $('#qidlistDate').attr('date-value')
+      var sortDom = $('.channel-th th[data-field]'),
+        sortname = '',
+        sorttype = ''
+
+      sortDom.each(function (index, item) {
+        if (!$(item).find('>span').hasClass('sort-none')) {
+          sortname = $(item).attr('data-field')
+          sorttype = $(item).find('>span').attr('class').split('-')[1]
+        }
+      })
+
+
+      this.renderList(date, plantform, sortname, sorttype, searchWord)
+
+      sortDom = $('.channel-th th[data-field]')
+
+      sortDom.each(function (index, item) {
+        $(item).find('>span').removeClass('sort-none sort-asc sort-desc').addClass('sort-none')
+        if ($(item).attr('data-field') === sortname) {
+          $(item).find('>span').removeClass('sort-none sort-asc sort-desc').addClass('sort-' + sorttype)
+          // alert(sorttype)
+        }
+      })
+      // console.log(date, plantform, sortname, sorttype, searchWord)
+    },
+
+    // 页面列表重新渲染触发
+    triggerEvent: function () {
+      var _this = this
+      $('.date-container').on('click', function (e) {
+        if (e.target.className !== 'date-value') {
+          $(this).find('.date-value').click()
+        }
+        // alert('a')
+      })
       $('.data_profile li').on('click', function () {
         $(this).addClass('active').siblings('li').removeClass('active')
+        _this.page = 1
+        _this.valuePicker()
+      })
+
+      $('#search_button').on('click', function () {
+        _this.word = $('input[name="search"]').val()
+        _this.page = 1
+        _this.valuePicker()
+      })
+
+      $(document).on('click', '.channel-th th[data-field]', function (e) {
+        if (e.target.className === 'common-tip') {
+          return false
+        }
+        _this.page = 1
+        var dom = $(this).find('>span')
+        if (dom.hasClass('sort-none')) {
+          dom.removeClass('sort-none').addClass('sort-desc')
+          $(this).siblings('th[data-field]').find('>span').removeClass('sort-asc sort-desc').addClass('sort-none')
+        } else if (dom.hasClass('sort-desc')) {
+          dom.removeClass('sort-desc').addClass('sort-asc')
+        } else if (dom.hasClass('sort-asc')) {
+          dom.removeClass('sort-asc').addClass('sort-desc')
+        }
+        _this.valuePicker()
+
       })
     },
 
     // handlebar辅助
     handlebarHelp: function () {
       Handlebars.registerHelper('pager', function (e, a) {
-        console.log(e)
+        var data = e.data.root
         var r = "<ul class='pagination'>";
-        e.prev > 0 ? r += '<li><a href="javascript:;" class="page-change-start">&lt;</a></li>' : r += "<li><a disabled='disabled' href='javascript:;' class='disabled_pre'>&lt;</a></li>"
-        if (parseInt(e.curr) < 4) {
-          for (var t = 0; t < parseInt(e.curr) - 1; t++) {
-            r = r + "<li><a href='javascript:;' class='page-change' data-page='" + (t + 1) + "'>" + (t + 1) + "</a></li>";
-          }
-        } else {
-          r = r + "<li><a href='javascript:;' class='page-change' data-page='" + (parseInt(e.curr) - 3) + "'>" + (parseInt(e.curr) - 2) + "</a></li>", r = r + "<li><a href='javascript:;' class='page-change' data-page='" + (parseInt(e.curr) - 1) + "'>" + (parseInt(e.curr) - 1) + "</a></li>";
-        }
-        r = r + "<li class=\"active\"><a href='javascript:;'>" + (parseInt(e.curr)) + "</a></li>"
-        if (e.max - parseInt(e.curr) <= 3) {
-          for (var t2 = parseInt(e.curr); t2 < e.max; t2++) {
-            r = r + "<li><a href='javascript:;' class='page-change' data-page='" + (t2 + 1) + "'>" + (t2 + 1) + "</a></li>";
-          }
-        } else {
-          r = r + "<li><a href='javascript:;' class='page-change' data-page='" + (parseInt(e.curr) + 1) + "'>" + (parseInt(e.curr) + 1) + "</a></li>", r = r + "<li><a href='javascript:;' class='page-change' data-page='" + (parseInt(e.curr) + 2) + "'>" + (parseInt(e.curr) + 2) + "</a></li>";
-        }
-        return e.next <= e.max ? r += '<li><a class="page-change-end" href="javascript:;">&gt;</a></li>' : r += "<li><a disabled='disabled' href='javascript:;' class='disabled_pre'>&gt;</a></li>", r + "</ul>"
+        data.pagePre > 0 ? r += '<li><a href="javascript:;" class="page-change-start">上一页</a></li>' : r += "<li><a disabled='disabled' href='javascript:;' class='disabled_pre'>上一页</a></li>"
+        data.pageNext ? r += '<li><a class="page-change-end" href="javascript:;">下一页</a></li>' : r += "<li><a disabled='disabled' href='javascript:;' class='disabled_pre'>下一页</a></li>"
+        r += '</ul>'
+        return r
       });
 
       Handlebars.registerHelper('more', function (page) {
-        console.log(!!(page.next > page.max))
+        // console.log(!!(page.next > page.max))
         return !!(page.next > page.max)
       })
     }
@@ -279,7 +475,3 @@ $(function () {
 /**
  * Created by admin on 2018/1/12.
  */
-
-function removeChannel(id) {
-  console.log('删除')
-}

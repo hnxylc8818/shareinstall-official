@@ -8,18 +8,17 @@
     <meta content="telephone=no" name="format-detection">
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="./css/common/base.min.css">
-    <link rel="stylesheet" href="./css/common/layer.min.css">
+    <!-- <link rel="stylesheet" href="./css/common/layer.min.css"> -->
+    <link rel="stylesheet" href="./css/page/comparison.min.css">
     <script src="./js/common/base.min.js"></script>
     <script src="./js/page/layer.min.js"></script>
     <script src="./js/page/jquery.cookie.min.js" charset="utf-8"></script>
+    <script src="./js/page/moment.min.js"></script>
+    <!--<link rel="stylesheet" href="./css/daterangepicker.css?v=70fedaf589">-->
+    <script src="./js/page/daterangepicker.min.js"></script>
+    <script src="./js/page/echarts.min.js"></script>
     <script src="./js/page/sign.min.js" charset="utf-8"></script>
-    <link rel="stylesheet" href="./css/page/comparison.min.css">
-    <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">
-    <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
-    <script src="./js/page/web.min.js"></script>
-    <script>
-        hljs.initHighlightingOnLoad();
-    </script>
+    <script src="./js/page/comparison.min.js"></script>
     <script>
         var params = "1731585436"
     </script>
@@ -30,9 +29,9 @@
 <body style="background:#fff">
 
     <div class="layout-container">
-        <div class="dashbord-loading" id="_loading_mask">
+        <!-- <div class="dashbord-loading" id="_loading_mask">
             <img src="/images/loading.gif">
-        </div>
+        </div> -->
         <div class="layout-header">
             <div class="logo-bar" style="float:left">
                 <a style="display:inline-block;width:100%;height:100%" target="_blank" href="./index.html">
@@ -80,7 +79,7 @@
                         <span class="tip-content">appKey是shareinstall平台为每个应用分配的唯一标识符，sdk(Android/iOS/javascript)中需指定这个appKey</span>
                     </a>
                     <span style="font-size:14px;font-weight:700;color:#c4c4c4">AppKey：</span>
-                    <span id="app_key" style="color:#c4c4c4;font-size:16px"></span>
+                    <span id="app_key" style="color:#c4c4c4;font-size:14px"></span>
                 </p>
                 <p><a href="./editingApplication.html" class="detail_icon"><img src="./img/overview/i.png" alt="" style="vertical-align:middle;margin-right:8px;position: relative;top:-1px">应用信息</a></p>
             </div>
@@ -153,7 +152,8 @@
                 </div>
             </div>
             <div class="depoly-said">
-                <b>提示：</b>老用户请注意，完整的统计功能只在sdk&gt;=2.0.0下可用</div>
+                <!-- <b>提示：</b>老用户请注意，完整的统计功能只在sdk&gt;=2.0.0下可用 -->
+            </div>
             <div id="channel_win" style="width: 850px; display: none;" class="layui-layer-wrap">
                 <div style="width:400px;float:left;min-height:380px;margin:15px;border:1px solid #5d8aff" class="selectable">
                     <div style="text-align:center;line-height:40px;background-color:#5d8aff;color:#fff">待选渠道</div>
@@ -265,17 +265,17 @@
                         <li class="iOS" data-name="platform" data-value="ios">ios</li>
                     </ul>
                     <div class="div clear">
-                        <div class="overlay-btn" data-name="exclude" data-value="true">排除重复</div>
+                        <!-- <div class="overlay-btn" data-name="exclude" data-value="true">排除重复</div> -->
                         <div class="time">
                             <div class="count_calendar_right date-container" style="margin:0 0 0 20px;line-height:30px;height:32px;float:left">
                                 <span class="glyphicon glyphicon-calendar fa fa-calendar" style="padding-left:10px"></span>&nbsp;
-                                <span class="date-value">所有</span>
+                                <span class="date-value" id="total">所有</span>
                                 <span class="caret" style="margin-right:10px"></span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="mainContent">
+                <div class="mainContent" id="J_total">
                     <img src="./img/console/none.png" alt="没有数据" style="width:48px;height:68px;position:absolute;top:50%;left:50%;margin-left:-34px;margin-top:-34px">
                 </div>
             </div>
@@ -289,22 +289,22 @@
                             <li class="iOS" data-name="platform" data-value="ios">ios</li>
                         </ul>
                         <div class="div clear">
-                            <div class="overlay-btn" data-name="exclude" data-value="true">排除重复</div>
+                            <!-- <div class="overlay-btn" data-name="exclude" data-value="true">排除重复</div> -->
                             <div class="time">
                                 <div class="count_calendar_right date-container" style="margin:0 0 0 20px;line-height:30px;height:32px;float:left">
                                     <span class="glyphicon glyphicon-calendar fa fa-calendar" style="padding-left:10px"></span>&nbsp;
-                                    <span class="date-value">所有</span>
+                                    <span class="date-value" id="trend">所有</span>
                                     <span class="caret" style="margin-right:10px"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="btnBox">
-                        <a class="active" data-name="type" data-value="v" href="javascript:">访问量</a>
-                        <a data-name="type" data-value="i" href="javascript:">安装量</a>
-                        <a href="javascript:" data-name="type" data-value="r">注册量</a>
+                        <a class="active" data-name="type" data-value="0" href="javascript:">访问量</a>
+                        <a data-name="type" data-value="1" href="javascript:">安装量</a>
+                        <a href="javascript:" data-name="type" data-value="2">注册量</a>
                     </div>
-                    <div class="mainContent">
+                    <div class="mainContent" id="J_trend">
                         <img src="./img/console/none.png" alt="没有数据" style="width:48px;height:68px;position:absolute;top:50%;left:50%;margin-left:-34px;margin-top:-34px">
                     </div>
                 </div>
@@ -321,23 +321,88 @@
                         <div class="time">
                             <div class="count_calendar_right date-container" style="margin:0 0 0 20px;line-height:30px;height:32px;float:left">
                                 <span class="glyphicon glyphicon-calendar fa fa-calendar" style="padding-left:10px"></span>&nbsp;
-                                <span class="date-value">所有</span>
+                                <span class="date-value" id="increase">所有</span>
                                 <span class="caret" style="margin-right:10px"></span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="btnBox">
-                    <a class="active" data-name="type" data-value="ad" href="javascript:">活跃设备数</a>
-                    <a data-name="type" data-value="au" href="javascript:">活跃用户备数</a>
-                    <a href="javascript:" data-name="type" data-value="ot">平均打开次数</a>
-                    <a href="javascript:" data-name="type" data-value="os">平均在线时长(秒)</a>
+                    <a class="active" data-name="type" data-value="0" href="javascript:">活跃设备数</a>
+                    <a data-name="type" data-value="00" href="javascript:">活跃用户数</a>
+                    <a href="javascript:" data-name="type" data-value="1">平均打开次数</a>
+                    <a href="javascript:" data-name="type" data-value="2">平均在线时长(秒)</a>
                 </div>
-                <div class="mainContent">
+                <div class="mainContent" id="J_increase">
                     <img src="./img/console/none.png" alt="没有数据" style="width:48px;height:68px;position:absolute;top:50%;left:50%;margin-left:-34px;margin-top:-34px">
                 </div>
             </div>
         </div>
+    </div>
+
+    <div style="background:#fff;width:420px;height:auto;display:none;text-align:center" id="paymentInfo">
+        <img src="./img/console/shareinstall.png" alt="" style="padding: 28px 0 10px">
+        <p class="pop-appname">Shareinstall</p>
+        <div class="pop-status">服务已过期</div>
+
+        <a href="./payment.html" class="btn-poppay">去开通服务</a>
+    </div>
+
+    <div style="background:#fff;width:560px;height:auto;display:none;text-align:center" id="selectQid">
+        <div class="qidtable-con">
+            <div class="qidtable-head clearfix">
+                <span class="fl w30">状态选择</span>
+                <span class="fl w30">渠道编号</span>
+                <span class="fl w40">渠道名称</span>
+            </div>
+            <ul class="qidtable-list cleafix">
+                <li>
+                    <div class="fl w30">
+                        <input type="checkbox" name="" id="" checked>
+                    </div>
+                    <div class="fl w30 qid-code">jsstt_huawei</div>
+                    <div class="fl w40 qid-name">111</div>
+                </li>
+                <li>
+                    <div class="fl w30">
+                        <input type="checkbox" name="" id="" checked>
+                    </div>
+                    <div class="fl w30 qid-code">jsstt_360zs</div>
+                    <div class="fl w40 qid-name">111</div>
+                </li>
+                <li>
+                    <div class="fl w30">
+                        <input type="checkbox" name="" id="" checked>
+                    </div>
+                    <div class="fl w30 qid-code">jsstt_xiaomi</div>
+                    <div class="fl w40 qid-name">111</div>
+                </li>
+                <li>
+                    <div class="fl w30">
+                        <input type="checkbox" name="" id="" checked>
+                    </div>
+                    <div class="fl w30 qid-code">010</div>
+                    <div class="fl w40 qid-name">111</div>
+                </li>
+                <li>
+                    <div class="fl w30">
+                        <input type="checkbox" name="" id="" checked>
+                    </div>
+                    <div class="fl w30 qid-code">015</div>
+                    <div class="fl w40 qid-name">111</div>
+                </li>
+                <li>
+                    <div class="fl w30">
+                        <input type="checkbox" name="" id="">
+                    </div>
+                    <div class="fl w30 qid-code">011</div>
+                    <div class="fl w40 qid-name">111</div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- <a href="javascript:;" class="btn-qidcancel">取消</a> -->
+        <!-- <a href="javascript:;" class="btn-qidconfirm">确定</a> -->
     </div>
 
     <div id="J_functionBar" class="functionBar">

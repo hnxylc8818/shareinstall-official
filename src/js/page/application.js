@@ -18,6 +18,7 @@ var DfttModule = (function(dm) {
       _this.getList()
       _this.addAppOk()
       _this.inputLimit()
+      _this.nowPay()
     },
 
     /**
@@ -53,8 +54,8 @@ var DfttModule = (function(dm) {
      */
     addAppOk: function() {
       var _this = this;
-      var regEn = /[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im,
-        regCn = /[·！#￥（——）：；“”‘、，|《。》？、【】[\]]/im;
+      var regEn = /[`~!@#$%^&*()+<>?:"{},.\/;'[\]]/im,
+        regCn = /[·！#￥（）：；“”‘、，|《。》？、【】[\]]/im;
       $(".preservation").on("click", function() {
         var name = $("#addApp").val()
         if (name == '') {
@@ -152,6 +153,29 @@ var DfttModule = (function(dm) {
         window.location.href = './overview.html'
       })
     },
+
+    nowPay: function () {
+      $('body').on('click', '#nowPay', function () {
+        var key = $(this).attr('data-key')
+        var img = $(this).attr('data-img')
+        var name = $(this).attr('data-name')
+        var status = $(this).attr('data-status')
+        $.cookie('appkey', key, {
+          expires: 7
+        });
+        $.cookie('img', img, {
+          expires: 7
+        });
+        $.cookie('appName', name, {
+          expires: 7
+        });
+        $.cookie('status', status, {
+          expires: 7
+        });
+        window.location.href = './payment.html'
+      })
+    },
+
     /***
      * 获取应用管理列表
      */
@@ -216,7 +240,7 @@ var DfttModule = (function(dm) {
             htmlStr += '<span class="item-pingtai">暂无</span>'
           }
           if (parseInt(item.app_status) === 0) {
-            htmlStr += '<span class="item-status" style="color:#a6b2ca">试用期已过<a href="./payment.html?appkey=' + item.app_key + '" style="color:#00a4ff;margin-left:5px">开通</a></span>'
+            htmlStr += '<span class="item-status" style="color:#a6b2ca">已过期<a href="javascript:;" id="nowPay" style="color:#00a4ff;margin-left:5px"  data-key="' + item.app_key + '" data-img="' + item.icon + '" data-status="' + item.app_status + '">开通</a></span>'
           } else if (parseInt(item.app_status) === 1) {
             htmlStr += '<span class="item-status">免费体验中</span>'
           } else if (parseInt(item.app_status) === 2) {

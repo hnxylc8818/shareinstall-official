@@ -8,18 +8,16 @@
     <meta content="telephone=no" name="format-detection">
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="./css/common/base.min.css">
-    <link rel="stylesheet" href="./css/common/layer.min.css">
+    <!-- <link rel="stylesheet" href="./css/common/layer.min.css"> -->
     <script src="./js/common/base.min.js"></script>
     <script src="./js/page/layer.min.js"></script>
     <script src="./js/page/jquery.cookie.min.js" charset="utf-8"></script>
+    <script src="./js/page/daterangepicker.min.js"></script>
     <script src="./js/page/sign.min.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
     <script src="./js/page/qrcode.min.js"></script>
     <script src="./js/page/management.min.js"></script>
     <link rel="stylesheet" href="./css/page/management.min.css">
-    <script>
-        var params = "1731585436"
-    </script>
     <title>渠道管理</title>
     <style type="text/css">
         .layout-content {
@@ -158,12 +156,12 @@
                                 <p class="fl">渠道管理</p>
                             </a>
                         </div>
-                        <!-- <div class="subItem-2">
+                        <div class="subItem-2">
                             <a href="./comparison.html" class="load-channel-a" id="my-qudao2">
                                 <span class="icon my-qudao2 fl"></span>
                                 <p class="fl" style="color: #5f6b7e">渠道对比</p>
                             </a>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -180,21 +178,21 @@
                     </div>
                     <div class="add-trend" style="float:right;margin:24px 0 0;width:500px;border: none;box-shadow:none;" id="stats_bar">
                         <div class="title clear" style="border: none">
-                            <ul class="data_profile" style="float:right">
-                                <li class="all active" data-name="platform" data-value="">all</li>
+                            <ul class="data_profile" style="float:left;margin-left: -30px">
+                                <li class="all active" data-name="platform" data-value="all">all</li>
                                 <li class="android" data-name="platform" data-value="android">android</li>
                                 <li class="iOS" data-name="platform" data-value="ios">ios</li>
                             </ul>
-                            <!-- <div class="div clear" style="float:left;margin:4px 0 0 50px">
-                                <div class="overlay-btn" data-name="exclude" data-value="true" style="float:left">排除重复</div>
+                            <div class="div clear" style="float:left;margin:4px 0 0 50px">
+                                <!-- <div class="overlay-btn" data-name="exclude" data-value="true" style="float:left">排除重复</div> -->
                                 <div class="time" style="float:left">
                                     <div class="count_calendar_right date-container" style="margin:0 0 0 20px;line-height:30px;height:32px;float:left">
                                         <span class="glyphicon glyphicon-calendar fa fa-calendar" style="padding-left:10px"></span>&nbsp;
-                                        <span class="date-value"></span>
+                                        <span class="date-value" id="qidlistDate"></span>
                                         <span class="caret" style="margin-right:10px"></span>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                     <div style="margin-top:34px">
@@ -213,11 +211,11 @@
                         <table id="channel_link_table" class="table-responsive table-hover channel_link_table">
                             <thead>
                                 <tr class="channel-th">
-                                    <th width="80px" data-field="code">
-                                        <span class="sort-desc">编号</span>
+                                    <th width="80px">
+                                        <span class="">编号</span>
                                     </th>
-                                    <th width="120px" data-field="name">
-                                        <span class="sort-desc">名称</span>
+                                    <th width="120px">
+                                        <span class="">名称</span>
                                     </th>
                                     <th width="200px">
                                         <a href="javascript:;" class="common-tip">
@@ -226,23 +224,23 @@
                                         <span>渠道链接</span>
                                     </th>
                                     <!--class="channel-table-link"-->
-                                    <th width="100px" data-field="repeatVisitTimes">
+                                    <th width="100px" data-field="visit_cnt">
                                         <a href="javascript:;" class="common-tip">
                                             <span class="tip-content">目前只提供按总量排序的功能，忽略过滤条件</span>
                                         </a>
-                                        <span class="sort-desc">访问量</span>
+                                        <span class="sort-none">访问量</span>
                                     </th>
-                                    <th width="100px" data-field="repeatInstallTimes">
+                                    <th width="100px" data-field="install_cnt">
                                         <a href="javascript:;" class="common-tip">
                                             <span class="tip-content">目前只提供按总量排序的功能，忽略过滤条件</span>
                                         </a>
-                                        <span class="sort-desc">安装量</span>
+                                        <span class="sort-none">安装量</span>
                                     </th>
-                                    <th width="100px" data-field="repeatRegisterTimes">
+                                    <th width="100px" data-field="register_cnt">
                                         <a href="javascript:;" class="common-tip">
                                             <span class="tip-content">目前只提供按总量排序的功能，忽略过滤条件</span>
                                         </a>
-                                        <span class="sort-desc">注册量</span>
+                                        <span class="sort-none">注册量</span>
                                     </th>
                                     <th width="120px" data-field="createTime">
                                         <span class="sort-desc">创建时间</span>
@@ -253,7 +251,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{#with list}} {{#each this}}
+                                {{#with data}} {{#each this}}
                                 <tr>
                                     <!--<td>{{channelType}}</td>-->
                                     <td style="color:#282828">{{channel_code}}</td>
@@ -269,19 +267,19 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <span class="times_bac"> {{stats.v}}</span>
+                                        <span class="times_bac"> {{visit_cnt}}</span>
                                     </td>
                                     <td>
-                                        <span class="times_bac2">{{stats.i}}</span>
+                                        <span class="times_bac2">{{install_cnt}}</span>
                                     </td>
                                     <td>
-                                        <span class="times_bac3">{{stats.r}}</span>
+                                        <span class="times_bac3">{{register_cnt}}</span>
                                     </td>
                                     <td>{{createTime}}</td>
                                     <td>
-                                        <!-- <a class="img-link-report channel-link-operate" href="channel-report.html?channelId={{id}}">
+                                        <a class="img-link-report channel-link-operate" href="channel-report.html?channelId={{id}}&channelCode={{channel_code}}">
                                             <span>报表</span>
-                                        </a> -->
+                                        </a>
                                         <a class="img-link-luck channel-link-operate" href="editingChannel.html?channelId={{id}}">
                                             <span>编辑</span>
                                         </a>
@@ -298,15 +296,13 @@
                                 </tr>
                                 {{/each}} {{/with}}
                                 <!--  当数据不够一页时显示  -->
-                                {{#if page}} {{#unless page.more}}
+                                {{#if data}} {{#unless pageNext}}
                                 <tr>
                                     <td class="channel-table-bt" colspan="8">暂无更多</td>
                                 </tr>
-                                {{/unless}} {{/if}} {{#unless page.pages}} {{#if search}}
-                                <tr>
-                                    <td class="channel-table-bt" colspan="8">暂无更多</td>
-                                </tr>
-                                {{/if}} {{#unless search}}
+                                {{/unless}} {{/if}} 
+                                {{#unless data}}
+                                {{#unless search}}
                                 <tr>
                                     <td class="channel-table-bt" colspan="8" style="padding: 90px;line-height:30px">
                                         <p style="color:#898989;font-size:16px">暂无渠道链接，请先创建渠道链接！</p>
@@ -326,13 +322,21 @@
                         <!--</div>-->
                         <!--{{/if}}-->
                         <div class="pull-right" style="margin: 30px 0 0 0;">
-                            <span style="color:#898989;float: left;margin: 27px 20px;">共有 {{page.max}} 页，每页显示 {{page.psize}} 条</span>
-                            {{#pager page}}{{/pager}}
+                            <span style="color:#898989;float: left;margin: 27px 20px;">第 {{pageCur}} 页，每页显示10条</span>
+                            {{#pager}}{{/pager}}
                         </div>
                     </script>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div style="background:#fff;width:420px;height:auto;display:none;text-align:center" id="paymentInfo">
+        <img src="./img/console/shareinstall.png" alt="" style="padding: 28px 0 10px">
+        <p class="pop-appname">Shareinstall</p>
+        <div class="pop-status">服务已过期</div>
+
+        <a href="./payment.html" class="btn-poppay">去开通服务</a>
     </div>
 
     <div id="J_functionBar" class="functionBar">
