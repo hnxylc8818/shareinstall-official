@@ -81,7 +81,7 @@ var DfttModule = (function (dm) {
           if (data.code === 0) {
             if (data.data.status == 0) {
               _this.pageInit()
-            } else if (remainTime <= 10) {
+            } else if (remainTime <= 10 && data.data.status == 2) {
               _this.pageInit(remainTime)
             }
           }
@@ -328,7 +328,7 @@ var DfttModule = (function (dm) {
           '最近7日': [moment().subtract('days', 6), moment()],
           '最近30日': [moment().subtract('days', 29), moment()]
         },
-        opens: 'right', //日期选择框的弹出位置
+        opens: 'left', //日期选择框的弹出位置
         buttonClasses: ['btn btn-default'],
         applyClass: 'btn-small btn-primary blue',
         cancelClass: 'btn-small',
@@ -991,178 +991,6 @@ var DfttModule = (function (dm) {
 
         _this.initEchartsCategoryActive(id, dataTypeX, channelList, dataChart, type)
       })
-    },
-    /***
-     *  获取IP分布数据
-     */
-    ipTrend: function (date, exclude, platform, type) {
-      var _this = this
-      var id = 'J_ipMap'
-
-      var obj = {
-        'startDate': moment().subtract('days', 1).startOf('day').format('YYYYMMDD'),
-        'endDate': moment().subtract('days', 1).endOf('day').format('YYYYMMDD'),
-        'appkey': 'K6BKB62B7BHABH',
-        'exclude': exclude,
-        'platform': platform,
-        'type': type
-      }
-
-      var ipData = []
-
-      this.ajaxGet('shareinstallgatherdata/shareinstallipspreadgather', obj, function (json) {
-        if (json.code !== 200) return
-        var data = json.datalist
-        // console.log(data)
-        if (data.length > 0) {
-          $.each(data, function (index, item) {
-            // console.log(item)
-            if (type == 1) {
-              item.name = item.cityname
-              item.value = parseInt(item.cnt)
-            } else {
-              item.name = item.provname
-              item.value = parseInt(item.cnt)
-            }
-            ipData.push(item)
-          })
-        }
-
-
-        if (type == 1) {
-          _this.initEchartsMap(id, [], type)
-        } else {
-          _this.initEchartsMap(id, ipData)
-        }
-        _this.ipTrendRendering(ipData)
-
-
-        // _this.initEchartsCategoryActive(id, dataTypeX, value, type)
-      })
-
-      // data = [{
-      //   name: '北京',
-      //   value: 2256
-      // }, {
-      //   name: '天津',
-      //   value: 744
-      // }, {
-      //   name: '上海',
-      //   value: 578
-      // }, {
-      //   name: '重庆',
-      //   value: 806
-      // }, {
-      //   name: '河北',
-      //   value: 432
-      // }, {
-      //   name: '河南',
-      //   value: 590
-      // }, {
-      //   name: '云南',
-      //   value: 132
-      // }, {
-      //   name: '辽宁',
-      //   value: 487
-      // }, {
-      //   name: '黑龙江',
-      //   value: 336
-      // }, {
-      //   name: '湖南',
-      //   value: 295
-      // }, {
-      //   name: '安徽',
-      //   value: 398
-      // }, {
-      //   name: '山东',
-      //   value: 1055
-      // }, {
-      //   name: '新疆',
-      //   value: 201
-      // }, {
-      //   name: '江苏',
-      //   value: 795
-      // }, {
-      //   name: '浙江',
-      //   value: 655
-      // }, {
-      //   name: '江西',
-      //   value: 311
-      // }, {
-      //   name: '湖北',
-      //   value: 993
-      // }, {
-      //   name: '广西',
-      //   value: 261
-      // }, {
-      //   name: '甘肃',
-      //   value: 349
-      // }, {
-      //   name: '山西',
-      //   value: 273
-      // }, {
-      //   name: '内蒙古',
-      //   value: 343
-      // }, {
-      //   name: '陕西',
-      //   value: 319
-      // }, {
-      //   name: '吉林',
-      //   value: 325
-      // }, {
-      //   name: '福建',
-      //   value: 317
-      // }, {
-      //   name: '贵州',
-      //   value: 275
-      // }, {
-      //   name: '广东',
-      //   value: 1000
-      // }, {
-      //   name: '青海',
-      //   value: 97
-      // }, {
-      //   name: '西藏',
-      //   value: 18
-      // }, {
-      //   name: '四川',
-      //   value: 601
-      // }, {
-      //   name: '宁夏',
-      //   value: 126
-      // }, {
-      //   name: '海南',
-      //   value: 186
-      // }, {
-      //   name: '台湾',
-      //   value: 0
-      // }, {
-      //   name: '香港',
-      //   value: 11
-      // }, {
-      //   name: '澳门',
-      //   value: 0
-      // }]
-    },
-    /***
-     * 显示省份/城市信息信息
-     */
-    ipTrendRendering: function (data) {
-      var _this = this
-      // console.log(data)
-      var html = ''
-      if (data) {
-        for (var i = 0; i < data.length; i++) {
-          var item = data[i]
-          if (item.name) {
-            html += '<div>' +
-              '<span>' + data[i].name + '</span>：' +
-              '<span>' + data[i].value + '</span>' +
-              '</div>'
-          }
-        }
-        $('.location_city').html(html)
-      }
     },
     /***
      * 系统版本获取数据

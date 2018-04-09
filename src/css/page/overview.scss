@@ -1660,7 +1660,8 @@ span.chart-btn {
   text-align: left;
   line-height: 34px;
   padding-left: 25px;
-  float: left
+  float: left;
+  white-space: nowrap;
 }
 
 .location_city > div.cityNum {

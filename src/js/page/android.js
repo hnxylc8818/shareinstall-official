@@ -121,7 +121,7 @@ var DfttModule = (function (dm) {
           if (data.code === 0) {
             if (data.data.status == 0) {
               _this.pageInit()
-            } else if (remainTime <= 10) {
+            } else if (remainTime <= 10 && data.data.status == 2) {
               _this.pageInit(remainTime)
             }
           }

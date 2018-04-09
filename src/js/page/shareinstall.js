@@ -1,6 +1,6 @@
 ShareInstall = function (win, doc, xhr) {
   // 全局变量
-  var VERSION = '1.0.1'
+  var VERSION = '1.0.2'
 
   /**
    * 对象ReadyObj拥有一个属性（数组）和三个方法：
@@ -51,6 +51,9 @@ ShareInstall = function (win, doc, xhr) {
     if (data && 'string' != typeof data) {
       data = MyJSON.stringify(data)
     }
+    // if (data == '{}') {
+    //   data = ''
+    // }
     // "POST" != method && data && (url = url + (url.indexOf("?") > -1 ? "&" : "?") + data, data = null)
     if ('POST' != method && data) {
       url = url + (url.indexOf('?') > -1 ? '&' : '?') + data
@@ -344,6 +347,7 @@ ShareInstall = function (win, doc, xhr) {
         data: data,
         success: function (res) {
           console.log('res::', res)
+          if (res.status == 1) return
           ResObj = handleResData(res.data[0] || {})
           if (agent.indexOf("micromessenger") > 0 || agent.indexOf("qq") > 0) {
             if (ResObj.applied) {
@@ -936,7 +940,7 @@ ShareInstall = function (win, doc, xhr) {
   }
 
   MyShareInstall.docReady = docReady
-  // MyShareInstall.server = '//test-shareinstall.shaqm.com' //'//123.59.62.164' // '//t.oi.com'  // http://123.59.62.164/shareinstall/wap.h
+  // MyShareInstall.server = '//123.59.62.164' //'//test-shareinstall.shaqm.com' // '//t.oi.com'  // http://123.59.62.164/shareinstall/wap.h
 
   MyShareInstall.server = 'https://collision.shareinstall.com' //'//test-shareinstall.shaqm.com' //'//123.59.62.164' // '//t.oi.com'  // http://123.59.62.164/shareinstall/wap.h
   return MyShareInstall

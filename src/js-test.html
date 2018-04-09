@@ -74,6 +74,7 @@ var data = ShareInstall.parseUrlParams();//ShareInstall.js中提供的工具函�
 var copyData = JSON.parse(JSON.stringify(data))
 delete data.appkey
 
+
 // 页面信息渲染
 $.ajax({
       url: 'http://api.shareinstall.com/appliance/getone',
