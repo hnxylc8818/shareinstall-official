@@ -83,7 +83,7 @@ var DfttModule = (function (dm) {
           if (data.code === 0) {
             if (data.data.status == 0) {
               _this.pageInit()
-            } else if (remainTime <= 10) {
+            } else if (remainTime <= 10 && data.data.status == 2) {
               _this.pageInit(remainTime)
             }
           }
@@ -191,7 +191,7 @@ var DfttModule = (function (dm) {
           '最近7日': [moment().subtract('days', 6), moment()],
           '最近30日': [moment().subtract('days', 29), moment()]
         },
-        opens: 'right', //日期选择框的弹出位置
+        opens: 'left', //日期选择框的弹出位置
         buttonClasses: ['btn btn-default'],
         applyClass: 'btn-small btn-primary blue',
         cancelClass: 'btn-small',
@@ -249,10 +249,11 @@ var DfttModule = (function (dm) {
         sdate = date.split(',')[0]
         edate = date.split(',')[1]
       }
+      $('#_loading_mask').show()
       $.ajax({
         url: 'http://api.shareinstall.com/channel/getlist',
         type: 'POST',
-        async: false,
+        // async: false,
         data: {
           username: $.cookie('userName'),
           token: $.cookie('_token'),
@@ -269,6 +270,7 @@ var DfttModule = (function (dm) {
         },
         success: function (data) {
           if (data.code == 0) {
+            $('#_loading_mask').hide()
             // _this.pageMax = data.data.page.max
             // data.data.page.more = (data.data.page.next < data.data.page.max) ? !0 : !1
             if (data.data instanceof Array !== true && _this.page === 1 && !searchWord) {
@@ -292,6 +294,16 @@ var DfttModule = (function (dm) {
             var template = Handlebars.compile(_this.tpl)
             var html = template(data)
             $('#channelContainer').html(html)
+
+            var sortDom = $('.channel-th th[data-field]')
+
+
+            sortDom.each(function (index, item) {
+              $(item).find('>span').removeClass('sort-none sort-asc sort-desc').addClass('sort-none')
+              if ($(item).attr('data-field') === sortname) {
+                $(item).find('>span').removeClass('sort-none sort-asc sort-desc').addClass('sort-' + sorttype)
+              }
+            })
             // console.log(data.data)
           } else if (data.code === '88') {
             layer.msg('登录失效，请重新登录')
@@ -383,15 +395,6 @@ var DfttModule = (function (dm) {
 
       this.renderList(date, plantform, sortname, sorttype, searchWord)
 
-      sortDom = $('.channel-th th[data-field]')
-
-      sortDom.each(function (index, item) {
-        $(item).find('>span').removeClass('sort-none sort-asc sort-desc').addClass('sort-none')
-        if ($(item).attr('data-field') === sortname) {
-          $(item).find('>span').removeClass('sort-none sort-asc sort-desc').addClass('sort-' + sorttype)
-          // alert(sorttype)
-        }
-      })
       // console.log(date, plantform, sortname, sorttype, searchWord)
     },
 

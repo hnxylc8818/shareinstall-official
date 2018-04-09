@@ -12,6 +12,7 @@ var DfttModule = (function (dm) {
       var _this = this
       _this.writeAppkey()
       _this.drawAppicon()
+      _this.writeAppName()
       _this.judgeIsNew()
       _this.changeRadio()
       _this.saveChannel()
@@ -31,6 +32,14 @@ var DfttModule = (function (dm) {
       var appIcon = $.cookie('img')
       if (appIcon) {
         $('#app_icon').attr('src', appIcon)
+      }
+    },
+
+    // 渲染应用名称
+    writeAppName: function () {
+      var appName = $.cookie('appName')
+      if (appName) {
+        $('#app_name').text(appName)
       }
     },
 

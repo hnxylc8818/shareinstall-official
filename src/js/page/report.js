@@ -85,7 +85,7 @@ var DfttModule = (function (dm) {
           if (data.code === 0) {
             if (data.data.status == 0) {
               _this.pageInit()
-            } else if (remainTime <= 10) {
+            } else if (remainTime <= 10 && data.data.status == 2) {
               _this.pageInit(remainTime)
             }
           }
@@ -133,7 +133,7 @@ var DfttModule = (function (dm) {
 
     // 请求封装
     ajaxGet: function (url, data, successCallback, errorCallback) {
-      data.appkey = $.cookie('appkey') //'K6BKB62B7BHABH' // 
+      data.appkey = $.cookie('appkey') //'AKBKB62BF2F7RF'//'K6BKB62B7BHABH' // 
       data.channel = this.channel
       $.ajax({
         type: 'get',
@@ -246,7 +246,7 @@ var DfttModule = (function (dm) {
           '最近7日': [moment().subtract('days', 6), moment()],
           '最近30日': [moment().subtract('days', 29), moment()]
         },
-        opens: 'right', //日期选择框的弹出位置
+        opens: 'left', //日期选择框的弹出位置
         buttonClasses: ['btn btn-default'],
         applyClass: 'btn-small btn-primary blue',
         cancelClass: 'btn-small',
@@ -269,6 +269,7 @@ var DfttModule = (function (dm) {
         var label = label ? label : '最近七日'
         opt.startDate = moment().subtract('days', 6)
         opt.endDate = moment()
+        name.attr('date-value', [moment().subtract('days', 6).format('YYYYMMDD'), moment().format('YYYYMMDD')])
       } else {
         var label = label ? label : '今日'
       }
@@ -547,7 +548,7 @@ var DfttModule = (function (dm) {
           },
           legend: {
             data: [{
-                name: '活跃设备数',
+                name: '平均打开次数',
                 icon: 'bar'
               }
             ]
@@ -748,7 +749,7 @@ var DfttModule = (function (dm) {
           idInstall = 'J_install',
           nameInstall = '安装量',
           nameRegister = '注册量',
-          nameVisit = '注册量',
+          nameVisit = '访问量',
           idRegister = 'J_register',
           idVisit = 'J_visit'
 
@@ -758,7 +759,7 @@ var DfttModule = (function (dm) {
           visitTotal = data.visit_total
           registerIos = data.register_ios
           installIos = data.install_ios
-          visitIos = data.visit_ios
+          visitIos = data.visit_ios || 0
           registerAndroid = data.register_android
           installAndroid = data.install_android
           visitAndroid = data.visit_android
@@ -839,7 +840,7 @@ var DfttModule = (function (dm) {
 
       this.ajaxGet('shareinstallgatherdata/shareinstallqidgrow', obj, function (json) {
         if (json.code !== 200) return
-        var data = json.datalist
+        var data = json.datalist.reverse()
         if (data.length > 0) {
           $.each(data, function (index, item) {
             // console.log(item)
@@ -848,7 +849,7 @@ var DfttModule = (function (dm) {
             visit.push(item.visit_cnt)
             // console.log(date)
             if (date[0] === date[1]) {
-              dataTypeX.push(item.time)
+              dataTypeX.push(item.hh)
             } else {
               dataTypeX.push(item.dt)
             }
@@ -1155,10 +1156,9 @@ var DfttModule = (function (dm) {
             '</div>'
           }
         }
-        $('.location_city img').hide()
-        $('.location_city').append(html)
+        $('.location_city').html(html)
       } else {
-        $('.location_city img').show()
+        $('.location_city').html('<img src="./img/overview/none.png" alt="没有数据" class="" style="width: 48px; height: 68px; position: absolute; top: 50%; left: 50%; margin-left: -34px; margin-top: -34px;">')
       }
     },
     /***
@@ -1271,6 +1271,16 @@ var DfttModule = (function (dm) {
      * 系统版本/品牌机型饼图
      */
     SystemVersionPie: function (id, data, opt) {
+      if (data.length > 20) {
+        $.each(data, function(index, item) {
+          if(index > 20) {
+            data[20]['value'] += parseInt(item.cnt)
+          }
+        })
+        data.length = 21
+        data[20]['name'] = '其他'
+        // data[20]['osver'] = '其他'
+      }
       // console.log(data)
       var myChart = echarts.init(document.getElementById(id));
       var option = {
@@ -1281,34 +1291,24 @@ var DfttModule = (function (dm) {
         series: [{
           name: '系统版本',
           type: 'pie',
-          radius: ['40%', '80%'],
-          color: ['#ff6484', '#00a3fe', '#4cc0c0', '#ffb957'],
-          avoidLabelOverlap: false,
+          radius: ['0%', '60%'],
+          color: ['#ff6484', '#00a3fe', '#4cc0c0', '#ffb957', '#ffbb66', '#cccccc'],
+          avoidLabelOverlap: true,
+          minAngle: 20,
           label: {
             normal: {
-              show: false,
-              position: 'center'
+              show: true,
+              position: 'outside'
             },
             emphasis: {
-              show: true,
-              textStyle: {
-                fontSize: '30',
-                fontWeight: 'bold'
-              }
+              show: true
             }
           },
           labelLine: {
             normal: {
-              show: true
-            }
-          },
-          label: {
-            normal: {
               show: true,
-
-            },
-            emphasis: {
-              show: true,
+              length: 15,
+              length2: 15
             }
           },
           data: data
