@@ -306,7 +306,7 @@ ShareInstall = function (win, doc, xhr) {
               }
               ResObj.schemaUrl = ResObj.schemaUrl + '?url=' + ResObj.fallbackUrl
             }
-            var waitTime = (obj || {}).timeout || ResObj.wt // 等待设定时间后app尚未拉起，再安装app
+            var waitTime = (obj || {}).timeout || ResObj.wt || 3000 // 等待设定时间后app尚未拉起，再安装app
             y(ResObj.schemaMethod, ResObj.schemaUrl, downApk, waitTime)
           } else {
             downApk && downApk()
@@ -347,8 +347,15 @@ ShareInstall = function (win, doc, xhr) {
         data: data,
         success: function (res) {
           console.log('res::', res)
-          if (res.status == 1) return
-          ResObj = handleResData(res.data[0] || {})
+          if (res.status == 1) {
+            ResObj = {}
+            ResObj.fallbackUrl = './error.html'
+            ResObj.schemaUrl = './error.html'
+            ResObj.fallbackMethod = 'frm'
+            ResObj.schemaMethod = 'loc'
+          } else {
+            ResObj = handleResData(res.data[0] || {})
+          }
           if (agent.indexOf("micromessenger") > 0 || agent.indexOf("qq") > 0) {
             if (ResObj.applied) {
               ResObj.fallbackUrl = ResObj.applied
@@ -358,7 +365,7 @@ ShareInstall = function (win, doc, xhr) {
             // ResObj.schemaUrl = ''
           }
           console.log('res::', ResObj)
-          res.shadow = res.shadow || "<div style='font-size:0.5rem;color:#fff;text-align:center;" +
+          res.shadow = res.shadow || "<div style='font-size:2em;color:#fff;text-align:right;" +
             "position:fixed;left:0;top:0;background:rgba(0,0,0,0.5);filter:alpha(opacity=50);" +
             "width:100%;height:100%;z-index:10000;'>点击右上角在浏览器中打开</div>"
           res.shadow && (domDiv = getDiv(res.shadow)), ready.ready()
@@ -940,7 +947,7 @@ ShareInstall = function (win, doc, xhr) {
   }
 
   MyShareInstall.docReady = docReady
-  // MyShareInstall.server = '//123.59.62.164' //'//test-shareinstall.shaqm.com' // '//t.oi.com'  // http://123.59.62.164/shareinstall/wap.h
+  // MyShareInstall.server = '//test-shareinstall.shaqm.com' // '//t.oi.com'  // http://123.59.62.164/shareinstall/wap.h'//123.59.62.164' //
 
   MyShareInstall.server = 'https://collision.shareinstall.com' //'//test-shareinstall.shaqm.com' //'//123.59.62.164' // '//t.oi.com'  // http://123.59.62.164/shareinstall/wap.h
   return MyShareInstall

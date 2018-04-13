@@ -257,6 +257,7 @@ var DfttModule = (function (dm) {
           $('.up_progress').show()
           $('.up_container').hide()
           $('.up_progress .filename').text(name)
+          pending = 0
           upfile();
         } else {
           layer.msg('请上传.ipa文件')
@@ -265,6 +266,7 @@ var DfttModule = (function (dm) {
 
       $('.stop_upload').off('click').on('click', function () {
         xhr.abort()
+        pending = 1
         clearTimeout(timer)
         $('.up_progress').hide()
         $('.up_container').show()
@@ -284,7 +286,7 @@ var DfttModule = (function (dm) {
       var filename;
       var appKey = $.cookie('appkey');
       var timer = null
-      // var pending;
+      var pending = 0;
       // var clock;
       function upfile() {
         start = 0;
@@ -304,11 +306,9 @@ var DfttModule = (function (dm) {
       }
 
       function up() {
-        /*
-        if(pending){
-         return;
+        if (pending) {
+          return;
         }
-        */
         var total_blob_num = Math.ceil(file.size / LENGTH);
         if (start < file.size) {
           xhr.open('POST', 'http://api.shareinstall.com/passage/upload2', true);

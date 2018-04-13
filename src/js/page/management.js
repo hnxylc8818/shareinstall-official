@@ -66,6 +66,39 @@ var DfttModule = (function (dm) {
       }
     },
 
+    setUrlParam: function (location, name, value) {
+      if (location.indexOf('?') < 0) {
+        return location + '?' + name + '=' + value
+      }
+      var url = location;
+      var splitIndex = url.indexOf('?') + 1;
+      var paramStr = url.substr(splitIndex, url.length);
+
+      var newUrl = url.substr(0, splitIndex);
+
+      // - if exist , replace 
+      var arr = paramStr.split('&');
+      for (var i = 0; i < arr.length; i++) {
+        var kv = arr[i].split('=');
+        if (kv[0] == name) {
+          newUrl += kv[0] + '=' + value;
+        } else {
+          if (kv[1] != undefined) {
+            newUrl += kv[0] + '=' + kv[1];
+          }
+        }
+        if (i != arr.length - 1) {
+          newUrl += '&';
+        }
+      }
+
+      // - if new, add
+      if (newUrl.indexOf(name + '=') < 0) {
+        newUrl += splitIndex == 0 ? '?' + name + '=' + value : '&' + name + '=' + value;
+      }
+      return newUrl;
+    },
+
     // 获取应用信息
     getAppInfo: function () {
       var _this = this;
@@ -266,7 +299,9 @@ var DfttModule = (function (dm) {
           exclude: 0,
           sortname: sortname || 'createTime',
           sorttype: sorttype || 'desc',
-          search: {'channel_name': searchWord || ''}
+          search: {
+            'channel_name': searchWord || ''
+          }
         },
         success: function (data) {
           if (data.code == 0) {
@@ -281,7 +316,10 @@ var DfttModule = (function (dm) {
               if (item.page_type === '1') {
                 item.page = window.location.href.replace('management.html', '') + 'demo.html?appkey=' + $.cookie('appkey') + '&channel=' + item.channel_code
               } else if (item.page_type === '2') {
-                item.page = item.page + '?channel=' + item.channel_code
+                // console.log(item.page)
+                // item.page = item.page + '?channel=' + item.channel_code
+                item.page = _this.setUrlParam(item.page, 'channel', item.channel_code)
+                // console.log(item.page)
               }
             })
 
@@ -320,7 +358,7 @@ var DfttModule = (function (dm) {
       var _this = this
       $('body').on('click', '.img-link-lock', function () {
         var channelId = $(this).attr('data-id')
-        layer.confirm('渠道被删除后，分发出去的渠道链接将失效，确定要删除吗？', {
+        layer.confirm('渠道被删除后，分发出去的渠道链接将失效，且不能再创建同编号的渠道链接，确定要删除吗？', {
           btn: ['确定删除', '取消']
         }, function () {
           _this.requestRemove(channelId)
@@ -417,6 +455,13 @@ var DfttModule = (function (dm) {
         _this.word = $('input[name="search"]').val()
         _this.page = 1
         _this.valuePicker()
+      })
+
+      $('#search_form input').bind('keyup', function(event) {
+        if (event.keyCode == '13') {
+          // 回车执行查询
+          $('#search_button').click();
+        }
       })
 
       $(document).on('click', '.channel-th th[data-field]', function (e) {

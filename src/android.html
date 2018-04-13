@@ -360,7 +360,7 @@ ShareInstall.getInstance().reportRegister();
 </code>
 </pre>
                             <h2>
-                                个性化安装和一键唤醒都调用同一个方法ShareInstall.getInstance().getInfo()获取相关信息，第一个参数为Intent，第二个参数为信息回调监听
+                                个性化安装和一键唤醒都调用同一个方法ShareInstall.getInstance().getInfo()获取相关信息，第一个参数为Intent(注：Intent可传null，但在配置了scheme唤醒的页面必须传，否则拿不到传递过来的参数)，第二个参数为信息回调监听
                             </h2>
                             <h1>四、个性化安装</h1>
                             <h2>在APP需要个性化安装参数时（由web网页中传递过来的，如邀请码、游戏房间号等 自定义参数），调用以下方法，在回调中获取参数。</h2>
@@ -772,10 +772,10 @@ public class WakeUpActivity extends AppCompatActivity {
                                 </style>
                                 <div class="item-upload up_container">
                                     <div class="up_area" style="position:absolute;top:0;left:0;width:100%;height:100%">
-                                        <button class="btn_a up_button" style="margin: 200px auto 40px; background: #40d6d6; border-radius: 4px; color: rgb(255, 255, 255); position: relative; z-index: 1;">
+                                        <a href="javascript:;" class="btn_a up_button" style="margin: 200px auto 40px; background: #40d6d6; border-radius: 4px; color: rgb(255, 255, 255); position: relative; z-index: 1;">
                                             选择apk文件
                                             <input type="file" name="mof" class="upload-filebtn" />
-                                        </button>
+                                        </a>
                                         <!-- <div id="upimg">
                                             <div id="load" style="width: 0%;">0%</div>
                                         </div> -->

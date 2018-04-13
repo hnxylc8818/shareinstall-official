@@ -599,3 +599,363 @@ var reloadChart = function () {
       }), e($("#chart_version"), "/stats/app/system-version", i), e($("#chart_brand"), "/stats/app/brand", i)
     }
 }()
+
+
+var reloadChart = function () {
+  function a(a, t, e) {
+    a = $(a), e = e || "所有";
+    var n, i, r = {
+        "所有": [moment("20160101", "YYYYMMDD"), moment()],
+        "今天": [moment(), moment()],
+        "昨天": [moment().subtract(1, "days"), moment().subtract(1, "days")],
+        "最近七天": [moment().subtract(6, "days"), moment()],
+        "最近30天": [moment().subtract(29, "days"), moment()]
+      },
+      o = function (t, e, r) {
+        n = t.format("YYYY/MM/DD"), i = e.format("YYYY/MM/DD"), a.find(".date-value").html("自由选取" == r ? n + " - " + i : r)
+      };
+    a.daterangepicker({
+      opens: "left",
+      ranges: r,
+      startDate: r[e][0],
+      endDate: r[e][1]
+    }, function (a, e, n) {
+      o(a, e, n), t()
+    }), o(r[e][0], r[e][1], e), this.getRange = function () {
+      return [n, i]
+    }
+  }
+
+  function t(a, t) {
+    a = $(a);
+    var e = {},
+      n = {};
+    a.find("[data-name]").each(function (a, t) {
+      var t = $(t),
+        i = t.attr("data-name");
+      (e[i] || (e[i] = [])).push(t), t.is(".active") && (n[i] = t.attr("data-value"))
+    }).click(function () {
+      var a = $(this),
+        i = a.attr("data-name"),
+        r = a.attr("data-value");
+      if (1 == e[i].length) a.toggleClass("active"), n[i] = a.is(".active") ? r : null;
+      else {
+        if (a.is("active")) return;
+        n[i] = r;
+        for (var o = 0; o < e[i].length; o++) e[i][o].removeClass("active");
+        a.addClass("active")
+      }
+      t()
+    }), this.getValues = function () {
+      return $.extend({}, n)
+    }
+  }
+
+  function e(e, n, i, r) {
+    function o() {
+      l && l.showLoading();
+      var a = (new Date).getTime(),
+        t = {
+          appId: params.appId,
+          channelId: params.channelId,
+          startTime: s.getRange()[0],
+          endTime: s.getRange()[1]
+        };
+      $.extend(t, c.getValues()), ajaxGet(n, t, function (e) {
+        var n = {
+            grid: {
+              left: 55,
+              right: 45,
+              top: 40,
+              bottom: 20
+            }
+          },
+          r = 500 - ((new Date).getTime() - a);
+        setTimeout(function () {
+          i(l, e, n, t), l && l.hideLoading()
+        }, r > 0 ? r : 0)
+      })
+    }
+    if (e.length) {
+      var l = r ? null : echarts.init(e.find(".mainContent")[0]),
+        s = new a(e.find(".date-container"), function () {
+          o()
+        }),
+        c = new t(e, function () {
+          o()
+        });
+      o()
+    }
+  }
+
+  function n(a, t, e) {
+    var n = t.data,
+      i = [],
+      r = [];
+    for (var o in n) i.push(o), r.push({
+      name: o,
+      type: "line",
+      data: n[o],
+      animationDuration: 1e3,
+      animationDurationUpdate: 1e3,
+      smooth: !0,
+      symbol: "none"
+    });
+    $.extend(e, {
+      tooltip: {
+        trigger: "axis"
+      },
+      yAxis: {
+        type: "value",
+        min: 0,
+        minInterval: 1,
+        boundaryGap: "10%"
+      },
+      legend: {
+        data: i
+      },
+      xAxis: {
+        type: "category",
+        boundaryGap: !0,
+        data: t.time
+      },
+      series: r,
+      color: ["#7Fadff", "#63f1ab", "#F88a87"]
+    }), a.setOption(resolveYSplit(e))
+  }
+
+  function i(a, t, e) {
+    var n = [],
+      i = 0;
+    for (var r in t) {
+      var o = t[r] || 0;
+      i += o, n.push({
+        name: r,
+        value: o,
+        label: r
+      })
+    }
+    for (var l = 0; l < n.length; l++) n[l].per = 0 == i ? 0 : 100 * n[l].value / i;
+    n.sort(function (a, t) {
+      return a.value == t.value ? 0 : a.value > t.value ? -1 : 1
+    }), $.extend(e, {
+      series: [{
+        type: "pie",
+        radius: [0, "50%"],
+        center: ["50%", "55%"],
+        animationDuration: 1e3,
+        animationDurationUpdate: 1e3,
+        data: n,
+        labelLine: {
+          normal: {
+            length: 20,
+            length2: 50
+          },
+          emphasis: {
+            length: 50,
+            length2: 20
+          }
+        },
+        label: {
+          emphasis: {
+            formatter: function (a) {
+              return "{a|" + a.data.label + "}{abg|}\n{hr|}\n  {b|" + a.data.value + "}  {per|" + a.data.per.toFixed(2) + "%}  "
+            },
+            backgroundColor: "#eee",
+            borderColor: "#aaa",
+            borderWidth: 1,
+            borderRadius: 4,
+            rich: {
+              a: {
+                color: "#999",
+                lineHeight: 22,
+                fontSize: 16,
+                align: "center"
+              },
+              hr: {
+                borderColor: "#aaa",
+                width: "100%",
+                borderWidth: .5,
+                height: 0
+              },
+              b: {
+                fontSize: 16,
+                lineHeight: 33
+              },
+              per: {
+                color: "#eee",
+                backgroundColor: "#334455",
+                padding: [2, 4],
+                borderRadius: 2
+              }
+            }
+          }
+        }
+      }],
+      color: ["#ff6f36", "#f6ca4a", "#b6a2de", "#2ec7c9", "#5ab1ef", "#ffb980", "#89c997", "#00bdf2", "#8d98b3", "#d87a80", "#dc69aa", "#95706d"]
+    }), a.setOption(e)
+  }
+  return echarts.__init = echarts.init, echarts.init = function (a) {
+      function t() {
+        n.resize()
+      }
+      var e, n = echarts.__init(a);
+      return $(window).resize(function () {
+        e && clearTimeout(e), e = setTimeout(t, 10)
+      }), n
+    }, $.get("/js/china.json?v=76478b399f", function (a) {
+      echarts.registerMap("china", a)
+    }),
+    function () {
+      e($("#chart_total"), "/stats/app/total", function (a, t) {
+        $("#chart_total .item[data-type]").each(function (a, e) {
+          e = $(e);
+          var n = e.attr("data-type"),
+            i = 0,
+            r = [{
+              name: "Android",
+              value: 0
+            }, {
+              name: "iOS",
+              value: 0
+            }];
+          for (var o in t) {
+            var l = t[o][n] || 0;
+            i += l, l > 0 && (r["android" == o ? 0 : 1].value = l)
+          }
+          e.find(".head span").text(i);
+          var s = echarts.init(e.find(".neirong")[0]),
+            c = {
+              tooltip: {
+                trigger: "item",
+                formatter: "{b} : {c} ({d}%)"
+              },
+              series: [{
+                type: "pie",
+                radius: [0, "40%"],
+                labelLine: {
+                  normal: {
+                    length: 10,
+                    length2: 10
+                  }
+                },
+                data: r
+              }],
+              color: ["#7Fadff", "#63f1ab"]
+            };
+          s.setOption(c)
+        })
+      }, !0), e($("#chart_add_trend"), "/stats/app/growth", n), e($("#chart_active_trend"), "/stats/app/active", function (a, t, e) {
+        a.clear(), n(a, t, e)
+      }), e($("#chart_location"), "/stats/app/location", function (a, t, e, n) {
+        var i = 0,
+          r = [],
+          o = {
+            v: "访问量",
+            i: "安装量",
+            r: "注册量"
+          }[n.event];
+        for (var o in t.values) {
+          var l = t.values[o],
+            s = {
+              name: o,
+              value: l
+            };
+          i > l || (i = l), r.push(s)
+        }
+        if (r.sort(function (a, t) {
+            return a.value > t.value ? -1 : a.value == t.value ? 0 : 1
+          }), "1" == n.type) {
+          var i, c = ["<p>top 10列表</p>"];
+          r.length > 0 && (i = r[0].value);
+          for (var d = 0; d < r.length; d++) d < 10 && c.push("<div><span>" + r[d].name + "</span> : <span>" + r[d].value + "</span></div><div class='cityNum'><div class='cityTxt' style='width:" + 1 * r[d].value / i * 100 + "%'></div></div>"), r[d] = function (a) {
+            var e = t.cords[a.name];
+            return e && (a.value = e.concat(a.value)), a
+          }(r[d]);
+          1 == c.length && (c = ['<img src="/images/none.png" alt="没有数据" style="width: 48px;height: 68px;position: absolute;top: 50%;left: 50%;margin-left: -34px;margin-top: -34px;">']), $("#chart_location .location_state").hide(), $("#chart_location .location_city").html(c.join("")).show(), $.extend(e, {
+            tooltip: {
+              trigger: "item",
+              formatter: function (a) {
+                return a.name + " : " + a.value[2]
+              }
+            },
+            geo: {
+              map: "china",
+              label: {
+                emphasis: {
+                  show: !1
+                }
+              },
+              itemStyle: {
+                normal: {
+                  areaColor: "#323c48",
+                  borderColor: "#111"
+                },
+                emphasis: {
+                  areaColor: "#2a333d"
+                }
+              }
+            },
+            series: [{
+              name: o,
+              type: "scatter",
+              coordinateSystem: "geo",
+              data: r,
+              symbolSize: 12,
+              label: {
+                normal: {
+                  show: !1
+                },
+                emphasis: {
+                  show: !1
+                }
+              },
+              itemStyle: {
+                emphasis: {
+                  borderColor: "#fff",
+                  borderWidth: 1
+                }
+              }
+            }]
+          })
+        } else {
+          for (var c = [], d = 0; d < r.length; d++) c.push("<div><span>" + r[d].name + "</span> : <span>" + r[d].value + "</span></div>");
+          $("#chart_location .location_city").hide(), $("#chart_location .location_state").html(c.join("")).show(), $.extend(e, {
+            tooltip: {
+              trigger: "item",
+              formatter: function (a) {
+                return a.name + " : " + a.value
+              }
+            },
+            series: [{
+              name: o,
+              type: "map",
+              mapType: "china",
+              label: {
+                normal: {
+                  show: !0
+                },
+                emphasis: {
+                  show: !0
+                }
+              },
+              data: r
+            }]
+          })
+        }
+        $.extend(e, {
+          visualMap: {
+            min: 0,
+            max: i,
+            left: "left",
+            top: "bottom",
+            text: ["高", "低"],
+            calculable: !0,
+            inRange: {
+              color: ["#e9eeef", "#00bdf2"]
+            }
+          }
+        }), a.setOption(e)
+      }), e($("#chart_version"), "/stats/app/system-version", i), e($("#chart_brand"), "/stats/app/brand", i)
+    }
+}()

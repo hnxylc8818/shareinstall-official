@@ -274,6 +274,7 @@ var DfttModule = (function (dm) {
       $('.upload-filebtn').on('change', function () {
         var name = $('.upload-filebtn')[0].files[0].name
         if (/.apk$/.test(name)) {
+          pending = 0
           $('#upimg').show()
           $('.up_progress').show()
           $('.up_container').hide()
@@ -286,6 +287,7 @@ var DfttModule = (function (dm) {
 
       $('.stop_upload').off('click').on('click', function () {
         xhr.abort()
+        pending = 1
         clearTimeout(timer)
         $('.up_progress').hide()
         $('.up_container').show()
@@ -305,7 +307,7 @@ var DfttModule = (function (dm) {
       var filename;
       var appKey = $.cookie('appkey');
       var timer = null
-      // var pending;
+      var pending = 0;
       // var clock;
       function upfile() {
         start = 0;
@@ -325,11 +327,9 @@ var DfttModule = (function (dm) {
       }
 
       function up() {
-        /*
-        if(pending){
-         return;
+        if (pending) {
+          return
         }
-        */
         var total_blob_num = Math.ceil(file.size / LENGTH);
         if (start < file.size) {
           xhr.open('POST', 'http://api.shareinstall.com/passage/upload', true);

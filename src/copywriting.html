@@ -202,7 +202,7 @@ ShareInstall.getInstance().reportRegister();
 </code>
 </pre>
             <h2>
-                个性化安装和一键唤醒都调用同一个方法ShareInstall.getInstance().getInfo()获取相关信息，第一个参数为Intent，第二个参数为信息回调监听
+                个性化安装和一键唤醒都调用同一个方法ShareInstall.getInstance().getInfo()获取相关信息，第一个参数为Intent(注：Intent可传null，但在配置了scheme唤醒的页面必须传，否则拿不到传递过来的参数)，第二个参数为信息回调监听
             </h2>
             <h1>四、个性化安装</h1>
             <h2>在APP需要个性化安装参数时（由web网页中传递过来的，如邀请码、游戏房间号等 自定义参数），调用以下方法，在回调中获取参数。</h2>
@@ -249,8 +249,8 @@ public class WakeUpActivity extends AppCompatActivity {
     <!--ios-->
     <div class="my-ios container my-app" style="display: none">
         <h1 style="margin-top: 0;">一、产品原理</h1>
-        <h2><span>精确的App安装来源与携带参数安装 ：</span>ShareInstall的核心价值在于，帮助Android/iOS开发者通过ShareInstall提供的sdk，精确的获取app每一次安装的分享（或推广）来源。原理如下：开发者在分享的h5页面上集成ShareInstall web sdk,发布分享链接时在url上动态的拼接任意的自定义参数（如推广渠道号，邀请码等等）；当某一终端访问该h5页面时，Shareinstall web sdk将同时确定该设备的个性化信息和采集自定义参数，上传至shareInstall服务器，待用户通过该h5页面安装app后首次打开时（如当前设备已安装该app，将直接拉起该app并传递参数），使用ShareInstall Android/iOS sdk从ShareInstall服务器再取回暂存的自定义参数。 </h2>
-        <h2><span>一键拉起功能：</span>ShareInstall通过标准的scheme，universal link等技术，在app已安装的情况下，从各种浏览器（包括微信、QQ、新浪微博、钉钉等主流社交软件的内置浏览器）拉起app并传递自定义参数，避免重复安装,如没安装则跳至appStore或应用宝下载app,下载完毕唤醒app的相应页面。</h2>
+        <h2><span>精确的App安装来源与携带参数安装 ：</span>ShareInstall的核心价值在于，帮助Android/iOS开发者通过ShareInstall提供的sdk，精确的获取app每一次安装的分享（或推广）来源。原理如下：开发者在分享的h5页面上集成ShareInstall web sdk，发布分享链接时在url上动态的拼接任意的自定义参数（如推广渠道号，邀请码等等）；当某一终端访问该h5页面时，Shareinstall web sdk将同时确定该设备的个性化信息和采集自定义参数，上传至shareInstall服务器，待用户通过该h5页面安装app后首次打开时（如当前设备已安装该app，将直接拉起该app并传递参数），使用ShareInstall Android/iOS sdk从ShareInstall服务器再取回暂存的自定义参数。 </h2>
+        <h2><span>一键拉起功能：</span>ShareInstall通过标准的scheme、universal link等技术，在app已安装的情况下，从各种浏览器（包括微信、QQ、新浪微博、钉钉等主流社交软件的内置浏览器）拉起app并传递自定义参数，避免重复安装，如没安装则跳至appStore或应用宝下载app，下载完毕唤醒app的相应页面。</h2>
         <h1>二、iOS SDK集成</h1>
         <h2><span>1、导入SDK</span></h2>
         <h2>下载并解压最新版SDK压缩包，将libShareInstall.a和ShareInstallSDK.h导入工程中。</h2>
@@ -269,7 +269,7 @@ return YES;
 }
 </code>
 </pre>
-        <h2>注:AppKey需填写自己的AppKey,请到ShareInstall官网后台查看自己应用的AppKey。</h2>
+        <h2>注：AppKey需填写自己的AppKey，请到ShareInstall官网后台查看自己应用的AppKey。</h2>
         <h2><span>3、个性化安装</span></h2>
         <h2>当应用安装后首次打开时，iOS sdk会收到网页端通过js sdk传来的自定义动态参数，精确的获取app每一次安装的分享（或推广）来源。比如通过在分享链接url中附带app邀请人的用户id，就可达到免填邀请码的效果；url中可拼接自定义的参数。在AppDelegate中，添加获取安装参数的回调方法，代码如下所示:</h2>
         <pre style="width:820px;height:220px">

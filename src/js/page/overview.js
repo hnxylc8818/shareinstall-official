@@ -125,7 +125,7 @@ var DfttModule = (function (dm) {
 
     // 请求封装
     ajaxGet: function (url, data, successCallback, errorCallback) {
-      data.appkey = $.cookie('appkey') //'AKBKB62BF2F7RF'//'K6BKB62B7BHABH' // 
+      data.appkey = $.cookie('appkey') //'K6BKB62B7BHABH' // 'AKBKB62BF2F7RF'//
       data.channel = ''
       $.ajax({
         type: 'get',
@@ -1235,14 +1235,15 @@ var DfttModule = (function (dm) {
         series: [{
           name: '系统版本',
           type: 'pie',
-          radius: ['0%', '60%'],
-          color: ['#ff6484', '#00a3fe', '#4cc0c0', '#ffb957', '#ffbb66', '#cccccc'],
-          avoidLabelOverlap: true,
-          minAngle: 20,
+          radius: ['0%', '40%'],
+          center: ["50%", "55%"],
+          color: ["#ff6f36", "#f6ca4a", "#b6a2de", "#2ec7c9", "#5ab1ef", "#ffb980", "#89c997", "#00bdf2", "#8d98b3", "#d87a80", "#dc69aa", "#95706d"],
+          // avoidLabelOverlap: false,
+          // clockwise: false,
+          // minAngle: 5,
           label: {
             normal: {
-              show: true,
-              position: 'outside'
+              show: true
             },
             emphasis: {
               show: true
@@ -1251,8 +1252,8 @@ var DfttModule = (function (dm) {
           labelLine: {
             normal: {
               show: true,
-              length: 15,
-              length2: 15
+              length: 0,
+              length2: 70
             }
           },
           data: data

@@ -176,14 +176,9 @@
                     <div style="overflow:hidden">
                         <a id="addLink" class="pull-left btn_a" href="./editingChannel.html">+新增渠道链接</a>
                     </div>
-                    <div class="add-trend" style="float:right;margin:24px 0 0;width:500px;border: none;box-shadow:none;" id="stats_bar">
+                    <div class="add-trend" style="float:right;margin:24px 0 0;width:700px;border: none;box-shadow:none;" id="stats_bar">
                         <div class="title clear" style="border: none">
-                            <ul class="data_profile" style="float:left;margin-left: -30px">
-                                <li class="all active" data-name="platform" data-value="all">all</li>
-                                <li class="android" data-name="platform" data-value="android">android</li>
-                                <li class="iOS" data-name="platform" data-value="ios">ios</li>
-                            </ul>
-                            <div class="div clear" style="float:left;margin:4px 0 0 50px">
+                            <div class="div clear" style="float:right;margin:0 0 0 50px;position: static;">
                                 <!-- <div class="overlay-btn" data-name="exclude" data-value="true" style="float:left">排除重复</div> -->
                                 <div class="time" style="float:left">
                                     <div class="count_calendar_right date-container" style="margin:0 0 0 20px;line-height:30px;height:32px;float:left">
@@ -193,16 +188,22 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <ul class="data_profile" style="float:right;">
+                                <li class="all active" data-name="platform" data-value="all">all</li>
+                                <li class="android" data-name="platform" data-value="android">android</li>
+                                <li class="iOS" data-name="platform" data-value="ios">ios</li>
+                            </ul>
                         </div>
                     </div>
                     <div style="margin-top:34px">
                         <!-- <a id="stats_export" class="count_calendar btn_a" style="border:1px solid #00c864;border-radius:4px;color:#00c864;padding-left:40px;background-color:#fff"
                             href="javascript:;">导出</a> -->
                         <div style="float:left" class="common-form">
-                            <form id="search_form">
-                                <input type="text" placeholder="输入关键字搜索" name="search" style="background:#ffffff">
+                            <div id="search_form">
+                                <input type="text" placeholder="输入渠道名称搜索" name="search" style="background:#ffffff">
                                 <span id="search_button" class="glyphicon glyphicon-search" style="left:-30px;cursor:pointer"></span>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>

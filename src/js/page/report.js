@@ -133,8 +133,9 @@ var DfttModule = (function (dm) {
 
     // 请求封装
     ajaxGet: function (url, data, successCallback, errorCallback) {
-      data.appkey = $.cookie('appkey') //'AKBKB62BF2F7RF'//'K6BKB62B7BHABH' // 
+      data.appkey = $.cookie('appkey') //'K6BKB62B7BHABH' // 'AKBKB62BF2F7RF'//
       data.channel = this.channel
+      // data.channel = ''
       $.ajax({
         type: 'get',
         url: this.baseUrl + url,
@@ -746,6 +747,7 @@ var DfttModule = (function (dm) {
           installAndroid = 0,
           visitIos = 0,
           visitAndroid = 0,
+          visitWeb = 0,
           idInstall = 'J_install',
           nameInstall = '安装量',
           nameRegister = '注册量',
@@ -754,15 +756,16 @@ var DfttModule = (function (dm) {
           idVisit = 'J_visit'
 
         if (data) {
-          registerTotal = data.register_total
-          installTotal = data.install_total
-          visitTotal = data.visit_total
-          registerIos = data.register_ios
-          installIos = data.install_ios
+          registerTotal = data.register_total || 0
+          installTotal = data.install_total || 0
+          visitTotal = data.visit_total || 0
+          registerIos = data.register_ios || 0
+          installIos = data.install_ios || 0
           visitIos = data.visit_ios || 0
-          registerAndroid = data.register_android
-          installAndroid = data.install_android
-          visitAndroid = data.visit_android
+          registerAndroid = data.register_android || 0
+          installAndroid = data.install_android || 0
+          visitAndroid = data.visit_android || 0
+          visitWeb = parseInt(visitTotal) - parseInt(visitAndroid) - parseInt(visitIos)
         }
 
         $('.register').html(registerTotal)
@@ -771,7 +774,7 @@ var DfttModule = (function (dm) {
 
         var dataInstall = [{
           value: installIos,
-          name: 'ios'
+          name: 'iOS'
         },
         {
           value: installAndroid,
@@ -780,7 +783,7 @@ var DfttModule = (function (dm) {
 
         var dataRegister = [{
           value: registerIos,
-          name: 'ios'
+          name: 'iOS'
         },
         {
           value: registerAndroid,
@@ -789,11 +792,15 @@ var DfttModule = (function (dm) {
 
         var dataVisit = [{
           value: visitIos,
-          name: 'ios'
+          name: 'iOS'
         },
         {
           value: visitAndroid,
           name: 'Android'
+        },
+        {
+          value: visitWeb,
+          name: 'Web'
         }]
 
         _this.initEchartsPie(idVisit, nameVisit, dataVisit)
@@ -1291,14 +1298,15 @@ var DfttModule = (function (dm) {
         series: [{
           name: '系统版本',
           type: 'pie',
-          radius: ['0%', '60%'],
-          color: ['#ff6484', '#00a3fe', '#4cc0c0', '#ffb957', '#ffbb66', '#cccccc'],
-          avoidLabelOverlap: true,
-          minAngle: 20,
+          radius: ['0%', '40%'],
+          center: ["50%", "55%"],
+          color: ["#ff6f36", "#f6ca4a", "#b6a2de", "#2ec7c9", "#5ab1ef", "#ffb980", "#89c997", "#00bdf2", "#8d98b3", "#d87a80", "#dc69aa", "#95706d"],
+          // avoidLabelOverlap: false,
+          // clockwise: false,
+          // minAngle: 5,
           label: {
             normal: {
-              show: true,
-              position: 'outside'
+              show: true
             },
             emphasis: {
               show: true
@@ -1307,8 +1315,8 @@ var DfttModule = (function (dm) {
           labelLine: {
             normal: {
               show: true,
-              length: 15,
-              length2: 15
+              length: 0,
+              length2: 70
             }
           },
           data: data
