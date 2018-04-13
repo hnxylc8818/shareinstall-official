@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>sharestall</title>
+  <title>shareinstall</title>
   <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -20,7 +20,7 @@
 </head>
 
 <body style="background: #ffffff">
-  <div>
+  <div class="channel-ok" style="display: none">
     <div style="position: absolute;top: 0;right: 0;bottom: 0;left: 0;overflow: auto;width: 100%">
       <!-- 这里是页面内容区 -->
       <div style="background: url(./img/overview/landing_bg.png) no-repeat;height:44%;background-size: cover;position: relative">
@@ -36,6 +36,13 @@
         </p>
       </div>
     </div>
+  </div>
+  <div class="channel-no" style="display: none">
+    <div style="text-align: center">
+      <img src="./img/install/error.png" alt="" style="display: block; max-width: 100%; height: auto; margin: 0 auto;">
+    </div>
+    <!-- <p style="text-align: center; font-size: 2em; color: #333">抱歉，出错了！</p> -->
+    <p style="text-align: center; font-size: 1em; color: #666; padding: 1em 1.5em">非法链接</p>
   </div>
   <script src="./js/common/base.min.js"></script>
   <script type="text/javascript" src="./js/page/shareinstall.min.js"></script>
@@ -72,20 +79,39 @@
     var copyData = JSON.parse(JSON.stringify(data))
     delete data.appkey
 
-    // 页面信息渲染
+    // 查询渠道是否过期
     $.ajax({
-      url: 'http://api.shareinstall.com/appliance/getone',
+      url: 'http://api.shareinstall.com/channel/verify',
       type: 'POST',
       data: {
-        app_key: copyData.appkey
+        app_key: copyData.appkey,
+        channel_code: copyData.channel
       },
       success: function (res) {
-        $('.icon').attr('src', res.data.icon)
-        $('.name').text(res.data.name)
+        if (res.code == 0 && res.data.flag == 1) {
+          $('.channel-ok').show()
+          pageSDK()
+        } else {
+          $('.channel-no').show()
+        }
       }
     })
-    // console.log(copyData.appkey)
-    new ShareInstall({
+
+    function pageSDK() {
+      // 页面信息渲染
+      $.ajax({
+        url: 'http://api.shareinstall.com/appliance/getone',
+        type: 'POST',
+        data: {
+          app_key: copyData.appkey
+        },
+        success: function (res) {
+          $('.icon').attr('src', res.data.icon)
+          $('.name').text(res.data.name)
+        }
+      })
+      // console.log(copyData.appkey)
+      new ShareInstall({
       /*appKey必选参数，ShareInstall平台为每个应用分配的ID*/
       appKey: copyData.appkey,
       /*可选参数，自定义android平台的apk下载文件名，只有apk在ShareInstall托管时才有效；个别andriod浏览器下载时，中文文件名显示乱码，请慎用中文文件名！*/
@@ -110,6 +136,7 @@
         }
       }
     }, data);
+    }
   </script>
 </body>
 

@@ -202,11 +202,11 @@
                     <h1 style="margin-top: 0;">一、产品原理</h1>
                     <h2>
                         <span>精确的App安装来源与携带参数安装 ：</span>shareInstall的核心价值在于，帮助Android/iOS开发者通过shareInstall提供的sdk，精确的获取app每一次安装的分享（或推广）来源。原理如下：开发者在分享的h5页面上集成
-                        shareInstall web sdk,发布分享链接时在url上动态的拼接任意的自定义参数（如推广渠道号，邀请码等等）；当某一终端访问该h5页面时，shareinstall web sdk将同时确定该设备的个性化信息和采集自定义参数，上传至shareInstall服务器,
+                        shareInstall web sdk，发布分享链接时在url上动态的拼接任意的自定义参数（如推广渠道号，邀请码等等）；当某一终端访问该h5页面时，shareinstall web sdk将同时确定该设备的个性化信息和采集自定义参数，上传至shareInstall服务器，
                         待用户通过该h5页面安装app后首次打开时（如当前设备已安装该app，将直接拉起该app并传递参数），使用shareInstall Android/iOS sdk从shareInstall服务器再取回暂存的自定义参数。
                     </h2>
                     <h2>
-                        <span>一键拉起功能：</span>shareInstall通过标准的scheme,universal link 等技术，在app已安装的情况下，从各种浏览器（包括微信、QQ、新浪微博、钉钉等主流社交软件的内置浏览器）拉起app并传递自定义参数，避免重复安装,如没安装则调至appStore或应用宝下载app,下载完毕唤起app的相应页面。
+                        <span>一键拉起功能：</span>shareInstall通过标准的scheme、universal link 等技术，在app已安装的情况下，从各种浏览器（包括微信、QQ、新浪微博、钉钉等主流社交软件的内置浏览器）拉起app并传递自定义参数，避免重复安装，如没安装则调至appStore或应用宝下载app，下载完毕唤起app的相应页面。
                     </h2>
                     <h1>二、iOS SDK集成</h1>
                     <h2>
@@ -254,7 +254,7 @@ return YES;
 }
 </code>
 </pre>
-        <h2>注:AppKey需填写自己的AppKey,请到ShareInstall官网后台查看自己应用的AppKey。</h2>
+        <h2>注：AppKey需填写自己的AppKey，请到ShareInstall官网后台查看自己应用的AppKey。</h2>
         <h2><span>3、个性化安装</span></h2>
         <h2>当应用安装后首次打开时，iOS sdk会收到网页端通过js sdk传来的自定义动态参数，精确的获取app每一次安装的分享（或推广）来源。比如通过在分享链接url中附带app邀请人的用户id，就可达到免填邀请码的效果；url中可拼接自定义的参数。在AppDelegate中，添加获取安装参数的回调方法，代码如下所示:</h2>
         <pre style="width:820px;height:220px">
@@ -270,7 +270,7 @@ UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"直接点击App进来�
 </code>
 </pre>
         <h2><span>4、一键跳转</span></h2>
-        <h2>ShareInstall通过标准的scheme，universal link等技术，在app安装的情况下，从各种浏览器（微信、QQ、新浪微博、钉钉等主流社交软件的内置浏览器）唤醒 app
+        <h2>ShareInstall通过标准的scheme、universal link等技术，在app安装的情况下，从各种浏览器（微信、QQ、新浪微博、钉钉等主流社交软件的内置浏览器）唤醒 app
             并传递自定义参数，避免重复安装。</h2>
         <h2><span>5、 universal link 配置</span></h2>
         <h2>Universal link是iOS9的一个新特性，通过Universal link，App可以通过各种浏览器跳转到App（例如微信内可不通过safari，一键跳转到App），真正实现一键跳转到相应界面。
@@ -834,10 +834,10 @@ jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncodi
                                 </style>
                                 <div class="item-upload up_container">
                                     <div class="up_area" style="position:absolute;top:0;left:0;width:100%;height:100%">
-                                        <button class="btn_a up_button" style="margin: 200px auto 40px; background: #40d6d6; border-radius: 4px; color: rgb(255, 255, 255); position: relative; z-index: 1;">
+                                        <a href="javascript:;" class="btn_a up_button" style="margin: 200px auto 40px; background: #40d6d6; border-radius: 4px; color: rgb(255, 255, 255); position: relative; z-index: 1;">
                                             选择ipa文件
                                             <input type="file" name="mof" class="upload-filebtn" />
-                                        </button>
+                                        </a>
                                         <!-- <button style="color:#00c864;margin:200px auto 40px;display:none" class="btn_submit stop_upload">取消上传</button>
                                         <div id="upimg">
                                             <div id="load" style="width: 0%;">0%</div>

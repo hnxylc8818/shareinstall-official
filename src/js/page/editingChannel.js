@@ -172,7 +172,7 @@ var DfttModule = (function (dm) {
               setTimeout(function () {
                 window.location.href = './login.html'
               }, 3000)
-            } else if (data.code == 4) {
+            } else if (data.code == 4 || data.code == 2) {
               layer.msg(data.message)
             } else {
               layer.msg('保存失败')
