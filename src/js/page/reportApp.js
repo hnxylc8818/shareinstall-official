@@ -11,12 +11,13 @@ var DfttModule = (function (dm) {
     baseUrl: 'http://tongji.021.com/datacenterapi/',
     init: function () {
       var _this = this;
+      _this.appkey = this.getQueryString('appkey')
       _this.channel = _this.getQueryString('channelCode')
-      _this.writeAppkey()
-      _this.writeQidName()
-      _this.writeAppName()
-      _this.drawAppicon()
-      _this.getAppInfo()
+      // _this.writeAppkey()
+      // _this.writeQidName()
+      // _this.writeAppName()
+      // _this.drawAppicon()
+      // _this.getAppInfo()
       _this.getAmountStatistics() // 获取总量统计数据
       _this.amountStatistics()
       _this.growthTrendStatistics()
@@ -24,7 +25,7 @@ var DfttModule = (function (dm) {
       // _this.ipTrend()
       // _this.getSystemVersion()
       // _this.getModel()
-      _this.gotoLink()
+      // _this.gotoLink()
       _this.valuePicker()
     },
 
@@ -133,7 +134,8 @@ var DfttModule = (function (dm) {
 
     // 请求封装
     ajaxGet: function (url, data, successCallback, errorCallback) {
-      data.appkey = $.cookie('appkey') //'K6BKB62B7BHABH' // 'AKBKB62BF2F7RF'//
+      // data.appkey = $.cookie('appkey') //'K6BKB62B7BHABH' // 'AKBKB62BF2F7RF'//
+      data.appkey = this.appkey //'K6BKB62B7BHABH' // 'AKBKB62BF2F7RF'//
       data.channel = this.channel
       // data.channel = ''
       $.ajax({
@@ -152,7 +154,20 @@ var DfttModule = (function (dm) {
     },
 
     valuePicker: function (ele) {
-      var _this = this
+      var _this = this;
+
+      $(document).on('click', function (e) {
+        // if (e.target.className !== 'plantform_cur' && e.target.className !== 'plantform_cur_name' && e.target.className !== 'arrow') {
+        //   $('.data_profile_ul').hide()
+        // }
+        if ($(e.target).parents('.data_profile').length === 0) {
+          $('.data_profile_ul').hide();
+        }
+      })
+
+      $('.plantform_cur').on('click', function () {
+        $(this).siblings('.data_profile_ul').toggle()
+      })
 
       $('.date-container').on('click', function (e) {
         if (e.target.className !== 'date-value') {
@@ -193,6 +208,9 @@ var DfttModule = (function (dm) {
         var platform = $(this).attr('data-value')
         var exclude = $(this).parents('.title').find('.overlay-btn').attr('data-value')
         var type = 0
+
+        $(this).parents('.data_profile_ul').hide();
+        $(this).parents('.data_profile_ul').siblings('.plantform_cur').find('span').text(platform);
 
         $(this).parents('.title').siblings('.contentER, .btnBox').find('[data-name="type"]').each(function (index, item) {
           if ($(item).hasClass('active')) {
@@ -1340,3 +1358,18 @@ var DfttModule = (function (dm) {
   dm[Overview.name] = Overview
   return dm
 })(DfttModule || {}) // eslint-disable-line
+
+$(function() {
+  // 调用初始化方法
+  $.each(DfttModule, function(i, obj) {
+    if ($.isPlainObject(obj)) {
+      if ($.isFunction(obj.init)) {
+        obj.init()
+      } else {
+        console.error(obj.init + ' is not a Function!')
+      }
+    } else {
+      console.error(obj + ' is not a PlainObject!')
+    }
+  })
+})

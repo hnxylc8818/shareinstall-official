@@ -306,7 +306,7 @@ ShareInstall = function (win, doc, xhr) {
               }
               ResObj.schemaUrl = ResObj.schemaUrl + '?url=' + ResObj.fallbackUrl
             }
-            var waitTime = (obj || {}).timeout || ResObj.wt || 3000 // 等待设定时间后app尚未拉起，再安装app
+            var waitTime = (obj || {}).timeout || ResObj.wt || 1500 // 等待设定时间后app尚未拉起，再安装app
             y(ResObj.schemaMethod, ResObj.schemaUrl, downApk, waitTime)
           } else {
             downApk && downApk()
@@ -327,9 +327,9 @@ ShareInstall = function (win, doc, xhr) {
         options.v = VERSION
       }
       var paramCode = encode1(MyJSON.stringify(options))
-      console.log('options::\n', options)
-      console.log('MyJSON.stringify(options)::\n', MyJSON.stringify(options))
-      console.log('paramCode::\n', paramCode)
+      // console.log('options::\n', options)
+      // console.log('MyJSON.stringify(options)::\n', MyJSON.stringify(options))
+      // console.log('paramCode::\n', paramCode)
       var tempAlert = ''
       for (var op in options) {
         tempAlert += (op + ':' + options[op])
@@ -346,11 +346,11 @@ ShareInstall = function (win, doc, xhr) {
         },
         data: data,
         success: function (res) {
-          console.log('res::', res)
+          // console.log('res::', res)
           if (res.status == 1) {
             ResObj = {}
-            ResObj.fallbackUrl = './error.html'
-            ResObj.schemaUrl = './error.html'
+            ResObj.fallbackUrl = 'https://www.shareinstall.com/error.html'
+            ResObj.schemaUrl = 'https://www.shareinstall.com/error.html'
             ResObj.fallbackMethod = 'frm'
             ResObj.schemaMethod = 'loc'
           } else {
@@ -364,7 +364,7 @@ ShareInstall = function (win, doc, xhr) {
             // ResObj.fallbackUrl = ResObj.applied ? ResObj.applied : ResObj.fallbackUrl
             // ResObj.schemaUrl = ''
           }
-          console.log('res::', ResObj)
+          // console.log('res::', ResObj)
           res.shadow = res.shadow || "<div style='font-size:2em;color:#fff;text-align:right;" +
             "position:fixed;left:0;top:0;background:rgba(0,0,0,0.5);filter:alpha(opacity=50);" +
             "width:100%;height:100%;z-index:10000;'>点击右上角在浏览器中打开</div>"
@@ -499,10 +499,10 @@ ShareInstall = function (win, doc, xhr) {
       } else {
         var osver = ''
       }
-      console.log('ipArr::', ipArr)
-      console.log('os::', os)
-      console.log('osver::', osver)
-      console.log('appKey::', appKey);
+      // console.log('ipArr::', ipArr)
+      // console.log('os::', os)
+      // console.log('osver::', osver)
+      // console.log('appKey::', appKey);
       window.logData = 'sw=' + (screenWidth || 0) + '&sh=' + (screenHeight || 0) + '&sp=' + dpr + '&gv=' + (myContext.version || '') +
         '&gr=' + (myContext.renderer || '') + '&li=' + (ipArr.length ? ipArr.join('-') : '') +
         '&os=' + os + '&osver=' + osver + '&appkey=' + appKey + '&v=' + VERSION + '&cpp=' + 'jssdk' + '&cp=' + JSON.stringify(ShareInstall.parseUrlParams())
