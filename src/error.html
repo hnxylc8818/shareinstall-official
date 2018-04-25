@@ -25,8 +25,44 @@
       <img src="./img/install/error.png" alt="" style="display: block; max-width: 100%; height: auto; margin: 0 auto;">
     </div>
     <!-- <p style="text-align: center; font-size: 2em; color: #333">抱歉，出错了！</p> -->
-    <p style="text-align: center; font-size: 1em; color: #666; padding: 1em 1.5em">当前平台的集成工作尚未完成，请登陆shareinstall官网查看详情</p>
+    <p style="text-align: center; font-size: 1em; color: #666; padding: 1em 1.5em">当前<span id="plantform"></span>平台的集成工作尚未完成，请登陆shareinstall官网查看详情</p>
   </div>
+
+  <script>
+    // 操作系统
+    function Os() {
+      var u = navigator.userAgent,
+        Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"),
+        mobile = false;
+      for (var v = 0; v < Agents.length; v++) {
+        if (u.indexOf(Agents[v]) > -1) {
+          mobile = true;
+          break;
+        }
+      }
+      return {
+        //移动终端浏览器版本信息
+        mobile: mobile, //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+        iphone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+        ipad: u.indexOf('iPad') > -1, //是否iPad
+        webapp: u.indexOf('Safari') === -1 //是否web应该程序，没有头部与底部
+      };
+    }
+
+    function app() {
+      var dom = document.getElementById('plantform')
+      var plantForm = Os()
+      if (plantForm.ios) {
+        dom.innerText = 'iOS'
+      } else {
+        dom.innerHTML = 'Android'
+      }
+    }
+
+    app()
+  </script>
 </body>
 
 </html>

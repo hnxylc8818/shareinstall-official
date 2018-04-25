@@ -11,12 +11,14 @@ var DfttModule = (function (dm) {
     baseUrl: 'http://tongji.021.com/datacenterapi/',
     init: function () {
       var _this = this;
-      _this.channel = _this.getQueryString('channelCode')
-      _this.writeAppkey()
-      _this.writeQidName()
-      _this.writeAppName()
-      _this.drawAppicon()
-      _this.getAppInfo()
+      _this.appkey = this.getQueryString('appkey')
+      if (!_this.appkey) {
+        alert('appKey错误!');
+      }
+      // _this.writeAppkey()
+      // _this.writeAppName()
+      // _this.drawAppicon()
+      // _this.getAppInfo()
       _this.getAmountStatistics() // 获取总量统计数据
       _this.amountStatistics()
       _this.growthTrendStatistics()
@@ -24,7 +26,7 @@ var DfttModule = (function (dm) {
       // _this.ipTrend()
       // _this.getSystemVersion()
       // _this.getModel()
-      _this.gotoLink()
+      // _this.gotoLink()
       _this.valuePicker()
     },
 
@@ -63,11 +65,6 @@ var DfttModule = (function (dm) {
       }
     },
 
-    // 渲染渠道名称
-    writeQidName: function () {
-      $('#reportQid').text(this.channel)
-    },
-
     // 获取应用信息
     getAppInfo: function () {
       var _this = this;
@@ -80,7 +77,6 @@ var DfttModule = (function (dm) {
         success: function (data) {
           var overTime = data.data.app_over_time.replace(/-/g, '/');
           var remainTime = parseInt(new Date(overTime) - new Date()) / 1000 / 60 / 60 / 24
-          // console.log(remainTime)
           data.code = parseInt(data.code)
           if (data.code === 0) {
             if (data.data.status == 0) {
@@ -133,9 +129,10 @@ var DfttModule = (function (dm) {
 
     // 请求封装
     ajaxGet: function (url, data, successCallback, errorCallback) {
-      data.appkey = $.cookie('appkey') //'K6BKB62B7BHABH' // 'AKBKB62BF2F7RF'//
-      data.channel = this.channel
-      // data.channel = ''
+
+      // data.appkey = 'AKBKB62BF2F7RF'//$.cookie('appkey') //'K6BKB62B7BHABH' // 
+      data.appkey = this.appkey//$.cookie('appkey') //'K6BKB62B7BHABH' // 
+      data.channel = ''
       $.ajax({
         type: 'get',
         url: this.baseUrl + url,
@@ -152,7 +149,20 @@ var DfttModule = (function (dm) {
     },
 
     valuePicker: function (ele) {
-      var _this = this
+      var _this = this;
+
+      $(document).on('click', function (e) {
+        // if (e.target.className !== 'plantform_cur' && e.target.className !== 'plantform_cur_name' && e.target.className !== 'arrow') {
+        //   $('.data_profile_ul').hide()
+        // }
+        if ($(e.target).parents('.data_profile').length === 0) {
+          $('.data_profile_ul').hide();
+        }
+      })
+
+      $('.plantform_cur').on('click', function () {
+        $(this).siblings('.data_profile_ul').toggle()
+      })
 
       $('.date-container').on('click', function (e) {
         if (e.target.className !== 'date-value') {
@@ -193,6 +203,9 @@ var DfttModule = (function (dm) {
         var platform = $(this).attr('data-value')
         var exclude = $(this).parents('.title').find('.overlay-btn').attr('data-value')
         var type = 0
+
+        $(this).parents('.data_profile_ul').hide();
+        $(this).parents('.data_profile_ul').siblings('.plantform_cur').find('span').text(platform);
 
         $(this).parents('.title').siblings('.contentER, .btnBox').find('[data-name="type"]').each(function (index, item) {
           if ($(item).hasClass('active')) {
@@ -312,7 +325,7 @@ var DfttModule = (function (dm) {
         },
         tooltip: {
           trigger: 'item',
-          formatter: "{a} <br/>{b} : {c} ({d}%)",
+          formatter: "{a} <br/>{b} : {c} ({d}%)"
         },
         calculable: true,
         series: [{
@@ -361,7 +374,7 @@ var DfttModule = (function (dm) {
     /**
      * 初始化折线图
      */
-    initEchartsCategory: function (id, dataTypeX, install, register, visit) {
+    initEchartsCategory: function (id, dataTypeX, install, register) {
       var myChart = echarts.init(document.getElementById(id));
       // 指定图表的配置项和数据
       var option = {
@@ -369,12 +382,7 @@ var DfttModule = (function (dm) {
           trigger: 'axis'
         },
         legend: {
-          data: [
-            {
-              name: '访问量',
-              icon: 'bar'
-            },
-            {
+          data: [{
               name: '安装量',
               icon: 'bar'
             },
@@ -382,7 +390,7 @@ var DfttModule = (function (dm) {
               name: '注册量',
               icon: 'bar'
             },
-            '访问量', '安装量', '注册量'
+            '安装量', '注册量'
           ]
         },
         calculable: true,
@@ -391,31 +399,25 @@ var DfttModule = (function (dm) {
           boundaryGap: false,
           data: dataTypeX
         }],
-        yAxis: [{
-          type: 'value'
-        }],
-        series: [
-          {
-            name: '访问量',
-            type: 'line',
-            smooth: true,
-            itemStyle: {
-              normal: {
-                areaStyle: {
-                  color: '#F88a87'
-                },
-                color: '#F88a87',
-                borderColor: '#F88a87'
-              }
-            },
-            lineStyle: {
-              normal: {
-                color: '#F88a87' //连线颜色
-              }
-            },
-            data: visit
+        yAxis: {
+          type: 'value',
+          axisTick: {
+            inside: true
           },
-          {
+          scale: true,
+          axisLabel: {
+            margin: 2,
+            formatter: function (value, index) {
+              if (value >= 10000 && value < 10000000) {
+                value = value / 10000 + '万';
+              } else if (value >= 10000000) {
+                value = value / 10000000 + '千万';
+              }
+              return value;
+            }
+          }
+        },
+        series: [{
             name: '安装量',
             type: 'line',
             smooth: true,
@@ -497,9 +499,24 @@ var DfttModule = (function (dm) {
             boundaryGap: false,
             data: dataTypeX
           }],
-          yAxis: [{
-            type: 'value'
-          }],
+          yAxis: {
+            type: 'value',
+            axisTick: {
+              inside: true
+            },
+            scale: true,
+            axisLabel: {
+              margin: 2,
+              formatter: function (value, index) {
+                if (value >= 10000 && value < 10000000) {
+                  value = value / 10000 + '万';
+                } else if (value >= 10000000) {
+                  value = value / 10000000 + '千万';
+                }
+                return value;
+              }
+            }
+          },
           series: [{
               name: '活跃设备数',
               type: 'line',
@@ -740,41 +757,30 @@ var DfttModule = (function (dm) {
         var data = json.datalist[0]
         var registerTotal = 0,
           installTotal = 0,
-          visitTotal = 0,
           registerIos = 0,
           registerAndroid = 0,
           installIos = 0,
           installAndroid = 0,
-          visitIos = 0,
-          visitAndroid = 0,
-          visitWeb = 0,
           idInstall = 'J_install',
           nameInstall = '安装量',
           nameRegister = '注册量',
-          nameVisit = '访问量',
-          idRegister = 'J_register',
-          idVisit = 'J_visit'
+          idRegister = 'J_register'
 
         if (data) {
-          registerTotal = data.register_total || 0
-          installTotal = data.install_total || 0
-          visitTotal = data.visit_total || 0
-          registerIos = data.register_ios || 0
-          installIos = data.install_ios || 0
-          visitIos = data.visit_ios || 0
-          registerAndroid = data.register_android || 0
-          installAndroid = data.install_android || 0
-          visitAndroid = data.visit_android || 0
-          visitWeb = parseInt(visitTotal) - parseInt(visitAndroid) - parseInt(visitIos)
+          registerTotal = data.register_total
+          installTotal = data.install_total
+          registerIos = data.register_ios
+          installIos = data.install_ios
+          registerAndroid = data.register_android
+          installAndroid = data.install_android
         }
 
         $('.register').html(registerTotal)
         $('.install').html(installTotal)
-        $('.visit').html(visitTotal)
 
         var dataInstall = [{
           value: installIos,
-          name: 'iOS'
+          name: 'ios'
         },
         {
           value: installAndroid,
@@ -783,27 +789,12 @@ var DfttModule = (function (dm) {
 
         var dataRegister = [{
           value: registerIos,
-          name: 'iOS'
+          name: 'ios'
         },
         {
           value: registerAndroid,
           name: 'Android'
         }]
-
-        var dataVisit = [{
-          value: visitIos,
-          name: 'iOS'
-        },
-        {
-          value: visitAndroid,
-          name: 'Android'
-        },
-        {
-          value: visitWeb,
-          name: 'Web'
-        }]
-
-        _this.initEchartsPie(idVisit, nameVisit, dataVisit)
         _this.initEchartsPie(idInstall, nameInstall, dataInstall)
         _this.initEchartsPie(idRegister, nameRegister, dataRegister)
       })
@@ -843,27 +834,25 @@ var DfttModule = (function (dm) {
       var dataTypeX = []
       var install = []
       var register = []
-      var visit = []
 
-      this.ajaxGet('shareinstallgatherdata/shareinstallqidgrow', obj, function (json) {
+      this.ajaxGet('shareinstallgatherdata/shareinstallgrowgather', obj, function (json) {
         if (json.code !== 200) return
-        var data = json.datalist.reverse()
+        var data = json.datalist
         if (data.length > 0) {
           $.each(data, function (index, item) {
             // console.log(item)
-            install.push(item.install_cnt)
-            register.push(item.register_cnt)
-            visit.push(item.visit_cnt)
+            install.push(item.install_num)
+            register.push(item.register_num)
             // console.log(date)
             if (date[0] === date[1]) {
-              dataTypeX.push(item.hh)
+              dataTypeX.push(item.time)
             } else {
               dataTypeX.push(item.dt)
             }
           })
         }
 
-        _this.initEchartsCategory(id, dataTypeX, install, register, visit)
+        _this.initEchartsCategory(id, dataTypeX, install, register)
       })
     },
     /**
@@ -1298,7 +1287,7 @@ var DfttModule = (function (dm) {
         series: [{
           name: '系统版本',
           type: 'pie',
-          radius: ['0%', '40%'],
+          radius: ['0%', '25%'],
           center: ["50%", "55%"],
           color: ["#ff6f36", "#f6ca4a", "#b6a2de", "#2ec7c9", "#5ab1ef", "#ffb980", "#89c997", "#00bdf2", "#8d98b3", "#d87a80", "#dc69aa", "#95706d"],
           // avoidLabelOverlap: false,
@@ -1340,3 +1329,18 @@ var DfttModule = (function (dm) {
   dm[Overview.name] = Overview
   return dm
 })(DfttModule || {}) // eslint-disable-line
+
+$(function() {
+  // 调用初始化方法
+  $.each(DfttModule, function(i, obj) {
+    if ($.isPlainObject(obj)) {
+      if ($.isFunction(obj.init)) {
+        obj.init()
+      } else {
+        console.error(obj.init + ' is not a Function!')
+      }
+    } else {
+      console.error(obj + ' is not a PlainObject!')
+    }
+  })
+})

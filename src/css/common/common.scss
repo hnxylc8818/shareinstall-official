@@ -707,6 +707,10 @@ body {
 
   a {
     color: #ffffff;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 }
 
@@ -720,7 +724,11 @@ body {
     border: solid 1px #ffffff;
     border-radius: 3px;
     color: #ffffff;
-    background: url(../../img/console/file.png) no-repeat 10px center
+    background: url(../../img/console/file.png) no-repeat 10px center;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 }
 
@@ -760,4 +768,8 @@ body {
 
 .daterangepicker {
   margin-right: -25px!important;
+}
+
+.xml .javascript {
+  opacity: 1 !important;
 }

@@ -202,7 +202,7 @@ var DfttModule = (function (dm) {
         var type = $(this).attr('data-value')
         var exclude = $(this).parents('.btnBox, .contentER').siblings('.title').find('.overlay-btn').attr('data-value')
 
-        $(this).parents('.btnBox').siblings('.title').find('.data_profile li').each(function (index, item) {
+        $(this).parents('.btnBox, .contentER').siblings('.title').find('.data_profile li').each(function (index, item) {
           if ($(item).hasClass('active')) {
             platform = $(item).attr('data-value')
           }

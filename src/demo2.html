@@ -16,6 +16,10 @@
     p {
       margin: 0;
     }
+
+    svg path, svg rect {
+      fill: #395CF3;
+    }
   </style>
 </head>
 
@@ -32,6 +36,16 @@
       <p class="name" style="font-size:2em;margin: 2.3em 0 0.3em;;text-align: center;color: #282828">shareinstall</p>
       <div style="margin: 1.75rem 0;padding: 0 0.75rem;color: #6d6d72;">
         <p>
+          <div id="installTip" style="display: none;text-align: center">
+            <div id="installTxt" style="display: none;line-height: 40px">正在安装，请按Home键在桌面查看</div>
+            <div id="svgCtn">
+                <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                  <path fill="#000" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z" transform="rotate(120.141 25 25)">
+                    <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animateTransform>
+                  </path>
+                </svg>
+            </div>
+          </div>
           <a href="javascript:;" id="install" style="background:#395CF3;color:#fff;border:1px solid #395CF3;text-align:center;display:block;border-radius:0.25rem;padding:0 0.5rem;margin:0;cursor:pointer;height:3rem;line-height:3rem;text-decoration: none;font-size: 1em">点击下载安装</a>
         </p>
       </div>
@@ -89,10 +103,21 @@
     var params ='?app_key='+_app_key;
     var encodeParams=encodeURIComponent(params)
 
+    var timer = null
+
 
     //var url='https://test-dev.dftoutiao.com/test4/test';
     console.log(url);
     document.getElementById('install').href="itms-services://?action=download-manifest&url="+url+encodeParams;
+    document.getElementById('install').onclick = function () {
+      this.style.display = 'none'
+      document.getElementById('installTip').style.display = 'block'
+      clearTimeout(timer)
+      timer = setTimeout(function () {
+        document.getElementById('installTxt').style.display = 'block'
+        document.getElementById('svgCtn').style.display = 'none'
+      }, 5000)
+    }
 
 </script>
 </body>
