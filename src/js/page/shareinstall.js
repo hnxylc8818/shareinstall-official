@@ -264,7 +264,7 @@ ShareInstall = function (win, doc, xhr) {
         opt.apkDownloadHandler(ResObj.apkUrl)
       } else {
         if (ResObj.fallbackUrl && domDiv) { //) // domDiv应该就是一个遮罩，后台来控制。
-          if (agent.indexOf("micromessenger") > 0 || agent.indexOf("qq") > 0) {
+          if ((agent.indexOf("micromessenger") > 0) && (agent.indexOf('android') > -1) ) {
             // delay(function () {
             //   doc.body.appendChild(domDiv)
             // }, 800)
@@ -289,6 +289,7 @@ ShareInstall = function (win, doc, xhr) {
           var ua = navigator.userAgent.toLowerCase();
           var os = ua.indexOf('iphone') > -1 ? 'ios' : ua.indexOf('android') > -1 ? 'android' : ''
           var downApk = isDownload ? downloadApk : null // isDownload 通过schema唤醒时，schemeWakeup()传过来的是false
+          var tempUrl = ''
           if (!isWakeUp) {
             // 安卓设备 非QQ浏览器 非chrome25浏览器（PC模拟） 三星浏览器 这些条件下可以尝试唤醒APP
             if ('android' == ResObj.platform && 'qq' != ResObj.brower && 'chrome25' != ResObj.brower && 'samsung' == ResObj.brower) {
@@ -304,9 +305,15 @@ ShareInstall = function (win, doc, xhr) {
               if (ResObj.fallbackUrl.indexOf('https://itunes.apple.com') < 0) {
                   ResObj.fallbackUrl = 'http://api.shareinstall.com/plists/page?app_key=' + appKey
               }
-              ResObj.schemaUrl = ResObj.schemaUrl + '?url=' + ResObj.fallbackUrl
+              tempUrl = '?url=' + ResObj.fallbackUrl
+              if (ResObj.schemaUrl.indexOf(tempUrl) < 0) {
+                ResObj.schemaUrl = ResObj.schemaUrl + tempUrl
+              }
             }
             var waitTime = (obj || {}).timeout || ResObj.wt || 1500 // 等待设定时间后app尚未拉起，再安装app
+            if ((ua.indexOf('iphone') > -1 || ua.indexOf('ipad') > -1 || ua.indexOf('ipod') > -1) && (ua.indexOf("micromessenger") > 0)) {
+              doc.body.appendChild(domDiv)
+            }
             y(ResObj.schemaMethod, ResObj.schemaUrl, downApk, waitTime)
           } else {
             downApk && downApk()
@@ -365,7 +372,7 @@ ShareInstall = function (win, doc, xhr) {
             // ResObj.schemaUrl = ''
           }
           // console.log('res::', ResObj)
-          res.shadow = res.shadow || "<div style='font-size:2em;color:#fff;text-align:right;" +
+          res.shadow = res.shadow || "<div id='ShareInstallDom' style='font-size:30px;color:#fff;text-align:right;" +
             "position:fixed;left:0;top:0;background:rgba(0,0,0,0.5);filter:alpha(opacity=50);" +
             "width:100%;height:100%;z-index:10000;'>点击右上角在浏览器中打开</div>"
           res.shadow && (domDiv = getDiv(res.shadow)), ready.ready()
