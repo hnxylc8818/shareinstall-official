@@ -87,6 +87,7 @@
         app_key: copyData.appkey,
         channel_code: copyData.channel
       },
+      crossDomain: true == !(document.all),
       success: function (res) {
         if (res.code == 0 && res.data.flag == 1) {
           $('.channel-ok').show()
@@ -105,6 +106,7 @@
         data: {
           app_key: copyData.appkey
         },
+        crossDomain: true == !(document.all),
         success: function (res) {
           $('.icon').attr('src', res.data.icon)
           $('.name').text(res.data.name)
