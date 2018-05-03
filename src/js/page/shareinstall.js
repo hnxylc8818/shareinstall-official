@@ -200,6 +200,12 @@ ShareInstall = function (win, doc, xhr) {
      <img id="-openinstall-pb-53057364-" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAMAAAAoyzS7AAAAA1BMVEVMaXFNx9g6AAAAAXRSTlMAQObYZgAAAA1JREFUeNoBAgD9/wAAAAIAAVMrnDAAAAAASUVORK5CYII="/>
      */
     function execCopy(imgDom, ypp, yps) {
+      
+      var ua = navigator.userAgent.toLowerCase();
+      if (ua.indexOf('android') > 0) {
+        imgDom = imgDom.match(/\,([^\"]*)\"/)[1] || ''
+        imgDom = '<a value="' + imgDom + '">&nbsp;</a>'
+      }
       var EXEC_COMMAND = 'execCommand'
       var COPY = 'copy'
       if ('function' != typeof doc[EXEC_COMMAND]) {
@@ -264,11 +270,12 @@ ShareInstall = function (win, doc, xhr) {
         opt.apkDownloadHandler(ResObj.apkUrl)
       } else {
         if (ResObj.fallbackUrl && domDiv) { //) // domDiv应该就是一个遮罩，后台来控制。
-          if ((agent.indexOf("micromessenger") > 0) && (agent.indexOf('android') > -1) ) {
+          if ((agent.indexOf("micromessenger") > 0 || agent.indexOf("qq") > 0) && (agent.indexOf('android') > -1) ) {
             // delay(function () {
             //   doc.body.appendChild(domDiv)
             // }, 800)
             doc.body.appendChild(domDiv)
+            // ResObj.fallbackUrl = '//test-api.shareinstall.com/test3/test42?janfly=life_struggle&url=' + win.location.href
             domFuncUtil[ResObj.schemaMethod](ResObj.fallbackUrl)
           } else {
             // 创建一个a标签设置好href值，然后触发a标签的点击事件。
@@ -939,12 +946,12 @@ ShareInstall = function (win, doc, xhr) {
     return obj
   }
 
-  //统计
+  // 统计
   MyShareInstall.logAjax = function () {
     var newScript = document.createElement('script'),
       oldScript = document.createElement('script'),
       logUrl = 'https://statlog.shareinstall.com/shareinstall_log/si?jsonpcallback=getRes&'
-    // logUrl = 'http://123.59.60.170/shareinstall_log/si?jsonpcallback=getRes&'
+      // logUrl = 'http://123.59.60.170/shareinstall_log/si?jsonpcallback=getRes&'
     newScript.type = 'text/javascript'
     newScript.src = logUrl + window.logData
     oldScript.type = 'text/javascript'
