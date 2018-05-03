@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html>
   <head>
   <meta charset="utf-8" />
@@ -77,11 +77,12 @@ delete data.appkey
 
 // 页面信息渲染
 $.ajax({
-      url: 'http://api.shareinstall.com/appliance/getone',
+      url: 'http://api.shareinstall.com/appliance/getone?_' + new Date().getDate(),
       type: 'POST',
       data: {
         app_key: copyData.appkey
       },
+      crossDomain: true == !(document.all),
       success: function (res) {
         $('.icon').attr('src', res.data.icon)
         $('.name').text(res.data.name)

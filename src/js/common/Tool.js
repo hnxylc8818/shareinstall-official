@@ -28,7 +28,7 @@ var Tool = (function() {
     },
 
     // 时间戳转换
-    timetrans(date) {
+    timetrans: function(date) {
       date = new Date(date * 1000);// 如果date为10位不需要乘1000
       var Y = date.getFullYear() + '-';
       var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
