@@ -293,6 +293,41 @@ var DfttModule = (function (dm) {
         $('.up_container').show()
       })
 
+      // 拖拽上传
+      var dropbox = document.getElementsByClassName('up_area')[0];
+
+      dropbox.addEventListener('dragenter', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+      }, false);
+
+      dropbox.addEventListener('dragover', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        this.style.border = 'dashed 1px red';
+      }, false);
+
+      dropbox.addEventListener('drop', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        this.style.border = '0';
+        var dt = e.dataTransfer;
+        var files = dt.files;
+        var name = files[0].name;
+        if (/.apk$/.test(name)) {
+          pending = 0
+          $('#upimg').show()
+          $('.up_progress').show()
+          $('.up_container').hide()
+          $('.up_progress .filename').text(name)
+          upfile(files[0]);
+        } else {
+          layer.msg('请上传.apk文件')
+        }
+
+        // files[0]即为第一个文件
+      }, false);
+
       var xhr = new XMLHttpRequest();
       var fd;
       var des = document.getElementById('load');
@@ -309,13 +344,13 @@ var DfttModule = (function (dm) {
       var timer = null
       var pending = 0;
       // var clock;
-      function upfile() {
+      function upfile(fileUpload) {
         start = 0;
         end = LENGTH + start;
         blob_num = 1;
         //pending=false;
 
-        file = document.getElementsByName('mof')[0].files[0];
+        file = fileUpload || document.getElementsByName('mof')[0].files[0];
         //filename = file.name;
         if (!file) {
           // alert('请选择文件');
@@ -381,7 +416,7 @@ var DfttModule = (function (dm) {
                             $('#configScheme').html(res.data.scheme)
                             $('input[name="yybEnabled"]').prop('checked', false)
                             $('input[name="yybUrl"]').prop('disabled', true).val('')
-                            $('#load').css('width', '0%').text('0%')
+                            $('#load').css('width', '0%')
                             $('#upimg').css('display', 'none')
                             $('.upload-filebtn').val('')
                             $('.btn-upload-back').click()
