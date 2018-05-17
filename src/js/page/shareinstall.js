@@ -963,6 +963,8 @@ ShareInstall = function (win, doc, xhr) {
   MyShareInstall.docReady = docReady
   // MyShareInstall.server = '//test-shareinstall.shaqm.com' // '//t.oi.com'  // http://123.59.62.164/shareinstall/wap.h'//123.59.62.164' //
 
-  MyShareInstall.server = 'https://collision.shareinstall.com' //'//test-shareinstall.shaqm.com' //'//123.59.62.164' // '//t.oi.com'  // http://123.59.62.164/shareinstall/wap.h
+  // MyShareInstall.server = 'https://collision.shareinstall.com' //'//test-shareinstall.shaqm.com' //'//123.59.62.164' // '//t.oi.com'  // http://123.59.62.164/shareinstall/wap.h
+  MyShareInstall.server = 'https://wapcollision.shareinstall.com' //'//test-shareinstall.shaqm.com' //'//123.59.62.164' // '//t.oi.com'  // http://123.59.62.164/shareinstall/wap.h
+
   return MyShareInstall
 }(window, document, XMLHttpRequest)
