@@ -12,412 +12,272 @@
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="./css/common/base.min.css">
     <link rel="stylesheet" href="./css/page/index.min.css">
+    <link href="./css/page/font-awesome.min.css" rel="stylesheet">
+    <link href="./css/page/animate.min.css" rel="stylesheet"> 
+    <link href="./css/page/prettyPhoto.min.css" rel="stylesheet">
+    <link href="./css/page/styles.min.css" rel="stylesheet"> 
 </head>
 <body>
-<!--banner-->
-<div class="my-banner">
-    <div class="my-banner-top clearfix">
-        <a href="./index.html">
-            <div class="banner-left fl"></div>
-        </a>
-        <div class="banner-right fr">
-            <a href="javascript:;" class="btn-mobile-menu fr"><i></i><i></i><i></i></a>
-            <ul class="banner-nav fl clearfix">
-                <li style="list-style: none">
-                    <a href="javascript:volid(0);" class="active">产品</a>
-                    <a href="./scene.html">场景</a>
-                    <a href="./copywriting.html">文档</a>
-                    <a href="./download.html">下载中心</a>
-                    <a href="./about.html">关于我们</a>
-                </li>
-            </ul>
-            <div class="logo fl clearfix">
-                <a href="javascript:;" class="fl console" id='J_console'>控制台</a>
-                <a href="./login.html" class="fl apply">申请使用</a>
+    <body id="home">
+        <header id="header">
+            <nav id="main-nav" class="navbar navbar-default navbar-fixed-top" role="banner">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="index.html"><img src="./img/install/logo.png" alt="logo"></a>
+                    </div>
+                    
+                    <div class="collapse navbar-collapse navbar-right">
+                        <ul class="nav navbar-nav">
+                            <li class="scroll active"><a href="#home">首页</a></li>  
+                            <li class="scroll"><a href="#services">服务</a></li>
+                            <li class="scroll"><a href="#about">团队</a></li> 
+                            <li class="scroll"><a href="#our-team">SDK</a></li>
+                            <li class="scroll"><a href="#testimonial">合作伙伴</a></li>
+                            <li class="scroll"><a href="#contact-us">联系我们</a></li>
+                            <li class="scroll"><a href="./application.html">管理后台</a></li>                        
+                        </ul>
+                    </div>
+                </div><!--/.container-->
+            </nav><!--/nav-->
+        </header><!--/header-->
+        
+        <section id="hero-banner">
+                 <div class="banner-inner">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                     
+                                        <h2>Shareinstall APP推广专家</h2>
+                                        <p>移动产品安装来源跟踪、用户免填邀请码、一键唤醒app自动加入房间</p>
+                                        <a class="btn btn-primary btn-lg" href="./login.html">免费体验</a>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        </section><!--/#main-slider-->
+        
+        <section id="services" >
+            <div class="container">
+        
+                <div class="section-header">
+                    <h2 class="section-title wow fadeInDown">我们为您提供什么？</h2>
+                    <p class="wow fadeInDown">简化拉新用户步骤，减少推广页用户流失，精准确定新老用户关系</p>
+                </div>
+        
+                <div class="row">
+                    <div class="features">
+                        <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="0ms">
+                            <div class="media service-box">
+                                <div class="pull-left">
+                                    <i class="fa fa-futbol-o"></i>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="media-heading">1.免填邀请码</h4>
+                                    <p>新用户通过下载页面下载渠道包，即可绑定用户关系</p>
+                                </div>
+                            </div>
+                        </div><!--/.col-md-4-->
+        
+                        <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="100ms">
+                            <div class="media service-box">
+                                <div class="pull-left">
+                                    <i class="fa fa-compass"></i>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="media-heading">2.自动打渠道包</h4>
+                                    <p>自动打渠道包，减少开发成本</p>
+                                </div>
+                            </div>
+                        </div><!--/.col-md-4-->
+        
+                        <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="200ms">
+                            <div class="media service-box">
+                                <div class="pull-left">
+                                    <i class="fa fa-database"></i>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="media-heading">3.用户社交分享统计</h4>
+                                    <p>支持精准统计用户社交分享的效果</p>
+                                </div>
+                            </div>
+                        </div><!--/.col-md-4-->
+                    
+                        <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms">
+                            <div class="media service-box">
+                                <div class="pull-left">
+                                    <i class="fa fa-bar-chart"></i>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="media-heading">4.地推精准统计</h4>
+                                    <p>用户安装后零操作也能统计到，做地推人员的好帮手</p>
+                                </div>
+                            </div>
+                        </div><!--/.col-md-4-->
+        
+                        <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="400ms">
+                            <div class="media service-box">
+                                <div class="pull-left">
+                                    <i class="fa fa-paper-plane-o"></i>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="media-heading">5.自动建立好友关系</h4>
+                                    <p>让用户早一步建立关系链</p>
+                                </div>
+                            </div>
+                        </div><!--/.col-md-4-->
+        
+                        <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="500ms">
+                            <div class="media service-box">
+                                <div class="pull-left">
+                                    <i class="fa fa-bullseye"></i>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="media-heading">6.移动广告效果追踪</h4>
+                                    <p>不仅检测，更可以精准统计到安装量</p>
+                                </div>
+                            </div>
+                        </div><!--/.col-md-4-->
+                    </div>
+                </div><!--/.row-->    
+            </div><!--/.container-->
+        </section><!--/#services-->
+        
+        
+        <section id="about">
+            <div class="container">
+        
+                <div class="section-header">
+                    <h2 class="section-title wow fadeInDown" style="color: #fff">我们是谁？</h2>
+                    <p class="wow fadeInDown">我们是一群相信技术改变世界的人</p>
+                </div>
+        
+                <div class="row">
+                    <div class="col-sm-6 wow fadeInLeft">
+                      <img class="img-responsive" src="./img/about.png" alt="" style="opacity: 0.3;">
+                    </div>
+        
+                    <div class="col-sm-6 wow fadeInRight">
+                        <!-- <h3 class="column-title">Our Fitness Studio</h3> -->
+                        <p>Shareinstall团队隶属于上海嵩恒网络科技股份有限公司，立足于大数据挖掘技术平台，遵循公司“以用户价值为中心”的理念，专注在app推广、大数据、人工智能等领域开展技术研发和业务落地。
+                            团队成员不乏来自北京大学、上海交通大学、重庆大学、南京航空航天大学、南京理工大学、瑞典林雪平大学等国内外顶级院校的博士、硕士，组成了一支兼具学术研究背景研究和工程实践能力的科研团队。截止目前，团队已经拥有数十项领先的图像技术和千亿规模图像大数据计算能力，为公司超过30个业务提供图像技术支持；多项研究成果在东方头条、猫扑视频、猫扑体育、东方体育、万能输入法等产品落地。
+                            <br>
+                            整个团队将致力于将Shareinstall打造为服务于移动开发者的基础设施，成为每位移动开发者APP开发过程中必不可少的工具。</p>
+      
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="my-banner-bottom container">
-        <h1>
-            <span class="typed-element"></span>
-        </h1>
-        <p>
-            App免填邀请码安装、App多层邀请链统计、App地推统计（可结算的精度）
-            <br/>
-            安卓/iOS安装来源精确统计（可用于CPS/CPA）、App安装后场景直达、App注册安装流程优化、最精准的移动广告效果统计
-        </p>
-        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2881355608&site=qq&menu=yes">立即体验</a>
-    </div>
-</div>
-<!--个性化安装-->
-<div class="my-install container">
-    <div class="title">
-        <h2>shareinstall打造APP个性化安装</h2>
-        <p>
-            shareinstall专注于移动营销领域，通过APP个性化安装为移动APP
-            产品的营销、推广提供全面的技术支持
-        </p>
-    </div>
-    <ul class="install-nav clearfix core-cards">
-        <li class="card">
-            <a href="./scene.html">
-                <div class="card-icn card-icn--ux-design"></div>
-                <h3>移动广告效果统计</h3>
-                <p>不仅监测，更可以精确统计
-                    安装量兼容IOS、安卓</p>
-                <div class="bg-img" style="background-image: url('./img/index/xidong.png')"></div>
-                <span class="border"></span>
-            </a>
-        </li>
-        <li class="card">
-            <a href="./scene.html">
-                <div class="card-icn card-icn--ui-design"></div>
-                <h3>免填邀请码安装</h3>
-                <p>个人推广渠道动态创建与统计</p>
-                <div class="bg-img" style="background-image: url('./img/index/yapqingma.png')"></div>
-                <span class="border"></span>
-            </a>
-        </li>
-        <li class="card">
-            <a href="./scene.html">
-                <div class="card-icn card-icn--mobile-ui"></div>
-                <h3>安装后自动加群加好友</h3>
-                <p>让用户早一步直达
-                    APP核心功能</p>
-                <div class="bg-img" style="background-image: url('./img/index/jiahaoyou.png')"></div>
-                <span class="border"></span>
-            </a>
-        </li>
-        <li class="card">
-            <a href="./scene.html">
-                <div class="card-icn card-icn--web-design"></div>
-                <h3>一键加入游戏房间</h3>
-                <p>减少步骤，快速体验</p>
-                <div class="bg-img" style="background-image: url('./img/index/youxi.png')"></div>
-                <span class="border"></span>
-            </a>
-        </li>
-        <li class="card">
-            <a href="./scene.html">
-                <div class="card-icn card-icn--ubiquitous-design"></div>
-                <h3>用户分享统计</h3>
-                <p>支持社交分享效果精准统计</p>
-                <div class="bg-img" style="background-image: url('./img/index/fenxiang.png')"></div>
-                <span class="border"></span>
-            </a>
-        </li>
-        <li class="card">
-            <a href="./scene.html">
-                <div class="card-icn card-icn--wearable-apps"></div>
-                <h3>渠道自动创建与分配</h3>
-                <p>支持APP推广渠道链接动态
-                    生成游戏发行、联运的CPS
-                    利器</p>
-                <div class="bg-img" style="background-image: url('./img/index/qudao.png')"></div>
-                <span class="border"></span>
-            </a>
-        </li>
-        <li class="card">
-            <a href="./scene.html">
-                <div class="card-icn card-icn--wearable-apps1"></div>
-                <h3>地推统计</h3>
-                <p>用户安装后零操作也可统计到
-                    精确到不怕地推人员抱怨</p>
-                <div class="bg-img" style="background-image: url('./img/index/ditui.png')"></div>
-                <span class="border"></span>
-            </a>
-        </li>
-        <li class="card">
-            <a href="./scene.html">
-                <div class="card-icn card-icn--wearable-apps2"></div>
-                <h3>微信中一键拉起APP</h3>
-                <p>IOS安卓无障碍实现场景还原</p>
-                <div class="bg-img" style="background-image: url('./img/index/weixin.png')"></div>
-                <span class="border"></span>
-            </a>
-        </li>
-    </ul>
-</div>
-<!--特性-->
-<div class="my-characteristic">
-    <ul class="clearfix container">
-        <li class="fl v1">
-            <div class="img img1"></div>
-            <div class="title">精准</div>
-            <span class="desc">业界最精准的</span>
-            <p class="text">APP个性化安装和渠道统计</p>
-        </li>
-        <li class="fl v2">
-            <div class="img img2"></div>
-            <div class="title">灵活</div>
-            <span class="desc">渠道链接取代渠道包</span>
-            <p class="text">可同时统计上万渠道</p>
-        </li>
-        <li class="fl v3">
-            <div class="img img3"></div>
-            <div class="title">稳定</div>
-            <span class="desc">成熟的解决方案</span>
-            <p class="text">健壮的服务系统</p>
-        </li>
-        <li class="fl v4">
-            <div class="img img4"></div>
-            <div class="title">私密</div>
-            <span class="desc">不涉及任何业务数据</span>
-            <p class="text">客户数据全程加密</p>
-        </li>
-    </ul>
-</div>
-<!--客户-->
-<div class="my-customer container">
-    <div class="title ">
-        <h3 class="tlt">典型客户</h3>
-        <span class="text">诚信企业  卓越功能  可靠服务</span>
-    </div>
-    <ul class="clearfix">
-        <li class="fl">
-            <p>
-                <span class="img img1"></span>
-            </p>
-        </li>
-        <li class="fl">
-            <p>
-                <span class="img img2">
+        </section><!--/#about-->
+        <div class="tlinks">Collect from <a href="http://www.cssmoban.com/"  title="网站模板">网站模板</a></div>
+         <section id="our-team">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title wow fadeInDown">
+        下载中心
+        </h2>
+        <p class="wow fadeInDown">Shareinstall下载，轻快简单</p> 
+                </div>
+                
+                    
+                <div class="row text-center">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="team-member wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
+                            <a href="http://api.shareinstall.com/download/1.0.2/ioshttp://api.shareinstall.com/download/1.0.2/android">
+                                <div class="team-img">
+                                    <img class="img-responsive" src="./img/team/01.jpg" alt="">
+                                </div>
+                                <div class="team-info">
+                                    <h3>iOS SDK下载</h3>
+                                </div> 
+                            </a>
+                            
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="team-member wow fadeInUp" data-wow-duration="400ms" data-wow-delay="100ms">
+                            <a href="http://api.shareinstall.com/download/1.0.2/android">
+                                <div class="team-img">
+                                    <img class="img-responsive" src="./img/team/02.jpg" alt="">
+                                </div>
+                                <div class="team-info">
+                                    <h3>Android SDK下载</h3>
+                                </div> 
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+        </section><!--/#our-team-->
+        
+        <section class="testimonial-area" id="testimonial">
+                <div class="container">
+                    <div class="section-header">
+                    <h2 class="section-title wow fadeInDown">合作伙伴</h2>
+                    <p class="wow fadeInDown">诚信企业 卓越功能 可靠服务</p>
+                </div>
+                
+                </div>
+            </section>
+        <section id="contact-us">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title wow fadeInDown">联系我们</h2>
+                    <!-- <p class="wow fadeInDown">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget risus vitae massa <br> semper aliquam quis mattis quam.</p> -->
+                </div>
+                <div class="lianxiwomen" style="text-align: center;padding-bottom: 30px;font-size: 18px"><span>业务咨询QQ：2881355608</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>服务热线：17321404310</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>服务邮箱：shareinstall@021.com</span></div>
+            </div>
+        </section><!--/#contact-us-->
+        
+    
+        
+        <footer id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">上海嵩恒网络科技股份有限公司 版权所有&nbsp;&nbsp;&nbsp;&nbsp;沪ICP备17053783号</div>
+                </div>
+            </div>
+        </footer><!--/#footer-->
+        <!--谈话框-->
+        <div id="J_functionBar" class="functionBar">
+            <div class="bar-qq">
+                <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2881355608&site=qq&menu=yes" class="icon icon1"
+                title="点击这里给我发消息">
 
-                </span>
-            </p>
-        </li>
-        <li class="fl">
-            <p>
-                <span class="img img3">
+                </a>
+                联系
+            </div>
+            <!--<div class="bar-code">-->
+            <!--<span class="icon icon2">-->
 
-                </span>
-            </p>
-        </li>
-        <li class="fl">
-            <p>
-                <span class="img img4">
-
-                </span>
-            </p>
-        </li>
-        <li class="fl">
-            <p>
-                <span class="img img5">
-
-                </span>
-            </p>
-        </li>
-        <li class="fl">
-            <p>
-                <span class="img img6">
-
-                </span>
-            </p>
-        </li>
-        <li class="fl">
-            <p>
-                <span class="img img7">
-
-                </span>
-            </p>
-        </li>
-        <li class="fl">
-            <p>
-                <span class="img img8">
-
-                </span>
-            </p>
-        </li>
-        <li class="fl">
-            <p>
-                <span class="img img9">
-
-                </span>
-            </p>
-        </li>
-        <li class="fl">
-            <p>
-                <span class="img img10">
-
-                </span>
-            </p>
-        </li>
-        <li class="fl">
-            <p>
-                <span class="img img11">
-
-                </span>
-            </p>
-        </li>
-        <li class="fl">
-            <p>
-                <span class="img img12">
-
-                </span>
-            </p>
-        </li>
-        <li class="fl">
-            <p>
-                <span class="img img13">
-
-                </span>
-            </p>
-        </li>
-        <li class="fl">
-            <p>
-                <span class="img img14">
-
-                </span>
-            </p>
-        </li>
-        <li class="fl">
-            <p>
-                <span class="img img15">
-
-                </span>
-            </p>
-        </li>
-        <li class="fl">
-            <p>
-                <span class="img img16">
-
-                </span>
-            </p>
-        </li>
-        <li class="fl">
-            <p>
-                <span class="img img17">
-
-                </span>
-            </p>
-        </li>
-        <li class="fl">
-            <p>
-                <span class="img img18">
-
-                </span>
-            </p>
-        </li>
-        <li class="fl">
-            <p>
-                <span class="img img19">
-
-                </span>
-            </p>
-        </li>
-        <li class="fl">
-            <p>
-                <span class="img img20">
-
-                </span>
-            </p>
-        </li>
-    </ul>
-</div>
-<!--推广APP-->
-<div class="my-extension">
-    <div class="container extension">
-        <div class="fl left">
-            <h2>
-                也想改善你的APP推广?
-                <br/>
-                也想精准统计你的用户来源渠道？
-            </h2>
-            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2881355608&site=qq&menu=yes">立即体验</a>
-        </div>
-        <div class="fr right">
-            <span></span>
-        </div>
-    </div>
-</div>
-<!--底部-->
-<div class="my-footer">
-    <div class="footer container ">
-        <div class="top clearfix">
-            <a href="./index.html">
-                <span class="logo fl"></span>
-            </a>
-
-            <!--<div class="kaifazhe fl">-->
-            <!--<h5>开发者</h5>-->
-            <!--<a href="">SDK下载</a>-->
-            <!--<br/>-->
-            <!--<a href="">开发文档</a>-->
+            <!--</span>-->
+            <!--关注-->
             <!--</div>-->
-            <div class="wendangzhongxin fl">
-                <h5>文档中心</h5>
-                <a href="./copywriting.html?ios">iOS SDK集成</a>
-                <br/>
-                <a href="./copywriting.html?android">Android SDK集成</a>
-                <br/>
-                <a href="./copywriting.html?web">Web SDK集成</a>
-            </div>
-            <div class="lianxiwomen fl">
-                <h5>联系我们</h5>
-                <span>业务咨询QQ：2881355608</span>
-                <br/>
-                <span>服务热线：17321404310</span>
-                <br/>
-                <span>服务邮箱：shareinstall@021.com</span>
-            </div>
-            <!--<div class="qitalianxifangshi fr">-->
-            <!--<h5>其他联系方式</h5>-->
-            <!--<a href="" class="img imgqq"></a>-->
-            <!--<a href="" class="img imgwc"></a>-->
-            <!--<a href="" class="img imgpy"></a>-->
-            <!--<a href="" class="img imgwb"></a>-->
-            <!--</div>-->
-            <!-- <div class="qitalianxifangshi fr">
-                <h5>友情链接</h5>
-                <a href="http://mini.eastday.com/" target="_blank" class="footer-a">东方头条</a>
-                <a href="http://www.mop.com/" target="_blank" class="footer-a">猫扑</a>
-                <a href="http://www.wnwb.com/" target="_blank" class="footer-a">万能五笔输入法</a>
-                <br>
-                <a href="http://sports.mop.com/" target="_blank" class="footer-a">猫扑体育</a>
-                <a href="http://www.znyshurufa.com/zhuomian/index.html" target="_blank" class="footer-a">布丁桌面</a>
-                <a href="http://www.znshuru.com/" target="_blank" class="footer-a">智能输入法</a>
-                <br>
-                <a href="http://sports.eastday.com/" target="_blank" class="footer-a">东方体育</a>
-                <a href="http://shurufa.eastday.com/" target="_blank" class="footer-a">东方输入法</a>
-                <a href="http://www.wn51.com/kantu/" target="_blank" class="footer-a">万能看图王</a>
+            <!-- <div class="bar-back" id="J_barBack">
+                返&nbsp;回<br/>
+                顶&nbsp;部
             </div> -->
         </div>
-        <div class="bottom">
-            <div class="left " style="text-align: center">
-                上海嵩恒网络科技股份有限公司 版权所有&nbsp;&nbsp;&nbsp;&nbsp;沪ICP备17053783号
-            </div>
-            <!--<div class="right fr">-->
-            <!--<a href="">关于shareinstall</a>&nbsp;&nbsp;&nbsp;&nbsp;-->
-            <!--<a href="">服务条款</a>&nbsp;&nbsp;&nbsp;&nbsp;-->
-            <!--<a href="">隐私政策</a>-->
-            <!--</div>-->
-        </div>
-    </div>
-</div>
-<!--谈话框-->
-<div id="J_functionBar" class="functionBar">
-    <div class="bar-qq">
-        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2881355608&site=qq&menu=yes" class="icon icon1"
-           title="点击这里给我发消息">
-
-        </a>
-        联系
-    </div>
-    <!--<div class="bar-code">-->
-    <!--<span class="icon icon2">-->
-
-    <!--</span>-->
-    <!--关注-->
-    <!--</div>-->
-    <div class="bar-back" id="J_barBack">
-        返&nbsp;回<br/>
-        顶&nbsp;部
-    </div>
-</div>
+        </body>
 <script src="./js/common/base.min.js"></script>
 <script src="./js/page/jquery.cookie.min.js" charset="utf-8"></script>
 <script src="./js/page/typed.min.js"></script>
 <script src="./js/page/index.min.js"></script>
+<script>
+    $(function() {
+        $('.navbar-nav li').click(function() {
+            $('.navbar-nav li').removeClass('active');
+            $(this).addClass('active')
+        })
+    })
+</script>
 </body>
 
 </html>
