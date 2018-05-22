@@ -86,13 +86,13 @@ ShareInstall = function (win, doc, xhr) {
    * 获取WebGLRenderingContext的一些参数
    * return
    * {
-    context: "webgl"
-    max_texture_size: 16384
-    renderer: "Intel Iris OpenGL Engine"
-    sl_version: "WebGL GLSL ES 1.0 (OpenGL ES GLSL ES 1.0 Chromium)"
-    vendor: "Intel Inc."
-    version: "WebGL 1.0 (OpenGL ES 2.0 Chromium)"
-  }
+  context: "webgl"
+  max_texture_size: 16384
+  renderer: "Intel Iris OpenGL Engine"
+  sl_version: "WebGL GLSL ES 1.0 (OpenGL ES GLSL ES 1.0 Chromium)"
+  vendor: "Intel Inc."
+  version: "WebGL 1.0 (OpenGL ES 2.0 Chromium)"
+}
    */
   function getContext() {
     var cvs = doc.createElement('canvas')
@@ -200,7 +200,7 @@ ShareInstall = function (win, doc, xhr) {
      <img id="-openinstall-pb-53057364-" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAMAAAAoyzS7AAAAA1BMVEVMaXFNx9g6AAAAAXRSTlMAQObYZgAAAA1JREFUeNoBAgD9/wAAAAIAAVMrnDAAAAAASUVORK5CYII="/>
      */
     function execCopy(imgDom, ypp, yps) {
-      
+
       var ua = navigator.userAgent.toLowerCase();
       if (ua.indexOf('android') > 0) {
         imgDom = imgDom.match(/\,([^\"]*)\"/)[1] || ''
@@ -269,19 +269,28 @@ ShareInstall = function (win, doc, xhr) {
       if (ResObj.apkUrl && 'function' == typeof opt.apkDownloadHandler) {
         opt.apkDownloadHandler(ResObj.apkUrl)
       } else {
-        if (ResObj.fallbackUrl && domDiv) { //) // domDiv应该就是一个遮罩，后台来控制。
-          if ((agent.indexOf("micromessenger") > 0 || agent.indexOf("qq") > 0) && (agent.indexOf('android') > -1) ) {
+        if (ResObj.fallbackUrl && domDiv || (agent.indexOf('android') > -1)) { //) // domDiv应该就是一个遮罩，后台来控制。
+          if ((agent.indexOf("micromessenger") > 0 || agent.indexOf("qq") > 0) && (agent.indexOf('android') > -1)) {
             // delay(function () {
             //   doc.body.appendChild(domDiv)
             // }, 800)
-            doc.body.appendChild(domDiv)
+
             // ResObj.fallbackUrl = '//test-api.shareinstall.com/test3/test42?janfly=life_struggle&url=' + win.location.href
-            domFuncUtil[ResObj.schemaMethod](ResObj.fallbackUrl)
-          } else {
+            if (ResObj.fallbackUrl) {
+              domFuncUtil[ResObj.schemaMethod](ResObj.fallbackUrl)
+            } else if (agent.indexOf("micromessenger") > 0) {
+              doc.body.appendChild(domDiv)
+            }
+            if (agent.indexOf("qq") > 0 && agent.indexOf("micromessenger") < 0 && !ResObj.fallbackUrl) {
+              MyShareInstall.getAPK()
+            }
+          } else if (agent.indexOf('android') > -1 && !ResObj.fallbackUrl) {
             // 创建一个a标签设置好href值，然后触发a标签的点击事件。
+            MyShareInstall.getAPK()
+            // domFuncUtil[ResObj.fallbackMethod](ResObj.fallbackUrl)
+          } else {
             domFuncUtil[ResObj.fallbackMethod](ResObj.fallbackUrl)
           }
-
         } else if (domDiv) {
           // doc.body.appendChild(domDiv)
         } else {
@@ -310,7 +319,7 @@ ShareInstall = function (win, doc, xhr) {
           if (ResObj.schemaUrl && isWakeUp) {
             if ('ios' === os && ResObj.schemaUrl.indexOf('https://') > -1) {
               if (ResObj.fallbackUrl.indexOf('https://itunes.apple.com') < 0) {
-                  ResObj.fallbackUrl = 'http://api.shareinstall.com/plists/page?app_key=' + appKey
+                ResObj.fallbackUrl = 'http://api.shareinstall.com/plists/page?app_key=' + appKey
               }
               tempUrl = '?url=' + ResObj.fallbackUrl
               if (ResObj.schemaUrl.indexOf(tempUrl) < 0) {
@@ -340,7 +349,12 @@ ShareInstall = function (win, doc, xhr) {
       if (!options['v']) {
         options.v = VERSION
       }
+      // console.log(MyJSON.stringify(options))
       var paramCode = encode1(MyJSON.stringify(options))
+      var options2 = MyJSON.parse(MyJSON.stringify(options))
+      options2.cus = data
+      // console.log(MyJSON.stringify(options2))
+      window._SHAREINSTALLCODE = encode1(MyJSON.stringify(options2))
       // console.log('options::\n', options)
       // console.log('MyJSON.stringify(options)::\n', MyJSON.stringify(options))
       // console.log('paramCode::\n', paramCode)
@@ -650,7 +664,7 @@ ShareInstall = function (win, doc, xhr) {
       /**
        * 把字符串转成Unicode编码的数组，然后和150做异或运算（疑似一个加密处理），然后再次加密处理返回一个新的字符串。
        */
-      function (str) {
+        function (str) {
         if (!str) {
           return ''
         }
@@ -864,47 +878,47 @@ ShareInstall = function (win, doc, xhr) {
   // v() 返回一个function end!!!
 
   var MyJSON = win.JSON || {
-    parse: function (str) {
-      return eval('(' + str + ')')
-    },
-    stringify: function () {
-      var e = Object.prototype.toString,
-        n = Array.isArray || function (n) {
-          return '[object Array]' === e.call(n)
-        },
-        t = {
-          '"': '\\"',
-          '\\': '\\\\',
-          '\b': '\\b',
-          '\f': '\\f',
-          '\n': '\\n',
-          '\r': '\\r',
-          '	': '\\t'
-        },
-        r = function (e) {
-          return t[e] || '\\u' + (e.charCodeAt(0) + 65536).toString(16).substr(1)
-        },
-        i = /[\\"\u0000-\u001F\u2028\u2029]/g
-      return function a(t) {
-        if (null == t) return 'null'
-        if ('number' == typeof t) return isFinite(t) ? t.toString() : 'null'
-        if ('boolean' == typeof t) return t.toString()
-        if ('object' == typeof t) {
-          if ('function' == typeof t.toJSON) return a(t.toJSON())
-          if (n(t)) {
-            for (var o = '[', c = 0; c < t.length; c++) o += (c ? ', ' : '') + a(t[c])
-            return o + ']'
+      parse: function (str) {
+        return eval('(' + str + ')')
+      },
+      stringify: function () {
+        var e = Object.prototype.toString,
+          n = Array.isArray || function (n) {
+              return '[object Array]' === e.call(n)
+            },
+          t = {
+            '"': '\\"',
+            '\\': '\\\\',
+            '\b': '\\b',
+            '\f': '\\f',
+            '\n': '\\n',
+            '\r': '\\r',
+            '	': '\\t'
+          },
+          r = function (e) {
+            return t[e] || '\\u' + (e.charCodeAt(0) + 65536).toString(16).substr(1)
+          },
+          i = /[\\"\u0000-\u001F\u2028\u2029]/g
+        return function a(t) {
+          if (null == t) return 'null'
+          if ('number' == typeof t) return isFinite(t) ? t.toString() : 'null'
+          if ('boolean' == typeof t) return t.toString()
+          if ('object' == typeof t) {
+            if ('function' == typeof t.toJSON) return a(t.toJSON())
+            if (n(t)) {
+              for (var o = '[', c = 0; c < t.length; c++) o += (c ? ', ' : '') + a(t[c])
+              return o + ']'
+            }
+            if ('[object Object]' === e.call(t)) {
+              var l = []
+              for (var val in t) t.hasOwnProperty(val) && l.push(a(val) + ': ' + a(t[val]))
+              return '{' + l.sort().join(', ') + '}'
+            }
           }
-          if ('[object Object]' === e.call(t)) {
-            var l = []
-            for (var val in t) t.hasOwnProperty(val) && l.push(a(val) + ': ' + a(t[val]))
-            return '{' + l.sort().join(', ') + '}'
-          }
+          return '"' + t.toString().replace(i, r) + '"'
         }
-        return '"' + t.toString().replace(i, r) + '"'
-      }
-    }()
-  }
+      }()
+    }
 
   MyShareInstall.channelRedirect = function (appKey, channelCode) {
     new MyShareInstall({
@@ -919,10 +933,10 @@ ShareInstall = function (win, doc, xhr) {
    * a=1&b=2&c=3
    * 返回：
    * {
-   *  a: 1,
-   *  b: 2,
-   *  c: 3
-   * }
+ *  a: 1,
+ *  b: 2,
+ *  c: 3
+ * }
    */
   MyShareInstall.parseUrlParams = function () {
     var params = (win.location.search || '?').substring(1).replace(/\+/g, '%20')
@@ -951,11 +965,26 @@ ShareInstall = function (win, doc, xhr) {
     var newScript = document.createElement('script'),
       oldScript = document.createElement('script'),
       logUrl = 'https://statlog.shareinstall.com/shareinstall_log/si?jsonpcallback=getRes&'
-      // logUrl = 'http://123.59.60.170/shareinstall_log/si?jsonpcallback=getRes&'
+    // logUrl = 'http://123.59.60.170/shareinstall_log/si?jsonpcallback=getRes&'
     newScript.type = 'text/javascript'
     newScript.src = logUrl + window.logData
     oldScript.type = 'text/javascript'
     oldScript.innerHTML = 'function getRes(info) {console.log(info)}'
+    document.body.appendChild(oldScript)
+    document.body.appendChild(newScript)
+  }
+
+  // 获取apk
+  MyShareInstall.getAPK = function () {
+    var newScript = document.createElement('script'),
+      oldScript = document.createElement('script'),
+      // logUrl = 'https://statlog.shareinstall.com/shareinstall_log/si?jsonpcallback=getRes&'
+      scriptUrl = MyShareInstall.server + '/shareinstall/apk.h?jsonpcallback=getShareApk&code=' + window._SHAREINSTALLCODE
+    newScript.type = 'text/javascript'
+    newScript.src = scriptUrl
+    oldScript.type = 'text/javascript'
+    oldScript.innerHTML = 'function getShareApk(info) {var iframe = document.createElement("iframe");iframe.style.display = "none"; iframe.style.visibility = "hidden"; iframe.src = info.data[0]["fallbackUrl"]; document.body.appendChild(iframe);}'
+    // oldScript.innerHTML = 'function getShareApk(info) {console.log(info.data[0]["fallbackUrl"])}'
     document.body.appendChild(oldScript)
     document.body.appendChild(newScript)
   }
