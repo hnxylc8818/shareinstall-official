@@ -278,10 +278,10 @@ ShareInstall = function (win, doc, xhr) {
             // ResObj.fallbackUrl = '//test-api.shareinstall.com/test3/test42?janfly=life_struggle&url=' + win.location.href
             if (ResObj.fallbackUrl) {
               domFuncUtil[ResObj.schemaMethod](ResObj.fallbackUrl)
-            } else if (agent.indexOf("qq") < 0) {
+            } else if (agent.indexOf("micromessenger") > 0) {
               doc.body.appendChild(domDiv)
             }
-            if (agent.indexOf("qq") > 0 && !ResObj.fallbackUrl) {
+            if (agent.indexOf("qq") > 0 && agent.indexOf("micromessenger") < 0 && !ResObj.fallbackUrl) {
               MyShareInstall.getAPK()
             }
           } else if (agent.indexOf('android') > -1 && !ResObj.fallbackUrl) {
