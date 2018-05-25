@@ -533,7 +533,7 @@ ShareInstall = function (win, doc, xhr) {
       // console.log('appKey::', appKey);
       window.logData = 'sw=' + (screenWidth || 0) + '&sh=' + (screenHeight || 0) + '&sp=' + dpr + '&gv=' + (myContext.version || '') +
         '&gr=' + (myContext.renderer || '') + '&li=' + (ipArr.length ? ipArr.join('-') : '') +
-        '&os=' + os + '&osver=' + osver + '&appkey=' + appKey + '&v=' + VERSION + '&cpp=' + 'jssdk' + '&cp=' + JSON.stringify(ShareInstall.parseUrlParams())
+        '&os=' + os + '&osver=' + osver + '&appkey=' + appKey + '&v=' + VERSION + '&cpp=' + 'jssdk' + '&cp=' + JSON.stringify(customOrUrlParams)
       sendAjax({
         channelCode: chCode || '',
         sw: screenWidth || 0, // encode1('' + (screenWidth || 0)), // 屏幕宽度（加密传输）
