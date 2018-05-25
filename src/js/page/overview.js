@@ -609,6 +609,15 @@ var DfttModule = (function (dm) {
      * 初始化中国地图
      */
     initEchartsMap: function (id, data, type) {
+      var maxRange = 0;
+      // console.log(JSON.stringify(data))
+      data.push({"name":"南海诸岛","value":0})
+      $.each(data, function(index, item) {
+        var curNumber = parseInt(item.cnt)
+        if  (curNumber > maxRange) {
+          maxRange = curNumber
+        }
+      })
       var myChart = echarts.init(document.getElementById(id));
       var option = {
         title: {
@@ -618,6 +627,7 @@ var DfttModule = (function (dm) {
           trigger: 'item',
           show: true,
           formatter: function (params) {
+            // if (typeof params.data === 'undefined') return
             var value = params.data.value ? params.data.value : 0
             var res = params.data.name + ':' + value
             return res
@@ -626,11 +636,12 @@ var DfttModule = (function (dm) {
         },
         dataRange: {
           min: 0,
-          max: 2500,
+          max: maxRange,
           x: 'left',
           y: 'bottom',
           text: ['高', '低'], // 文本，默认为数值文本
-          calculable: true
+          calculable: false,
+          color: ['#00a4ff', '#eee']
         },
 
         roamController: {
@@ -648,8 +659,8 @@ var DfttModule = (function (dm) {
             itemStyle: {
               normal: {
                 label: {
-                  show: false
-
+                  show: true,
+                  areaColor: '#00a4ff'
                 },
                 textStyle: {
                   backgroundColor: "#000"
@@ -658,7 +669,8 @@ var DfttModule = (function (dm) {
               emphasis: {
                 areaStyle: {
                   color: '#000',
-                  backgroundColor: 'blue',
+                  areaColor: '#00a4ff',
+                  backgroundColor: '00a4ff',
                 },
                 label: {
                   show: true,
@@ -970,7 +982,7 @@ var DfttModule = (function (dm) {
 
 
         if (type == 1) {
-          _this.initEchartsMap(id, [], type)
+          // _this.initEchartsMap(id, [], type)
         } else {
           _this.initEchartsMap(id, ipData)
         }
