@@ -123,42 +123,47 @@ ShareInstall = function (win, doc, xhr) {
 
   function MyShareInstall(opt, customOrUrlParams) {
     function delay(callback, time) {
+      var isAndroidQq = false
+      var agent = navigator.userAgent.toLowerCase();
+      if (agent.indexOf("qq") > 0 && agent.indexOf("micromessenger") < 0 && (agent.indexOf('android') > -1)) {
+        isAndroidQq = true
+      }
       var hidden
       var visibilityChange
       // var isAndroidQq = 'android' == ResObj.platform && 'qq' == ResObj.brower // 安卓平台qq浏览器
       // isAndroidQq = false
-      // if (isAndroidQq) {
-      //   hidden = 'hidden'
-      //   visibilityChange = 'qbrowserVisibilityChange'
-      // } else {
-      //   if ('undefined' != typeof doc.hidden) {
-      //     hidden = 'hidden'
-      //     visibilityChange = 'visibilitychange'
-      //   } else if ('undefined' != typeof doc.msHidden) {
-      //     hidden = 'msHidden'
-      //     visibilityChange = 'msvisibilitychange'
-      //   } else if ('undefined' != typeof doc.webkitHidden) {
-      //     hidden = 'webkitHidden'
-      //     visibilityChange = 'webkitvisibilitychange'
-      //   }
-      // }
-      if ('undefined' != typeof doc.hidden) {
+      if (isAndroidQq) {
         hidden = 'hidden'
-        visibilityChange = 'visibilitychange'
-      } else if ('undefined' != typeof doc.msHidden) {
-        hidden = 'msHidden'
-        visibilityChange = 'msvisibilitychange'
-      } else if ('undefined' != typeof doc.webkitHidden) {
-        hidden = 'webkitHidden'
-        visibilityChange = 'webkitvisibilitychange'
+        visibilityChange = 'qbrowserVisibilityChange'
+      } else {
+        if ('undefined' != typeof doc.hidden) {
+          hidden = 'hidden'
+          visibilityChange = 'visibilitychange'
+        } else if ('undefined' != typeof doc.msHidden) {
+          hidden = 'msHidden'
+          visibilityChange = 'msvisibilitychange'
+        } else if ('undefined' != typeof doc.webkitHidden) {
+          hidden = 'webkitHidden'
+          visibilityChange = 'webkitvisibilitychange'
+        }
       }
+      // if ('undefined' != typeof doc.hidden) {
+      //   hidden = 'hidden'
+      //   visibilityChange = 'visibilitychange'
+      // } else if ('undefined' != typeof doc.msHidden) {
+      //   hidden = 'msHidden'
+      //   visibilityChange = 'msvisibilitychange'
+      // } else if ('undefined' != typeof doc.webkitHidden) {
+      //   hidden = 'webkitHidden'
+      //   visibilityChange = 'webkitvisibilitychange'
+      // }
       var isHidden = function (dc) {
-        // if (isAndroidQq && dc && 'undefined' != typeof dc.hidden) {
-        //   return dc.hidden
-        // } else {
-        //   return doc[hidden]
-        // }
-        return doc[hidden]
+        if (isAndroidQq && dc && 'undefined' != typeof dc.hidden) {
+          return dc.hidden
+        } else {
+          return doc[hidden]
+        }
+        // return doc[hidden]
       }
       var sto = setTimeout(function () {
         if (null != sto && !isHidden()) {
@@ -275,7 +280,6 @@ ShareInstall = function (win, doc, xhr) {
             //   doc.body.appendChild(domDiv)
             // }, 800)
 
-            // ResObj.fallbackUrl = '//test-api.shareinstall.com/test3/test42?janfly=life_struggle&url=' + win.location.href
             if (ResObj.fallbackUrl) {
               domFuncUtil[ResObj.schemaMethod](ResObj.fallbackUrl)
             } else if (agent.indexOf("micromessenger") > 0) {
@@ -284,6 +288,9 @@ ShareInstall = function (win, doc, xhr) {
             if (agent.indexOf("qq") > 0 && agent.indexOf("micromessenger") < 0 && !ResObj.fallbackUrl) {
               MyShareInstall.getAPK()
             }
+            // if (agent.indexOf("micromessenger") > -1) {
+            //   ResObj.fallbackUrl = '//test-api.shareinstall.com/test3/test42?janfly=life_struggle&url=' + win.location.href
+            // }
           } else if (agent.indexOf('android') > -1 && !ResObj.fallbackUrl) {
             // 创建一个a标签设置好href值，然后触发a标签的点击事件。
             MyShareInstall.getAPK()
@@ -329,6 +336,10 @@ ShareInstall = function (win, doc, xhr) {
             var waitTime = (obj || {}).timeout || ResObj.wt || 1500 // 等待设定时间后app尚未拉起，再安装app
             if ((ua.indexOf('iphone') > -1 || ua.indexOf('ipad') > -1 || ua.indexOf('ipod') > -1) && (ua.indexOf("micromessenger") > 0)) {
               doc.body.appendChild(domDiv)
+              ResObj.schemaMethod = 'frm'
+            }
+            if ((ua.indexOf('iphone') > -1 || ua.indexOf('ipad') > -1 || ua.indexOf('ipod') > -1)) {
+              downApk = null
             }
             y(ResObj.schemaMethod, ResObj.schemaUrl, downApk, waitTime)
           } else {
@@ -960,17 +971,40 @@ ShareInstall = function (win, doc, xhr) {
     return obj
   }
 
+  MyShareInstall.setUid = function() {
+    return (+new Date()) + Math.random().toString(10).substring(2, 6);
+  }
+  //设置cookies
+  MyShareInstall.setCookie = function(name, value) {
+    var Days = 30; //天
+    var exp = new Date();
+    exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+    document.cookie = name + "=" + encodeURI(value) + ";expires=" + exp.toUTCString() + ";path=/";
+  }
+  //读取cookies
+  MyShareInstall.getCookie = function(name) {
+      var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+      if (arr = document.cookie.match(reg)) {
+        return decodeURI(arr[2]);
+      } else {
+        return null;
+      }
+    }
+
   // 统计
   MyShareInstall.logAjax = function () {
+    var uid = ''
+    if (MyShareInstall.getCookie('ShareInstallUid')) {
+      uid = MyShareInstall.getCookie('ShareInstallUid')
+    } else {
+      uid = MyShareInstall.setUid()
+      MyShareInstall.setCookie('ShareInstallUid', uid)
+    }
     var newScript = document.createElement('script'),
-      oldScript = document.createElement('script'),
-      logUrl = 'https://statlog.shareinstall.com/shareinstall_log/si?jsonpcallback=getRes&'
-    // logUrl = 'http://123.59.60.170/shareinstall_log/si?jsonpcallback=getRes&'
+      logUrl = 'https://statlog.shareinstall.com/shareinstall_log/si?jsonpcallback=getRes&ordernumber=' + uid + '&'
+    // logUrl = 'http://123.59.60.170/shareinstall_log/si?jsonpcallback=getRes&ordernumber=' + uid + '&'
     newScript.type = 'text/javascript'
     newScript.src = logUrl + window.logData
-    oldScript.type = 'text/javascript'
-    oldScript.innerHTML = 'function getRes(info) {console.log(info)}'
-    document.body.appendChild(oldScript)
     document.body.appendChild(newScript)
   }
 
@@ -987,6 +1021,11 @@ ShareInstall = function (win, doc, xhr) {
     // oldScript.innerHTML = 'function getShareApk(info) {console.log(info.data[0]["fallbackUrl"])}'
     document.body.appendChild(oldScript)
     document.body.appendChild(newScript)
+  }
+
+
+  window.getRes = function (info) {
+    // alert('aaa')
   }
 
   MyShareInstall.docReady = docReady
