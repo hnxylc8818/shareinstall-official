@@ -611,7 +611,9 @@ var DfttModule = (function (dm) {
     initEchartsMap: function (id, data, type) {
       var maxRange = 0;
       // console.log(JSON.stringify(data))
-      data.push({"name":"南海诸岛","value":0})
+      if (data.length > 0) {
+        data.push({"name":"南海诸岛","value":0})
+      }
       $.each(data, function(index, item) {
         var curNumber = parseInt(item.cnt)
         if  (curNumber > maxRange) {
