@@ -479,7 +479,7 @@ ShareInstall = function (win, doc, xhr) {
       if (win.devicePixelRatio === parseInt(win.devicePixelRatio)) {
         dpr = parseFloat(win.devicePixelRatio).toFixed(1) || ''
       } else {
-        dpr = parseFloat(win.devicePixelRatio) || ''
+        dpr = parseFloat(win.devicePixelRatio).toString() || ''
       }
       myContext = getContext()
     } catch (event) {}
