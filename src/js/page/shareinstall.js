@@ -230,7 +230,7 @@ ShareInstall = function (win, doc, xhr) {
      */
     function execCopy(imgDom, ypp, yps) {
       imgDom = paramParse(imgDom)
-      console.log(imgDom)
+      // console.log(imgDom)
 
       var EXEC_COMMAND = 'execCommand'
       var COPY = 'copy'
@@ -380,12 +380,14 @@ ShareInstall = function (win, doc, xhr) {
       if (!options['v']) {
         options.v = VERSION
       }
-      console.log(MyJSON.stringify(options))
+      // console.log(opt.shadow)
+      // console.log(MyJSON.stringify(options))
       var paramCode = encode1(MyJSON.stringify(options))
       var options2 = MyJSON.parse(MyJSON.stringify(options))
       options2.cus = data
       // console.log(MyJSON.stringify(options2))
       window._SHAREINSTALLCODE = encode1(MyJSON.stringify(options2))
+      // console.log(decode1('7bT1_vf4-PP61fny87SstLS6tOXhtKy0pa-ltLq05f60rLSgr6-0urTl5rSspLiho7q08eC0rLTB8_TR2qe4pr7Z5vP40drTxaS4ptX-5Pn7_-P7v7S6tPHktKy01_Lk8_j5vsLbv6OnpLS6tPr_tKy0tLq09bSsp7q09-b9tKy0tLq05uG0rKa6tPnltKy09_jy5Pn_8rS6tPnl4PPktKy0obinuKe0urT35ub98--0rLTQoNTd16HX0NDQ1Nfe07S6tOC0rLSnuKa4pbTr'))
       // console.log('options::\n', options)
       // console.log('MyJSON.stringify(options)::\n', MyJSON.stringify(options))
       // console.log('paramCode::\n', paramCode)
@@ -424,7 +426,7 @@ ShareInstall = function (win, doc, xhr) {
             // ResObj.schemaUrl = ''
           }
           // console.log('res::', ResObj)
-          res.shadow = res.shadow || "<div id='ShareInstallDom' style='font-size:30px;color:#fff;text-align:right;" +
+          res.shadow = opt.shadow || res.shadow || "<div id='ShareInstallDom' style='font-size:30px;color:#fff;text-align:right;" +
             "position:fixed;left:0;top:0;background:rgba(0,0,0,0.5);filter:alpha(opacity=50);" +
             "width:100%;height:100%;z-index:10000;'>点击右上角在浏览器中打开</div>"
           res.shadow && (domDiv = getDiv(res.shadow)), ready.ready()
@@ -474,7 +476,11 @@ ShareInstall = function (win, doc, xhr) {
     try {
       screenWidth = win.screen.width || ''
       screenHeight = win.screen.height || ''
-      dpr = parseFloat(win.devicePixelRatio).toFixed(1) || ''
+      if (win.devicePixelRatio === parseInt(win.devicePixelRatio)) {
+        dpr = parseFloat(win.devicePixelRatio).toFixed(1) || ''
+      } else {
+        dpr = parseFloat(win.devicePixelRatio).toString() || ''
+      }
       myContext = getContext()
     } catch (event) {}
     var timer
@@ -567,12 +573,13 @@ ShareInstall = function (win, doc, xhr) {
         '&os=' + os + '&osver=' + osver + '&appkey=' + appKey + '&v=' + VERSION + '&cpp=' + 'jssdk' + '&cp=' + JSON.stringify(customOrUrlParams)
       sendAjax({
         channelCode: chCode || '',
-        sw: screenWidth || 0, // encode1('' + (screenWidth || 0)), // 屏幕宽度（加密传输）
-        sh: screenHeight || 0, // encode1('' + (screenHeight || 0)), // 屏幕高度（加密传输）
+        sw: screenWidth.toString() || '0', // encode1('' + (screenWidth || 0)), // 屏幕宽度（加密传输）
+        sh: screenHeight.toString() || '0', // encode1('' + (screenHeight || 0)), // 屏幕高度（加密传输）
         sp: dpr,
         gv: myContext.version.replace(/\s/g, '') || '', // encode1(myContext.version || ''), // webGL版本(WebGL 1.0 (OpenGL ES 2.0 Chromium))（加密传输）
-        gr: myContext.renderer || '', // encode1(myContext.renderer || ''), // 显卡(Intel Iris OpenGL Engine)（加密传输）
+        gr: myContext.renderer.replace(/\s/g, '') || '', // encode1(myContext.renderer || ''), // 显卡(Intel Iris OpenGL Engine)（加密传输）
         li: ipArr.length ? ipArr.join('-') : '', // 内网ip数组（加密传输）
+        // li: '',
         c: 1, // opt._channelRedirect ? 1 : 0,
         apk: opt.apkFileName || '',
         pw: opt.preferWakeup ? 1 : 0, // 预唤醒操作,
@@ -1048,14 +1055,8 @@ ShareInstall = function (win, doc, xhr) {
     // alert('aaa')
   }
 
-  if (!String.prototype.trim) {
-    String.prototype.trim = function () {
-      return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
-    };
-  }
-
   MyShareInstall.docReady = docReady
-  // MyShareInstall.server = '//test-shareinstall.shaqm.com' // '//t.oi.com'  // http://123.59.62.164/shareinstall/wap.h'//123.59.62.164' //
+  // MyShareInstall.server = '//123.59.62.164' ////test-shareinstall.shaqm.com' // '//t.oi.com'  // http://123.59.62.164/shareinstall/wap.h'
 
   // MyShareInstall.server = 'https://collision.shareinstall.com' //'//test-shareinstall.shaqm.com' //'//123.59.62.164' // '//t.oi.com'  // http://123.59.62.164/shareinstall/wap.h
   MyShareInstall.server = 'https://wapcollision.shareinstall.com' //'//test-shareinstall.shaqm.com' //'//123.59.62.164' // '//t.oi.com'  // http://123.59.62.164/shareinstall/wap.h
