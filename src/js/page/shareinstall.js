@@ -1,6 +1,6 @@
 ShareInstall = function (win, doc, xhr) {
   // 全局变量
-  var VERSION = '1.0.5'
+  var VERSION = '1.0.3'
 
   /**
    * 对象ReadyObj拥有一个属性（数组）和三个方法：
@@ -531,12 +531,8 @@ ShareInstall = function (win, doc, xhr) {
     }
     this.wakeupOrInstall = function (obj) {
       MyShareInstall.logAjax() // 发送日志
-     /* wakeUp(true, true, obj)*/
+      wakeUp(true, true, obj)
     }
-    win.getResponse = function(res){
-        alert(333333333333)
-    }
-
     this.schemeWakeup = function (obj) {
       wakeUp(true, false, obj)
     }
@@ -580,8 +576,8 @@ ShareInstall = function (win, doc, xhr) {
         sw: screenWidth.toString() || '0', // encode1('' + (screenWidth || 0)), // 屏幕宽度（加密传输）
         sh: screenHeight.toString() || '0', // encode1('' + (screenHeight || 0)), // 屏幕高度（加密传输）
         sp: dpr,
-        gv: myContext.version.replace(/\s/g, '') || '', // encode1(myContext.version || ''), // webGL版本(WebGL 1.0 (OpenGL ES 2.0 Chromium))（加密传输）
-        gr: myContext.renderer.replace(/\s/g, '') || '', // encode1(myContext.renderer || ''), // 显卡(Intel Iris OpenGL Engine)（加密传输）
+        gv: myContext.version ? myContext.version.replace(/\s/g, '') : '', // encode1(myContext.version || ''), // webGL版本(WebGL 1.0 (OpenGL ES 2.0 Chromium))（加密传输）
+        gr: myContext.renderer ? myContext.renderer.replace(/\s/g, '') : '', // encode1(myContext.renderer || ''), // 显卡(Intel Iris OpenGL Engine)（加密传输）
         li: ipArr.length ? ipArr.join('-') : '', // 内网ip数组（加密传输）
         // li: '',
         c: 1, // opt._channelRedirect ? 1 : 0,
@@ -1032,7 +1028,7 @@ ShareInstall = function (win, doc, xhr) {
       MyShareInstall.setCookie('ShareInstallUid', uid)
     }
     var newScript = document.createElement('script'),
-      logUrl = 'https://statlog.shareinstall.com/shareinstall_log/si?jsonpcallback=getResponse&ordernumber=' + uid + '&'
+      logUrl = 'https://statlog.shareinstall.com/shareinstall_log/si?jsonpcallback=getRes&ordernumber=' + uid + '&'
     // logUrl = 'http://123.59.60.170/shareinstall_log/si?jsonpcallback=getRes&ordernumber=' + uid + '&'
     newScript.type = 'text/javascript'
     newScript.src = logUrl + window.logData
@@ -1055,10 +1051,10 @@ ShareInstall = function (win, doc, xhr) {
   }
 
 
- /* window.getResponse = function (info) {
-       alert(JSON.stringify(info))
-       alert('回掉函數出發')
-  }*/
+  window.getRes = function (info) {
+    // alert('aaa')
+  }
+
   MyShareInstall.docReady = docReady
   // MyShareInstall.server = '//123.59.62.164' ////test-shareinstall.shaqm.com' // '//t.oi.com'  // http://123.59.62.164/shareinstall/wap.h'
 
