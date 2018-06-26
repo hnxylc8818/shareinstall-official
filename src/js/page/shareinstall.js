@@ -1,6 +1,6 @@
 ShareInstall = function (win, doc, xhr) {
   // 全局变量
-  var VERSION = '1.0.3'
+  var VERSION = '1.0.5'
 
   /**
    * 对象ReadyObj拥有一个属性（数组）和三个方法：
@@ -531,8 +531,12 @@ ShareInstall = function (win, doc, xhr) {
     }
     this.wakeupOrInstall = function (obj) {
       MyShareInstall.logAjax() // 发送日志
-      wakeUp(true, true, obj)
+     /* wakeUp(true, true, obj)*/
     }
+    win.getResponse = function(res){
+        alert(333333333333)
+    }
+
     this.schemeWakeup = function (obj) {
       wakeUp(true, false, obj)
     }
@@ -1028,7 +1032,7 @@ ShareInstall = function (win, doc, xhr) {
       MyShareInstall.setCookie('ShareInstallUid', uid)
     }
     var newScript = document.createElement('script'),
-      logUrl = 'https://statlog.shareinstall.com/shareinstall_log/si?jsonpcallback=getRes&ordernumber=' + uid + '&'
+      logUrl = 'https://statlog.shareinstall.com/shareinstall_log/si?jsonpcallback=getResponse&ordernumber=' + uid + '&'
     // logUrl = 'http://123.59.60.170/shareinstall_log/si?jsonpcallback=getRes&ordernumber=' + uid + '&'
     newScript.type = 'text/javascript'
     newScript.src = logUrl + window.logData
@@ -1051,10 +1055,10 @@ ShareInstall = function (win, doc, xhr) {
   }
 
 
-  window.getRes = function (info) {
-    // alert('aaa')
-  }
-
+ /* window.getResponse = function (info) {
+       alert(JSON.stringify(info))
+       alert('回掉函數出發')
+  }*/
   MyShareInstall.docReady = docReady
   // MyShareInstall.server = '//123.59.62.164' ////test-shareinstall.shaqm.com' // '//t.oi.com'  // http://123.59.62.164/shareinstall/wap.h'
 

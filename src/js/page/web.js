@@ -69,7 +69,7 @@ var DfttModule = (function (dm) {
     getAppInfo: function () {
       var _this = this;
       $.ajax({
-        url: 'http://api.shareinstall.com/appliance/getone',
+        url: Tool.serverIP() + 'appliance/getone',
         data: {
           app_key: $.cookie('appkey')
         },
@@ -137,7 +137,7 @@ var DfttModule = (function (dm) {
       $(document).on('click', '.depoly-button', function () {
         var key = $('input[name="key"]').val()
         var value = $('input[name="value"]').val()
-        var url = window.location.href.replace('android.html', '') + 'js-test.html?appkey=' + $.cookie('appkey') + '&' + key + '=' + value
+        var url = window.location.host + '/js-test.html?appkey=' + $.cookie('appkey') + '&' + key + '=' + value
         var tag = true
         if (/[\u4e00-\u9fa5]+/.test(key)) {
           tag = false

@@ -79,7 +79,7 @@ var DfttModule = (function (dm) {
     getChannelInfo: function (id) {
       var _this = this
       $.ajax({
-        url: 'http://api.shareinstall.com/channel/getone',
+        url: Tool.serverIP() + 'channel/getone',
         type: 'POST',
         data: {
           username: $.cookie('userName'),
@@ -114,7 +114,7 @@ var DfttModule = (function (dm) {
           channelName = $('#link_name').val(),
           channelUrl = $('input[name="customURL"]').val(),
           tag = true,
-          url = 'http://api.shareinstall.com/channel/create',
+          url = Tool.serverIP() + 'channel/create',
           dataObj = {
             username: $.cookie('userName'),
             token: $.cookie('_token'),
@@ -154,7 +154,7 @@ var DfttModule = (function (dm) {
         }
 
         if (_this.getQueryString('channelId')) {
-          url = 'http://api.shareinstall.com/channel/update'
+          url = Tool.serverIP() + 'channel/update'
           dataObj.channel_id = _this.getQueryString('channelId')
         }
 

@@ -7,7 +7,7 @@ var DfttModule = (function(dm) {
     _tempData: null,
     init: function() {
       var _this = this
-      _this.url = 'http://api.shareinstall.com/'
+      _this.url = Tool.serverIP()
       _this.login()
       _this.loginOut()
       _this.commonTip()

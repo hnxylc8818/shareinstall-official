@@ -108,7 +108,7 @@ var DfttModule = (function (dm) {
     getAppInfo: function () {
       var _this = this;
       $.ajax({
-        url: 'http://api.shareinstall.com/appliance/getone',
+        url: Tool.serverIP() + 'appliance/getone',
         data: {
           app_key: $.cookie('appkey')
         },
@@ -367,7 +367,7 @@ var DfttModule = (function (dm) {
         }
         var total_blob_num = Math.ceil(file.size / LENGTH);
         if (start < file.size) {
-          xhr.open('POST', 'http://api.shareinstall.com/passage/upload', true);
+          xhr.open('POST', Tool.serverIP() + 'passage/upload', true);
 
           // xhr.setRequestHeader('Content-Type','multipart/form-data');
 
@@ -398,7 +398,7 @@ var DfttModule = (function (dm) {
                       $.ajax({
                         async: false,
                         'type': 'POST',
-                        url: "http://api.shareinstall.com/passage/check",
+                        url: Tool.serverIP() + 'passage/check',
                         data: {
                           app_key: appKey
                         },
@@ -495,7 +495,7 @@ var DfttModule = (function (dm) {
       var _this = this
       var appKey = $.cookie('appkey')
       $.ajax({
-        url: 'http://api.shareinstall.com/passage/info',
+        url: Tool.serverIP() + 'passage/info',
         type: 'POST',
         data: {
           username: $.cookie('userName'),
@@ -538,7 +538,7 @@ var DfttModule = (function (dm) {
       param.is_applied = allow
       param.applied_path = yybUrl || ''
       $.ajax({
-        url: 'http://api.shareinstall.com/passage/setinfo',
+        url:  Tool.serverIP() + 'passage/setinfo',
         type: 'POST',
         data: {
           username: $.cookie('userName'),

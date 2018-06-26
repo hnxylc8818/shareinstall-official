@@ -103,7 +103,7 @@ var DfttModule = (function (dm) {
     getAppInfo: function () {
       var _this = this;
       $.ajax({
-        url: 'http://api.shareinstall.com/appliance/getone',
+        url: Tool.serverIP() + 'appliance/getone',
         data: {
           app_key: $.cookie('appkey')
         },
@@ -284,7 +284,7 @@ var DfttModule = (function (dm) {
       }
       $('#_loading_mask').show()
       $.ajax({
-        url: 'http://api.shareinstall.com/channel/getlist',
+        url:Tool.serverIP() + 'channel/getlist',
         type: 'POST',
         // async: false,
         data: {
@@ -370,7 +370,7 @@ var DfttModule = (function (dm) {
     requestRemove: function (id) {
       var _this = this
       $.ajax({
-        url: 'http://api.shareinstall.com/channel/delete',
+        url: Tool.serverIP() + 'channel/delete',
         type: 'POST',
         data: {
           username: $.cookie('userName'),

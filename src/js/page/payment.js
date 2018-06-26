@@ -8,7 +8,7 @@ var DfttModule = (function (dm) {
     order_id: '',
     init: function () {
       var _this = this
-      _this.url = 'http://api.shareinstall.com/'
+      _this.url = Tool.serverIP()
       _this.getAppInfo()
       // _this.preservationOk()
       _this.cancelFun()

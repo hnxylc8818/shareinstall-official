@@ -68,7 +68,7 @@ var DfttModule = (function (dm) {
     getAppInfo: function () {
       var _this = this;
       $.ajax({
-        url: 'http://api.shareinstall.com/appliance/getone',
+        url:Tool.serverIP() + 'appliance/getone',
         data: {
           app_key: $.cookie('appkey')
         },
@@ -150,7 +150,7 @@ var DfttModule = (function (dm) {
     getQidList: function () {
       var _this = this;
       $.ajax({
-        url: 'http://api.shareinstall.com/channel/getlist',
+        url: Tool.serverIP() + 'channel/getlist',
         data: {
           app_key: $.cookie('appkey'),
           username: $.cookie('userName'),

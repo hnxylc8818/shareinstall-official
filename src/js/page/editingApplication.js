@@ -7,7 +7,7 @@ var DfttModule = (function (dm) {
     typed: null,
     init: function () {
       var _this = this
-      _this.url = 'http://api.shareinstall.com/'
+      _this.url = Tool.serverIP()
       _this.getImg()
       _this.getAppInfo()
       _this.previewImg()

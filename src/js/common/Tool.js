@@ -37,7 +37,16 @@ var Tool = (function() {
       var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
       var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
       return Y + M + D + h + m + s;
+    },
+
+    // 地址切换
+    serverIP: function() {
+      this.flag = true;
+      this.productDomain = 'http://api.shareinstall.com/';
+      this.testDomain = 'http://test-api.shareinstall.com/';
+      return this.flag ? this.productDomain : this.testDomain
     }
+
   }
 })()
 

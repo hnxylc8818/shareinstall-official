@@ -6,7 +6,7 @@ var DfttModule = (function(dm) {
     typed: null,
     init: function() {
       var _this = this
-      _this.url = 'http://api.shareinstall.com/'
+      _this.url = Tool.serverIP()
       _this.goSign()
       _this.goRegister()
       _this.registerFun()
@@ -469,6 +469,7 @@ var DfttModule = (function(dm) {
 })(DfttModule || {}) // eslint-disable-line
 
 $(function() {
+
   // 调用初始化方法
   $.each(DfttModule, function(i, obj) {
     if ($.isPlainObject(obj)) {
