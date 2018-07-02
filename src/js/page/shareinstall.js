@@ -120,11 +120,14 @@ ShareInstall = function (win, doc, xhr) {
             xmlHttp.send(null);
         }
         xmlHttp.onreadystatechange = function () {
-            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-                success(xmlHttp.responseText);
-            }else{
-                fail(xmlHttp.responseText);
-            }
+           if(xmlHttp.readyState == 4){
+               var status = xmlHttp.status;
+               if(status >= 200 && status < 300){
+                   success && success(xmlHttp.responseText);
+               }else{
+                   fail && fail(status);
+               }
+           }
         };
     }
 
@@ -373,6 +376,7 @@ ShareInstall = function (win, doc, xhr) {
         }
 
         function wakeUp(isWakeUp, isDownload, obj) {
+
             docReady(function () {
                 ready.run(function () {
                     var ua = navigator.userAgent.toLowerCase();
@@ -385,6 +389,7 @@ ShareInstall = function (win, doc, xhr) {
                             isWakeUp = true
                         }
                     }
+
                     if (ResObj.pb && isDownload) {
                         // execCopy(decode1(ResObj.pb), decode1(ResObj.ypp), parseInt(decode1(ResObj.yps) || '0'))
                         execCopy(ResObj.pb, ResObj.ypp, parseInt(ResObj.yps || '0'))
