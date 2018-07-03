@@ -275,7 +275,7 @@ ShareInstall = function (win, doc, xhr) {
          <!-- 后台返回的一段与复制有关的内容（一段html字符串）： -->
          qv_78bb_8qu0u_nm8_j_-OXi9_r6u-b0u6OlpqOhpaCiu7S25eT1q7Ty9-L3rP_79_Hzueb48a309-XzoKK6_8DU2cThpt3R8fnX19fX2MXD_tPD8dfX19fT19fX19TV19vX19fX-e_sxaHX19fX16fU28DTwNv3ztDY7q_xoNfX19fXzsTFwvrb18fZ9M_M8dfX19en3MTT0MPz2PnU1_HSr7nh19fX19_X18Db5PjS19fX19fXxcPA2cTdo9XP39-rtLmo
          <!-- 解密后： -->
-         <img id="-openinstall-pb-53057364-" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAMAAAAoyzS7AAAAA1BMVEVMaXFNx9g6AAAAAXRSTlMAQObYZgAAAA1JREFUeNoBAgD9/wAAAAIAAVMrnDAAAAAASUVORK5CYII="/>
+         <img id="-shareinstall-pb-53057364-" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAMAAAAoyzS7AAAAA1BMVEVMaXFNx9g6AAAAAXRSTlMAQObYZgAAAA1JREFUeNoBAgD9/wAAAAIAAVMrnDAAAAAASUVORK5CYII="/>
          */
         function execCopy(imgDom, ypp, yps) {
             imgDom = paramParse(imgDom)
@@ -404,7 +404,7 @@ ShareInstall = function (win, doc, xhr) {
                                 ResObj.schemaUrl = ResObj.schemaUrl + tempUrl
                             }
                         }
-                        var waitTime = (obj || {}).timeout || ResObj.wt || 500 // 等待设定时间后app尚未拉起，再安装app
+                        var waitTime = (obj || {}).timeout || ResObj.wt || 0 // 等待设定时间后app尚未拉起，再安装app
                         if ((ua.indexOf('iphone') > -1 || ua.indexOf('ipad') > -1 || ua.indexOf('ipod') > -1) && (ua.indexOf("micromessenger") > 0)) {
                             doc.body.appendChild(domDiv)
                             ResObj.schemaMethod = 'frm'
@@ -450,7 +450,7 @@ ShareInstall = function (win, doc, xhr) {
             var serverUrl = MyShareInstall.server + '/shareinstall/wap.h?code=' + paramCode // parseObj(options)
             // var serverUrl = MyShareInstall.server + '/bind/' + appKey + '?' + parseObj(options)
             myAjax({
-                // url: "http://123.59.62.164/openinstall/wap.h?li=123.123.122.12&li=123.123.123.1&cus=123456",
+                // url: "http://123.59.62.164/shareinstall/wap.h?li=123.123.122.12&li=123.123.123.1&cus=123456",
                 url: serverUrl,
                 method: 'POST',
                 xhrFields: {
@@ -513,7 +513,7 @@ ShareInstall = function (win, doc, xhr) {
         var chCode = opt.channelCode
         var appKey = opt.appKey || ''
         // var apptypeid = opt.apptypeid || ''
-        var onready = opt.onready // openinstall初始化完成的回调函数
+        var onready = opt.onready // shareinstall初始化完成的回调函数
         var ready = new ReadyObj()
         var _this = this
         // if (!appKey) return void alert('未指定appKey')
@@ -899,9 +899,9 @@ ShareInstall = function (win, doc, xhr) {
          a=rtcp-mux
          a=rtpmap:109 google-data/90000
          a=ssrc:1040155820 cname:CeGwDSzmn63xMNZb
-         a=ssrc:1040155820 msid:openinstall openinstall
-         a=ssrc:1040155820 mslabel:openinstall
-         a=ssrc:1040155820 label:openinstall
+         a=ssrc:1040155820 msid:shareinstall shareinstall
+         a=ssrc:1040155820 mslabel:shareinstall
+         a=ssrc:1040155820 label:shareinstall
          "
          "a=candidate:372587185 1 udp 2113937151 172.18.3.246 52848 typ host generation 0 ufrag U6jO network-cost 50"
          */
