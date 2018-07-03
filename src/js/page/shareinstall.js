@@ -1,6 +1,6 @@
 ShareInstall = function (win, doc, xhr) {
     // 全局变量
-    var VERSION = '1.0.5'
+    var VERSION = '1.0.6'
 
     /**
      * 对象ReadyObj拥有一个属性（数组）和三个方法：
