@@ -51,10 +51,11 @@ var timer = setTimeout(
         var ua = navigator.userAgent;
         if (ua.indexOf(" MicroMessenger/") > -1) {
           //微信中显示遮罩提示在浏览器中打开或进入应用宝
+            alert(12313)
           var div = document.createElement("div");
           div.innerHTML = "<div style='font-size:2rem;color:#fff;text-align:center;"
           +"position:fixed;left:0;top:0;background:rgba(0,0,0,0.5);filter:alpha(opacity=50);"
-          +"width:100%;height:100%;z-index:10000;'>点击右上角在浏览器中打开</div>";
+          +"width:100%;height:100%;z-index:10000;'></div>";
           document.body.appendChild(div);
         } else {
           if (ua.indexOf("Android") > -1) {
