@@ -404,7 +404,7 @@ ShareInstall = function (win, doc, xhr) {
                                 ResObj.schemaUrl = ResObj.schemaUrl + tempUrl
                             }
                         }
-                        var waitTime = (obj || {}).timeout || ResObj.wt || 1000 // 等待设定时间后app尚未拉起，再安装app
+                        var waitTime = (obj || {}).timeout || ResObj.wt || 500 // 等待设定时间后app尚未拉起，再安装app
                         if ((ua.indexOf('iphone') > -1 || ua.indexOf('ipad') > -1 || ua.indexOf('ipod') > -1) && (ua.indexOf("micromessenger") > 0)) {
                             doc.body.appendChild(domDiv)
                             ResObj.schemaMethod = 'frm'

@@ -137,7 +137,7 @@ var DfttModule = (function (dm) {
       $(document).on('click', '.depoly-button', function () {
         var key = $('input[name="key"]').val()
         var value = $('input[name="value"]').val()
-        var url = 'http://'+ window.location.host + '/js-test.html?appkey=' + $.cookie('appkey') + '&' + key + '=' + value
+        var url =  window.location.href.replace('web.html', '') + 'js-test.html?appkey=' + $.cookie('appkey') + '&' + key + '=' + value
         var tag = true
         if (/[\u4e00-\u9fa5]+/.test(key)) {
           tag = false

@@ -207,7 +207,7 @@
                                     <h1 style="margin-top: 0;">SDK概述</h1>
                                     <h2>Web SDK用于Web页面启动/安装APP，并在启动/安装APP的同时，向APP传递各种自定义参数（通过Android/iOS SDK可获取传递的参数）。</h2>
                                     <h2 style="font-weight: bold">集成步骤：</h2>
-                                    <pre style="width:820px;height:1450px;margin-left:20px;">
+                                    <pre style="width:820px;height:1530px;margin-left:20px;">
 <code style="width: 100%;height: 90%;padding-top:10px;" class="lang-javascript">&lt;!-- 建议直接引用下面的js链接，以便得到最及时的更新，我们将持续跟踪各种主流浏览器的变化，为您提供最好的服务--&gt
 &lt;script type="text/javascript" src="//www.shareinstall.com/js/page/shareinstall.min.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript"&gt;
@@ -256,6 +256,9 @@
             button.onclick = function() {
                 m.wakeupOrInstall();
             }
+
+            /* 若需要在已安装app的情况下，打开该页面直接提示拉起app，则放开下面这一行代码 */
+            // m.schemeWakeup();
         }
     }, data);
 &lt;/script&gt;
@@ -275,7 +278,7 @@
                                 <div id="banner_content">
                                     <div class="banner-config" style="min-width:1290px;">
                                         <div class="depoly-said">
-                                            <p style="padding: 5px;line-height: 25px;">App banner是openinstall为开发者提供的一种Web快速集成方式，将下面的&lt;script&gt;标签复制到自己的web分享页中，将根据下面的配置自动生成App
+                                            <p style="padding: 5px;line-height: 25px;">App banner是shareinstall为开发者提供的一种Web快速集成方式，将下面的&lt;script&gt;标签复制到自己的web分享页中，将根据下面的配置自动生成App
                                                 banner，同时收集分享页url上的动态参数，应用被拉起或是首次安装时，通过相应的Android/iOS客户端api可以获取此数据。
                                             </p>
                                             <p style="font-size:16px;color:#F26358;padding:5px">&lt;script type="text/javascript" id="_openinstall_banner" src="//openinstall.io/openinstall.js?id=8054290306926569960"&gt;&lt;/script&gt;
@@ -292,7 +295,7 @@
                                                         <tr style="line-height:30px">
                                                             <td style="line-height: 70px;">图标</td>
                                                             <td style="vertical-align:middle">
-                                                                <img src="//res.cdn.openinstall.io/api_v2/images/default-icon.png" class="iconPreview" style="width:41px;float:left;margin-top: 8px;height:41px;">
+                                                                <img src="./img/default-icon.png" class="iconPreview" style="width:41px;float:left;margin-top: 8px;height:41px;">
                                                                 <div style="float:left;margin-left: 20px;">
                                                                     <p>建议使用41x41的图标</p>
                                                                     <p style="text-align: left;">
@@ -376,11 +379,11 @@
                                                             </p>
                                                         </div>
                                                         <div class="udid-content channel-content" style="margin: 2em auto 0;width: 100%;text-align: center">
-                                                            <img style="width: 72px; height: 72px;margin: 0" alt="" src="//res.cdn.openinstall.io/api_v2/images/default-icon.png">
+                                                            <img style="width: 72px; height: 72px;margin: 0" alt="" src="./img/default-icon.png">
                                                             <p style="font-size:1.6rem;margin:2px auto;">aaaa</p>
                                                         </div>
                                                         <div class="channel-title" style="width: 90%;border: 1px dashed #8da2c9;margin: 4em auto;padding: .5em;">
-                                                            <p>这是一个App banner测试页，开发者可直接将相应的&lt;script&gt;标签插入到分享页中，openinstall将自动生成如下的App
+                                                            <p>这是一个App banner测试页，开发者可直接将相应的&lt;script&gt;标签插入到分享页中，shareinstall将自动生成如下的App
                                                                 banner，同时收集分享页url上的动态参数,应用被拉起或是首次安装时，通过相应的Android/iOS api可以获取此动态参数。
                                                             </p>
                                                         </div>
@@ -392,7 +395,7 @@
                                                         <tbody>
                                                             <tr>
                                                                 <td style="vertical-align: middle; height: 60px; text-align: center; width: 50px">
-                                                                    <img class="-openinstall-banner-icon" src="//res.cdn.openinstall.io/api_v2/images/default-icon.png" alt="" style="vertical-align: middle; width: 41px; height: 41px; margin: 0 5px">
+                                                                    <img class="-openinstall-banner-icon" src="./img/default-icon.png" alt="" style="vertical-align: middle; width: 41px; height: 41px; margin: 0 5px">
                                                                 </td>
                                                                 <td style="vertical-align: middle; height: 60px; text-align: left">
                                                                     <p class="-openinstall-banner-title" style="font-size: 18px; margin: 0; line-height: 25px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: rgb(255, 255, 255)">
@@ -415,7 +418,7 @@
                                     <div class="banner-config" style="min-width:1290px;">
                                         {{#with banner}}
                                         <div class="depoly-said">
-                                            <p style="padding: 5px;line-height: 25px;">App banner是openinstall为开发者提供的一种Web快速集成方式，将下面的&lt;script&gt;标签复制到自己的web分享页中，将根据下面的配置自动生成App
+                                            <p style="padding: 5px;line-height: 25px;">App banner是shareinstall为开发者提供的一种Web快速集成方式，将下面的&lt;script&gt;标签复制到自己的web分享页中，将根据下面的配置自动生成App
                                                 banner，同时收集分享页url上的动态参数，应用被拉起或是首次安装时，通过相应的Android/iOS客户端api可以获取此数据。
                                             </p>
                                             <p style="font-size:16px;color:#F26358;padding:5px">{{scriptTag}}</p>

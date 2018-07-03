@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  <link rel="stylesheet" href='//res.cdn.openinstall.io/api_v2/css/style.css?1159539975' />
+  <link rel="stylesheet" href='./css/page/jsTest.css' />
   <style type="text/css">
   *{
       -webkit-tap-highlight-color:rgba(0,0,0,0);
@@ -23,7 +23,7 @@
         </p>
       </div>
       <div class="udid-content channel-content">
-        <img style="width: 72px; height: 72px" alt="" class="icon" src="//res.cdn.openinstall.io/api_v2/images/default-icon.png" />
+        <img style="width: 72px; height: 72px" alt="" class="icon" src="./img/default-icon.png" />
         <p class="name" style="font-size:1.6rem;margin:2px auto;">shareinstall</p>
       </div>
       <div class="channel-title">
@@ -69,7 +69,7 @@ var timer = setTimeout(
       }
     }, 5000);
 
-//openinstall初始化，初始化时将与openinstall服务器交互，应尽可能早的调用
+//shareinstall，初始化时将与shareinstall服务器交互，应尽可能早的调用
 /*web页面向app传递的json数据(json string/js Object)，应用被拉起或是首次安装时，通过相应的android/ios api可以获取此数据*/
 var data = ShareInstall.parseUrlParams();//ShareInstall.js中提供的工具函数，解析url中的所有查询参数
 var copyData = JSON.parse(JSON.stringify(data))
