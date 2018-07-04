@@ -12,7 +12,13 @@ var DfttModule = (function (dm) {
       _this.getAppInfo()
       // _this.preservationOk()
       _this.cancelFun()
+      _this.backFun()
       _this.countPrice()
+      _this.submitMent()
+      _this.closeApp()
+      _this.agreeScroll()
+      _this.agreeToPay()
+      _this.noPurchase()
       _this.clickToPay()
       _this.verifyStatement()
     },
@@ -90,7 +96,57 @@ var DfttModule = (function (dm) {
         }
       })
     },
+    closeApp: function() {
+      $('.close').on('click', function() {
+        document.getElementById('agreeContent').scrollTo(0, 0);
+        $('#serviceAgreeMent').hide();
+        $('.readed').hide();
+        $('.reading').show();
+      })
+    },
+    // 支付前阅读协议
+    submitMent: function () {
+      $('.submitMent').on('click', function () {
+        $('#serviceAgreeMent').show()
+      })
+    },
+    agreeScroll: function () {
+      document.getElementById('agreeContent').onscroll = function(e) {
+        e.stopPropagation();
+        var scrollHeig = document.getElementById('agreeContent').scrollTop;
+        var agreeHeight = document.getElementById('agreeContent').clientHeight;
+        var agreePcc = document.getElementById('agreePcc').clientHeight;
 
+        if (scrollHeig + agreeHeight - 100 >= agreePcc) {
+          console.log('bottom');
+          $('.readed').show();
+          $('.reading').hide();
+        }
+      }
+    },
+    agreeToPay: function() {
+      $('#readed').on('click', function () {
+        document.getElementById('agreeContent').scrollTo(0, 0);
+        $('.readed').hide();
+        $('.reading').show();
+        $('#serviceAgreeMent').hide()
+        $('#appList').hide()
+        $('#orderList').show()
+        $('#appName1').text($('#appName').text());
+        $('#appKey1').text($('#appKey').text());
+
+        var priceList = {'1': 3000, '2': 5000, '3': 7000, '5': 10000}
+        $('#pay-time').text(parseInt($('.price-list').find('.selected').text()));
+        $('#priceTotal').text(priceList[parseInt($('.price-list').find('.selected').text())]);
+        $('#priceSum').text(priceList[parseInt($('.price-list').find('.selected').text())]);
+      })
+    },
+    backFun: function () {
+      $('.back').on('click', function () {
+        $('#appList').show()
+        $('#orderList').hide()
+      })
+    },
     // 点击去支付
     clickToPay: function () {
       var _this = this
@@ -111,6 +167,7 @@ var DfttModule = (function (dm) {
               expires: 7
             });
             _this.purchaseOrder(data, tempwindow)
+            $('#verifyInfo').show()
           } else if (res.code == 88) {
             tempwindow.close()
             layer.msg('登录已过期，请重新登录');
@@ -146,6 +203,12 @@ var DfttModule = (function (dm) {
       // e.initEvent('click', false, true);
       // a.dispatchEvent(e);
     },
+    // 尚未支付
+    noPurchase: function () {
+      $('.noPurchase').on('click', function () {
+        $('#verifyInfo').hide()
+      })
+    },
 
     // 确认支付完成状态
     verifyStatement: function () {
@@ -168,6 +231,7 @@ var DfttModule = (function (dm) {
             } else {
               layer.msg('未支付,请完成支付')
             }
+            $('#verifyInfo').hide()
           }
         })
       })
